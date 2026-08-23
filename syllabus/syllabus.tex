@@ -1,0 +1,163 @@
+\documentclass[10pt]{article}
+% Math Packages
+\usepackage{amsmath, mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{breqn}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{tikz-qtree}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{arrows,matrix,positioning}
+
+% Colorful Notes
+\usepackage{color} \definecolor{Red}{rgb}{1,0,0} \definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5} \def\red{\color{Red}} \def\blue{\color{Blue}}
+\def\gray{\color{gray}} \def\purple{\color{Purple}}
+\newcommand{\rnote}[1]{{\red [#1]}} % \rnote{foo} gives '[foo]' in red
+\newcommand{\pnote}[1]{{\purple [#1]}} % \pnote{foo} gives '[foo]' in purple
+\newcommand{\bnote}[1]{{\blue #1}} % \bnote{foo} gives 'foo' in blue
+\newcommand{\gnote}[1]{{\gray #1}} % \gnote{foo} gives 'foo' in gray
+\newcommand{\Max}[1]{{\purple [#1]}} % \bnote{foo} then 'foo' is blue
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+\newcommand{\dempfcolor}[1]{{\color{RoyalBlue}#1}} 
+\newcommand{\demph}[1]{\dempfcolor{{\sl #1}}}
+
+
+
+
+% Math Environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}[theorem]{Example} 
+\newtheorem{question}[theorem]{Question}
+
+% Custom Math Commands
+\newcommand{\vt}{\vskip 5mm} % vertical space
+\newcommand{\fl}{\\\noindent\textbf} % first line
+\newcommand{\Fl}{\vt\noindent\textbf} % first line with space above
+
+
+\begin{document}
+\section*{Syllabus for Math 243: Calculus III (Section 001)}
+Spring 2025 (Jan 13 - May 16)
+
+\Fl{Instructor:} Max Hill
+\fl{Office:} Physical Sciences Building 304
+\fl{Office Hours:} MWF 2-3pm (or other times by appointment).
+
+\Fl{Place and time:} Watanabe 112 at 10:30-11:20am (MWF)
+
+\Fl{Textbook:} \textit{Calculus} by James Stewart (8th edition). ISBN-13: \texttt{978-1-305-26665-0}
+
+\Fl{Course prerequistes:} a grade of C or better in Math 242 or Math 252A. If you don't meet the
+prerequisites, you'll need to get approval from the math department office.
+
+
+\Fl{Grading:} Homework (30\%), Midterm (35\%), Final (35\%). The following grade cutoffs will be used at
+the end of the semester to determine final grades:
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    D&D+&C-&C&C+&B-&B&B+&A-&A&A+  \\
+    \hline
+    60\%&67\%&70\%&73\%&77\%&80\%&83\%&87\%&90\%&93\%&97\%\\
+    \hline
+  \end{tabular}
+\end{center}
+I may change the above numbers, but if I do so it will be in your favor.
+
+
+
+\Fl{Homework:} Homework will be due approximately weekly. 
+\begin{itemize}
+  \item You have one free `no questions asked' homework extension.
+  \item Your lowest homework score will be dropped at the end of the semester.
+  \item You may collaborate with classmates on the homeworks. But if you do so, you must (1) make an
+  effort write up your solutions on your own, using your own words, and (2) list the names of the people
+  who you worked with.
+\end{itemize}
+
+\Fl{Exams:} There will be a midterm and a final exam. The final will be cumulative, but will emphasize
+material after the midterm. The exam dates are as follows:
+\begin{center} \begin{minipage}{5.0in}
+    \begin{flushleft}
+      Midterm exam   \dotfill~Monday, March 24 (in class) \\
+      Final exam        \dotfill~Monday, May 12, 9:45-11:45am\\
+    \end{flushleft}
+  \end{minipage}
+\end{center}
+If you do better on the final than the midterm, then your grade on the final will replace your midterm
+grade.
+
+\Fl{Make-up policy:} Make-up exams are allowed only in three types of circumstances: (1) in accordance with
+university policies, such as conflict with a religious observation, (2) conflicts with another
+university-related event, or (3) exceptional circumstances, such as a last-minute medical or family
+emergency with verification. In the first two cases, notice must be given to the instructor two weeks in
+advance.
+
+\Fl{Accommodations:} Any student who feels s/he may need an accommodation based on the impact of a
+disability is invited to contact me privately. I would be happy to work with you, and the KOKUA Program
+(Office for Students with Disabilities) to ensure reasonable accommodations in my course. KOKUA can be
+reached at (808) 956-7511 or (808) 956-7612 (voice/text) in Room 013 of the Queen Lili`uokalani Center
+for Student Services.
+
+
+
+
+\newpage
+\Fl{Tentative course outline:}
+
+\begin{itemize}
+  \item \textbf{Weeks 1-3:} Parametric equations and Polar coordinates
+  \begin{enumerate}
+    \item Section 8.1: Arc length
+    \item  Section 10.1: Curves defined by parametric equations.
+    \item Section 10.2: Calculus with plane curves.
+    \item  Section 10.3 Polar coordinates
+    \item  Section 10.4: Areas and lengths in polar coordinates
+    \item Section 10.5: Conic sections.
+  \end{enumerate}
+  \item \textbf{Weeks 4-6:} Vectors and the geometry of space.
+  \begin{enumerate}
+    \item Section 12.1: Three-dimensional coordinate systems.
+    \item Section 12.2: Vectors.
+    \item  Section 12.3: The dot product.
+    \item  Section 12.4: The cross product.
+    \item Section 12.5: Equations of lines and planes.
+    \item  Section 12.6: Cylinders and quadric surfaces.
+  \end{enumerate}
+  \item \textbf{Weeks 7-9:} Vector functions.
+  \begin{enumerate}
+    \item Section 13.1: Vector functions and space curves
+    \item Section 13.2: Derivatives and integrals of vector functions.
+    \item Section 13.3: Arc length and curvature.
+    \item Section 13.4: Motion in space: velocity and acceleration.
+  \end{enumerate}
+  \item \textbf{Weeks 10-15:} Partial derivatives.
+  \begin{enumerate}
+    \item Section 14.1: Functions of several variables.
+    \item Section 14.2: Limits and continuity
+    \item Section 14.3: Partial derivatives.
+    \item Section 14.4 Tangent planes and linear approximations
+    \item Section 14.5: The chain rule.
+    \item Section 14.6: Directional derivatives and the gradient vector.
+    \item Section 14.7: Maximum and minimum values.
+    \item Discovery project p.1010: Quadratic approximation and critical
+    points (Taylor’s formula for two variables).
+    \item Section 14.8: Lagrange multipliers.
+  \end{enumerate}
+\end{itemize} 
+\end{document}
