@@ -9,12 +9,12 @@ title: Lecture Notes
 #
 ---
 
-[Lecture notes (one pdf)](lectures/lecture-notes-243.pdf)
+[Lecture notes from Spring 2026](lectures/lecture-notes-234-S26.pdf)
 
 
  Date        | Lecture notes           | Topics covered
 -------------|----------------------------|-------------
- 2026-08-23  | - | Syllabus, introduction
+ 2026-08-23  | - | Syllabus, arc length
  
 # Other links
 
