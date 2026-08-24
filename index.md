@@ -9,7 +9,7 @@ title: Lecture Notes
 #
 ---
 
-[Lecture notes from Spring 2026](old-material/lecture-notes-234-S25.pdf)
+[My old lecture notes from Spring 2025](old-material/lecture-notes-243-S25.pdf)
 
 
  Date        | Lecture notes           | Topics covered
