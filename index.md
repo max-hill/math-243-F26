@@ -9,8 +9,7 @@ title: Lecture Notes
 #
 ---
 
-[My old lecture notes from Spring 2025](old-material/lecture-notes-243-S25.pdf)
-
+[Lecture notes (working draft)](lectures/lecture-notes-243.pdf)
 
  Date        | Lecture notes           | Topics covered
 -------------|----------------------------|-------------
@@ -19,5 +18,8 @@ title: Lecture Notes
 # Other links
 
 [syllabus](syllabus/syllabus.pdf)
+
+
+[My old lecture notes from Spring 2025](old-material/lecture-notes-243-S25.pdf)
 
 
