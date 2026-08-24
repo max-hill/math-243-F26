@@ -11,9 +11,9 @@ title: Lecture Notes
 
 [Lecture notes (working draft)](lectures/lecture-notes-243.pdf)
 
- Date        | Lecture notes           | Topics covered
--------------|----------------------------|-------------
- 2026-08-23  | - | Syllabus, arc length
+ Date                 | Topics covered
+----------------------|-------------
+ 2026-08-23  |  Syllabus, arc length of graph curves
  
 # Other links
 
