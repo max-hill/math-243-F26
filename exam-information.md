@@ -6,11 +6,7 @@ permalink: /exam-information/
 
 ## midterm 1
 
-- TBD in class
-
-## midterm 2
-
-- TBD in class
+- Friday, October 16 (in class)
 
 
 ## final exam
