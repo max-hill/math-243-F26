@@ -49,7 +49,14 @@
 \newcommand{\pnote}[1]{\textcolor{Purple}{[#1]}}    % Purple note
 \newcommand{\bnote}[1]{\textcolor{Blue}{#1}}        % Blue text
 \newcommand{\Max}[1]{\pnote{#1}}                    % Alias for purple note
-\newcommand{\demph}[1]{\textcolor{RoyalBlue}{\textbf{\slshape #1}}} % Slanted RoyalBlue text
+\DeclareRobustCommand{\demph}[1]{% definitions
+  \ifmmode
+  {\color{Blue}#1}%
+  \else
+  {\color{Blue}\bfseries\slshape #1}%
+  \fi
+}
+% \newcommand{\demph}[1]{\textcolor{RoyalBlue}{\textbf{\slshape #1}}} % Slanted RoyalBlue text
 \def\red{\color{Red}} \def\blue{\color{Blue}}
 \def\gray{\color{gray}} \def\purple{\color{Purple}}
 
@@ -225,7 +232,7 @@
 \subsection{Arc Length}
 
 
-First, recall the definition of derivative:
+First, recall the definition of \demph{derivative}:
 \begin{align*}
   f'(x) 
   &:= \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\\
@@ -401,52 +408,160 @@ This example motivates the following theorem.
   Find the length of the curve defined by $f(x) = 2 x^{3/2}$, where $x$ ranges from $x=0$
   to $x=2$.
 
+  \begin{center}
+    \begin{tikzpicture}[ x=1cm, y=1cm, >=Stealth, axis/.style={->, thick},
+      curve/.style={blue, very thick}, every node/.style={font=\small} ]
+
+      % Axes
+      \draw[axis] (0,0) -- (2.3,0) node[right] {$x$}; \draw[axis] (0,0) --
+      (0,6.3) node[above] {$y$};
+
+      % Tick marks
+      \foreach \x in {1,2} \draw (\x,0.08) -- (\x,-0.08) node[below] {$\x$};
+
+      \foreach \y in {2,4,6} \draw (0.04,\y) -- (-0.04,\y) node[left] {$\y$};
+
+      % Graph of f(x) = 2x^(3/2)
+      \draw[curve, domain=0:2, samples=100, smooth] plot (\x,{2*\x*sqrt(\x)})
+      node[above, black] {$f(x)=2x^{3/2}$};
+
+      % Position of the ant
+      \pgfmathsetmacro{\antx}{1.25}
+      \pgfmathsetmacro{\anty}{2*\antx*sqrt(\antx)} \coordinate (ant) at
+      (\antx,\anty);
+
+      % Ant, rotated to approximately follow the tangent to the curve
+      \begin{scope}[ shift={(ant)}, rotate=70, x=1.2cm, y=1cm, line cap=round,
+        line join=round ]
+
+        % Legs
+        \draw[line width=0.4pt]
+        (-0.05,0.15) -- (-0.13,0.05) -- (-0.20,0.01)
+        (-0.01,0.14) -- (-0.04,0.03) -- (-0.10,-0.01)
+        ( 0.04,0.15) -- ( 0.09,0.04) -- ( 0.15,0.00);
+
+        % Body
+        \fill (-0.15,0.17) ellipse[x radius=0.12cm,y radius=0.09cm]; \fill (
+        0.00,0.17) circle[radius=0.075cm]; \fill ( 0.11,0.18)
+        circle[radius=0.06cm];
+
+        % Antennae
+        \draw[line width=0.4pt] (0.14,0.21) -- (0.22,0.29) -- (0.29,0.30);
+        \draw[line width=0.4pt] (0.15,0.18) -- (0.24,0.20) -- (0.30,0.17);
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
   \textit{Solution:} $f'(x) = 3x^{\frac{1}{2}}$, so
   \begin{align*}
     (\text{Arc length})
     &= \int_{0}^{2} \sqrt{1+\left[ f'(x) \right]^{2} }dx\\
     &= \int_{0}^{2} \sqrt{1+9x }dx
   \end{align*}
-  which we can solve with a $u$-substitution.
-  
+  which we can solve with a $u$-substitution, taking $u=1+9x$. Doing this
+  gives a length of about $6.06$. 
 \end{example}
+
+
+
+The \demph{hyperbolic cosine} and \demph{hyperbolic sine} functions are defined as
+\begin{equation*}
+  \demph{\cosh(x)} := \frac{e^{x}+e^{-x}}{2},  \qquad \demph{\sinh(x)} :=  \frac{e^{x}-e^{-x}}{2}.
+\end{equation*}
+These two functions are ``nice'' in that they behave in some respects
+similarly to the standard sine and cosine functions; in particular, $\cosh$ is
+an even function  (like $\cos(x)$) and $\sinh(x)$ is odd (like $\sin(x)$).
+
+One can check they satisfy:
+\begin{equation}\label{eq:hyperbolic derivatives}
+  \cosh'(x) = \sinh(x), \qquad \sinh'(x)=\cosh(x).
+\end{equation}
+Also, we have the following identity:
+\begin{equation}\label{eq:hyperbolic-square-identity}
+  \cosh^{2}(x)- \sinh^{2}(x) =1.
+\end{equation}
+A hanging chain forms a curve known as a \demph{catenary}. The general
+formula of a catenary is a function involving hyperbolic cosine; in the next
+example, we'll consider the simplest case.
+
+
 \begin{example}[Arc length]
   \label{ex:arc-length-sinh}
-  
-  Find the length of the curve defined by $f(x) = \frac{1}{2} \left( e^{x}+e^{-x} \right)$
-  from $x=-1$ to $x=3$.
 
-  \textit{Solution:} We first claim that the following equality holds:
-  \begin{equation}\label{eq:1}
-    1+\left[ f'(x) \right]^{2}  = \left( \frac{e^{x}+e^{-x}}{2} \right)^{2}.
-  \end{equation}
-  This equality isn't obvious... it takes some work to deduce, which is shown below:
-  \begin{proof}[Proof of \cref{eq:1}]
-    Observe that $f'(x) = \frac{1}{2}(e^{x}-e^{-x})$. Therefore
-    \begin{align*}
-      1+\left[ f'(x) \right]^{2}
-      &= 1 + \left[ \frac{1}{2}\left( e^{x}-e^{-x} \right)  \right]^{2}\\ 
-      &= 1 + \frac{1}{4}\left( e^{2x} - 2 + e^{-2x} \right)\\ 
-      &= \frac{1}{4} e^{2x} + \frac{1}{2} + \frac{1}{4}e^{-2x}  &&\text{expanding everything out } \\ 
-      &= \frac{1}{4} \left( e^{2x}+2+e^{-2x} \right) &&\text{factor out $\frac{1}{4}$ }\\
-      &= \frac{1}{4}\left( e^{x}+e^{-x} \right)^{2}\\ 
-      &= \left( \frac{e^{x}+e^{-x}}{2} \right)^{2}. 
-    \end{align*}
-    This shows that \cref{eq:1} holds.
-  \end{proof}
 
-  Now with \cref{eq:1} in hand, everything simplifies really nicely when we apply the formula from
-  \cref{thm:arc-length-formula}:
+  % which has general equation
+  % \begin{equation*}
+  %   y = a\cosh \left( \frac{x-h}{a} \right)+k,
+  % \end{equation*}
+  % where $a>0$, $h$ and $k$ are physical parameters.
+
+  Suppose $f(x)=\cosh(x)$ represents a chain from two endpoints at $x=-3$ and
+  $x=3$. Find the length of the chain.
+
+  \begin{center}
+    \begin{tikzpicture}[scale=.8, x=1.3cm, y=0.5cm, >=Stealth, axis/.style={->, thick},
+      curve/.style={blue, very thick}, every node/.style={font=\small}]
+      % Axes
+      \draw[axis] (-3.4,0) -- (3.4,0) node[right] {$x$};
+      \draw[axis] (0,0) -- (0,11) node[above] {$y$};
+      % x-axis ticks
+      \foreach \x in {-3,-2,-1,1,2,3} \draw (\x,0.15) -- (\x,-0.15) node[below] {$\x$};
+      % y-axis ticks
+      \foreach \y in {1,5,10} \draw (0.06,\y) -- (-0.06,\y) node[left] {$\y$};
+      % Graph of f(x) = cosh(x)
+      \draw[curve, domain=-3:3, samples=150, smooth]
+      plot (\x,{(exp(\x)+exp(-1*(\x)))/2}) node[above left, black] {$f(x)=\cosh x$};
+    \end{tikzpicture}
+
+
+  \end{center}
+
   \begin{align*}
-    \text{Arc Length} 
-    &= \int_{-1}^{3} \sqrt{1+\left[ f'(x) \right]^{2} }dx\\
-    &= \int_{-1}^{3} \sqrt{\left( \frac{e^{x}+e^{-x}}{2} \right)^{2}  }dx\\
-    &= \int_{-1}^{3} \frac{e^{x}+e^{-x}}{2}dx\\
-    &= \frac{1}{2}\int_{-1}^{3} \left( e^{x}+e^{-x} \right) dx\\
-    &= \frac{1}{2} \left[e^{x}-e^{-x} \right]_{x=-1}^{x=3}\\
-    &= \frac{1}{2} \left[ \left( e^{3} - e^{-3} \right)  - \left( e^{-1}-e^{1} \right)  \right]\\
-    &\approx 11.2
-  \end{align*}  
+    (\text{length of chain}) 
+    &= \int_{-3}^{3}\sqrt{1+ \left[\cosh'(x) \right]^{2} }dx\\
+    &= \int_{-3}^{3}\sqrt{1+ \sinh^{2}(x) }dx &&\text{since $\cosh'(x)=\sinh(x)$ by \cref{eq:hyperbolic derivatives} }\\
+    &= \int_{-3}^{3}\sqrt{\cosh^{2}(x) }dx &&\text{by \cref{eq:hyperbolic-square-identity} }\\
+    &= \int_{-3}^{3}\cosh(x) dx &&\text{since $\cosh(x)>0$ for all $x\in \R$}\\
+    &= \left[ \sinh(x) \right]_{x=-3}^{x=3}  &&\text{since $\sinh'(x)=\cosh(x)$ \cref{eq:hyperbolic derivatives}}\\
+    &= \sinh(3) - \sinh(3)\\
+    &\approx 20.036
+\end{align*}
+
+
+  
+%   Find the length of the curve defined by $f(x) = \cosh(x) =\frac{1}{2} \left( e^{x}+e^{-x} \right)$
+%   from $x=-1$ to $x=3$.
+
+%   \textit{Solution:} We first claim that the following equality holds:
+%   \begin{equation}\label{eq:1}
+%     1+\left[ f'(x) \right]^{2}  = \left( \frac{e^{x}+e^{-x}}{2} \right)^{2}.
+%   \end{equation}
+%   This equality isn't obvious... it takes some work to deduce, which is shown below:
+%   \begin{proof}[Proof of \cref{eq:1}]
+%     Observe that $f'(x) = \frac{1}{2}(e^{x}-e^{-x})$. Therefore
+%     \begin{align*}
+%       1+\left[ f'(x) \right]^{2}
+%       &= 1 + \left[ \frac{1}{2}\left( e^{x}-e^{-x} \right)  \right]^{2}\\ 
+%       &= 1 + \frac{1}{4}\left( e^{2x} - 2 + e^{-2x} \right)\\ 
+%       &= \frac{1}{4} e^{2x} + \frac{1}{2} + \frac{1}{4}e^{-2x}  &&\text{expanding everything out } \\ 
+%       &= \frac{1}{4} \left( e^{2x}+2+e^{-2x} \right) &&\text{factor out $\frac{1}{4}$ }\\
+%       &= \frac{1}{4}\left( e^{x}+e^{-x} \right)^{2}\\ 
+%       &= \left( \frac{e^{x}+e^{-x}}{2} \right)^{2}. 
+%     \end{align*}
+%     This shows that \cref{eq:1} holds.
+%   \end{proof}
+
+%   Now with \cref{eq:1} in hand, everything simplifies really nicely when we apply the formula from
+%   \cref{thm:arc-length-formula}:
+%   \begin{align*}
+%     \text{Arc Length} 
+%     &= \int_{-1}^{3} \sqrt{1+\left[ f'(x) \right]^{2} }dx\\
+%     &= \int_{-1}^{3} \sqrt{\left( \frac{e^{x}+e^{-x}}{2} \right)^{2}  }dx\\
+%     &= \int_{-1}^{3} \frac{e^{x}+e^{-x}}{2}dx\\
+%     &= \frac{1}{2}\int_{-1}^{3} \left( e^{x}+e^{-x} \right) dx\\
+%     &= \frac{1}{2} \left[e^{x}-e^{-x} \right]_{x=-1}^{x=3}\\
+%     &= \frac{1}{2} \left[ \left( e^{3} - e^{-3} \right)  - \left( e^{-1}-e^{1} \right)  \right]\\
+%     &\approx 11.2
+%   \end{align*}  
 \end{example}
 
 \Fl{Tips}
@@ -455,6 +570,5 @@ This example motivates the following theorem.
   \item These problems are usually contrived so that you can actually do the integral. If the integral
   looks took hard, double check your work. Also, there might be a trick to the integral. 
 \end{itemize}
-
 
 \end{document}
