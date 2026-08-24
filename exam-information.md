@@ -12,6 +12,7 @@ permalink: /exam-information/
 
 - TBD in class
 
+
 ## final exam
 
 - Monday, December 14 at 9:45-11:45pm (Location: WEB 103)
