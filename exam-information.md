@@ -4,7 +4,7 @@ title: Exam Information
 permalink: /exam-information/
 ---
 
-## midterm 1
+## midterm exam
 
 - Friday, October 16 (in class)
 
