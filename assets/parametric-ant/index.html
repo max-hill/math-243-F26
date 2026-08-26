@@ -281,6 +281,7 @@
         let pausedAt = 0;
         let progress = 0;
         let isPaused = false;
+        let lastAntAngle = null;
         const duration = 18000;
 
         function tokenize(source) {
@@ -474,6 +475,8 @@
             points,
             a,
             b,
+            xFunction,
+            yFunction,
             bounds: {
               xMin: xMin - xPadding,
               xMax: xMax + xPadding,
@@ -610,6 +613,33 @@
           context.setLineDash([]);
         }
 
+        function velocityAngleAt(t, geometry) {
+          const intervalLength = curve.b - curve.a;
+          const xScale = geometry.innerWidth / (curve.bounds.xMax - curve.bounds.xMin);
+          const yScale = geometry.innerHeight / (curve.bounds.yMax - curve.bounds.yMin);
+
+          for (const multiplier of [1, 2, 4, 8, 16]) {
+            const h = intervalLength * 1e-5 * multiplier;
+            const leftT = Math.max(curve.a, t - h);
+            const rightT = Math.min(curve.b, t + h);
+            if (rightT === leftT) continue;
+
+            const deltaX = curve.xFunction(rightT) - curve.xFunction(leftT);
+            const deltaY = curve.yFunction(rightT) - curve.yFunction(leftT);
+            const screenVelocityX = deltaX * xScale / (rightT - leftT);
+            const screenVelocityY = -deltaY * yScale / (rightT - leftT);
+
+            if (
+              Number.isFinite(screenVelocityX) &&
+              Number.isFinite(screenVelocityY) &&
+              Math.hypot(screenVelocityX, screenVelocityY) > 1e-8
+            ) {
+              return Math.atan2(screenVelocityY, screenVelocityX);
+            }
+          }
+          return null;
+        }
+
         function drawAnt(geometry, index) {
           const points = curve.points;
           let currentIndex = Math.min(index, points.length - 1);
@@ -617,16 +647,18 @@
           const point = points[currentIndex];
           if (!point || !point.valid) return;
 
-          let nextIndex = Math.min(currentIndex + 3, points.length - 1);
-          while (nextIndex < points.length - 1 && !points[nextIndex].valid) nextIndex += 1;
-          const next = points[nextIndex].valid ? points[nextIndex] : point;
           const position = geometry.toCanvas(point);
-          const nextPosition = geometry.toCanvas(next);
-          const angle = Math.atan2(nextPosition.y - position.y, nextPosition.x - position.x);
+          const velocityAngle = velocityAngleAt(point.t, geometry);
+          if (velocityAngle !== null) lastAntAngle = velocityAngle;
+          if (lastAntAngle === null) lastAntAngle = 0;
+
+          // Standard emoji fonts draw the unrotated ant facing left.  The
+          // additional half-turn makes its head point along the velocity.
+          const antFacingOffset = Math.PI;
 
           context.save();
           context.translate(position.x, position.y);
-          context.rotate(angle);
+          context.rotate(lastAntAngle + antFacingOffset);
           context.font = "22px 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif";
           context.textAlign = "center";
           context.textBaseline = "middle";
@@ -670,6 +702,7 @@
           pausedAt = 0;
           animationStart = null;
           isPaused = false;
+          lastAntAngle = null;
           pauseButton.textContent = "Pause";
           pauseButton.disabled = false;
           draw();
