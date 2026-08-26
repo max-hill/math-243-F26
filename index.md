@@ -23,10 +23,10 @@ title: Lecture Notes
 
 [My old lecture notes from Spring 2025](old-material/lecture-notes-243-S25.pdf)
 
-
 <iframe
   src="{{ '/assets/parametric-ant/index.html' | relative_url }}"
   title="Parametric curve ant tracer"
-  style="width: 100%; height: 950px; border: 0;"
+  style="display: block; width: 100%; height: 900px; border: 0; overflow: hidden;"
+  scrolling="no"
   loading="lazy">
 </iframe>

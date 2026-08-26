@@ -11,7 +11,8 @@ A self-contained teaching app for plotting a parametric curve and watching an an
 <iframe
   src="{{ '/assets/parametric-ant/index.html' | relative_url }}"
   title="Parametric curve ant tracer"
-  style="width: 100%; height: 850px; border: 0;"
+  style="display: block; width: 100%; height: 900px; border: 0; overflow: hidden;"
+  scrolling="no"
   loading="lazy">
 </iframe>
 ```
