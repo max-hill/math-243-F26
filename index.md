@@ -14,6 +14,7 @@ title: Lecture Notes
  Date                 | Topics covered
 ----------------------|-------------
  2026-08-23  |  Syllabus, arc length of graph curves
+ 2026-08-26  |  arc length examples, intro to parametric curves
  
 # Other links
 

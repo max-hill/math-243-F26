@@ -7,6 +7,6 @@ permalink: /homework/
 
  Due Date        | Link           | Notes
  -------------|----------------------------|-------------
-- | - | to be turned in as a pdf on Lamaku
+2026-09-02 | [homework-01](hw/homework-01/homework-1.pdf) | to be turned in as a pdf on Lamaku by midnight
 
 

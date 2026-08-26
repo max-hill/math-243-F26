@@ -234,7 +234,7 @@
 
 First, recall the definition of \demph{derivative}:
 \begin{align*}
-  f'(x) 
+  \demph{f'(x)} 
   &:= \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\\
 \end{align*}
 or equivalently,
@@ -570,5 +570,174 @@ example, we'll consider the simplest case.
   \item These problems are usually contrived so that you can actually do the integral. If the integral
   looks took hard, double check your work. Also, there might be a trick to the integral. 
 \end{itemize}
+
+\section{2026-08-26 | Week 01 | Lecture 02}
+\textit{This lecture is based on textbook section 6.3 ``Arc Length'', and
+  section 11.1 ``Parametric Equations and Polar Coordinates''. Please read 6.3
+  and begin start reading 11.1.}
+
+
+
+\begin{example}[Warm up problem: Chain rule practice]
+  Find the derviative of
+  \begin{equation*}
+    f(x) = \log\left(\frac{x^{2}}{\sin x} \right).
+  \end{equation*}
+
+  \textit{Solution:}
+  \begin{align*}
+    f'(x)
+    &= \frac{d}{dx} \left[ \log\left(\frac{x^{2}}{\sin x} \right) \right] \\
+    &= \frac{\sin x}{x^{2}}\frac{d}{dx} \left[ \frac{x^{2}}{\sin x} \right] &&\text{by the chain rule }\\ 
+    &= \frac{\sin x}{x^{2}}\left( \frac{2x \sin x - x^{2}\cos x}{(\sin x)^{2}} \right) &&\text{by the quotient rule }\\ 
+    &= \frac{2}{x}- \cot x &&\text{ after simplification.}
+  \end{align*}
+\end{example}
+
+\subsection{Arc length - examples}
+
+\begin{example}[Arc length]
+  \Fl{Problem:} Let
+  \begin{equation*}
+    f(x) = \frac{x^{3}}{3} + \frac{1}{4x}+7,
+  \end{equation*}
+  for $1 \leq x \leq 2$.
+  earlier examples.
+
+  (\textit{Hint:} This problem is similar to \cref{ex:arc-length-sinh}.)
+
+  \Fl{Solution:} We want to apply
+  \cref{thm:arc-length-formula}. To do this, we first compute $1+\left[ f'(x) \right]^{2}$:
+  \begin{align*}
+    1+\left[ f'(x) \right]^{2}
+    &= 1 + \left( x^{2} - \frac{1}{4}x^{-2} \right)^{2}\\
+    &= x^{4}+\frac{1}{2} + \frac{1}{16}x^{-4}\\
+    &= \left( x^{2}+\frac{1}{4}x^{-2} \right)^{2}. 
+  \end{align*}
+  The last step, where we write the equation as a perfect square, is kinda hard to see. But since we're
+  familiar with \cref{ex:arc-length-sinh}, we know to possibly expect something like that.
+
+  
+  Now, we can apply the formul from \cref{thm:arc-length-formula}:
+  \begin{align*}
+    \text{Arc Length} 
+    &= \int_{1}^{2} \sqrt{1+\left[ f'(x) \right]^{2} }dx\\
+    &= \int_{1}^{2} \sqrt{ \left( x^{2}+\frac{1}{4}x^{-2} \right)^{2}  }dx\\
+    &= \int_{1}^{2} x^{2}+\frac{1}{4}x^{-2} dx\\
+    &= \left[ \frac{x^{3}}{3} - \frac{1}{4}x^{-1} \right]^{2}_{1}\\ 
+    &= \left( \frac{8}{3}- \frac{1}{8} \right) - \left( \frac{1}{3}- \frac{1}{4} \right)\\  
+    &\approx 2.46.
+  \end{align*}
+\end{example}
+
+
+\begin{example}
+  Find the arc length of 
+  \begin{equation*}
+    f(x) = \frac{x^{3}}{12}+x^{-1}, \qquad 1 \leq x \leq 4
+  \end{equation*}
+  \fl{Solution:} For the complete solution, see Example 2 in section 6.3 of
+  the textbook. We sketch the approach here.
+  
+  The key step is to factor
+  \begin{align*}
+    1+[f'(x)]^{-2} 
+    &= \frac{x^{4}}{16}+\frac{1}{2}+x^{-4}\\
+    &= \left( \frac{x^{2}}{4}+x^{-2} \right)^{2}
+  \end{align*}
+  The arc length integral then reduces to
+  \begin{equation*}
+    \int_{1}^{4} \left( \frac{x^{2}}{4}+ x^{-2} \right)dx  
+  \end{equation*}
+  which evaluates to $6$. 
+\end{example}
+
+
+\subsection{Introduction to parametric equations}
+\textit{This section is based on chapter 11.1 in the textbook.}
+
+
+I am an ant walking around the whiteboard, and I'm covered in ink. My path is described in the following
+way:
+\begin{itemize}
+  \item The variable $t$ measures time. We start at $t=0$ and end at time $t=T_{\rm end}>0$.
+  \item At each moment in time $t$, the number $x(t)$ represents my $x$-coordinate
+  \item And the number $y(t)$ represents my $y$-coordinate.
+\end{itemize}
+The \demph{parametric equation} is the picture I draw by walking around the whiteboard.
+
+
+\begin{definition}[Parametric Equations and Curves]
+  \label{def:parametric-equations-and-curves}
+  Let $I$ be an interval, and let $f:I \to \R$ and $g:I\to R$ be continuous functions whose domain is $I$. The set of all points of the form
+  \begin{equation*}
+    (x,y) = \left( f(t),g(t) \right) 
+  \end{equation*}
+  as $t$ varies over $I$, is the \demph{graph} of the \demph{parametric equations} $x=f(t)$ and $y=g(t)$. Here, $t$ is
+  called the \demph{parameter}. A \demph{curve} is a graph along with the parametric equations that define it.
+\end{definition}
+
+\begin{notation}
+  In ``set-builder notation,'' the graph of the parametric equations $x=f(t)$ and $y=g(t)$ is the set
+  \begin{equation*}
+    \left\{(f(t),g(t)) :  t \in  I \right\}.
+  \end{equation*}
+  For those unfamiliar with this notnation: the colon `$:$' is read as ``such that'' and  `$\epsilon$' is an abbreviation of ``is an element of''
+\end{notation}
+
+\begin{example}[Plotting parametric functions]
+  Plot the graph of the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=t^{2} \\  y=t+1 \end{array}\right.
+  \end{equation*}
+  for $t$ in $I=[-2,2]$.
+
+  \textit{Solution:}
+  Start by plotting some points by making a table.
+  
+  \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+      % Array
+      \node at (-6,2) {
+        \begin{tabular}{|c|c|c|}
+          \hline
+          \(t\) & \(x=t^{2}\) & \(y=t+1\) \\
+          \hline
+          -2 & 4 & -1 \\
+          -1 & 1 & 0 \\
+          0 & 0 & 1 \\
+          1 & 1 & 2 \\
+          2 & 4 & 3\\
+          \hline
+        \end{tabular}
+      };
+      
+      % Axis
+      \draw[->] (-1,0) -- (5,0) node[right] {\(x\)}; \draw[->] (0,-2) -- (0,4) node[above] {\(y\)};
+      
+      % Points
+      \foreach \point in {(4,-1), (1,0), (0,1), (1,2), (4,3)} \filldraw \point circle (2pt);
+      
+      % Tick marks on x-axis
+      \foreach \x in {1,2,3,4} \draw (\x,-0.1) -- (\x,0.1) node[above] {};
+      
+      % Tick marks on y-axis
+      \foreach \y in {-1,0,1,2,3} \draw (-0.1,\y) -- (0.1,\y) node[right] {};
+    \end{tikzpicture}
+  \end{center}
+  Then we can draw a curve through the points. (Not shown).
+
+  If we replace $I=[-2,2]$ by $I=\R$, then thie corresponding graph would trace out a sideways opening parabola defined
+  by the equation $x=(y-1)^{2}$.
+
+  \textit{Question:} can we write $y$ a function of $x$?
+
+  \textit{No!}  No, because the graph doesn't satisfy the vertical line test.
+  
+  \textit{Question:} can we express this as an equation involving only $x$ and $y$?
+
+  \textit{Yes!} $x=(y-1)^{2}$.
+
+\end{example}
 
 \end{document}
