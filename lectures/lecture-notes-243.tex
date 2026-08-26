@@ -669,12 +669,21 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
 
 \begin{definition}[Parametric Equations and Curves]
   \label{def:parametric-equations-and-curves}
-  Let $I$ be an interval, and let $f:I \to \R$ and $g:I\to R$ be continuous functions whose domain is $I$. The set of all points of the form
+  Suppose $x$ and $y$ are given as functions
   \begin{equation*}
-    (x,y) = \left( f(t),g(t) \right) 
+    x=f(t), \qquad y=g(t)
   \end{equation*}
-  as $t$ varies over $I$, is the \demph{graph} of the \demph{parametric equations} $x=f(t)$ and $y=g(t)$. Here, $t$ is
-  called the \demph{parameter}. A \demph{curve} is a graph along with the parametric equations that define it.
+  over an interval of $t$-values $I$. Then as $t$ varies over $I$, the set of all points of the form
+  \begin{equation}\label{eq:parametric-equations}
+    (x,y) = \left( f(t),g(t) \right),
+  \end{equation}
+  as $t$ varies over $I$, is called a \demph{parametric curve}. The equations
+  in \cref{eq:parametric-equations} are called the \demph{parametric
+    equations} of the curve.
+
+  The variable $t$ is called the \demph{parameter}. If $I=[a,b]$, then the
+  \demph{initial point} is $(f(a),g(a))$ and the \demph{terminal point} is
+  $(f(b),g(b))$.
 \end{definition}
 
 \begin{notation}
@@ -725,11 +734,19 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
       \foreach \y in {-1,0,1,2,3} \draw (-0.1,\y) -- (0.1,\y) node[right] {};
     \end{tikzpicture}
   \end{center}
-  Then we can draw a curve through the points. (Not shown).
 
-  If we replace $I=[-2,2]$ by $I=\R$, then thie corresponding graph would trace out a sideways opening parabola defined
-  by the equation $x=(y-1)^{2}$.
 
+  Once we get a sense of what the curve looks like, we can draw a curve
+  through the points.
+
+  
+  \begin{itemize}
+    \item If we replace $I=[-2,2]$ by $I=\R$, then this corresponding graph
+    would trace out a sideways opening parabola defined by the equation
+    $x=(y-1)^{2}$.
+
+  \end{itemize}
+  
   \textit{Question:} can we write $y$ a function of $x$?
 
   \textit{No!}  No, because the graph doesn't satisfy the vertical line test.

@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parametric Curve Ant</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f7f4ed;
+        --panel: #fffefa;
+        --ink: #17324a;
+        --muted: #687783;
+        --line: #d9d6cc;
+        --accent: #b34f2d;
+        --accent-dark: #8f391f;
+        --focus: #2a6f9d;
+      }
+
+      * { box-sizing: border-box; }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body { padding: clamp(16px, 3vw, 36px); }
+
+      .app {
+        width: min(1040px, 100%);
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        margin: 0 0 4px;
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.75rem, 4vw, 2.7rem);
+        font-weight: 500;
+        letter-spacing: -0.025em;
+      }
+
+      .formula-readout {
+        margin: 0 0 3px;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.85rem;
+        white-space: nowrap;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) 92px 92px auto;
+        gap: 10px;
+        align-items: end;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px 12px 0 0;
+        background: var(--panel);
+      }
+
+      label {
+        display: grid;
+        gap: 5px;
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      input,
+      button {
+        min-height: 40px;
+        border-radius: 7px;
+        font: inherit;
+      }
+
+      input {
+        width: 100%;
+        border: 1px solid #c8c5bb;
+        background: #fff;
+        color: var(--ink);
+        padding: 8px 10px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+      }
+
+      input:focus-visible,
+      button:focus-visible {
+        outline: none;
+        border-color: var(--focus);
+        box-shadow: 0 0 0 3px rgb(42 111 157 / 18%);
+      }
+
+      .actions { display: flex; gap: 8px; }
+
+      button {
+        border: 1px solid transparent;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-size: 0.86rem;
+        font-weight: 750;
+        transition: background 120ms ease, border-color 120ms ease, transform 80ms ease;
+      }
+
+      button:active { transform: translateY(1px); }
+
+      #trace { background: var(--accent); color: white; }
+      #trace:hover { background: var(--accent-dark); }
+
+      #pause {
+        border-color: #c8c5bb;
+        background: transparent;
+        color: var(--ink);
+      }
+
+      #pause:hover:not(:disabled) { background: #f0ede5; }
+      #pause:disabled { color: #9ba3a8; cursor: not-allowed; }
+
+      .plot-wrap {
+        position: relative;
+        height: min(64vh, 620px);
+        min-height: 390px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-top: 0;
+        border-radius: 0 0 12px 12px;
+        background: #fffefa;
+      }
+
+      canvas { display: block; width: 100%; height: 100%; }
+
+      .plot-status {
+        position: absolute;
+        right: 12px;
+        bottom: 10px;
+        max-width: calc(100% - 24px);
+        margin: 0;
+        padding: 4px 7px;
+        border-radius: 5px;
+        background: rgb(255 254 250 / 88%);
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.76rem;
+        pointer-events: none;
+      }
+
+      .plot-status.error {
+        color: #a52720;
+        font-family: inherit;
+        font-weight: 650;
+      }
+
+      .hint {
+        margin: 9px 2px 0;
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+      @media (max-width: 790px) {
+        header { align-items: start; flex-direction: column; gap: 4px; }
+        .formula-readout { white-space: normal; }
+        .controls { grid-template-columns: 1fr 1fr; }
+        .actions { grid-column: 1 / -1; }
+        .actions button { flex: 1; }
+      }
+
+      @media (max-width: 520px) {
+        body { padding: 12px; }
+        .function-field { grid-column: 1 / -1; }
+        .plot-wrap { height: 54vh; min-height: 340px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <div>
+          <p class="eyebrow">Math 243 · Parametric curves</p>
+          <h1>Curve tracer</h1>
+        </div>
+        <p class="formula-readout" id="formula-readout">r(t) = (cos(t), sin(t))</p>
+      </header>
+
+      <form class="controls" id="curve-form">
+        <label class="function-field">
+          x(t)
+          <input id="x-expression" value="cos(t)" spellcheck="false" autocomplete="off" aria-label="x of t" />
+        </label>
+        <label class="function-field">
+          y(t)
+          <input id="y-expression" value="sin(t)" spellcheck="false" autocomplete="off" aria-label="y of t" />
+        </label>
+        <label>
+          a
+          <input id="a-value" value="0" spellcheck="false" autocomplete="off" aria-label="left endpoint a" />
+        </label>
+        <label>
+          b
+          <input id="b-value" value="2*pi" spellcheck="false" autocomplete="off" aria-label="right endpoint b" />
+        </label>
+        <div class="actions">
+          <button id="trace" type="submit">Trace curve</button>
+          <button id="pause" type="button" disabled>Pause</button>
+        </div>
+      </form>
+
+      <section class="plot-wrap" aria-label="Plot of the parametric curve">
+        <canvas id="plot" role="img" aria-label="An ant tracing a parametric curve in the xy-plane">
+          Your browser does not support the canvas element.
+        </canvas>
+        <p class="plot-status" id="plot-status" aria-live="polite">t = 0</p>
+      </section>
+      <p class="hint">Use <code>sin</code>, <code>cos</code>, <code>sqrt</code>, <code>abs</code>, <code>pi</code>, and <code>^</code> for powers.</p>
+    </main>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const canvas = document.querySelector("#plot");
+        const context = canvas.getContext("2d");
+        const form = document.querySelector("#curve-form");
+        const pauseButton = document.querySelector("#pause");
+        const status = document.querySelector("#plot-status");
+        const formulaReadout = document.querySelector("#formula-readout");
+        const xInput = document.querySelector("#x-expression");
+        const yInput = document.querySelector("#y-expression");
+        const aInput = document.querySelector("#a-value");
+        const bInput = document.querySelector("#b-value");
+
+        const FUNCTIONS = {
+          abs: Math.abs,
+          acos: Math.acos,
+          asin: Math.asin,
+          atan: Math.atan,
+          ceil: Math.ceil,
+          cos: Math.cos,
+          cosh: Math.cosh,
+          exp: Math.exp,
+          floor: Math.floor,
+          ln: Math.log,
+          log: Math.log,
+          round: Math.round,
+          sign: Math.sign,
+          sin: Math.sin,
+          sinh: Math.sinh,
+          sqrt: Math.sqrt,
+          tan: Math.tan,
+          tanh: Math.tanh,
+        };
+
+        const CONSTANTS = { pi: Math.PI, e: Math.E };
+        let curve = null;
+        let animationFrame = null;
+        let animationStart = null;
+        let pausedAt = 0;
+        let progress = 0;
+        let isPaused = false;
+        const duration = 18000;
+
+        function tokenize(source) {
+          const normalized = source.toLowerCase().replaceAll("π", "pi");
+          const raw = [];
+          let index = 0;
+
+          while (index < normalized.length) {
+            const rest = normalized.slice(index);
+            const whitespace = rest.match(/^\s+/);
+            if (whitespace) {
+              index += whitespace[0].length;
+              continue;
+            }
+
+            const number = rest.match(/^(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/);
+            if (number) {
+              raw.push({ type: "number", value: Number(number[0]) });
+              index += number[0].length;
+              continue;
+            }
+
+            const name = rest.match(/^[a-z]+/);
+            if (name) {
+              raw.push({ type: "name", value: name[0] });
+              index += name[0].length;
+              continue;
+            }
+
+            const symbol = rest[0];
+            if ("+-*/^()".includes(symbol)) {
+              raw.push({ type: symbol, value: symbol });
+              index += 1;
+              continue;
+            }
+
+            throw new Error(`I do not recognize “${symbol}”.`);
+          }
+
+          const tokens = [];
+          raw.forEach((token, i) => {
+            const previous = raw[i - 1];
+            const previousEndsValue = previous && (
+              previous.type === "number" ||
+              previous.type === ")" ||
+              (previous.type === "name" && !(previous.value in FUNCTIONS))
+            );
+            const currentStartsValue = token.type === "number" || token.type === "name" || token.type === "(";
+            const functionCall = previous && previous.type === "name" && previous.value in FUNCTIONS && token.type === "(";
+            if (previousEndsValue && currentStartsValue && !functionCall) {
+              tokens.push({ type: "*", value: "*" });
+            }
+            tokens.push(token);
+          });
+          tokens.push({ type: "end", value: "" });
+          return tokens;
+        }
+
+        function compileExpression(source) {
+          const tokens = tokenize(source);
+          let position = 0;
+          const current = () => tokens[position];
+          const take = (type) => {
+            if (current().type !== type) throw new Error(`Expected “${type}”.`);
+            return tokens[position++];
+          };
+
+          function parseExpression() {
+            let left = parseTerm();
+            while (current().type === "+" || current().type === "-") {
+              const operator = tokens[position++].type;
+              const right = parseTerm();
+              const previous = left;
+              left = (t) => operator === "+" ? previous(t) + right(t) : previous(t) - right(t);
+            }
+            return left;
+          }
+
+          function parseTerm() {
+            let left = parseUnary();
+            while (current().type === "*" || current().type === "/") {
+              const operator = tokens[position++].type;
+              const right = parseUnary();
+              const previous = left;
+              left = (t) => operator === "*" ? previous(t) * right(t) : previous(t) / right(t);
+            }
+            return left;
+          }
+
+          function parseUnary() {
+            if (current().type === "+") {
+              position += 1;
+              return parseUnary();
+            }
+            if (current().type === "-") {
+              position += 1;
+              const value = parseUnary();
+              return (t) => -value(t);
+            }
+            return parsePower();
+          }
+
+          function parsePower() {
+            const left = parsePrimary();
+            if (current().type === "^") {
+              position += 1;
+              const right = parseUnary();
+              return (t) => Math.pow(left(t), right(t));
+            }
+            return left;
+          }
+
+          function parsePrimary() {
+            if (current().type === "number") {
+              const value = take("number").value;
+              return () => value;
+            }
+            if (current().type === "(") {
+              take("(");
+              const value = parseExpression();
+              take(")");
+              return value;
+            }
+            if (current().type === "name") {
+              const name = take("name").value;
+              if (name === "t") return (t) => t;
+              if (name in CONSTANTS) return () => CONSTANTS[name];
+              if (name in FUNCTIONS) {
+                take("(");
+                const argument = parseExpression();
+                take(")");
+                return (t) => FUNCTIONS[name](argument(t));
+              }
+              throw new Error(`Unknown name “${name}”.`);
+            }
+            throw new Error("The expression is incomplete.");
+          }
+
+          const evaluate = parseExpression();
+          if (current().type !== "end") throw new Error(`Unexpected “${current().value}”.`);
+          return evaluate;
+        }
+
+        function niceStep(span, targetLines = 8) {
+          const rough = span / targetLines;
+          const power = 10 ** Math.floor(Math.log10(rough));
+          const fraction = rough / power;
+          const niceFraction = fraction < 1.5 ? 1 : fraction < 3 ? 2 : fraction < 7 ? 5 : 10;
+          return niceFraction * power;
+        }
+
+        function formatTick(value) {
+          if (Math.abs(value) < 1e-10) return "0";
+          if (Math.abs(value) >= 10000 || Math.abs(value) < 0.001) return value.toExponential(1);
+          return Number(value.toPrecision(4)).toString();
+        }
+
+        function buildCurve() {
+          const xFunction = compileExpression(xInput.value);
+          const yFunction = compileExpression(yInput.value);
+          const a = compileExpression(aInput.value)(0);
+          const b = compileExpression(bInput.value)(0);
+
+          if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error("The interval endpoints must be finite.");
+          if (!(b > a)) throw new Error("The interval must satisfy a < b.");
+
+          const sampleCount = 1400;
+          const points = [];
+          const finitePoints = [];
+          for (let i = 0; i <= sampleCount; i += 1) {
+            const t = a + (b - a) * i / sampleCount;
+            const x = xFunction(t);
+            const y = yFunction(t);
+            const point = { t, x, y, valid: Number.isFinite(x) && Number.isFinite(y) };
+            points.push(point);
+            if (point.valid) finitePoints.push(point);
+          }
+
+          if (finitePoints.length < 2) throw new Error("The formulas do not produce a curve on this interval.");
+
+          let xMin = Math.min(...finitePoints.map((point) => point.x));
+          let xMax = Math.max(...finitePoints.map((point) => point.x));
+          let yMin = Math.min(...finitePoints.map((point) => point.y));
+          let yMax = Math.max(...finitePoints.map((point) => point.y));
+          if (xMax - xMin < 1e-9) { xMin -= 1; xMax += 1; }
+          if (yMax - yMin < 1e-9) { yMin -= 1; yMax += 1; }
+
+          const xPadding = (xMax - xMin) * 0.12;
+          const yPadding = (yMax - yMin) * 0.12;
+          return {
+            points,
+            a,
+            b,
+            bounds: {
+              xMin: xMin - xPadding,
+              xMax: xMax + xPadding,
+              yMin: yMin - yPadding,
+              yMax: yMax + yPadding,
+            },
+          };
+        }
+
+        function resizeCanvas() {
+          const rectangle = canvas.getBoundingClientRect();
+          const ratio = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.max(1, Math.floor(rectangle.width * ratio));
+          canvas.height = Math.max(1, Math.floor(rectangle.height * ratio));
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+          draw();
+        }
+
+        function plotGeometry() {
+          const width = canvas.clientWidth;
+          const height = canvas.clientHeight;
+          const padding = { top: 26, right: 30, bottom: 34, left: 48 };
+          const innerWidth = width - padding.left - padding.right;
+          const innerHeight = height - padding.top - padding.bottom;
+          const { xMin, xMax, yMin, yMax } = curve.bounds;
+          return {
+            width,
+            height,
+            padding,
+            innerWidth,
+            innerHeight,
+            toCanvas(point) {
+              return {
+                x: padding.left + (point.x - xMin) / (xMax - xMin) * innerWidth,
+                y: padding.top + (yMax - point.y) / (yMax - yMin) * innerHeight,
+              };
+            },
+          };
+        }
+
+        function drawGrid(geometry) {
+          const { width, height, padding, innerWidth, innerHeight } = geometry;
+          const { xMin, xMax, yMin, yMax } = curve.bounds;
+          context.clearRect(0, 0, width, height);
+          context.fillStyle = "#fffefa";
+          context.fillRect(0, 0, width, height);
+          context.font = "11px ui-monospace, SFMono-Regular, Menlo, monospace";
+          context.fillStyle = "#7d888f";
+          context.strokeStyle = "#e9e5dc";
+          context.lineWidth = 1;
+
+          const xStep = niceStep(xMax - xMin);
+          for (let value = Math.ceil(xMin / xStep) * xStep; value <= xMax + xStep * 0.01; value += xStep) {
+            const x = padding.left + (value - xMin) / (xMax - xMin) * innerWidth;
+            context.beginPath();
+            context.moveTo(x, padding.top);
+            context.lineTo(x, padding.top + innerHeight);
+            context.stroke();
+            context.textAlign = "center";
+            context.textBaseline = "top";
+            context.fillText(formatTick(value), x, padding.top + innerHeight + 8);
+          }
+
+          const yStep = niceStep(yMax - yMin);
+          for (let value = Math.ceil(yMin / yStep) * yStep; value <= yMax + yStep * 0.01; value += yStep) {
+            const y = padding.top + (yMax - value) / (yMax - yMin) * innerHeight;
+            context.beginPath();
+            context.moveTo(padding.left, y);
+            context.lineTo(padding.left + innerWidth, y);
+            context.stroke();
+            context.textAlign = "right";
+            context.textBaseline = "middle";
+            context.fillText(formatTick(value), padding.left - 8, y);
+          }
+
+          context.strokeStyle = "#9aa4aa";
+          context.lineWidth = 1.2;
+          if (xMin <= 0 && xMax >= 0) {
+            const zeroX = padding.left + (-xMin) / (xMax - xMin) * innerWidth;
+            context.beginPath();
+            context.moveTo(zeroX, padding.top);
+            context.lineTo(zeroX, padding.top + innerHeight);
+            context.stroke();
+          }
+          if (yMin <= 0 && yMax >= 0) {
+            const zeroY = padding.top + yMax / (yMax - yMin) * innerHeight;
+            context.beginPath();
+            context.moveTo(padding.left, zeroY);
+            context.lineTo(padding.left + innerWidth, zeroY);
+            context.stroke();
+          }
+
+          context.fillStyle = "#17324a";
+          context.font = "italic 13px Georgia, serif";
+          context.textAlign = "right";
+          context.fillText("x", width - 10, padding.top + innerHeight + 22);
+          context.textAlign = "left";
+          context.fillText("y", padding.left + 8, 15);
+        }
+
+        function drawPath(geometry, endIndex, color, lineWidth, dashed = false) {
+          const points = curve.points;
+          const count = Math.min(endIndex, points.length - 1);
+          const xSpan = curve.bounds.xMax - curve.bounds.xMin;
+          const ySpan = curve.bounds.yMax - curve.bounds.yMin;
+          context.beginPath();
+          context.strokeStyle = color;
+          context.lineWidth = lineWidth;
+          context.lineCap = "round";
+          context.lineJoin = "round";
+          context.setLineDash(dashed ? [4, 5] : []);
+          let penDown = false;
+
+          for (let i = 0; i <= count; i += 1) {
+            const point = points[i];
+            const previous = points[i - 1];
+            const largeJump = previous && previous.valid && point.valid && (
+              Math.abs(point.x - previous.x) > xSpan * 0.22 ||
+              Math.abs(point.y - previous.y) > ySpan * 0.22
+            );
+            if (!point.valid || largeJump) {
+              penDown = false;
+              continue;
+            }
+            const plotted = geometry.toCanvas(point);
+            if (!penDown) {
+              context.moveTo(plotted.x, plotted.y);
+              penDown = true;
+            } else {
+              context.lineTo(plotted.x, plotted.y);
+            }
+          }
+          context.stroke();
+          context.setLineDash([]);
+        }
+
+        function drawAnt(geometry, index) {
+          const points = curve.points;
+          let currentIndex = Math.min(index, points.length - 1);
+          while (currentIndex > 0 && !points[currentIndex].valid) currentIndex -= 1;
+          const point = points[currentIndex];
+          if (!point || !point.valid) return;
+
+          let nextIndex = Math.min(currentIndex + 3, points.length - 1);
+          while (nextIndex < points.length - 1 && !points[nextIndex].valid) nextIndex += 1;
+          const next = points[nextIndex].valid ? points[nextIndex] : point;
+          const position = geometry.toCanvas(point);
+          const nextPosition = geometry.toCanvas(next);
+          const angle = Math.atan2(nextPosition.y - position.y, nextPosition.x - position.x);
+
+          context.save();
+          context.translate(position.x, position.y);
+          context.rotate(angle);
+          context.font = "22px 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.shadowColor = "rgb(23 50 74 / 20%)";
+          context.shadowBlur = 3;
+          context.fillText("🐜", 0, 0);
+          context.restore();
+        }
+
+        function draw() {
+          if (!curve || canvas.width === 0 || canvas.height === 0) return;
+          const geometry = plotGeometry();
+          drawGrid(geometry);
+          drawPath(geometry, curve.points.length - 1, "rgba(23, 50, 74, 0.22)", 1.4, true);
+          const endIndex = Math.floor(progress * (curve.points.length - 1));
+          drawPath(geometry, endIndex, "#b34f2d", 3);
+          drawAnt(geometry, endIndex);
+          const t = curve.a + (curve.b - curve.a) * progress;
+          status.textContent = `t = ${Number(t.toPrecision(5))}`;
+          status.classList.remove("error");
+        }
+
+        function animate(timestamp) {
+          if (isPaused) return;
+          if (animationStart === null) animationStart = timestamp - pausedAt;
+          const elapsed = timestamp - animationStart;
+          progress = Math.min(elapsed / duration, 1);
+          draw();
+          if (progress < 1) {
+            animationFrame = requestAnimationFrame(animate);
+          } else {
+            animationFrame = null;
+            pauseButton.disabled = true;
+            pauseButton.textContent = "Pause";
+          }
+        }
+
+        function startTrace() {
+          if (animationFrame) cancelAnimationFrame(animationFrame);
+          progress = 0;
+          pausedAt = 0;
+          animationStart = null;
+          isPaused = false;
+          pauseButton.textContent = "Pause";
+          pauseButton.disabled = false;
+          draw();
+
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            progress = 1;
+            draw();
+            pauseButton.disabled = true;
+            return;
+          }
+          animationFrame = requestAnimationFrame(animate);
+        }
+
+        function showError(error) {
+          if (animationFrame) cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+          pauseButton.disabled = true;
+          status.textContent = error instanceof Error ? error.message : "Unable to draw this curve.";
+          status.classList.add("error");
+        }
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          try {
+            curve = buildCurve();
+            formulaReadout.textContent = `r(t) = (${xInput.value}, ${yInput.value})`;
+            startTrace();
+          } catch (error) {
+            showError(error);
+          }
+        });
+
+        pauseButton.addEventListener("click", () => {
+          if (!curve || progress >= 1) return;
+          if (isPaused) {
+            isPaused = false;
+            animationStart = null;
+            pauseButton.textContent = "Pause";
+            animationFrame = requestAnimationFrame(animate);
+          } else {
+            isPaused = true;
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+            pausedAt = progress * duration;
+            pauseButton.textContent = "Resume";
+          }
+        });
+
+        new ResizeObserver(resizeCanvas).observe(canvas.parentElement);
+        try {
+          curve = buildCurve();
+          resizeCanvas();
+          startTrace();
+        } catch (error) {
+          showError(error);
+        }
+      })();
+    </script>
+  </body>
+</html>
