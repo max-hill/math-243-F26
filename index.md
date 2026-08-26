@@ -27,6 +27,6 @@ title: Lecture Notes
 <iframe
   src="{{ '/assets/parametric-ant/index.html' | relative_url }}"
   title="Parametric curve ant tracer"
-  style="width: 100%; height: 870px; border: 0;"
+  style="width: 100%; height: 950px; border: 0;"
   loading="lazy">
 </iframe>
