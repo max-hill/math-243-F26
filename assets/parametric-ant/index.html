@@ -580,7 +580,7 @@
           context.fillText("y", padding.left + 8, 15);
         }
 
-        function drawPath(geometry, endIndex, color, lineWidth, dashed = false) {
+        function drawPath(geometry, endIndex, color, lineWidth) {
           const points = curve.points;
           const count = Math.min(endIndex, points.length - 1);
           const xSpan = curve.bounds.xMax - curve.bounds.xMin;
@@ -590,7 +590,6 @@
           context.lineWidth = lineWidth;
           context.lineCap = "round";
           context.lineJoin = "round";
-          context.setLineDash(dashed ? [4, 5] : []);
           let penDown = false;
 
           for (let i = 0; i <= count; i += 1) {
@@ -613,7 +612,6 @@
             }
           }
           context.stroke();
-          context.setLineDash([]);
         }
 
         function velocityAngleAt(t, geometry) {
@@ -658,10 +656,16 @@
           // Standard emoji fonts draw the unrotated ant facing left.  The
           // additional half-turn makes its head point along the velocity.
           const antFacingOffset = Math.PI;
+          const antRotation = lastAntAngle + antFacingOffset;
+
+          // Reflect across the direction of travel when necessary. This keeps
+          // the head pointing forward while placing the legs below the body.
+          const legReflection = Math.cos(antRotation) >= 0 ? 1 : -1;
 
           context.save();
           context.translate(position.x, position.y);
-          context.rotate(lastAntAngle + antFacingOffset);
+          context.rotate(antRotation);
+          context.scale(1, legReflection);
           context.font = "22px 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif";
           context.textAlign = "center";
           context.textBaseline = "middle";
@@ -675,7 +679,6 @@
           if (!curve || canvas.width === 0 || canvas.height === 0) return;
           const geometry = plotGeometry();
           drawGrid(geometry);
-          drawPath(geometry, curve.points.length - 1, "rgba(23, 50, 74, 0.22)", 1.4, true);
           const endIndex = Math.floor(progress * (curve.points.length - 1));
           drawPath(geometry, endIndex, "#b34f2d", 3);
           drawAnt(geometry, endIndex);

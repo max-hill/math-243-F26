@@ -759,4 +759,276 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
 
 \end{example}
 
+\section{2026-08-28 | Week 01 | Lecture 03}
+
+
+\textit{This lecture is based on section 11.1 in the textbook}
+
+
+\Fl{Reading assignment:} Section 11.1 in the text book.
+
+
+\subsection{Plotting parametric equations}
+\begin{example}
+  \label{ex:parametric-equation-example-2}
+  \textit{Question:} Plot the graph of the parametric equations
+  \begin{equation*}
+    (x,y) = (t^{2}+t,t^{2}-t)
+  \end{equation*}
+  as the parameter $t$ ranges over $I=[-2,2]$.
+
+  \textit{Solution:} Again, we plot some points by making a table.
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Array
+      \node at (-9,4) {
+        \begin{tabular}{|c|c|c|}
+          \hline
+          \(t\) & \(x=t^{2}+t\) & \(y=t^{2}-t\) \\
+          \hline
+          $-2$ & $2$ & $6$ \\
+          $-\frac{3}{2}$ & $.75$ & $3.75$ \\
+          $-1$ & $0$ & $2$ \\
+          $-\frac{1}{2}$ & $-\frac{1}{4}$ & $\frac{3}{4}$ \\
+          $0$ & $0$ & $0$ \\
+          $\frac{1}{2}$ & $\frac{3}{4}$ & $-\frac{1}{4}$ \\
+          $1$ & $2$ & $0$ \\
+          $\frac{3}{2}$ & $3.75$ & $\frac{3}{4}$ \\
+          $2$ & $6$ & $2$ \\
+          \hline
+        \end{tabular}
+      };
+      
+      % Axis
+      \draw[->] (-1,0) -- (8,0) node[right] {\(x\)}; \draw[->] (0,-1) -- (0,8) node[above] {\(y\)};
+      
+      % Grid
+      \foreach \x in {1,2,3,4,5,6,7} \draw (\x,-0.1) -- (\x,0.1); \foreach \y in {1,2,3,4,5,6,7} \draw (-0.1,\y) --
+      (0.1,\y);
+      
+      % Points
+      \foreach \point in {(0,0), (2,0), (0,2), (6,2), (0.75,-0.25), (3.75,0.75), (-0.25,0.75), (0.75,3.75), (2,6)} \filldraw
+      \point circle (4pt);
+    \end{tikzpicture}
+  \end{center}
+  The graph of the parametric equations is obtained by drawing the curve through the plotted points.
+\end{example}
+
+\begin{example}
+  Find the parametric equations that shift the graph from \cref{ex:parametric-equation-example-2} to the right by 3 and
+  down by 2.
+
+  \textit{Solution:} The graphs of parametric equations are easy to shift. The parameteric equations defining the
+  shifted graph are
+  \begin{equation*}
+    (x,y) = (t^{2}+t+3, t^{2}-t -2)
+  \end{equation*}
+  We've simply added 3 to the $x$-value and subtracted $2$ from the $y$-value. To see why this is the case, observe what
+  happens to the points in the plot from \cref{ex:parametric-equation-example-2}:
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Array
+      \node at (-9,4) {
+        \begin{tabular}{|c|c|c|}
+          \hline
+          \(t\) & \(x=t^{2}+t{\blue +3}\) & \(y=t^{2}-t{\blue -2}\) \\
+          \hline
+          $-2$ & $2{\blue +3}$ & $6{\blue -2}$ \\
+          $-\frac{3}{2}$ & $.75{\blue +3}$ & $3.75{\blue -2}$ \\
+          $-1$ & $0{\blue +3}$ & $2{\blue -2}$ \\
+          $-\frac{1}{2}$ & $-\frac{1}{4}{\blue +3}$ & $\frac{3}{4}{\blue -2}$ \\
+          $0$ & $0{\blue +3}$ & $0{\blue -2}$ \\
+          $\frac{1}{2}$ & $\frac{3}{4}{\blue +3}$ & $-\frac{1}{4}{\blue -2}$ \\
+          $1$ & $2{\blue +3}$ & $0{\blue -2}$ \\
+          $\frac{3}{2}$ & $3.75{\blue +3}$ & $\frac{3}{4}{\blue -2}$ \\
+          $2$ & $6{\blue +3}$ & $2{\blue -2}$ \\
+          \hline
+        \end{tabular}
+      };
+      
+      % Axis
+      \draw[->] (-1,0) -- (8,0) node[right] {\(x\)}; \draw[->] (0,-1) -- (0,8) node[above] {\(y\)};
+      % Grid
+      \foreach \x in {1,2,3,4,5,6,7} \draw (\x,-0.1) -- (\x,0.1); \foreach \y in {1,2,3,4,5,6,7} \draw (-0.1,\y) --
+      (0.1,\y);
+      % Black points
+      \foreach \point in {(0,0), (2,0), (0,2), (6,2), (0.75,-0.25), (3.75,0.75), (-0.25,0.75), (0.75,3.75), (2,6)}
+      \filldraw \point circle (3pt);
+      % Blue points
+      \foreach \point in {(0,0), (2,0), (0,2), (6,2), (0.75,-0.25), (3.75,0.75), (-0.25,0.75), (0.75,3.75), (2,6)}
+      \filldraw[blue] \point+(3,-2) circle (3pt);
+      % Blue arrows
+      \foreach \point in {(0,0), (2,0), (0,2), (6,2), (0.75,-0.25), (3.75,0.75), (-0.25,0.75), (0.75,3.75), (2,6)} 
+      \draw[->, dotted, blue, line width =.5, >=stealth] \point -- ++(2.88,-1.92);
+    \end{tikzpicture}
+  \end{center}
+  Here we have shifted every point to the right by 3 and down by 2, as shown by the arrows. Drawing a curve through the
+  blue points now gives us the curve of the new, shifted, parametric equations. (Not shown in figure).
+\end{example}
+
+
+
+Parametric functions have the advantage that we can use them to plot curves which cannot be plotted by ``$y=f(x)$'' type
+graphs.
+
+\begin{example}
+  \label{ex:parametric-curve-with-singularity}
+  Here's an example of a plot of the parametric curve
+  \begin{equation*}
+    \begin{pmatrix}
+      x\\y
+    \end{pmatrix}=
+    \begin{pmatrix}
+      t^{3}-5t^{2}+3t+11\\
+      t^{2}-2t+3
+    \end{pmatrix}
+  \end{equation*}
+  This one would be tedious to plot by hand, so instead I plotted a bunch of points with a computer, with $t$ varying on
+  the interval $I=[-1.5,4.5]$.
+  \begin{center}
+    \begin{tikzpicture}[scale=0.2]
+      % Parametric curve (positive t-values)
+      \foreach \t in {0,0.1,...,4.5} \filldraw (\t^3 - 5*\t^2 + 3*\t + 11,\t^2 - 2*\t + 3) circle (2pt);
+      % Parametric curve (negative t-values)
+      \foreach \t in {0,0.05,...,1.5} \filldraw (-\t^3 - 5*\t^2 - 3*\t + 11,\t^2 + 2*\t + 3) circle (2pt);
+      % Axis
+      \draw[->] (-10,0) -- (15,0) node[right] {\(x\)}; \draw[->] (0,-5) -- (0,15) node[above] {\(y\)};
+      
+      % Tick marks on x-axis
+      \foreach \x in {-10,-5,5,10,15} \draw (\x,0.2) -- (\x,-0.2) node[below] {\(\x\)};
+      
+      % Tick marks on y-axis
+      \foreach \y in {-5,5,10,15} \draw (0.2,\y) -- (-0.2,\y) node[left] {\(\y\)};
+    \end{tikzpicture}
+  \end{center}
+  The parametric equation can be thought of as tracing the trajectory of a particle as it moves over time. In this
+  example, $t$ represents time. At time $t=-1.5$, the particle is at point $(x,y)= (-8.125,8.25)$, and starts heading
+  southeast. It then turns around and loops over its previous path, before heading northeast.
+
+  It would be impossible to represent this trajectory using a function $y=f(x)$, becausethe curve fails the vertical
+  line test. This is one advantage of parametric curves.
+
+  The particle has the same position at times $t=-1$ and $t=3$. At these times, the particle is at the point
+  \begin{equation*}
+    (x,y) = (2,6).  
+  \end{equation*}
+  Thus, it is at this point that the curve intersects itself, a phenomenon known as a \demph{singularity}.
+\end{example}
+\subsection{Converting between parametric equations and Cartesian equations}
+In contrast to parametric equations, an equation is said to be in \demph{rectangular form} (aka: \demph{Cartesian form})
+if it takes the form $y=f(x)$ (or, less commonly, $x=f(y)$) for some function $f$. We've just seen in
+\cref{ex:parametric-curve-with-singularity} that parametric equations offer significantly more flexibility when
+graphing.
+
+In fact, it is always possible to convert an equation from rectangular form into parametric form. We illustrate this
+with the next example:
+\begin{example}[Converting from rectangular form to parametric form]
+  \label{ex:converting-from-rectangular-form-to-parametric-form}
+  Consider the equation $y=x^{2}$, which is in rectangular form. This is an upward-opening parabola. There are many ways
+  to represent this in parametric form. The simplest is with the parametric equations
+  \begin{equation*}
+    (x,y) = (t,t^{2})
+  \end{equation*}
+  where $t$ ranges over the interval $(-\infty,\infty)$.
+\end{example}
+
+\begin{example}[Converting from parametric form to rectangular form]
+  \label{ex:converting-from-parametric-form-to-rectangular-form}
+  Sometimes (but not always) we can also convert from parametric to rectangular form. Consider the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=t^{2} \\ y=7+5t \end{array}\right.
+  \end{equation*}
+  This is done by ``eliminating'' the parameter $t$, in the following way:
+
+  Since $y=7+5t$, it follows that
+  \begin{equation*}
+    t = \frac{y-7}{5}.
+  \end{equation*}
+  Plugging this into $x=t^{2}$ gives
+  \begin{align*}
+    x 
+    &= \left( \frac{y-7}{5} \right)^{2}\\
+    &= \frac{1}{25}\left( y^{2} -14 y + 49 \right)\\ 
+    &= \frac{1}{25}y^{2} - \frac{14}{25} y + \frac{49}{25}.
+  \end{align*}
+  This equation has the form $x=f(y)$, and therefore is in rectangular (i.e., Cartesian) form.
+\end{example}
+
+Here's another example
+\begin{example}[Converting to Cartesian form: eliminating a parameter]
+  \label{ex:a-homework-problem}
+  Consider the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=5\cos^{2}(\theta) \\ y=2 \sin^{2}(\theta) \end{array}\right.
+  \end{equation*}
+  with $0 \leq \theta \leq 2\pi$.
+
+  I plotted this using a computer and got the following. It is a line segment:
+
+  \begin{center}
+    \begin{tikzpicture}[scale=.8]
+      % Define parameters
+      \def\a{5} % semi-major axis
+      \def\b{2} % semi-minor axis
+      
+      % Parametric curve for the ellipse
+      \draw[blue, domain=0:360, samples=100] plot ({\a*cos(\x)*cos(\x)}, {\b*sin(\x)*sin(\x)});
+      
+      % Axis
+      \draw[<->] (-6,0) -- (6,0) node[right] {\(x\)}; \draw[<->] (0,-2.5) -- (0,2.5) node[above] {\(y\)};
+
+      % Vertical tick marks and labels
+      \draw (-5,0.2) -- (-5,-0.2) node[below left] {\(-5\)}; \draw (5,0.2) -- (5,-0.2) node[below right] {\(5\)}; \draw
+      (-0.2,-2) -- (0.2,-2) node[below right] {\(-2\)}; \draw (-0.2,2) -- (0.2,2) node[above right] {\(2\)};
+    \end{tikzpicture}
+  \end{center}
+  \textit{Question:} Convert these parametric equations into Cartesian form, ie a function of the form $y=f(x)$.
+
+  \textit{Solution:} Before we start, recall the identity $\sin^{2}(\theta)+\cos^{2}(\theta)=1$ for all $\theta$. using
+  this, we have:
+  \begin{align*}
+    y 
+    &= 2\sin^{2}(\theta) \\
+    &= 2 \left( 1- \cos^{2}(\theta) \right) 
+  \end{align*}
+  Now, $x=5\cos^{2}(\theta)$, so $\cos^{2}(\theta) = \frac{x}{5}$. Plugging this into the above equation gives:
+  \begin{equation*}
+    y = 2 \left( 1 - \frac{x}{5} \right). 
+  \end{equation*}
+  This is an equation of a line.
+
+  But we are not done! We are trying to plot only a line \textit{segment}, not the full line. So we need to specify that
+  we are restricting the line to only those $x$ in the interval $[0,5]$. So our solution (in Cartesian form) is
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} y = 2 \left( 1-\frac{x}{5} \right) \\ 0 \leq x \leq 5 \end{array}\right.
+  \end{equation*}
+\end{example}
+
+\begin{example}[An ellipse, parametrized]
+  \label{ex:an-ellipse}
+  What if we slightly modify the equations from the \cref{ex:a-homework-problem}? Consider the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=5\cos(\theta) \\ y=2 \sin(\theta) \end{array}\right.
+  \end{equation*}
+  with $0 \leq \theta \leq 2\pi$. Here, the only difference from the equations in \cref{ex:a-homework-problem} is that
+  we have removed the squares. Now we get a very different looking curve: an ellipse.
+  \begin{center}
+    \begin{tikzpicture}[scale=.8]
+      % Define parameters
+      \def\a{5} % semi-major axis
+      \def\b{2} % semi-minor axis
+      
+      % Parametric curve for the ellipse
+      \draw[blue, domain=0:360, samples=100] plot ({\a*cos(\x)}, {\b*sin(\x)});
+      
+      % Axis
+      \draw[<->] (-6,0) -- (6,0) node[right] {\(x\)}; \draw[<->] (0,-2.5) -- (0,2.5) node[above] {\(y\)};
+
+      % Vertical tick marks and labels
+      \draw (-5,0.2) -- (-5,-0.2) node[below left] {\(-5\)}; \draw (5,0.2) -- (5,-0.2) node[below right] {\(5\)}; \draw
+      (-0.2,-2) -- (0.2,-2) node[below right] {\(-2\)}; \draw (-0.2,2) -- (0.2,2) node[above right] {\(2\)};
+    \end{tikzpicture}
+  \end{center}
+\end{example}
+
 \end{document}
