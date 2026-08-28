@@ -15,12 +15,6 @@
 \usepackage{tikz-qtree}
 \graphicspath{ {./images/} }
 \usepackage{hyperref}
-\usepackage[capitalize]{cleveref}
-\usepackage[shortlabels]{enumitem}
-\usetikzlibrary{arrows,matrix,positioning}
-\usepackage{multicol}
-
-
 \usepackage{empheq} % for boxed equations
 \usepackage[most]{tcolorbox}
 \newtcbox{\mymath}[1][]{%
@@ -34,7 +28,10 @@
   boxrule=1pt,
   #1}
 
-
+\usepackage[capitalize]{cleveref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{arrows,matrix,positioning}
+\usepackage{multicol}
 
 % for the pipe symbol
 \usepackage[T1]{fontenc}
@@ -72,9 +69,6 @@
 % Add claim support to cleverref
 \crefname{claimcount}{Claim}{Claims}
 
-\usepackage[most]{tcolorbox} % for boxed text,
-% use \begin{tcolorbox[width=0.7\linewidth,
-%   colback=white, colframe=black]}
 
 % Math Environments
 \newtheorem{theorem}{Theorem}
@@ -89,7 +83,21 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{notation}[theorem]{Notation}
 \newtheorem{problem}[theorem]{Problem}
-
+% Explicit cleveref names
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+\AtBeginEnvironment{assumption}{\crefalias{theorem}{assumption}}
+\AtBeginEnvironment{lemma}{\crefalias{theorem}{lemma}}
+\AtBeginEnvironment{proposition}{\crefalias{theorem}{proposition}}
+\AtBeginEnvironment{corollary}{\crefalias{theorem}{corollary}}
+\AtBeginEnvironment{question}{\crefalias{theorem}{question}}
+\AtBeginEnvironment{remark}{\crefalias{theorem}{remark}}
+\AtBeginEnvironment{definition}{\crefalias{theorem}{definition}}
+\AtBeginEnvironment{example}{\crefalias{theorem}{example}}
+\AtBeginEnvironment{notation}{\crefalias{theorem}{notation}}
+\AtBeginEnvironment{problem}{\crefalias{theorem}{problem}}
 
 % Redefine the Example environment to include "End of example [number]"
 \makeatletter
@@ -404,7 +412,7 @@ This example motivates the following theorem.
   \end{equation*}
 \end{theorem}
 
-\begin{example}[Arc length] 
+\begin{example}[Arc length]
   Find the length of the curve defined by $f(x) = 2 x^{3/2}$, where $x$ ranges from $x=0$
   to $x=2$.
 
@@ -486,14 +494,6 @@ example, we'll consider the simplest case.
 
 \begin{example}[Arc length]
   \label{ex:arc-length-sinh}
-
-
-  % which has general equation
-  % \begin{equation*}
-  %   y = a\cosh \left( \frac{x-h}{a} \right)+k,
-  % \end{equation*}
-  % where $a>0$, $h$ and $k$ are physical parameters.
-
   Suppose $f(x)=\cosh(x)$ represents a chain from two endpoints at $x=-3$ and
   $x=3$. Find the length of the chain.
 
@@ -614,9 +614,8 @@ example, we'll consider the simplest case.
   \end{align*}
   The last step, where we write the equation as a perfect square, is kinda hard to see. But since we're
   familiar with \cref{ex:arc-length-sinh}, we know to possibly expect something like that.
-
   
-  Now, we can apply the formul from \cref{thm:arc-length-formula}:
+  Now, we can apply the formula from \cref{thm:arc-length-formula}:
   \begin{align*}
     \text{Arc Length} 
     &= \int_{1}^{2} \sqrt{1+\left[ f'(x) \right]^{2} }dx\\
@@ -1004,6 +1003,8 @@ Here's another example
     \left\{ \begin{array}{l@{}l} y = 2 \left( 1-\frac{x}{5} \right) \\ 0 \leq x \leq 5 \end{array}\right.
   \end{equation*}
 \end{example}
+
+\section{2026-08-31 | Week 02 | Lecture 04}
 
 \begin{example}[An ellipse, parametrized]
   \label{ex:an-ellipse}
