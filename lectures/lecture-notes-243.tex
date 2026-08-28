@@ -759,6 +759,7 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
 
 \end{example}
 
+\newpage
 \section{2026-08-28 | Week 01 | Lecture 03}
 
 
@@ -771,11 +772,10 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
 \subsection{Plotting parametric equations}
 \begin{example}
   \label{ex:parametric-equation-example-2}
-  \textit{Question:} Plot the graph of the parametric equations
+  \textit{Question:} Plot the graph of the parametric equation
   \begin{equation*}
-    (x,y) = (t^{2}+t,t^{2}-t)
+    r(t) = (t^{2}+t,t^{2}-t), \quad -2 \leq t \leq 2
   \end{equation*}
-  as the parameter $t$ ranges over $I=[-2,2]$.
 
   \textit{Solution:} Again, we plot some points by making a table.
   \begin{center}
@@ -821,7 +821,7 @@ The \demph{parametric equation} is the picture I draw by walking around the whit
   \textit{Solution:} The graphs of parametric equations are easy to shift. The parameteric equations defining the
   shifted graph are
   \begin{equation*}
-    (x,y) = (t^{2}+t+3, t^{2}-t -2)
+    r(t) = (t^{2}+t+3, t^{2}-t -2)
   \end{equation*}
   We've simply added 3 to the $x$-value and subtracted $2$ from the $y$-value. To see why this is the case, observe what
   happens to the points in the plot from \cref{ex:parametric-equation-example-2}:
@@ -875,6 +875,7 @@ graphs.
   \label{ex:parametric-curve-with-singularity}
   Here's an example of a plot of the parametric curve
   \begin{equation*}
+    r(t) =
     \begin{pmatrix}
       x\\y
     \end{pmatrix}=
@@ -924,12 +925,12 @@ In fact, it is always possible to convert an equation from rectangular form into
 with the next example:
 \begin{example}[Converting from rectangular form to parametric form]
   \label{ex:converting-from-rectangular-form-to-parametric-form}
-  Consider the equation $y=x^{2}$, which is in rectangular form. This is an upward-opening parabola. There are many ways
-  to represent this in parametric form. The simplest is with the parametric equations
+  Consider the equation $y=x^{2}$, which is in rectangular form. This is an
+  upward-opening parabola. There are many ways to represent this in parametric
+  form. The simplest is with the parametric equations
   \begin{equation*}
-    (x,y) = (t,t^{2})
+    r(t) = (t,t^{2}), \qquad \infty<t<\infty.
   \end{equation*}
-  where $t$ ranges over the interval $(-\infty,\infty)$.
 \end{example}
 
 \begin{example}[Converting from parametric form to rectangular form]
@@ -959,9 +960,9 @@ Here's another example
   \label{ex:a-homework-problem}
   Consider the parametric equations
   \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=5\cos^{2}(\theta) \\ y=2 \sin^{2}(\theta) \end{array}\right.
+    \left\{ \begin{array}{l@{}l} x=5\cos^{2}(\theta) \\ y=2 \sin^{2}(\theta) \end{array}\right.,
+    \qquad 0 \leq \theta \leq 2\pi.
   \end{equation*}
-  with $0 \leq \theta \leq 2\pi$.
 
   I plotted this using a computer and got the following. It is a line segment:
 
@@ -1008,10 +1009,14 @@ Here's another example
   \label{ex:an-ellipse}
   What if we slightly modify the equations from the \cref{ex:a-homework-problem}? Consider the parametric equations
   \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=5\cos(\theta) \\ y=2 \sin(\theta) \end{array}\right.
+    \left\{ 
+      \begin{array}{l@{}l} x=5\cos(\theta) \\ y=2 \sin(\theta) \end{array}\right., \qquad 0 
+    \leq \theta 
+    \leq 2\pi
   \end{equation*}
-  with $0 \leq \theta \leq 2\pi$. Here, the only difference from the equations in \cref{ex:a-homework-problem} is that
-  we have removed the squares. Now we get a very different looking curve: an ellipse.
+  Here, the only difference from the equations in \cref{ex:a-homework-problem}
+  is that we have removed the squares. Now we get a very different looking
+  curve: an ellipse.
   \begin{center}
     \begin{tikzpicture}[scale=.8]
       % Define parameters
