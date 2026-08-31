@@ -31,7 +31,7 @@
 \usepackage[capitalize]{cleveref}
 \usepackage[shortlabels]{enumitem}
 \usetikzlibrary{arrows,matrix,positioning}
-\usepackage{multicol}
+\usetikzlibrary{arrows.meta,calc}
 
 % for the pipe symbol
 \usepackage[T1]{fontenc}
@@ -238,6 +238,7 @@
 \end{center}
 
 \subsection{Arc Length}
+\label{sec:arc-length}
 
 
 First, recall the definition of \demph{derivative}:
@@ -1005,36 +1006,518 @@ Here's another example
 \end{example}
 
 \section{2026-08-31 | Week 02 | Lecture 04}
+\textbf{Reading assignment:} Chapter 11.2 ``Calculus in Parametric Curves''
 
-\begin{example}[An ellipse, parametrized]
-  \label{ex:an-ellipse}
-  What if we slightly modify the equations from the \cref{ex:a-homework-problem}? Consider the parametric equations
+This is probably the most important lecture I will give this semester, so
+please try to understand it in detail.
+
+\subsection{Ellipses}
+\begin{definition}[Ellipse]
+  An \demph{ellipse} centered at $(h,k)$ with horizontal radius $a>0$ and vertical
+  radius $b>0$ has equation
   \begin{equation*}
-    \left\{ 
-      \begin{array}{l@{}l} x=5\cos(\theta) \\ y=2 \sin(\theta) \end{array}\right., \qquad 0 
-    \leq \theta 
-    \leq 2\pi
+    \left( \frac{x-h}{a} \right) ^2+\left( \frac{y-k}{b} \right)^2=1.
   \end{equation*}
-  Here, the only difference from the equations in \cref{ex:a-homework-problem}
-  is that we have removed the squares. Now we get a very different looking
-  curve: an ellipse.
-  \begin{center}
-    \begin{tikzpicture}[scale=.8]
-      % Define parameters
-      \def\a{5} % semi-major axis
-      \def\b{2} % semi-minor axis
-      
-      % Parametric curve for the ellipse
-      \draw[blue, domain=0:360, samples=100] plot ({\a*cos(\x)}, {\b*sin(\x)});
-      
-      % Axis
-      \draw[<->] (-6,0) -- (6,0) node[right] {\(x\)}; \draw[<->] (0,-2.5) -- (0,2.5) node[above] {\(y\)};
+\end{definition}
 
-      % Vertical tick marks and labels
-      \draw (-5,0.2) -- (-5,-0.2) node[below left] {\(-5\)}; \draw (5,0.2) -- (5,-0.2) node[below right] {\(5\)}; \draw
-      (-0.2,-2) -- (0.2,-2) node[below right] {\(-2\)}; \draw (-0.2,2) -- (0.2,2) node[above right] {\(2\)};
+
+\begin{example}[Eliminating a parameter]
+  \label{ex:eliminating-parameter}
+  Eliminate the parameter $t$ in the parametric system of equations
+  \begin{equation}\label{eq:ellipse-parameterization-example}
+    \left\{ \begin{array}{l@{}l} x=4\cos(t)+3 \\ y=2\sin(t)+1\end{array}\right.
+  \end{equation}
+
+  The trig identity $\sin^{2}(t) + \cos^{2}(t)=1$ served us well in \cref{ex:a-homework-problem}, so
+  let's try to use that.  First, solve for $\sin(t)$ and $\cos(t)$:
+
+  \begin{equation}\label{eq:9}
+    \sin(t) = \frac{y-1}{2}, \qquad \cos(t) = \frac{x-3}{4}.
+  \end{equation}
+
+  By the trig identity, we have
+  \begin{equation*}
+    \cos^{2}(t) + \sin^{2}(t)  = 1.
+  \end{equation*}
+  Substituting in the formulas from \cref{eq:9} gives:
+  \begin{equation*}
+    \left( \frac{x-3}{4} \right)^{2} + \left( \frac{y-1}{2} \right)^{2}=1,
+  \end{equation*}
+  This is the equation of an ellipse, with center $(3,1)$ and with horizontal
+  and vertical axes 4 and 2 respectively. These numbers can be read off of
+  \cref{eq:ellipse-parameterization-example}.
+
+  The plot is
+  \begin{center}
+    \begin{tikzpicture}[scale=.75,>=Stealth]
+      % Axes
+      \draw[->] (-2,0) -- (8,0) node[right] {$x$};
+      \draw[->] (0,-2) -- (0,4) node[above] {$y$};
+
+      % Tick marks
+      \foreach \x in {-1,1,2,3,4,5,6,7}
+      \draw (\x,.08) -- (\x,-.08) node[below] {\small $\x$};
+      \foreach \y in {-1,1,2,3}
+      \draw (.08,\y) -- (-.08,\y) node[left] {\small $\y$};
+
+      % Ellipse: center (3,1), horizontal radius 4, vertical radius 2
+      \draw[blue,very thick] (3,1) ellipse (4 and 2);
+
+      \fill (3,1) circle (1.5pt);
+      \node[below right] at (3,1) {$(3,1)$};
     \end{tikzpicture}
   \end{center}
+
+  At time $t=0$, the ant starts at position $(x,y) = (7,1)$ and then marches
+  counter-clockwise around the ellipse. At $t=\pi/2$, it reaches the point
+  $(3,3)$. At time $t=\pi$ it reaches $(-1,1)$. At time $t=2\pi$, the ant
+  returns to the point where it started $(7,1)$.
 \end{example}
+
+\subsection{Parameterized curves: velocity, speed, and direction}
+  Suppose an ant is walking along the curve in the $xy$-plane defined by the
+  parametric equation
+  \begin{equation*}
+    \mathbf{r}(t) =
+    \begin{bmatrix}
+      x(t)\\
+      y(t)
+    \end{bmatrix},
+    \qquad a \leq t \leq b
+  \end{equation*}
+  where $t$ represents time.
+
+  \noindent
+  \begin{minipage}[t]{.4\textwidth}
+    \vspace{0pt}
+    \textbf{Three questions:}
+    \begin{itemize}
+      \item what is the ant's velocity?
+      \item how fast is the ant walking?
+      \item what direction is the ant facing?
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{.6\textwidth}
+    \vspace{1em}
+    \centering
+      \begin{tikzpicture}[
+        scale=.6, >=Stealth, curve/.style={blue!70!black,very thick},
+        tangent/.style={red!70!black,thin,densely dashed},
+        velocity/.style={red!80!black,very thick,->},
+        normal/.style={green!45!black,thick,densely dashed}]
+        % An illustrative curve: y=0.15x^2
+        \draw[curve] plot[domain=0.3:5.2,samples=100] (\x,{0.15*\x*\x});
+        % The point r(t)=(3,1.35)
+        \coordinate (P) at (3,1.35);
+        % % The tangent direction is (1,0.9)
+        % \draw[tangent] (1.3,-0.18)--(4.6,2.79) node[right] {tangent line};
+        % % A perpendicular direction is (-0.9,1)
+        % \draw[normal,<->] (2.1,2.35)--(3.9,0.35) node[below right] {normal line};
+        % Velocity vector
+        \draw[velocity] (P)--(4.35,2.565) node[pos=0.72,below right] {$\mathbf r'(t)$};
+        % Ant centered at P and facing in the tangent direction
+        \begin{scope}[shift={(3,1.35)},rotate=42,scale=1.25]
+          % Legs
+          \draw[brown!80!black,line width=0.7pt] (-0.10,0.06)--(-0.23,0.18)--(-0.35,0.20);
+          \draw[brown!80!black,line width=0.7pt] (0,0.07)--(-0.02,0.23)--(-0.08,0.30);
+          \draw[brown!80!black,line width=0.7pt] (0.10,0.06)--(0.21,0.18)--(0.32,0.20);
+          \draw[brown!80!black,line width=0.7pt] (-0.10,-0.06)--(-0.23,-0.18)--(-0.35,-0.20);
+          \draw[brown!80!black,line width=0.7pt] (0,-0.07)--(-0.02,-0.23)--(-0.08,-0.30);
+          \draw[brown!80!black,line width=0.7pt] (0.10,-0.06)--(0.21,-0.18)--(0.32,-0.20);
+          % Body
+          \fill[brown!55!black] (-0.18,0) circle (0.10);
+          \fill[brown!55!black] (0,0) ellipse (0.14 and 0.10);
+          \fill[brown!55!black] (0.22,0) circle (0.13);
+          % Antennae
+          \draw[brown!80!black,line width=0.7pt] (0.31,0.07)--(0.43,0.17)--(0.52,0.18);
+          \draw[brown!80!black,line width=0.7pt] (0.31,-0.07)--(0.43,-0.17)--(0.52,-0.18);
+        \end{scope}
+        \fill (P) circle (1.3pt);
+        \node[below right] at (3.2,1.5) {$\mathbf r(t)$};
+      \end{tikzpicture}
+  \end{minipage}
+
+  \vspace{1em}
+  \noindent\textbf{Answers:}
+  \begin{equation*}
+    \text{velocity} = \mathbf{r}'(t), \qquad \text{speed}= |\mathbf{r}'(t)|, \qquad \text{direction}= \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}.
+  \end{equation*}
+  
+  We'll explain them one-by-one.
+  
+  \paragraph{Velocity.} First, recall that \demph{velocity} is defined as the
+  derivative of position with respect to time. The ant's position at time $t$
+  is $\mathbf{r}(t)$. Therefore its velocity at time $t$ is
+  \begin{equation}\label{eq:ants-velocity}
+    \mathbf{v}(t) = \mathbf{r}'(t) =
+    \begin{bmatrix}
+      x'(t)\\
+      y'(t)
+    \end{bmatrix}.
+  \end{equation}
+
+  To see geometrically why this is natural, let $\Delta t>0$ represent a small
+  amount of time. The ant's position at time $t$ and $t+\Delta t$ are
+  \begin{equation*}
+    \mathbf{r}(t) \quad \text{and} \quad \mathbf{r}(t+\Delta t).
+  \end{equation*}
+  The ant's average velocity between times
+  $t$ and $t+\Delta t$ is
+  \begin{equation*}
+    (\text{average velocity}) = \frac{\text{displacement}}{\text{length of time}}
+    =
+    \frac{\mathbf r(t+\Delta t)-\mathbf r(t)}{\Delta t}.
+  \end{equation*}
+  As $\Delta t\to0$, the average velocity converges to the instantaneous
+  velocity $\mathbf{v}(t)$; the right-hand side converges to $r'(t)$ (by the
+  definition of derivative). Hence
+  \begin{equation*}
+    \mathbf{r}'(t) = (\text{velocity at time }t).
+  \end{equation*}
+  The vector $\mathbf{r}'(t)$ contains two pieces of information: how fast the ant is
+  moving and which way it is moving.
+
+
+  \paragraph{Speed.}
+  Recall that the \demph{magnitude} of a vector $\mathbf{v}$, denoted $|\mathbf{v}|$ is the
+  length of the vector. That is, if $\mathbf{v}=(v_{1},\ldots,v_{n})$, then
+  \begin{equation*}
+    |\mathbf{v}| = \sqrt{v_{1}^{2}+\ldots+v_{n}^{2}}.
+  \end{equation*}
+  The \demph{speed} of a moving object is the magnitude
+  of its velocity. Therefore, the ant's speed at time $t$ is
+  \begin{equation*}
+    \left| \mathbf v(t) \right|
+    =|\mathbf r'(t)|\\
+    =\sqrt{x'(t)^2+y'(t)^2}.
+  \end{equation*}
+  
+ \paragraph{Direction.}
+ We know the velocity points in the direction the ant is traveling. The vector
+ \begin{equation*}
+   \frac{\mathbf{v}(t)}{|\mathbf{v}(t)|}=\frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
+ \end{equation*}
+ is simply velocity divided by speed (provided the speed is nonzero!). This
+ vector points in the same direction as the velocity and has length~1, so it
+ records the direction of motion without recording the speed. (This is useful
+ for certain applications.)
+
+ \subsection{Arc length of a parameterized curve}
+
+ If the ant walks at a constant speed, then
+ \begin{equation*}
+   (\text{distance traveled})=(\text{speed})\times(\text{time}).
+ \end{equation*}
+
+ If its speed varies, break the journey into many tiny pieces. During each
+ tiny time interval $[t, t+\Delta t]$, her speed is nearly constant, so
+ \begin{equation*}
+   (\text{distance traveled from time $t$ to $t+\Delta t$})
+   \approx \underbrace{ |\mathbf{r}'(t)|}_{\text{speed at
+       $t$}} \hspace{-.4em}\times\, \Delta t.
+ \end{equation*}
+ This is the same idea presented in \cref{sec:arc-length}, see the figure in
+ that section.
+ 
+ Formally, if the ant starts at time $t=a$ and ends at time $t=b$, we break
+ the time interval into $n$ pieces:
+ \begin{equation*}
+   a=t_{0}<t_{1}<t_{2}<\cdots <t_{n} = b
+ \end{equation*}
+ and put
+ \begin{equation*}
+   \Delta t_{i} = t_{i+1}-t_{i}.
+ \end{equation*}
+ Then
+ \begin{equation*}
+   (\text{Approx.~distance traveled})= \sum_{i=0}^{n-1} |\mathbf{r}'(t_{i})|\Delta t_{i}
+ \end{equation*}
+ Geometrically, the right-hand side is the sum of many small straight line
+ segments which approximate the curve (see the figure in
+ \cref{sec:arc-length}) As $n \to \infty$ and the time intervals get smaller
+ (i.e., as $\max_{i}\Delta t_{i}\to 0$), the approximation gets better and
+ better, and the right hand side (which is a Riemann sum) converges to an
+ integral:
+ \begin{equation*}
+   (\text{Distance traveled}) = \int_{a}^{b}|\mathbf{r}'(t)|dt.
+ \end{equation*}
+ Since $|\mathbf{r}'(t)|  = \sqrt{ \left[ f'(t) \right]^{2}+ \left[ g'(t) \right]^{2}
+ }$, we obtain the following theorem:
+
+ \begin{theorem}[Arc Length of a Parameterized Curve]
+   \label{thm:arc-length-parametric-curves}
+   Consider the parameterized curve
+   \begin{equation*}
+     \mathbf{r}(t)=
+     \begin{bmatrix}
+       x(t)\\y(t)
+     \end{bmatrix},\qquad a\leq t\leq b.
+   \end{equation*}
+   Then the distance traveled along the curve is
+   \begin{equation}\label{eq:distance-arc-length-formula}
+     ({\rm Distance}) = \int_{a}^{b}|\mathbf{r}'(t)|dt = \int_a^b\sqrt{x'(t)^2+y'(t)^2}\,dt,
+   \end{equation}
+   provided that the curve is smooth.
+
+   Further, if the parameterization traces the curve only once, this is the
+   arc length of the curve.
+ \end{theorem}
+ 
+ \begin{remark}
+   The integrals in \cref{eq:distance-arc-length-formula} are typically
+   difficult to compute by hand. The meaning of smooth will be discussed
+   later.
+ \end{remark}
+ \newpage
+
+\end{document}
+
+ 
+ 
+ \section{2026-09-04 | Week 02 | Lecture 06}
+ 
+ \begin{example}[Arc length of a circle]
+   \label{ex:arc-length-circle}
+
+   Consider the circle parameterized by the equationss
+   \begin{equation*}
+     \left\{ \begin{array}{l@{}l} x(t)=3\cos t \\ y(t) = 3\sin t \end{array}\right.
+   \end{equation*}
+   where $t$ ranges over the interval $[0,2\pi]$. What is the arc length?
+
+   \textit{Solution:} Here $f(t) = 3\cos(t)$ and $g(t) = 3\sin(t)$. Using the formula from \cref{thm:arc-length-parametric-curves}
+   \begin{align*}
+     L 
+     &= \int_{0}^{2\pi} \sqrt{f'(t)^{2}+g'(t)^{2}}dt\\
+     &= \int_{0}^{2\pi} \sqrt{(-3\sin t)^{2}+(3\cos t)^{2}}dt\\
+     &= 3 \int_{0}^{2\pi} \sqrt{\sin^{2}(t)+\cos^{2}(t)}dt\\ 
+     &= 3 \int_{0}^{2\pi} 1 dt &&\text{since $\sin^{2}(t)+\cos^{2}(t) =1$}\\ 
+     &= 6\pi.
+   \end{align*}
+   Taking a step back. What was this question really asking? It was asking for the circumference of a circle with radius
+   $3$ (since that's the curve traced out by the equations). Using the formula
+   \begin{equation*}
+     \text{circumference} = 2\pi (\text{radius}),
+   \end{equation*}
+   our answer $6\pi^{2}$ makes sense.
+ \end{example}
+
+
+ 
+ \begin{example}[Arc length]
+   What is the arc length of the curve parameterized by the equations
+   \begin{equation*}
+     \left\{ \begin{array}{l@{}l}
+         x(t) = \frac{7}{3}t^{3}+t \\
+         y(t) = \frac{2}{3}\left( 2t^{2}+\frac{1}{4} \right)^{3/2}  \end{array}\right.
+   \end{equation*}
+   for $0 \leq t \leq 2$?
+   
+   \noindent \textit{Solution:}
+
+   Step 1. Compute $x'(t)$ and $y'(t)$:
+   \begin{equation*}
+     x'(t) = 7t^{2}+1
+     \quad \text{and} \quad 
+     y'(t) = \left(2t^{2}+\frac{1}{4}\right)^{\frac{1}{2}}\cdot 4t.
+   \end{equation*}
+
+   Step 2. Compute $\left[ x'(t) \right]^{2}+\left[ y'(t) \right]^{2}$ and simplify.
+   \begin{align*}
+     \left[ x'(t) \right]^{2}+\left[ y'(t) \right]^{2} 
+     &=\left[ 7t^{2}+1 \right]^{2} + \left[ \left( 2t^{2}+\frac{1}{4} \right)^{\frac{1}{2}}\cdot 4t  \right]^{2}\\  
+     &= 49 t^{4} + 14 t^{2}+1 + \left( 2t^{2}+\frac{1}{4} \right)\cdot 16t^{2}\\ 
+     &= 49t^{4}+ 14 t^{2} + 1 + 32 t^{4}+ 4 t^{2}\\
+     &= 81 t^{4}+ 18 t^{2}+1.
+   \end{align*}
+
+   Step 3. Recognize that you've got a perfect square:
+   \begin{equation*}
+     81 t^{4}+ 18 t^{2}+1 = \left( 9t^{2}+1 \right)^{2}
+   \end{equation*}
+
+   \quad \textit{(Step 3 doesn't always happen, but it's \textit{really} nice when it does!)}
+   
+
+   Step 4. Plug what you get back into the formula from \cref{thm:arc-length-parametric-curves}:
+
+   \begin{align*}
+     \text{Arc Length} 
+     &= \int_{0}^{2}  \sqrt{\left[ x'(t) \right]^{2} + \left[ y'(t) \right]^{2}  } dt\\
+     &= \int_{0}^{2} \sqrt{ \left( 9t^{2}+1 \right)^{2} }dt\\ 
+     &= \int_{0}^{2}  (9t^{2}+1) dt\\
+     &= \left[ 3t^{3} + t \right]^{2}_{0}\\ 
+     &= 26.
+   \end{align*}
+   
+   We conclude that the arc length is 26.
+ \end{example}
+
+
+ \newpage
+
+
+ \section{2026-09-02 | Week 02 | Lecture 05}
+
+
+ 
+ \subsection{Smoothness of parameterized curves}
+
+ \begin{definition}[$C^1$ function]
+   A function $f$ is said to be \demph{continuously differentiable} on the
+   interval $[a,b]$ if $f$ is differentiable on $[a,b]$ and $f'$ is continuous.
+   As shorthand, we write
+   \begin{equation*}
+     f\in C^{1}[a,b].
+   \end{equation*}
+ \end{definition}
+ \begin{definition}[Smooth]
+   A curve $C$ defined by the parametric equations
+   \begin{equation*}
+     \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
+   \end{equation*}
+   is \demph{smooth} if $f,g\in C^{1}([a,b])$ and $f'(t)$ and $g'(t)$ are never
+   simultaneously zero.
+
+   A curve is \demph{piecewise smooth} on $[a,b]$ if it can be partitioned into
+   subintervals such that $C$ is smooth on each subinterval.
+ \end{definition}
+
+ \begin{example}[A non-smooth curve]
+   \label{ex:non-smooth-curve}
+   Consider the equations
+   \begin{equation*}
+     \left\{ \begin{array}{l@{}l} x(t):=\cos^{3}(t) \\ y(t) := \sin^{3}(t) \end{array}\right. \qquad 0 \leq t \leq 2\pi.
+   \end{equation*}
+   This has graph
+   \begin{center}
+     \includegraphics[scale=.2]{images/astroid}
+   \end{center}
+   This sure doesn't look smooth, because it has pointy cusps! Let's show that using the definition.
+
+   First, differentiate:
+   \begin{equation*}
+     \left\{ \begin{array}{l@{}l} x'(t) = -3\cos^{2}(t)\sin(t) \\ y'(t) = 3\sin^{2}(t)\cos(t) \end{array}\right.
+   \end{equation*}
+   Are these functions ever simultaneously zero? Yes, when $t$ takes one of the
+   following values:
+   \begin{equation*}
+     0, \quad \frac{\pi}{2}, \quad \pi, \quad \frac{3\pi}{2}, \quad \text{or} \quad 2\pi.
+   \end{equation*}
+   Therefore the curve is not smooth (although it is piecewise smooth).
+ \end{example}
+  \subsection{Parameterized curves: tangent line and normal line}
+
+  Let's change notation, and suppose the ant is walking along the curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x = f(t) \\ y=g(t) \end{array}\right., \qquad a \leq t \leq b.
+  \end{equation*}
+
+  
+  At any given instant the ant is facing some direction (the direction of $r'(t)$), and we can draw a
+  line in that direction. The derivative $\frac{dy}{dx}$ is the \textit{slope
+    of that line}.
+
+  How can we find $\frac{dy}{dx}$? The answer to this question is the
+  following important idea:
+
+  \begin{center}
+    \colorbox{gray!20}{%
+      \begin{minipage}{0.8\textwidth}
+        \begin{equation}\label{eq:dydx-of-parametric-curve}
+          \frac{dy}{dx}(t) = \frac{dy/dt}{dx/dt}=\frac{g'(t)}{f'(t)}
+        \end{equation}
+      \end{minipage}%
+    }
+  \end{center}
+  This idea so important I've put it in a box.
+
+\Cref{eq:dydx-of-parametric-curve} is valid provided that the following
+two assumptions hold:
+\begin{itemize}
+  \item $f$ and $g$ are both differentiable (otherwise $f'$ and $g'$ wouldn't exist)
+  \item $f'(t)\neq 0$ (otherwise we'd have divsion by zero)
+\end{itemize}
+
+\begin{definition}[Tangent Line and Normal Line]
+  \label{def:tangent-line-and-normal-line}
+  Let $C$ be a curve in the $xy$-plane parameterized by
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
+  \end{equation*}
+  where $f,g:I\to \R$ are differentiable functions. Let $s$ be a point in $I$.
+  \begin{itemize}
+    \item The \demph{tangent line} to $C$ at $t=s$ is the line
+    \begin{equation*} y-g(s) = \frac{g'(s)}{f'(s)}\left(x-f(s)\right),
+    \end{equation*} provided that $f'(s)\neq 0$. 
+    \item The \demph{normal line} to $C$ at $t=s$ is the line
+    \begin{equation*}
+      y-g(s) = -\frac{f'(s)}{g'(s)}\left(x-f(s)\right),
+    \end{equation*}
+    provided that $g'(s)\neq 0$. 
+  \end{itemize}
+\end{definition}
+\begin{remark}
+  Both the tangent line and the normal line pass through the point $(x,y)=(f(s),g(s))$, which lies on the curve. The
+  only difference is their slope. The tangent line has slope
+  \begin{equation*}
+    m_{\rm tan} = \frac{g'(s)}{f'(s)} = \frac{dy}{dx}(s)
+  \end{equation*}
+  while the normal line has slope
+  \begin{equation*}
+    m_{\rm norm}=-\frac{f'(s)}{g'(s)} = -\frac{1}{\frac{dy}{dx}(s)}.
+  \end{equation*}
+  Since
+  \begin{equation*}
+    m_{\rm tan} = -\frac{1}{m_{\rm norm}}
+  \end{equation*}
+  it follows that the two lines are perpendicular to each other: the tangent line lies tangent to the curve, while the
+  normal line is perpendicular to it.
+\end{remark}
+
+\begin{example}[Tangent and normal lines]
+  \label{ex:tangent-and-normal-lines}
+  Let $C$ be the curve defined by
+  \begin{equation}\label{eq:10}
+    \left\{ \begin{array}{l@{}l} x(t) = 5t^{2}-6t+4 \\ y(t) = t^{2}+6t-1 \end{array}\right.
+  \end{equation}
+  \noindent\textit{Problem:}  Find the tangent line and normal line to $C$ at $t=3$.
+  
+  \noindent\textit{Solution:} For this problem, we have $f(t) = 5t^{2}-6t+4$ and $g(t) = t^{2}+6t-1$.
+
+  Before we start, this is the picture:
+
+  \begin{center}
+    \includegraphics[scale=.3]{images/tangent-normal-lines}
+  \end{center}
+
+  Differentiate:
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} f'(t)  = 10t -t \\ g'(t) = 2t+6  \end{array}\right.
+  \end{equation*}
+
+  Therefore
+  \begin{equation}\label{eq:11}
+    \frac{dy}{dx}(t) = \frac{f'(t)}{g'(t)}=\frac{2t+6}{10t-6}.
+  \end{equation}
+  Important note: $\frac{dy}{dx}$ is a function of $t$. It is not a function of $x$!
+
+  At the point $t=3$, we have:
+  \begin{itemize}
+    \item $(x,y)=(31, 26)$ (by \cref{eq:10})
+    \item The slope is $\frac{dy}{dx}(3) = \frac{1}{2}$ (by \cref{eq:11})
+  \end{itemize}
+  Combining these two facts, and using \cref{def:tangent-line-and-normal-line}, we conclude that the tangent line is
+  \begin{equation*}
+    y-26 = \frac{1}{2}(x-31)
+  \end{equation*}
+  (this is the equation of a line in point-slope form). Here, we have $m_{\rm tan}=\frac{1}{2}$. The slope of the normal line is
+  always $-\frac{1}{m_{\rm tan}}$, which is $-2$. We conclude that the normal line is
+  \begin{equation*}
+    y-26 = -2(x-31).
+  \end{equation*}
+\end{example}
+
 
 \end{document}

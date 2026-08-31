@@ -15,6 +15,8 @@ title: Lecture Notes
 ----------------------|-------------
  2026-08-24  |  syllabus, arc length of graph curves
  2026-08-26  |  arc length examples, intro to parametric curves
+ 2026-08-28  |  arc length examples, converting between parametric and Cartesian form
+ 2026-08-31  |  ellipse, parameterized curves: velocity, speed, direction, distance, and arc length
  
 # Other links
 
