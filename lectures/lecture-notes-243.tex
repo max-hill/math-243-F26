@@ -1217,8 +1217,6 @@ please try to understand it in detail.
    \approx \underbrace{ |\mathbf{r}'(t)|}_{\text{speed at
        $t$}} \hspace{-.4em}\times\, \Delta t.
  \end{equation*}
- This is the same idea presented in \cref{sec:arc-length}, see the figure in
- that section.
  
  Formally, if the ant starts at time $t=a$ and ends at time $t=b$, we break
  the time interval into $n$ pieces:
@@ -1233,12 +1231,17 @@ please try to understand it in detail.
  \begin{equation*}
    (\text{Approx.~distance traveled})= \sum_{i=0}^{n-1} |\mathbf{r}'(t_{i})|\Delta t_{i}
  \end{equation*}
- Geometrically, the right-hand side is the sum of many small straight line
- segments which approximate the curve (see the figure in
- \cref{sec:arc-length}) As $n \to \infty$ and the time intervals get smaller
- (i.e., as $\max_{i}\Delta t_{i}\to 0$), the approximation gets better and
- better, and the right hand side (which is a Riemann sum) converges to an
- integral:
+ Geometrically, each term $|\mathbf{r}'(t_{i})|\Delta t_{i}$ is the distance
+ the ant would travel if it moved in a straight line, at constant speed
+ $|\mathbf{r}'(t_{i})|$, for $\Delta t_{i}$ units of time. Stringing these
+ segments together gives a path made of straight pieces which approximates
+ the curve, in the same spirit as the polygonal approximation in
+ \cref{sec:arc-length}.
+
+ As $n \to \infty$ and the time
+ intervals get smaller (i.e., as $\max_{i}\Delta t_{i}\to 0$), the
+ approximation gets better and better, and the right hand side (which is a
+ Riemann sum) converges to an integral:
  \begin{equation*}
    (\text{Distance traveled}) = \int_{a}^{b}|\mathbf{r}'(t)|dt.
  \end{equation*}
