@@ -1274,7 +1274,6 @@ please try to understand it in detail.
  \end{remark}
  \newpage
 
-\end{document}
 
  
  
@@ -1520,6 +1519,174 @@ two assumptions hold:
   \begin{equation*}
     y-26 = -2(x-31).
   \end{equation*}
+\end{example}
+
+
+
+
+\subsection{Concavity of parameterized curves}
+The concavity of a differentiable function is determined by its second derivative. For example, the graph
+\begin{equation*}
+  f(x) = x^{2}
+\end{equation*}
+is concave up. Moreover, $f''(x) = 2>0$.
+
+What about $f(x) = x^{3}+1$? This has graph
+
+\begin{center}
+  \begin{tikzpicture}[scale=1.5]
+    % Draw axes
+    \draw[->] (-2,0) -- (2,0) node[right] {$x$}; \draw[->] (0,-1) -- (0,3) node[above] {$f(x)$};
+    
+    % Draw function
+    \draw[domain=-1.1:1.1, smooth, variable=\x, blue] plot ({\x},{\x*\x*\x + 1});
+    
+    % Add labels
+    \node[below left] at (0,0) {$0$}; \node[right] at (1.5,2.75) {$f(x) = x^3 + 1$};
+  \end{tikzpicture}
+\end{center}
+Tihs graph is concave down when $x<0$ and concave up when $x>0$. The concavity is determined by whether the second
+derivative of $f$ is positive or negative:
+\begin{equation*}
+  f''(x) = 6x = \left\{ \begin{array}{l@{\quad:\quad}l} \text{positive} &x>0 \\ \text{negative}&x<0 \end{array}\right.
+\end{equation*}
+This is a general property of twice-differentiable functions: when $f''(x)<0$, the graph is concave down. When
+$f''(x)>0,$ the graph is concave up. Just like in the following picture:
+
+\begin{center}
+  \begin{tikzpicture}[scale=1]
+    % Smiley face
+    \draw (0,0) circle (1); \draw (0.1,0.3) -- (0.3,0.3); \draw (0.2,0.4) -- (0.2,0.2); \draw (-0.3,0.3) -- (-0.1,0.3);
+    \draw (-0.2,0.4) -- (-0.2,0.2); \draw (-.3,-0.2) arc (-180:0:0.3);
+    
+    % Frowny face
+    \begin{scope}[xshift=3cm]
+      \draw (-0.3,0.3) -- (-0.1,0.3); \draw (0.1,0.3) -- (0.3,0.3); \draw (0,0) circle (1); \draw (.35,-0.4) arc
+      (0:180:0.3);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+
+
+\Fl{With parameterized curves, the story is no different, but we'll need to learn how to compute the second derivative
+  $\frac{d^{2}y}{dx^{2}}$, as we now show.}
+
+Consider a curve
+\begin{equation*}
+  \left\{ \begin{array}{l@{}l} x = f(t) \\ y= g(t) \end{array}\right.
+\end{equation*}
+so that $f,g$ are twice differentiable on the inteval $I$ and $f'(t)\neq 0$ on $I$.
+
+We have already seen how to compute
+\begin{equation*}
+  \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{g'(t)}{f'(t)}.
+\end{equation*}
+
+What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
+
+\begin{equation}\label{eq:2nd-derivative-for-parameterized-curves}
+  \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}= \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{f'(t)}
+\end{equation}
+\begin{example}[Concavity of a parameterized curve]
+  Let $C$ be the curve defined by the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x(t) = \frac{1}{2}t^{2}+\frac{1}{2} \\ y(t) = t-t^{3} \end{array}\right.
+  \end{equation*}
+  \begin{enumerate}[(a)]
+    \item Find the tangent line to $C$ at $t=1$.
+    \item For what values of $t$ is the curve convex up? For what values is it concave down?
+    \item At what points $(x,y)$ does the curve have a horizontal tangent line? Vertical tangent line?
+  \end{enumerate}
+
+  \Fl{Solution to (a):} To apply the line formula $y-y_{0} = m(x-x_{0})$, we need two things: (1) the
+  point $(x(1),y(1))$ and the slope at $t=1$.
+
+  First observe that
+  \begin{equation*}
+    (x(1),y(1)) = (1,0)
+  \end{equation*}
+
+  Second, to compute the slope:
+  \begin{align*}
+    \label{eq:2}
+    \frac{dy}{dx} 
+    &= \frac{dy/dt}{dx/dt}\nonumber\\
+    &= \frac{\frac{d}{dt}\left[ t-t^{3} \right] }{\frac{d}{dt}\left[ \frac{1}{2}t^{2}+\frac{1}{2} \right] }\nonumber\\
+    &= \frac{1-3t^{2} }{t }
+  \end{align*}
+  So when $t=1$, we have
+  \begin{equation*}
+    \frac{dy}{dx}(t) = \frac{dy}{dx}(1) = -2
+  \end{equation*}
+  Therefore by the line formula $y-y_{0}= m(x-x_{0})$, we conclude that the tangent line at $t=1$ has
+  equation
+  \begin{equation*}
+    y-0 = -2(x-1)
+  \end{equation*}
+  or equivalently,
+  \begin{equation*}
+    y = -2x+2.
+  \end{equation*}
+
+  \Fl{Solution to (b).} Here, our approach is to compute the second derivatve and then check when it is
+  positive or negative, as this is sufficient to determine whether the curve is concave up or concave
+  down.
+
+  To compute the second derivative we'll use the formula:
+  \begin{equation*}
+    \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}.
+  \end{equation*}
+  Now, in part (a) we've already computed some components of the above equation. Specifically, we know
+  that $\frac{dy}{dx} = \frac{1-3t^{2}}{t}$ and $\frac{dx}{dt} = t$. Plugging these in, we get
+  \begin{equation*}
+    \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{1-3t^{2}}{t} \right] }{t}
+  \end{equation*}
+  doing the derivative (e.g., using the quotient rule) and simplifying gives
+  \begin{equation*}
+    \frac{d^{2}y}{dx^{2}} = - \frac{1+3t^{2}}{t^{3}}
+  \end{equation*}
+  One can check that this function is NEGATIVE when $t<0$, and POSITIVE when $t>0$. To see this, we can
+  either solve the inequality
+  \begin{equation*}
+    -\frac{1+3t^{2}}{t^{3}}>0
+  \end{equation*}
+  or we can look at the graph of the second derivative:
+  \begin{center}
+    \includegraphics[scale=.2]{images/second-derivative-plot}
+  \end{center}
+
+
+  \Fl{Solution to (c).} To find the horizontal tangent lines, we need check when $\frac{dy}{dx}(t) = 0$.
+  To find the vertical tangent lines, we check when $\frac{dy}{dx}(t) = \pm \infty$ or undefined.
+
+  In part (a) we computed 
+  \begin{equation}\label{eq:3}
+    \frac{dy}{dx} = \frac{1-3t^{2}}{t}.
+  \end{equation}
+  By inspection, this is undefined when $t=0$, since there is a division by zero in that case. Therefore
+  the tangent line is vertical when $t=0$, which occurs at the point
+  \begin{equation*}
+    \left(x(0),y(0)\right) = \left(\frac{1}{2},0\right).
+  \end{equation*}
+  On the other hand, we see from \cref{eq:3} that $\frac{dy}{dx}(t) = 0$ (i.e., the tangent line is
+  horizontal) if and only if
+  \begin{equation*}
+    1-3t^{2}=0
+  \end{equation*}
+  or equivalently, when $t=\pm \frac{1}{\sqrt{3}}$. At what points does this occur?
+  \begin{itemize}
+    \item If $t= \frac{1}{\sqrt{3}}$, then the point is
+    \begin{equation*}
+      \left(x\left(\frac{1}{\sqrt{3}}\right), y\left(\frac{1}{\sqrt{3}}\right) \right)= \left( \frac{2}{3}, \frac{2}{3 \sqrt{3}} \right)
+    \end{equation*}
+    \item If  $t=-\frac{1}{\sqrt{3}}$, then the point is
+    \begin{equation*}
+      \left(x\left(-\frac{1}{\sqrt{3}}\right), y\left(-\frac{1}{\sqrt{3}}\right) \right)= \left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) 
+    \end{equation*}
+  \end{itemize}
+  We conclude that the curve $C$ has a horizontal tangent line at the points $\left( \frac{2}{3},
+    \frac{2}{3 \sqrt{3}} \right)  $ and $\left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) $, and a
+  vertical tangent line at the point $\left( \frac{1}{2},0 \right)$. This answers part (c).
 \end{example}
 
 

@@ -34,6 +34,19 @@
   boxrule=1pt,
   #1}
 
+\usepackage{xcolor} % Enables a broader range of colors
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.75,0,.25}
+\definecolor{Teal}{rgb}{0,0.35,0.35}
+\NewDocumentEnvironment{max-comment}{}
+{%
+  \begingroup
+  \color{Teal}%
+}
+{%
+  \endgroup
+}
 
 
 % for the pipe symbol
@@ -256,6 +269,7 @@ Most of the figures were produced with ChatGPT using the tikz package.
 \end{itemize} 
 
 \newpage
+\begin{max-comment}
 \section{2025-01-13 | Week 1 | Lecture 1}
 \textit{This lecture is based on section 8.1 in the textbook.}
 
@@ -796,29 +810,32 @@ Here's another example
     \end{tikzpicture}
   \end{center}
 \end{example}
+\end{max-comment}
 
 
 \newpage
 \section{2025-01-22 | Week 2 | Lecture 4}
 This lecture covers material from section 10.2 in the textbook.
+\begin{max-comment}
+  \subsection{Parameterized Ellipses}
 
-\subsection{Parameterized Ellipses}
+  \begin{example}[Eliminating a parameter]
+    \label{ex:eliminating-parameter}
+    Eliminate the parameter $t$ in the parametric system of equations
+    \begin{equation*}
+      \left\{ \begin{array}{l@{}l} x=4\cos(t)+3 \\ y=2\sin(t)+1\end{array}\right.
+    \end{equation*}
 
-\begin{example}[Eliminating a parameter]
-  \label{ex:eliminating-parameter}
-  Eliminate the parameter $t$ in the parametric system of equations
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=4\cos(t)+3 \\ y=2\sin(t)+1\end{array}\right.
-  \end{equation*}
+    \textit{Before we start this problem, let's observe that these parametric
+      equations trace out an ellipse that has been shifted RIGHT 3 and UP 1.
+      The horizontal radius is 4 and the vertical radius is 2. So when we
+      convert to Cartesian form by eliminating the paramter $t$, we should
+      expect to get the equation of this ellipse. }
 
-  \textit{Before we start this problem, let's observe that these parametric equations trace out an ellipse
-    that has been shifted RIGHT 3 and UP 1. The horizontal radius is 4 and the vertical radius is 2. So when we convert to
-    Cartesian form by eliminating the paramter $t$, we should expect to get the equation of this ellipse. }
+    \textit{Solution:} The trig identity $\sin^{2}(t) + \cos^{2}(t)=1$ served
+    us well in \cref{ex:a-homework-problem}, so let's try to use that.
 
-  \textit{Solution:} The trig identity $\sin^{2}(t) + \cos^{2}(t)=1$ served us well in \cref{ex:a-homework-problem}, so
-  let's try to use that.
-
-  First, solve for $\sin(t)$ and $\cos(t)$:
+    First, solve for $\sin(t)$ and $\cos(t)$:
 
   \begin{equation}\label{eq:9}
     \sin(t) = \frac{y-1}{2} \quad \text{and} \quad \cos(t) = \frac{x-3}{4}
@@ -836,24 +853,25 @@ This lecture covers material from section 10.2 in the textbook.
   \begin{equation*}
     \frac{1}{16}(x-3)^{2}+\frac{1}{4}(y-1)^{2} = 1.
   \end{equation*}
-  This is indeed the equation of an ellipse, with center $(3,1)$ and with horizontal and vertical axes 4 and 2
-  respectively.
+  This is indeed the equation of an ellipse, with center $(3,1)$ and with
+  horizontal and vertical axes 4 and 2 respectively.
 \end{example}
 
 \begin{remark}
-  In \cref{ex:eliminating-parameter,ex:an-ellipse}, we saw equations of ellipses. In general the parametric equations
-  for an ellipse take the form
+  In \cref{ex:eliminating-parameter,ex:an-ellipse}, we saw equations of
+  ellipses. In general the parametric equations for an ellipse take the form
   \begin{equation*}
     \left\{ \begin{array}{l@{}l} x= a \cos(t)+h \\ y = b\sin(t)+k \end{array}\right.
   \end{equation*}
-  where $(h,k)$ is the center of the ellipse, $a$ is the horizontal radius, and $b$ is the vertical radius.
+  where $(h,k)$ is the center of the ellipse, $a$ is the horizontal radius,
+  and $b$ is the vertical radius.
 
   The Cartesian equations of the same ellipse are
   \begin{equation*}
     \frac{1}{a^{2}}(x-h)^{2} + \frac{1}{b^{2}}(h-k)^{2} = 1.
   \end{equation*}
 \end{remark}
-
+\end{max-comment}
 \subsection{Smoothness of parameterized curves}
 \begin{definition}[Smooth]
   A curve $C$ defined by the parametric equations
@@ -1025,50 +1043,53 @@ or equivalently
 Solving for $t$ gives $t=3/5$. When $t=3/5$, the corresponding $(x,y)$ point is $(2.2,2.96)$. We have
 shown that the tangent line is vertical at this point.
 \end{example}
+\begin{max-comment}
+  \subsection{Arc Length of parametrized curves}
+  \begin{theorem}[Arc Length of Parametric Curves]
+    \label{thm:arc-length-parametric-curves}
+    Let
+    \begin{equation*}
+      \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
+    \end{equation*}
+    be a parametric equations defined on an interval $I=[a,b]$. Assume that
+    $f$ and $g$ are differentiable an that $f'$ and $g'$ are continuous on
+    $[a,b]$. Also assume that the graph traces itself only once. The arc
+    length of the curve is
+    \begin{equation*}
+      L = \int_{a}^{b}\sqrt{f'(t)^{2}+g'(t)^{2}}dt. 
+    \end{equation*}
+  \end{theorem}
+  \begin{remark}
+    These integrals are often hard to compute.
+  \end{remark}
 
-\subsection{Arc Length of parametrized curves}
-\begin{theorem}[Arc Length of Parametric Curves]
-  \label{thm:arc-length-parametric-curves}
-  Let
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
-  \end{equation*}
-  be a parametric equations defined on an interval $I=[a,b]$. Assume that $f$ and $g$ are differentiable
-  an that $f'$ and $g'$ are continuous on $[a,b]$. Also assume that the graph traces itself only once.
-  The arc length of the curve is
-  \begin{equation*}
-    L = \int_{a}^{b}\sqrt{f'(t)^{2}+g'(t)^{2}}dt. 
-  \end{equation*}
-\end{theorem}
-\begin{remark}
-  These integrals are often hard to compute.
-\end{remark}
+  \begin{example}[Arc length of a circle]
+    \label{ex:arc-length-circle}
 
-\begin{example}[Arc length of a circle]
-  \label{ex:arc-length-circle}
+    Consider the circle paramterized by the equationss
+    \begin{equation*}
+      \left\{ \begin{array}{l@{}l} x=3\cos t \\ y = 3\sin t \end{array}\right.
+    \end{equation*}
+    where $t$ ranges over the interval $[0,2\pi]$. What is the arc length?
 
-  Consider the circle paramterized by the equationss
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=3\cos t \\ y = 3\sin t \end{array}\right.
-  \end{equation*}
-  where $t$ ranges over the interval $[0,2\pi]$. What is the arc length?
-
-  \textit{Solution:} Here $f(t) = 3\cos(t)$ and $g(t) = 3\sin(t)$. Using the formula from \cref{thm:arc-length-parametric-curves}
-  \begin{align*}
-    L 
-    &= \int_{0}^{2\pi} \sqrt{f'(t)^{2}+g'(t)^{2}}dt\\
-    &= \int_{0}^{2\pi} \sqrt{(-3\sin t)^{2}+(3\cos t)^{2}}dt\\
-    &= 3 \int_{0}^{2\pi} \sqrt{\sin^{2}(t)+\cos^{2}(t)}dt\\ 
-    &= 3 \int_{0}^{2\pi} 1 dt &&\text{since $\sin^{2}(t)+\cos^{2}(t) =1$}\\ 
-    &= 6\pi.
-  \end{align*}
-  Taking a step back. What was this question really asking? It was asking for the circumference of a circle with radius
-  $3$ (since that's the curve traced out by the equations). Using the formula
-  \begin{equation*}
-    \text{circumference} = 2\pi (\text{radius}),
-  \end{equation*}
-  our answer $6\pi^{2}$ makes sense.
-\end{example}
+    \textit{Solution:} Here $f(t) = 3\cos(t)$ and $g(t) = 3\sin(t)$. Using the
+    formula from \cref{thm:arc-length-parametric-curves}
+    \begin{align*}
+      L 
+      &= \int_{0}^{2\pi} \sqrt{f'(t)^{2}+g'(t)^{2}}dt\\
+      &= \int_{0}^{2\pi} \sqrt{(-3\sin t)^{2}+(3\cos t)^{2}}dt\\
+      &= 3 \int_{0}^{2\pi} \sqrt{\sin^{2}(t)+\cos^{2}(t)}dt\\ 
+      &= 3 \int_{0}^{2\pi} 1 dt &&\text{since $\sin^{2}(t)+\cos^{2}(t) =1$}\\ 
+      &= 6\pi.
+    \end{align*}
+    Taking a step back. What was this question really asking? It was asking
+    for the circumference of a circle with radius $3$ (since that's the curve
+    traced out by the equations). Using the formula
+    \begin{equation*}
+      \text{circumference} = 2\pi (\text{radius}),
+    \end{equation*}
+    our answer $6\pi^{2}$ makes sense.
+  \end{example}
 
 \begin{example}[Arc length]
   What is the arc length of the curve parameterized by the equations
@@ -1088,7 +1109,8 @@ shown that the tangent line is vertical at this point.
     y'(t) = \left(2t^{2}+\frac{1}{4}\right)^{\frac{1}{2}}\cdot 4t.
   \end{equation*}
 
-  Step 2. Compute $\left[ x'(t) \right]^{2}+\left[ y'(t) \right]^{2}$ and simplify.
+  Step 2. Compute $\left[ x'(t) \right]^{2}+\left[ y'(t) \right]^{2}$ and
+  simplify.
   \begin{align*}
     \left[ x'(t) \right]^{2}+\left[ y'(t) \right]^{2} 
     &=\left[ 7t^{2}+1 \right]^{2} + \left[ \left( 2t^{2}+\frac{1}{4} \right)^{\frac{1}{2}}\cdot 4t  \right]^{2}\\  
@@ -1102,10 +1124,12 @@ shown that the tangent line is vertical at this point.
     81 t^{4}+ 18 t^{2}+1 = \left( 9t^{2}+1 \right)^{2}
   \end{equation*}
 
-  \quad \textit{(Step 3 doesn't always happen, but it's \textit{really} nice when it does!)}
+  \quad \textit{(Step 3 doesn't always happen, but it's \textit{really} nice
+    when it does!)}
   
 
-  Step 4. Plug what you get back into the formula from \cref{thm:arc-length-parametric-curves}:
+  Step 4. Plug what you get back into the formula from
+  \cref{thm:arc-length-parametric-curves}:
 
   \begin{align*}
     \text{Arc Length} 
@@ -1122,16 +1146,18 @@ shown that the tangent line is vertical at this point.
 \begin{center}
   \begin{tikzpicture}[scale=1]
     % Smiley face
-    \draw (0,0) circle (1); \draw (0.1,0.3) -- (0.3,0.3); \draw (0.2,0.4) -- (0.2,0.2); \draw (-0.3,0.3) -- (-0.1,0.3);
-    \draw (-0.2,0.4) -- (-0.2,0.2); \draw (-.3,-0.2) arc (-180:0:0.3);
+    \draw (0,0) circle (1); \draw (0.1,0.3) -- (0.3,0.3); \draw (0.2,0.4) --
+    (0.2,0.2); \draw (-0.3,0.3) -- (-0.1,0.3); \draw (-0.2,0.4) -- (-0.2,0.2);
+    \draw (-.3,-0.2) arc (-180:0:0.3);
     
     % Frowny face
     \begin{scope}[xshift=3cm]
-      \draw (-0.3,0.3) -- (-0.1,0.3); \draw (0.1,0.3) -- (0.3,0.3); \draw (0,0) circle (1); \draw (.35,-0.4) arc
-      (0:180:0.3);
+      \draw (-0.3,0.3) -- (-0.1,0.3); \draw (0.1,0.3) -- (0.3,0.3); \draw
+      (0,0) circle (1); \draw (.35,-0.4) arc (0:180:0.3);
     \end{scope}
   \end{tikzpicture}
 \end{center}
+\end{max-comment}
 \newpage
 \section{2025-01-27 | Week 3 | Lecture 6}
 
@@ -1155,65 +1181,75 @@ This should give us a new way to think about the formula
 \end{equation*}
 
 
-\subsection{Concavity of parameterized curves}
-The concavity of a differentiable function is determined by its second derivative. For example, the graph
-\begin{equation*}
-  f(x) = x^{2}
-\end{equation*}
-is concave up. Moreover, $f''(x) = 2>0$.
+\begin{max-comment}
+  \subsection{Concavity of parameterized curves}
+  The concavity of a differentiable function is determined by its second
+  derivative. For example, the graph
+  \begin{equation*}
+    f(x) = x^{2}
+  \end{equation*}
+  is concave up. Moreover, $f''(x) = 2>0$.
 
-What about $f(x) = x^{3}+1$? This has graph
+  What about $f(x) = x^{3}+1$? This has graph
 
-\begin{center}
-  \begin{tikzpicture}[scale=1.5]
-    % Draw axes
-    \draw[->] (-2,0) -- (2,0) node[right] {$x$}; \draw[->] (0,-1) -- (0,3) node[above] {$f(x)$};
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+      % Draw axes
+      \draw[->] (-2,0) -- (2,0) node[right] {$x$}; \draw[->] (0,-1) -- (0,3)
+      node[above] {$f(x)$};
     
-    % Draw function
-    \draw[domain=-1.1:1.1, smooth, variable=\x, blue] plot ({\x},{\x*\x*\x + 1});
+      % Draw function
+      \draw[domain=-1.1:1.1, smooth, variable=\x, blue] plot ({\x},{\x*\x*\x +
+        1});
     
-    % Add labels
-    \node[below left] at (0,0) {$0$}; \node[right] at (1.5,2.75) {$f(x) = x^3 + 1$};
-  \end{tikzpicture}
-\end{center}
-Tihs graph is concave down when $x<0$ and concave up when $x>0$. The concavity is determined by whether the second
-derivative of $f$ is positive or negative:
-\begin{equation*}
-  f''(x) = 6x = \left\{ \begin{array}{l@{\quad:\quad}l} \text{positive} &x>0 \\ \text{negative}&x<0 \end{array}\right.
-\end{equation*}
-This is a general property of twice-differentiable functions: when $f''(x)<0$, the graph is concave down. When
-$f''(x)>0,$ the graph is concave up. Just like in the following picture:
+      % Add labels
+      \node[below left] at (0,0) {$0$}; \node[right] at (1.5,2.75)
+      {$f(x) = x^3 + 1$};
+    \end{tikzpicture}
+  \end{center}
+  Tihs graph is concave down when $x<0$ and concave up when $x>0$. The
+  concavity is determined by whether the second derivative of $f$ is positive
+  or negative:
+  \begin{equation*}
+    f''(x) = 6x = \left\{ \begin{array}{l@{\quad:\quad}l} \text{positive} &x>0 \\ \text{negative}&x<0 \end{array}\right.
+  \end{equation*}
+  This is a general property of twice-differentiable functions: when
+  $f''(x)<0$, the graph is concave down. When $f''(x)>0,$ the graph is concave
+  up. Just like in the following picture:
 
-\begin{center}
-  \begin{tikzpicture}[scale=1]
-    % Smiley face
-    \draw (0,0) circle (1); \draw (0.1,0.3) -- (0.3,0.3); \draw (0.2,0.4) -- (0.2,0.2); \draw (-0.3,0.3) -- (-0.1,0.3);
-    \draw (-0.2,0.4) -- (-0.2,0.2); \draw (-.3,-0.2) arc (-180:0:0.3);
+  \begin{center}
+    \begin{tikzpicture}[scale=1]
+      % Smiley face
+      \draw (0,0) circle (1); \draw (0.1,0.3) -- (0.3,0.3); \draw (0.2,0.4) --
+      (0.2,0.2); \draw (-0.3,0.3) -- (-0.1,0.3); \draw (-0.2,0.4) --
+      (-0.2,0.2); \draw (-.3,-0.2) arc (-180:0:0.3);
     
-    % Frowny face
-    \begin{scope}[xshift=3cm]
-      \draw (-0.3,0.3) -- (-0.1,0.3); \draw (0.1,0.3) -- (0.3,0.3); \draw (0,0) circle (1); \draw (.35,-0.4) arc
-      (0:180:0.3);
-    \end{scope}
-  \end{tikzpicture}
-\end{center}
+      % Frowny face
+      \begin{scope}[xshift=3cm]
+        \draw (-0.3,0.3) -- (-0.1,0.3); \draw (0.1,0.3) -- (0.3,0.3); \draw
+        (0,0) circle (1); \draw (.35,-0.4) arc (0:180:0.3);
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
 
 
-\Fl{With parameterized curves, the story is no different, but we'll need to learn how to compute the second derivative
-  $\frac{d^{2}y}{dx^{2}}$, as we now show.}
+  \Fl{With parameterized curves, the story is no different, but we'll need to
+    learn how to compute the second derivative $\frac{d^{2}y}{dx^{2}}$, as we
+    now show.}
 
-Consider a curve
-\begin{equation*}
-  \left\{ \begin{array}{l@{}l} x = f(t) \\ y= g(t) \end{array}\right.
-\end{equation*}
-so that $f,g$ are twice differentiable on the inteval $I$ and $f'(t)\neq 0$ on $I$.
+  Consider a curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x = f(t) \\ y= g(t) \end{array}\right.
+  \end{equation*}
+  so that $f,g$ are twice differentiable on the inteval $I$ and $f'(t)\neq 0$
+  on $I$.
 
-We have already seen how to compute
-\begin{equation*}
-  \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{g'(t)}{f'(t)}.
-\end{equation*}
+  We have already seen how to compute
+  \begin{equation*}
+    \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{g'(t)}{f'(t)}.
+  \end{equation*}
 
-What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
+  What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
 
 \begin{equation}\label{eq:2nd-derivative-for-parameterized-curves}
   \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}= \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{f'(t)}
@@ -1225,12 +1261,14 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
   \end{equation*}
   \begin{enumerate}[(a)]
     \item Find the tangent line to $C$ at $t=1$.
-    \item For what values of $t$ is the curve convex up? For what values is it concave down?
-    \item At what points $(x,y)$ does the curve have a horizontal tangent line? Vertical tangent line?
+    \item For what values of $t$ is the curve convex up? For what values is it
+    concave down?
+    \item At what points $(x,y)$ does the curve have a horizontal tangent
+    line? Vertical tangent line?
   \end{enumerate}
 
-  \Fl{Solution to (a):} To apply the line formula $y-y_{0} = m(x-x_{0})$, we need two things: (1) the
-  point $(x(1),y(1))$ and the slope at $t=1$.
+  \Fl{Solution to (a):} To apply the line formula $y-y_{0} = m(x-x_{0})$, we
+  need two things: (1) the point $(x(1),y(1))$ and the slope at $t=1$.
 
   First observe that
   \begin{equation*}
@@ -1249,8 +1287,8 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
   \begin{equation*}
     \frac{dy}{dx}(t) = \frac{dy}{dx}(1) = -2
   \end{equation*}
-  Therefore by the line formula $y-y_{0}= m(x-x_{0})$, we conclude that the tangent line at $t=1$ has
-  equation
+  Therefore by the line formula $y-y_{0}= m(x-x_{0})$, we conclude that the
+  tangent line at $t=1$ has equation
   \begin{equation*}
     y-0 = -2(x-1)
   \end{equation*}
@@ -1259,16 +1297,17 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
     y = -2x+2.
   \end{equation*}
 
-  \Fl{Solution to (b).} Here, our approach is to compute the second derivatve and then check when it is
-  positive or negative, as this is sufficient to determine whether the curve is concave up or concave
-  down.
+  \Fl{Solution to (b).} Here, our approach is to compute the second derivatve
+  and then check when it is positive or negative, as this is sufficient to
+  determine whether the curve is concave up or concave down.
 
   To compute the second derivative we'll use the formula:
   \begin{equation*}
     \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}.
   \end{equation*}
-  Now, in part (a) we've already computed some components of the above equation. Specifically, we know
-  that $\frac{dy}{dx} = \frac{1-3t^{2}}{t}$ and $\frac{dx}{dt} = t$. Plugging these in, we get
+  Now, in part (a) we've already computed some components of the above
+  equation. Specifically, we know that $\frac{dy}{dx} = \frac{1-3t^{2}}{t}$
+  and $\frac{dx}{dt} = t$. Plugging these in, we get
   \begin{equation*}
     \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{1-3t^{2}}{t} \right] }{t}
   \end{equation*}
@@ -1276,8 +1315,8 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
   \begin{equation*}
     \frac{d^{2}y}{dx^{2}} = - \frac{1+3t^{2}}{t^{3}}
   \end{equation*}
-  One can check that this function is NEGATIVE when $t<0$, and POSITIVE when $t>0$. To see this, we can
-  either solve the inequality
+  One can check that this function is NEGATIVE when $t<0$, and POSITIVE when
+  $t>0$. To see this, we can either solve the inequality
   \begin{equation*}
     -\frac{1+3t^{2}}{t^{3}}>0
   \end{equation*}
@@ -1287,39 +1326,43 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
   \end{center}
 
 
-  \Fl{Solution to (c).} To find the horizontal tangent lines, we need check when $\frac{dy}{dx}(t) = 0$.
-  To find the vertical tangent lines, we check when $\frac{dy}{dx}(t) = \pm \infty$ or undefined.
+  \Fl{Solution to (c).} To find the horizontal tangent lines, we need check
+  when $\frac{dy}{dx}(t) = 0$. To find the vertical tangent lines, we check
+  when $\frac{dy}{dx}(t) = \pm \infty$ or undefined.
 
-  In part (a) we computed 
+  In part (a) we computed
   \begin{equation}\label{eq:3}
     \frac{dy}{dx} = \frac{1-3t^{2}}{t}.
   \end{equation}
-  By inspection, this is undefined when $t=0$, since there is a division by zero in that case. Therefore
-  the tangent line is vertical when $t=0$, which occurs at the point
+  By inspection, this is undefined when $t=0$, since there is a division by
+  zero in that case. Therefore the tangent line is vertical when $t=0$, which
+  occurs at the point
   \begin{equation*}
     \left(x(0),y(0)\right) = \left(\frac{1}{2},0\right).
   \end{equation*}
-  On the other hand, we see from \cref{eq:3} that $\frac{dy}{dx}(t) = 0$ (i.e., the tangent line is
-  horizontal) if and only if
+  On the other hand, we see from \cref{eq:3} that $\frac{dy}{dx}(t) = 0$
+  (i.e., the tangent line is horizontal) if and only if
   \begin{equation*}
     1-3t^{2}=0
   \end{equation*}
-  or equivalently, when $t=\pm \frac{1}{\sqrt{3}}$. At what points does this occur?
+  or equivalently, when $t=\pm \frac{1}{\sqrt{3}}$. At what points does this
+  occur?
   \begin{itemize}
     \item If $t= \frac{1}{\sqrt{3}}$, then the point is
     \begin{equation*}
       \left(x\left(\frac{1}{\sqrt{3}}\right), y\left(\frac{1}{\sqrt{3}}\right) \right)= \left( \frac{2}{3}, \frac{2}{3 \sqrt{3}} \right)
     \end{equation*}
-    \item If  $t=-\frac{1}{\sqrt{3}}$, then the point is
+    \item If $t=-\frac{1}{\sqrt{3}}$, then the point is
     \begin{equation*}
       \left(x\left(-\frac{1}{\sqrt{3}}\right), y\left(-\frac{1}{\sqrt{3}}\right) \right)= \left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) 
     \end{equation*}
   \end{itemize}
-  We conclude that the curve $C$ has a horizontal tangent line at the points $\left( \frac{2}{3},
-    \frac{2}{3 \sqrt{3}} \right)  $ and $\left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) $, and a
-  vertical tangent line at the point $\left( \frac{1}{2},0 \right)$. This answers part (c).
+  We conclude that the curve $C$ has a horizontal tangent line at the points
+  $\left( \frac{2}{3}, \frac{2}{3 \sqrt{3}} \right) $ and
+  $\left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) $, and a vertical tangent
+  line at the point $\left( \frac{1}{2},0 \right)$. This answers part (c).
 \end{example}
-
+\end{max-comment}
 \newpage
 \section{2025-01-29 | Week 3 | Lecture 7}
 
