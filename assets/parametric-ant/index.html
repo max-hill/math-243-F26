@@ -75,7 +75,7 @@
 
       .controls {
         display: grid;
-        grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) 92px 92px auto;
+        grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) 92px 92px auto auto;
         gap: 10px;
         align-items: end;
         padding: 14px;
@@ -93,14 +93,14 @@
         letter-spacing: 0.04em;
       }
 
-      input,
+      input:not([type="checkbox"]),
       button {
         min-height: 40px;
         border-radius: 7px;
         font: inherit;
       }
 
-      input {
+      input:not([type="checkbox"]) {
         width: 100%;
         border: 1px solid #c8c5bb;
         background: #fff;
@@ -112,11 +112,36 @@
         transition: border-color 120ms ease, box-shadow 120ms ease;
       }
 
-      input:focus-visible,
+      input:not([type="checkbox"]):focus-visible,
       button:focus-visible {
         outline: none;
         border-color: var(--focus);
         box-shadow: 0 0 0 3px rgb(42 111 157 / 18%);
+      }
+
+      .vector-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 40px;
+        color: var(--ink);
+        font-size: 0.82rem;
+        letter-spacing: 0;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      .vector-toggle input {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        accent-color: var(--focus);
+        cursor: pointer;
+      }
+
+      .vector-toggle input:focus-visible {
+        outline: 3px solid rgb(42 111 157 / 25%);
+        outline-offset: 2px;
       }
 
       .actions { display: flex; gap: 8px; }
@@ -206,17 +231,17 @@
           <p class="eyebrow">Math 243 · Parametric curves</p>
           <h1>Curve tracer</h1>
         </div>
-        <p class="formula-readout" id="formula-readout">r(t) = (cos(t), sin(t))</p>
+        <p class="formula-readout" id="formula-readout">r(t) = (cos(t)^3, sin(t)^3)</p>
       </header>
 
       <form class="controls" id="curve-form">
         <label class="function-field">
           x(t)
-          <input id="x-expression" value="cos(t)" spellcheck="false" autocomplete="off" aria-label="x of t" />
+          <input id="x-expression" value="cos(t)^3" spellcheck="false" autocomplete="off" aria-label="x of t" />
         </label>
         <label class="function-field">
           y(t)
-          <input id="y-expression" value="sin(t)" spellcheck="false" autocomplete="off" aria-label="y of t" />
+          <input id="y-expression" value="sin(t)^3" spellcheck="false" autocomplete="off" aria-label="y of t" />
         </label>
         <label>
           a
@@ -225,6 +250,10 @@
         <label>
           b
           <input id="b-value" value="2*pi" spellcheck="false" autocomplete="off" aria-label="right endpoint b" />
+        </label>
+        <label class="vector-toggle">
+          <input id="show-velocity" type="checkbox" checked />
+          Show velocity vector
         </label>
         <div class="actions">
           <button id="trace" type="submit">Trace curve</button>
@@ -255,6 +284,7 @@
         const yInput = document.querySelector("#y-expression");
         const aInput = document.querySelector("#a-value");
         const bInput = document.querySelector("#b-value");
+        const showVelocityInput = document.querySelector("#show-velocity");
 
         const FUNCTIONS = {
           abs: Math.abs,
@@ -614,31 +644,69 @@
           context.stroke();
         }
 
-        function velocityAngleAt(t, geometry) {
+        function screenVelocityAt(t, geometry) {
           const intervalLength = curve.b - curve.a;
           const xScale = geometry.innerWidth / (curve.bounds.xMax - curve.bounds.xMin);
           const yScale = geometry.innerHeight / (curve.bounds.yMax - curve.bounds.yMin);
+          const endpointDistance = Math.min(t - curve.a, curve.b - t);
+          const smallestUsefulStep = intervalLength * 1e-10;
+          const hBase = Math.max(
+            smallestUsefulStep,
+            Math.min(intervalLength * 1e-5, Math.max(0, endpointDistance) * 1e-3),
+          );
 
-          for (const multiplier of [1, 2, 4, 8, 16]) {
-            const h = intervalLength * 1e-5 * multiplier;
+          for (const multiplier of [1, 0.25, 4, 0.0625, 16]) {
+            const h = hBase * multiplier;
             const leftT = Math.max(curve.a, t - h);
             const rightT = Math.min(curve.b, t + h);
             if (rightT === leftT) continue;
 
             const deltaX = curve.xFunction(rightT) - curve.xFunction(leftT);
             const deltaY = curve.yFunction(rightT) - curve.yFunction(leftT);
-            const screenVelocityX = deltaX * xScale / (rightT - leftT);
-            const screenVelocityY = -deltaY * yScale / (rightT - leftT);
+            const derivativeX = deltaX / (rightT - leftT);
+            const derivativeY = deltaY / (rightT - leftT);
+            const screenVelocityX = derivativeX * xScale;
+            const screenVelocityY = -derivativeY * yScale;
 
             if (
               Number.isFinite(screenVelocityX) &&
               Number.isFinite(screenVelocityY) &&
               Math.hypot(screenVelocityX, screenVelocityY) > 1e-8
             ) {
-              return Math.atan2(screenVelocityY, screenVelocityX);
+              return {
+                x: screenVelocityX,
+                y: screenVelocityY,
+                derivativeX,
+                derivativeY,
+              };
             }
           }
           return null;
+        }
+
+        function velocityDisplayScale(geometry) {
+          const cacheKey = `${geometry.innerWidth}:${geometry.innerHeight}`;
+          if (curve.velocityScaleCache?.key === cacheKey) {
+            return curve.velocityScaleCache.value;
+          }
+
+          const magnitudes = [];
+          for (let i = 0; i < curve.points.length; i += 7) {
+            const point = curve.points[i];
+            if (!point.valid) continue;
+            const velocity = screenVelocityAt(point.t, geometry);
+            if (!velocity) continue;
+            magnitudes.push(Math.hypot(velocity.x, velocity.y));
+          }
+
+          magnitudes.sort((left, right) => left - right);
+          const referenceIndex = Math.floor((magnitudes.length - 1) * 0.75);
+          const referenceMagnitude = magnitudes[referenceIndex] || 0;
+          const plotSize = Math.min(geometry.innerWidth, geometry.innerHeight);
+          const referenceArrowLength = Math.max(45, Math.min(72, plotSize * 0.17));
+          const value = referenceMagnitude > 0 ? referenceArrowLength / referenceMagnitude : 0;
+          curve.velocityScaleCache = { key: cacheKey, value };
+          return value;
         }
 
         function drawAnt(geometry, index) {
@@ -649,8 +717,10 @@
           if (!point || !point.valid) return;
 
           const position = geometry.toCanvas(point);
-          const velocityAngle = velocityAngleAt(point.t, geometry);
-          if (velocityAngle !== null) lastAntAngle = velocityAngle;
+          const velocity = screenVelocityAt(point.t, geometry);
+          if (velocity !== null) {
+            lastAntAngle = Math.atan2(velocity.y, velocity.x);
+          }
           if (lastAntAngle === null) lastAntAngle = 0;
 
           // Standard emoji fonts draw the unrotated ant facing left.  The
@@ -675,15 +745,100 @@
           context.restore();
         }
 
+        function drawVelocityVector(geometry, index) {
+          if (!showVelocityInput.checked) return;
+
+          const points = curve.points;
+          let currentIndex = Math.min(index, points.length - 1);
+          while (currentIndex > 0 && !points[currentIndex].valid) currentIndex -= 1;
+          const point = points[currentIndex];
+          if (!point || !point.valid) return;
+
+          const velocity = screenVelocityAt(point.t, geometry);
+          if (velocity === null) return;
+
+          const position = geometry.toCanvas(point);
+          const displayScale = velocityDisplayScale(geometry);
+          const displayVelocity = {
+            x: velocity.x * displayScale,
+            y: velocity.y * displayScale,
+          };
+          let length = Math.hypot(displayVelocity.x, displayVelocity.y);
+          if (length < 1) return;
+          const plotSize = Math.min(geometry.innerWidth, geometry.innerHeight);
+          const maximumLength = Math.max(70, Math.min(115, plotSize * 0.27));
+          if (length > maximumLength) {
+            const reduction = maximumLength / length;
+            displayVelocity.x *= reduction;
+            displayVelocity.y *= reduction;
+            length = maximumLength;
+          }
+          const angle = Math.atan2(displayVelocity.y, displayVelocity.x);
+          const end = {
+            x: position.x + displayVelocity.x,
+            y: position.y + displayVelocity.y,
+          };
+          const headLength = Math.min(11, Math.max(4, length * 0.35));
+          const headAngle = Math.PI / 7;
+
+          context.save();
+          context.strokeStyle = "#2a6f9d";
+          context.fillStyle = "#2a6f9d";
+          context.lineWidth = 3;
+          context.lineCap = "round";
+          context.lineJoin = "round";
+
+          context.beginPath();
+          context.moveTo(position.x, position.y);
+          context.lineTo(end.x, end.y);
+          context.stroke();
+
+          context.beginPath();
+          context.moveTo(end.x, end.y);
+          context.lineTo(
+            end.x - headLength * Math.cos(angle - headAngle),
+            end.y - headLength * Math.sin(angle - headAngle),
+          );
+          context.lineTo(
+            end.x - headLength * Math.cos(angle + headAngle),
+            end.y - headLength * Math.sin(angle + headAngle),
+          );
+          context.closePath();
+          context.fill();
+
+          const normalX = -Math.sin(angle);
+          const normalY = Math.cos(angle);
+          if (length >= 28) {
+            context.font = "italic 14px Georgia, 'Times New Roman', serif";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillText(
+              "r′(t)",
+              position.x + displayVelocity.x * 0.58 + normalX * 15,
+              position.y + displayVelocity.y * 0.58 + normalY * 15,
+            );
+          }
+          context.restore();
+        }
+
         function draw() {
           if (!curve || canvas.width === 0 || canvas.height === 0) return;
           const geometry = plotGeometry();
           drawGrid(geometry);
           const endIndex = Math.floor(progress * (curve.points.length - 1));
           drawPath(geometry, endIndex, "#b34f2d", 3);
+          drawVelocityVector(geometry, endIndex);
           drawAnt(geometry, endIndex);
           const t = curve.a + (curve.b - curve.a) * progress;
-          status.textContent = `t = ${Number(t.toPrecision(5))}`;
+          const currentVelocity = showVelocityInput.checked
+            ? screenVelocityAt(t, geometry)
+            : null;
+          const speed = currentVelocity
+            ? Math.hypot(currentVelocity.derivativeX, currentVelocity.derivativeY)
+            : null;
+          status.textContent = speed === null
+            ? `t = ${Number(t.toPrecision(5))}`
+            : `t = ${Number(t.toPrecision(5))}, |r′(t)| = ${formatTick(speed)}`;
           status.classList.remove("error");
         }
 
@@ -756,6 +911,8 @@
             pauseButton.textContent = "Resume";
           }
         });
+
+        showVelocityInput.addEventListener("change", draw);
 
         new ResizeObserver(resizeCanvas).observe(canvas.parentElement);
         try {
