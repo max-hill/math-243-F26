@@ -1,0 +1,395 @@
+\documentclass[10pt]{article}
+% Math Packages
+\usepackage{amsmath, mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{breqn}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{forest}
+\usepackage{tikz-qtree}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{arrows,matrix,positioning}
+\usepackage{multicol}
+
+% for the pipe symbol
+\usepackage[T1]{fontenc}
+
+% Citing theorems by name. (source: https://tex.stackexchange.com/questions/109843/cleveref-and-named-theorems)
+\makeatletter
+\newcommand{\ncref}[1]{\cref{#1}\mynameref{#1}{\csname r@#1\endcsname}}
+
+\def\mynameref#1#2{%
+  \begingroup
+  \edef\@mytxt{#2}%
+  \edef\@mytst{\expandafter\@thirdoffive\@mytxt}%
+  \ifx\@mytst\empty\else
+  \space(\nameref{#1})\fi
+  \endgroup
+}
+\makeatother
+
+% Colorful Notes
+\usepackage{color} \definecolor{Red}{rgb}{1,0,0} \definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5} \def\red{\color{Red}} \def\blue{\color{Blue}}
+\def\gray{\color{gray}} \def\purple{\color{Purple}}
+\newcommand{\rnote}[1]{{\red [#1]}} % \rnote{foo} gives '[foo]' in red
+\newcommand{\pnote}[1]{{\purple [#1]}} % \pnote{foo} gives '[foo]' in purple
+\newcommand{\bnote}[1]{{\blue #1}} % \bnote{foo} gives 'foo' in blue
+\newcommand{\gnote}[1]{{\gray #1}} % \gnote{foo} gives 'foo' in gray
+\newcommand{\Max}[1]{{\purple [#1]}} % \bnote{foo} then 'foo' is blue
+
+
+% Claim numbering (the counter restarts after each proof environment)
+\newcounter{claimcount}
+\setcounter{claimcount}{0}
+\newenvironment{claim}{\refstepcounter{claimcount}\par\addvspace{\medskipamount}\noindent\textbf{Claim \arabic{claimcount}:}}{}
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\setcounter{claimcount}{0}}
+\newenvironment{claimproof}{\par\addvspace{\medskipamount}\noindent\textit{Proof of Claim  \arabic{claimcount}.}}{\hfill\ensuremath{\qedsymbol} \tiny{Claim}
+
+  \medskip}
+% Add claim support to cleverref
+\crefname{claimcount}{Claim}{Claims}
+
+% Math Environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+
+% Matrices and Column Vectors. 
+\usepackage{stackengine}
+\setstackgap{L}{1.0\normalbaselineskip}
+\usepackage{tabstackengine}
+\setstackEOL{;}% row separator
+\setstackTAB{,}% column separator
+\setstacktabbedgap{1ex}% inter-column gap
+\setstackgap{L}{1.5\normalbaselineskip}% inter-row baselineskip
+\let\nmatrix\bracketMatrixstack  %Usage: \nmatrix{1,2,3\4,5,6}
+\newcommand\cv[1]{\setstackEOL{,}\bracketMatrixstack{#1}} %usage: \cv{1,2,3}
+
+% Custom Math Coqmmands
+\newcommand{\vt}{\vskip 5mm} % vertical space
+\newcommand{\fl}{\noindent\textbf} % first line
+\newcommand{\Fl}{\vt\noindent\textbf} % first line with space above
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % norm
+\newcommand{\pnorm}[1]{\left\lVert#1\right\rVert_p} % p-norm
+\newcommand{\qnorm}[1]{\left\lVert#1\right\rVert_q} % q-norm
+\newcommand{\1}[1]{\textbf{1}_{\left[#1\right]}} % indicator function 
+\def\limn{\lim_{n\to\infty}} % shortcut for lim as n-> infinity
+\def\sumn{\sum_{n=1}^{\infty}} % shortcut for sum from n=1 to infinity
+\def\sumkn{\sum_{k=1}^{n}} % shortcut for sum from k=1 to n
+\def\sumin{\sum_{i=1}^{n}} % shortcut for sum from i=1 to n
+\def\SAs{\sigma\text{-algebras}} % shortcut for $\sigma$-algebras
+\def\SA{\sigma\text{-algebra}} % shortcut for $\sigma$-algebra
+\def\Ft{\mathcal{F}_t} % time-indexed sigma-algebra (t)
+\def\Fs{\mathcal{F}_s} % time-indexed sigma-algebra (s)
+\def\F{\mathcal{F}} % sigma-algebra
+\def\G{\mathcal{G}} % sigma-algebra
+\def\R{\mathbb{R}} % Real numbers
+\def\N{\mathbb{N}} % Natural numbers
+\def\Z{\mathbb{Z}} % Integers
+\def\E{\mathbb{E}} % Expectation
+\def\P{\mathbb{P}} % Probability
+\def\Q{\mathbb{Q}} % Q probability
+\def\dist{\text{dist}} %Text 'dist' for things like 'dist(x,y)'
+\newcommand{\indep}{\perp \!\!\! \perp}  %independence symbol
+\def\Var{\mathrm{Var}} % Variance
+\def\tr{\mathrm{tr}} % trace
+
+% Brackets and Parentheses
+% \def\[{\left [}
+%     \def\]{\right ]}
+% \def\({\left (}
+%   \def\){\right )}
+
+
+
+\usepackage{color}
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5}
+\def\red{\color{Red}}
+\def\blue{\color{Blue}}
+\def\gray{\color{gray}}
+\def\purple{\color{Purple}}
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+
+\DeclareRobustCommand{\demph}[1]{% definitions
+  \ifmmode
+  {\color{Blue}#1}%
+  \else
+  {\color{Blue}\bfseries\slshape #1}%
+  \fi
+}
+% comment exactly one of the following line to show / hide the solutions
+% \newcommand{\solution}[1]{{\purple #1}} % uncomment to show the solutions
+\newcommand{\solution}[1]{} % uncomment to hide the solutions
+
+
+
+\title{Lecture Notes for Math 372: \\Elementary Probability and Statistics}
+\date{Last updated: \today}
+% \author{mh}
+
+\begin{document}
+\begin{center}
+  \section*{Math 243: Homework 02}
+  \textit{Due Monday, September 7}
+\end{center}
+
+\begin{problem}
+  Consider the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=2t-5 \\ y=4t-7 \end{array}\right., \qquad -\infty<t<\infty.
+  \end{equation*}
+  \begin{enumerate}[(a)]
+    \item Identify the ant's path by finding a Cartesian equation for it.
+    \vspace{2in}
+    \item The \demph{vector equation of a line} is
+    \begin{equation*}
+      \mathbf{r}(t) = \mathbf{v}t+\mathbf{b}, \qquad -\infty<t<\infty
+    \end{equation*}
+    where
+    \begin{equation*}
+      \mathbf{v}=
+      \begin{bmatrix}
+        v_{1}\\v_{2}
+      \end{bmatrix}
+      \qquad  \mathbf{b}=
+      \begin{bmatrix}
+        b_{1}\\b_{2}
+      \end{bmatrix}.    
+    \end{equation*}
+    \textit{(Note the similarity to the familiar line equation $y=mx+b$.)}
+
+    Write the ant's path in this form, and use it to identify the direction of
+    the ant's travel, and its position at $t=0$.
+    \vspace{1in}
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  An ant walks around the ellipse
+  \[
+    \mathbf r(t)=(4\cos t+3,\,2\sin t+1),
+    \qquad 0\leq t\leq2\pi.
+  \]
+  Compare the ant's speed at $t=0$ with its speed at $t=\pi/2$. Does the ant
+  travel around the ellipse at constant speed?
+\end{problem}
+\vspace{1.5in}
+
+\begin{problem}
+  Two ants walk the same circular track. Ant A has
+  $\mathbf r_{A}(t)=(\cos t,\sin t)$ and Ant B has
+  $\mathbf r_{B}(t)=(\cos 2t,\sin 2t)$. Compare their velocity vectors,
+  speeds, and directions at $t=\pi/4$, by filling out the following table.
+  Which of these three quantities agree?
+  \begin{center}
+    \renewcommand{\arraystretch}{2.7}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      & Velocity
+      & Speed 
+      & Direction \\
+      \hline
+      Ant A & \hspace{1.8in} & \hspace{1.1in} & \hspace{1.8in} \\
+      \hline
+      Ant B & \hspace{1.8in} & \hspace{1.1in} & \hspace{1.8in} \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate}[(a)]
+    \item[]
+    \item Give an example of a parametric curve that cannot be written as the
+    form in Cartesian form $y=f(x)$.
+    \vspace{1in}
+    \item \textbf{(True/False)} Every curve that can be written in the form
+    $y=f(x)$ can also be described by parametric equations. Justify your
+    answer.
+    \vspace{1in}
+    \item Theorem 1 from the lecture notes says that the graph of $y=f(x)$ over
+    $[a,b]$ has arc length
+    \begin{equation*}
+      (\text{arc length})=\int_{a}^{b}\sqrt{1+\left[ f'(x) \right]^{2} }dx.
+    \end{equation*}
+    Show that this formula is implied by Theorem 18 from the lecture notes.
+    (Hint: consider the parameterization $\mathbf{r}(t) = (t, f(t))$,
+    $a \leq t \leq b$. \textit{[This shows that Theorem~1 is just a special
+      case of Theorem~18].}
+    \vspace{1in}
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  In Example 15 of the lectures, we eliminated the parameter from
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=5\cos^{2}(\theta) \\  y=2\sin^{2}(\theta)\end{array}\right.
+  \end{equation*}
+  and obtained the line $y=-\frac{2}{5}x +2$. Explain in a sentence or two \emph{what
+    information was lost} in that computation, and why the restriction
+  $0\le x\le 5$ had to be added by hand.
+  \vspace{1in}
+\end{problem}
+\newpage
+\begin{problem}
+  Explain why the ellipse equation
+  $\left(\frac{x-h}{a}\right)^{2}+\left(\frac{y-k}{b}\right)^{2}=1$ cannot, by
+  itself, tell you the direction or speed of a particle traveling around the
+  ellipse, whereas the parametric form can.
+  \vspace{1in}
+\end{problem}
+
+\begin{problem}
+  Suppose we have a parameterized curve $\mathbf{r}(t)=(x(t),y(t))$ such
+  that at some time $t_{0}$ we have $x'(t_{0})=0$ but $y'(t_{0})\neq0$. What
+  does this tell you about the ant's motion at that instant, and what does it
+  tell you about the shape of the curve there?
+  \vspace{1in}
+\end{problem}
+
+\begin{problem}
+  The distance traveled by an ant along a curve $\mathbf{r}(t),$ $a \leq
+  t \leq b$ is
+  \begin{equation*}
+    (\text{distance traveled}) = \int_{a}^{b}\left|\mathbf r'(t)\right|dt
+  \end{equation*}
+  Why do we integrate $|\mathbf{r}'(t)|$ rather than $\mathbf{r}(t)$? What
+  would $\int_{a}^{b}\mathbf r'(t)\,dt$ compute instead, and why is that a
+  different quantity?
+  \vspace{1in}
+\end{problem}
+
+
+
+\begin{problem}
+  During the short time interval $[t,t+\Delta t]$, we approximate the ant's distance
+  traveled by 
+  \[
+    (\text{distance traveled})\approx
+    |\mathbf r'(t)|\Delta t
+  \]
+  This formula pretends that the ant travels at the constant speed
+  $|\mathbf r'(t)|$ throughout the interval, it's generally not the exact
+  distance traveled. Explain why this approximation improves as the interval
+  gets shorter. \vspace{1.2in}
+\end{problem}
+
+
+
+
+
+% \begin{problem}[Converting parametric equations to Cartesian form]
+%   Consider the curve given by the parametric equations
+%   \begin{equation*}
+%     x(t) = \frac{t-2}{t+1}, \quad y(t) = \frac{t}{t-1}
+%   \end{equation*}
+%   where  $-\frac{1}{2}\leq t \leq \frac{1}{2}$. 
+
+%   \begin{enumerate}[(a)]
+%     \item Find a Cartesian equation for the curve. Sketch a graph, and
+%     show the direction of travel. \textit{(Hint: be careful about precisely which values of $x$ your equation
+%     holds for.)}
+%     \item How does your answer change if we specify $-1<t<1$? Plot the graph in that case as well. \textit{(Note
+%     that we can't take $t=-1$ or $t=1$ because that would result in divison by zero!)}
+% \end{enumerate}
+
+% \end{problem}
+
+
+% \begin{problem}[Arc length of parameterized curve]
+%   Compute the arc length of the parameterized curve:
+%   \begin{equation*}
+%     \left\{ \begin{array}{l@{}l} x(t) = \frac{4}{3}t^{3}+t-2 \\ y(t) = \frac{1}{27}\left( 9t^{2}+2 \right)^{\frac{3}{2}} 
+%       \end{array}\right.
+%   \end{equation*}
+%   for $0 \leq t \leq 1$. (Don't forget to use the chain rule!)
+% \end{problem}
+
+
+% \begin{problem}[Arc length - 3d]
+%   Find the length of the following curve in 3d space:
+%   \begin{equation*}
+%     \mathbf{r}(t)=
+%     \begin{bmatrix}
+%       x(t)\\y(t)\\z(t)
+%     \end{bmatrix}
+%     =
+%     \begin{bmatrix}
+%       1\\t^{2}\\t^{3}
+%     \end{bmatrix}
+%     , \quad 0 \leq t \leq 9.
+%   \end{equation*}
+% \end{problem}
+
+% \begin{problem}[Parametric equations - tangent lines]
+%   Let $C$ be the curve defined by the parametric equations
+%   \begin{equation}
+%     \left\{ \begin{array}{l@{}l} x(t) = t^{3}-12t \\
+%         y(t) = 10-t^{2} \end{array}\right.
+%   \end{equation}
+%   for $0 \leq t \leq 3$.
+
+  
+%   Here's a plot of the graph of this curve: \url{https://www.desmos.com/calculator/bvti5ck5r0}
+  
+%   \begin{enumerate}[(a.)]
+%     \item Find an equation for the tangent line to $C$ at $t=1$. Your final answer
+%     should be an equation of a line in \textit{slope-intercept form:} $y=mx+b$.
+%     \item What is the equation of the normal line to $C$ at $t=1$?
+%     \item Sketch the curve, the tangent line, and the normal line. (Please
+%     label them).
+%     \item Compute the value of $\frac{d^{2}y}{dx^{2}}$ at the point $t=1$.
+%     \item Based on your answer in part (d.), is the curve $C$ concave up or
+%     concave down at $t=1$? \textit{(Note: You can get the answer by looking at
+%       the graph, but the point of this part is that you know how to interpret
+%       part (d.)}
+%     \vspace{3em}
+%   \end{enumerate}
+% \end{problem}
+
+
+
+% \newpage
+% \subsection{Unused}
+
+
+% \begin{problem}[Differentiating parametric equations]
+%   Consider the curve $C$ given by the parametric equations
+%   \begin{equation*}
+%     \left\{ \begin{array}{l@{}l} x=\frac{t}{1+t} \\ y = \sqrt{1+t} \end{array}\right.
+%   \end{equation*}
+%   for $0 \leq t <\infty$.
+%   \begin{enumerate}[(a.)]
+%     \item Compute $\frac{dy}{dx}.$
+%     \item Let $f(t)=\frac{dy}{dx}(t)$. In your words, provide a geometric interpretation or explanation
+%     of the function $f$.
+%     \item Compute the second derivative $\frac{d^{2}y}{dx^{2}}$.
+%     \item Based on your answer in part (c.), at the point $t=1$, is the curve $C$ concave up, concave down, or
+%     neither? Justify your answer.
+%   \end{enumerate}
+% \end{problem}
+
+
+\end{document}
