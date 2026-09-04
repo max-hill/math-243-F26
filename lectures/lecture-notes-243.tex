@@ -1441,7 +1441,7 @@ Since $|\mathbf{r}'(t)|  = \sqrt{ \left[ f'(t) \right]^{2}+ \left[ g'(t) \right]
 \end{example}
 \subsection{Parameterized curves: tangent line and normal line}
 
-Let's change notation, and suppose the ant is walking along the curve
+Let's change notation, and suppose the ant is walking along the curve $C$
 parameterized by
 \begin{equation*}
   \mathbf{r}(t) =
@@ -1479,17 +1479,17 @@ two assumptions hold:
 
 \begin{definition}[Tangent Line and Normal Line]
   \label{def:tangent-line-and-normal-line}
-  The \demph{tangent line} to $C$ at time $t$ is the line
+  The \demph{tangent line} to $C$ at time $t=t_{0}$ is the line
   \begin{equation*}
-    y-y(t) = \frac{y'(t)}{x'(t)}\left(x-x(t)\right),
+    y-y(t_0) = \frac{y'(t_0)}{x'(t_0)}\left(x-x(t_0)\right),
   \end{equation*}
-  provided that $x'(s)\neq 0$. 
+  provided that $x'(t_{0})\neq 0$. 
 
-  The \demph{normal line} to $C$ at time $t$ is the line
+  The \demph{normal line} to $C$ at time $t=t_{0}$ is the line
   \begin{equation*}
-    y-y(t) = -\frac{x'(t)}{y'(t)}\left(x-x(t)\right),
+    y-y(t_0) = -\frac{x'(t_0)}{y'(t_0)}\left(x-x(t_0)\right),
   \end{equation*}
-  provided that $y'(s)\neq 0$. 
+  provided that $y'(t_{0})\neq 0$. 
 \end{definition}
 
 \begin{center}
@@ -1507,7 +1507,7 @@ two assumptions hold:
     % % A perpendicular direction is (-0.9,1)
     \draw[normal,<->] (2.1,2.35)--(3.9,0.35) node[below right] {normal line};
     % Velocity vector
-    \draw[velocity] (P)--(4.35,2.565) node[pos=0.72,below right] {$\mathbf r'(t)$};
+    \draw[velocity] (P)--(4.35,2.565) node[pos=0.72,below right] {$\mathbf r'(t_{0})$};
     % Ant centered at P and facing in the tangent direction
     \begin{scope}[shift={(3,1.35)},rotate=42,scale=1.25]
       % Legs
@@ -1526,7 +1526,7 @@ two assumptions hold:
       \draw[brown!80!black,line width=0.7pt] (0.31,-0.07)--(0.43,-0.17)--(0.52,-0.18);
     \end{scope}
     \fill (P) circle (1.3pt);
-    \node[below right] at (3.2,1.5) {$\mathbf r(t)$};
+    \node[below right] at (3.2,1.5) {$\mathbf r(t_{0})$};
   \end{tikzpicture}
 \end{center}
 \begin{remark}
@@ -1534,14 +1534,14 @@ two assumptions hold:
   $(x,y)=(x(t),y(t))$, which lies on the curve. The only difference is their
   slope. The tangent line has slope
   \begin{equation*}
-    m_{\rm tan} = \frac{dy}{dx}(s)
+    m = \frac{dy}{dx}(t_{0})
   \end{equation*}
   while the normal line has slope
   \begin{equation*}
-    m_{\rm norm}=- \frac{1}{m_{\rm tan}}.
+    m_{\rm norm}=- \frac{1}{m}.
   \end{equation*}
   The two lines are perpendicular to each other: the tangent line lies tangent
-  to the curve (parallel to the the velocity $\mathbf{r}'(t)$), while the normal line is perpendicular to it.
+  to the curve (parallel to the the velocity $\mathbf{r}'(t_{0})$), while the normal line is perpendicular to it.
 \end{remark}
 
 \begin{example}[Tangent and normal lines]
