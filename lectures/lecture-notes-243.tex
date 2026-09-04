@@ -1388,14 +1388,7 @@ Since $|\mathbf{r}'(t)|  = \sqrt{ \left[ f'(t) \right]^{2}+ \left[ g'(t) \right]
 
 
 \section{2026-09-04 | Week 02 | Lecture 06}
-
-Need to cover
-\begin{itemize}
-  \item tangent lines / normal lines
-  \item $dy/dx$ and $d^{2}y/dx^{2}$, and connection to concavity
-  \item smoothness
-\end{itemize}
-\end{document}
+\textbf{Reading assignment:} Chapter 11.3
 
 \subsection{Smoothness of parameterized curves}
 
@@ -1408,11 +1401,15 @@ Need to cover
   \end{equation*}
 \end{definition}
 \begin{definition}[Smooth]
-  A curve $C$ defined by the parametric equations
+  A curve $C$ parameterized by
   \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
+    \mathbf{r}(t) =
+    \begin{bmatrix}
+      x(t)\\y(t)
+    \end{bmatrix},
+    \qquad a \leq t \leq b
   \end{equation*}
-  is \demph{smooth} if $f,g\in C^{1}([a,b])$ and $f'(t)$ and $g'(t)$ are never
+  is \demph{smooth} if $x,y\in C^{1}([a,b])$ and $x'(t)$ and $y'(t)$ are never
   simultaneously zero.
 
   A curve is \demph{piecewise smooth} on $[a,b]$ if it can be partitioned into
@@ -1445,12 +1442,17 @@ Need to cover
 \subsection{Parameterized curves: tangent line and normal line}
 
 Let's change notation, and suppose the ant is walking along the curve
+parameterized by
 \begin{equation*}
-  \left\{ \begin{array}{l@{}l} x = f(t) \\ y=g(t) \end{array}\right., \qquad a \leq t \leq b.
+  \mathbf{r}(t) =
+  \begin{bmatrix}
+    x(t)\\
+    y(t)
+  \end{bmatrix}, \qquad a \leq t \leq b.
 \end{equation*}
 
 
-At any given instant the ant is facing some direction (the direction of $r'(t)$), and we can draw a
+At any given instant the ant is facing some direction---the direction of $\mathbf{r}'(t)$---and we can draw a
 line in that direction. The derivative $\frac{dy}{dx}$ is the \textit{slope
   of that line}.
 
@@ -1461,7 +1463,7 @@ following important idea:
   \colorbox{gray!20}{%
     \begin{minipage}{0.8\textwidth}
       \begin{equation}\label{eq:dydx-of-parametric-curve}
-        \frac{dy}{dx}(t) = \frac{dy/dt}{dx/dt}=\frac{g'(t)}{f'(t)}
+        \frac{dy}{dx}(t) = \frac{dy/dt}{dx/dt}=\frac{y'(t)}{x'(t)}
       \end{equation}
     \end{minipage}%
   }
@@ -1471,44 +1473,75 @@ This idea so important I've put it in a box.
 \Cref{eq:dydx-of-parametric-curve} is valid provided that the following
 two assumptions hold:
 \begin{itemize}
-  \item $f$ and $g$ are both differentiable (otherwise $f'$ and $g'$ wouldn't exist)
-  \item $f'(t)\neq 0$ (otherwise we'd have divsion by zero)
+  \item $x$ and $y$ are both differentiable (otherwise $x'(t)$ and $y'(t)$ wouldn't exist)
+  \item $x'(t)\neq 0$ (otherwise we'd have divsion by zero)
 \end{itemize}
 
 \begin{definition}[Tangent Line and Normal Line]
   \label{def:tangent-line-and-normal-line}
-  Let $C$ be a curve in the $xy$-plane parameterized by
+  The \demph{tangent line} to $C$ at time $t$ is the line
   \begin{equation*}
-    \left\{ \begin{array}{l@{}l} x=f(t) \\ y=g(t) \end{array}\right.
+    y-y(t) = \frac{y'(t)}{x'(t)}\left(x-x(t)\right),
   \end{equation*}
-  where $f,g:I\to \R$ are differentiable functions. Let $s$ be a point in $I$.
-  \begin{itemize}
-    \item The \demph{tangent line} to $C$ at $t=s$ is the line
-    \begin{equation*} y-g(s) = \frac{g'(s)}{f'(s)}\left(x-f(s)\right),
-    \end{equation*} provided that $f'(s)\neq 0$. 
-    \item The \demph{normal line} to $C$ at $t=s$ is the line
-    \begin{equation*}
-      y-g(s) = -\frac{f'(s)}{g'(s)}\left(x-f(s)\right),
-    \end{equation*}
-    provided that $g'(s)\neq 0$. 
-  \end{itemize}
-\end{definition}
-\begin{remark}
-  Both the tangent line and the normal line pass through the point $(x,y)=(f(s),g(s))$, which lies on the curve. The
-  only difference is their slope. The tangent line has slope
+  provided that $x'(s)\neq 0$. 
+
+  The \demph{normal line} to $C$ at time $t$ is the line
   \begin{equation*}
-    m_{\rm tan} = \frac{g'(s)}{f'(s)} = \frac{dy}{dx}(s)
+    y-y(t) = -\frac{x'(t)}{y'(t)}\left(x-x(t)\right),
+  \end{equation*}
+  provided that $y'(s)\neq 0$. 
+\end{definition}
+
+\begin{center}
+  \begin{tikzpicture}[
+    scale=.6, >=Stealth, curve/.style={blue!70!black,very thick},
+    tangent/.style={red!70!black,thin,densely dashed},
+    velocity/.style={red!80!black,very thick,->},
+    normal/.style={green!45!black,thick,densely dashed}]
+    % An illustrative curve: y=0.15x^2
+    \draw[curve] plot[domain=0.3:5.2,samples=100] (\x,{0.15*\x*\x});
+    % The point r(t)=(3,1.35)
+    \coordinate (P) at (3,1.35);
+    % % The tangent direction is (1,0.9)
+    \draw[tangent] (1.3,-0.18)--(4.6,2.79) node[right] {tangent line};
+    % % A perpendicular direction is (-0.9,1)
+    \draw[normal,<->] (2.1,2.35)--(3.9,0.35) node[below right] {normal line};
+    % Velocity vector
+    \draw[velocity] (P)--(4.35,2.565) node[pos=0.72,below right] {$\mathbf r'(t)$};
+    % Ant centered at P and facing in the tangent direction
+    \begin{scope}[shift={(3,1.35)},rotate=42,scale=1.25]
+      % Legs
+      \draw[brown!80!black,line width=0.7pt] (-0.10,0.06)--(-0.23,0.18)--(-0.35,0.20);
+      \draw[brown!80!black,line width=0.7pt] (0,0.07)--(-0.02,0.23)--(-0.08,0.30);
+      \draw[brown!80!black,line width=0.7pt] (0.10,0.06)--(0.21,0.18)--(0.32,0.20);
+      \draw[brown!80!black,line width=0.7pt] (-0.10,-0.06)--(-0.23,-0.18)--(-0.35,-0.20);
+      \draw[brown!80!black,line width=0.7pt] (0,-0.07)--(-0.02,-0.23)--(-0.08,-0.30);
+      \draw[brown!80!black,line width=0.7pt] (0.10,-0.06)--(0.21,-0.18)--(0.32,-0.20);
+      % Body
+      \fill[brown!55!black] (-0.18,0) circle (0.10);
+      \fill[brown!55!black] (0,0) ellipse (0.14 and 0.10);
+      \fill[brown!55!black] (0.22,0) circle (0.13);
+      % Antennae
+      \draw[brown!80!black,line width=0.7pt] (0.31,0.07)--(0.43,0.17)--(0.52,0.18);
+      \draw[brown!80!black,line width=0.7pt] (0.31,-0.07)--(0.43,-0.17)--(0.52,-0.18);
+    \end{scope}
+    \fill (P) circle (1.3pt);
+    \node[below right] at (3.2,1.5) {$\mathbf r(t)$};
+  \end{tikzpicture}
+\end{center}
+\begin{remark}
+  Both the tangent line and the normal line pass through the point
+  $(x,y)=(x(t),y(t))$, which lies on the curve. The only difference is their
+  slope. The tangent line has slope
+  \begin{equation*}
+    m_{\rm tan} = \frac{dy}{dx}(s)
   \end{equation*}
   while the normal line has slope
   \begin{equation*}
-    m_{\rm norm}=-\frac{f'(s)}{g'(s)} = -\frac{1}{\frac{dy}{dx}(s)}.
+    m_{\rm norm}=- \frac{1}{m_{\rm tan}}.
   \end{equation*}
-  Since
-  \begin{equation*}
-    m_{\rm tan} = -\frac{1}{m_{\rm norm}}
-  \end{equation*}
-  it follows that the two lines are perpendicular to each other: the tangent line lies tangent to the curve, while the
-  normal line is perpendicular to it.
+  The two lines are perpendicular to each other: the tangent line lies tangent
+  to the curve (parallel to the the velocity $\mathbf{r}'(t)$), while the normal line is perpendicular to it.
 \end{remark}
 
 \begin{example}[Tangent and normal lines]
@@ -1519,9 +1552,7 @@ two assumptions hold:
   \end{equation}
   \noindent\textit{Problem:}  Find the tangent line and normal line to $C$ at $t=3$.
   
-  \noindent\textit{Solution:} For this problem, we have $f(t) = 5t^{2}-6t+4$ and $g(t) = t^{2}+6t-1$.
-
-  Before we start, this is the picture:
+  \noindent\textit{Solution:} Before we start, this is the picture:
 
   \begin{center}
     \includegraphics[scale=.3]{images/tangent-normal-lines}
@@ -1529,12 +1560,12 @@ two assumptions hold:
 
   Differentiate:
   \begin{equation*}
-    \left\{ \begin{array}{l@{}l} f'(t)  = 10t -t \\ g'(t) = 2t+6  \end{array}\right.
+    \left\{ \begin{array}{l@{}l} x'(t)  = 10t -t \\ y'(t) = 2t+6  \end{array}\right.
   \end{equation*}
 
   Therefore
   \begin{equation}\label{eq:11}
-    \frac{dy}{dx}(t) = \frac{f'(t)}{g'(t)}=\frac{2t+6}{10t-6}.
+    \frac{dy}{dx}(t) = \frac{2t+6}{10t-6}.
   \end{equation}
   Important note: $\frac{dy}{dx}$ is a function of $t$. It is not a function of $x$!
 
@@ -1554,7 +1585,7 @@ two assumptions hold:
   \end{equation*}
 \end{example}
 
-
+\end{document}
 
 
 \subsection{Concavity of parameterized curves}
@@ -1604,21 +1635,26 @@ $f''(x)>0,$ the graph is concave up. Just like in the following picture:
 \Fl{With parameterized curves, the story is no different, but we'll need to learn how to compute the second derivative
   $\frac{d^{2}y}{dx^{2}}$, as we now show.}
 
-Consider a curve
+Consider a curve parameterized by
 \begin{equation*}
-  \left\{ \begin{array}{l@{}l} x = f(t) \\ y= g(t) \end{array}\right.
+  \mathbf{r}(t) =
+  \begin{bmatrix}
+    x(t)\\y(t)
+  \end{bmatrix},
+  \qquad a \leq t \leq b.
 \end{equation*}
-so that $f,g$ are twice differentiable on the inteval $I$ and $f'(t)\neq 0$ on $I$.
+assume that $x(t)$ and $y(t)$ are twice differentiable on the interval $[a,b]$
+that  $x'(t)\neq 0$ for all $t\in [a,b]$.
 
 We have already seen how to compute
 \begin{equation*}
-  \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{g'(t)}{f'(t)}.
+  \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{y'(t)}{x'(t)}.
 \end{equation*}
 
 What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
 
 \begin{equation}\label{eq:2nd-derivative-for-parameterized-curves}
-  \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}= \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{f'(t)}
+  \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}= \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{x'(t)}
 \end{equation}
 \begin{example}[Concavity of a parameterized curve]
   Let $C$ be the curve defined by the parametric equations
