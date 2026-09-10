@@ -1585,8 +1585,8 @@ two assumptions hold:
   \end{equation*}
 \end{example}
 
-\end{document}
-
+\newpage
+\section{2026-09-09 | Week 03 | Lecture 07}
 
 \subsection{Concavity of parameterized curves}
 The concavity of a differentiable function is determined by its second derivative. For example, the graph
@@ -1651,8 +1651,36 @@ We have already seen how to compute
   \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{y'(t)}{x'(t)}.
 \end{equation*}
 
-What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
-
+What about $\frac{d^{2}y}{dx^{2}}$? What is it?
+\begin{equation*}
+  \frac{d^{2}y}{dx^{2}}(t) = \left( \text{instantantous rate of change of slope
+      with respect to $x$ at time $t$} \right)
+\end{equation*}
+How to compute it? Let
+\begin{align*}
+  m(t) = \frac{dy}{dx}(t) = \text{(slope of tangent line at time $t$)}
+\end{align*}
+Let $dt$ denote an infinitesimal moment of time. Then
+\begin{align*}
+  dm &= m'(t)dt \qquad \text{(infinitesimal change in slope from time $t$ to $t+dt$)}\\
+  dx &= x'(t)dt \qquad \text{(infinitesimal change in $x$ from time $t$ to $t+dt$)}\\
+  % \Delta t &= \text{(small amount of time)}\\
+  % \Delta m &= m(t+\Delta t)- m(t) = \text{(change in slope over the time interval $(t,t+\Delta t$))}\\
+  % \Delta x &= x(t+\Delta t)- x(t) \\
+\end{align*}
+Then
+\begin{align*}
+  \frac{d^{2}y}{dx^{2}}
+  = \frac{dm}{dx}
+  = \frac{m'(t)dt}{x'(t)dt}
+  = \frac{m'(t)}{x'(t)}
+  = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{x'(t)}
+  % &\approx \frac{\Delta m}{\Delta x} \\
+  % &= \frac{\Delta m/ \Delta t}{\Delta x/ \Delta t} \\
+  % &= \frac{\left( \frac{m(t+\Delta t) - m(t)}{\Delta t} \right) }{ \left( \frac{x(t+\Delta t) - x(t)}{\Delta t} \right) }\\
+  % & \to \frac{m'(t)}{x'(t)}.
+\end{align*}
+This give the following formula:
 \begin{equation}\label{eq:2nd-derivative-for-parameterized-curves}
   \frac{d^{2}y}{dx^{2}} = \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{\frac{dx}{dt}}= \frac{\frac{d}{dt}\left[ \frac{dy}{dx} \right] }{x'(t)}
 \end{equation}
@@ -1757,6 +1785,7 @@ What about $\frac{d^{2}y}{dx^{2}}$? The formula is:
     \frac{2}{3 \sqrt{3}} \right)  $ and $\left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) $, and a
   vertical tangent line at the point $\left( \frac{1}{2},0 \right)$. This answers part (c).
 \end{example}
+
 
 
 \end{document}
