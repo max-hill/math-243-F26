@@ -19,6 +19,7 @@ title: Lecture Notes
  2026-08-31  |  ellipse, parameterized curves: velocity, speed, direction, distance, and arc length
  2026-09-02  |  arc length and distance examples
  2026-09-04  |  smoothness, tangent lines, normal lines
+ 2026-09-09  |  concavity of parameterized curves
  
 # Other links
 
