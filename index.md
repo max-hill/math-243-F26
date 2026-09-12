@@ -20,6 +20,7 @@ title: Lecture Notes
  2026-09-02  |  arc length and distance examples
  2026-09-04  |  smoothness, tangent lines, normal lines
  2026-09-09  |  concavity of parameterized curves
+ 2026-09-11  |  introduction to polar coordinates
  
 # Other links
 

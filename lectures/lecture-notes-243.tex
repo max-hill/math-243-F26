@@ -1785,6 +1785,590 @@ This give the following formula:
     \frac{2}{3 \sqrt{3}} \right)  $ and $\left( \frac{2}{3}, -\frac{2}{3 \sqrt{3}} \right) $, and a
   vertical tangent line at the point $\left( \frac{1}{2},0 \right)$. This answers part (c).
 \end{example}
+\newpage
+\section{2026-09-11 | Week 03 | Lecture 08}
+\subsection{Polar Coordinates}
+\textit{Reading assignment: section 11.3, 11.4}
+  
+Consider the point on the plane whose Cartesian coordinates are $(x,y)= (\sqrt{3},1)$:
+
+\begin{center}
+  \begin{tikzpicture}[scale=3]
+    % Draw axes
+    \draw[->] (-0.5,0) -- (2.2,0) node[right] {$x$}; \draw[->] (0,-0.5) --
+    (0,1.5) node[above] {$y$};
+    
+    % Plot the point (sqrt(3),1)
+    \coordinate (A) at ({sqrt(3)},1); \fill (A) circle (1pt) node[above right]
+    {$(\sqrt{3},1)$};
+    
+    % Draw dashed blue ray
+    \draw[dashed, blue] (0,0) -- (A) node[midway, above] {$r$};
+    
+    % Add theta
+    \draw[blue] (0.3,0) arc (0:30:0.3) node[midway, right] {$\theta$};
+
+    % Add tick marks
+    \draw (1,0.05) -- (1,-0.05) node[below] {$1$}; \draw (2,0.05) -- (2,-0.05)
+    node[below] {$2$}; \draw (0.05,1) -- (-0.05,1) node[left] {$1$};
+  \end{tikzpicture}
+\end{center}
+
+Here I have also plotted a ray of length $r$ extending from the origin to the
+point, as well as the angle $\theta$ of the ray.
+
+Can we figure out what $r$ and $\theta$ are?
+
+
+\begin{itemize}
+  \item By the Pythagorean theorem, we have
+  \begin{equation*}
+    r^{2} = \left( \sqrt{3} \right)^{2} + \left( 1 \right)^{2} = 4 
+  \end{equation*}
+  so $r=2$.
+  \item Observe that $\tan(\theta) = \text{slope} = \frac{\text{rise}}{\text{run}} =
+  \frac{1}{\sqrt{3}}$.
+  
+  And with a little bit of thought after looking at a unit circle, we conclude
+  that
+  \begin{equation*}
+    \theta = \frac{\pi}{6}
+  \end{equation*}
+  since
+  \begin{equation*}
+    \tan(\theta) 
+    = \frac{\sin(\theta)}{\cos(\theta)} 
+    = \frac{\left( \frac{1}{2} \right) }{\left( \frac{\sqrt{3}}{2} \right) } 
+    = \frac{1}{\sqrt{3}}.
+  \end{equation*}
+  \begin{center}
+    \includegraphics[scale=0.15]{images/unit-circle-with-labels}
+    % public domain image by Jim.belk, from wikipedia
+  \end{center}
+\end{itemize}
+Therefore, using the two bullet points above, we can represent the point
+$(x,y)=(\sqrt{3},1)$ by the pair
+\begin{equation*}
+  (r,\theta) = \left( 2,\frac{\pi}{6} \right).
+\end{equation*}
+This representation is called the \demph{polar coordinates} of the point, and it
+can be done for any point in the $xy$-plane.
+
+\begin{theorem}[Key identities for converting between polar and rectangular coordinates]
+  \label{thm:key-identities-for-converting-between-polar-and-rectangular-coordinates}
+  If $(r,\theta)$ is a point in polar coordinates, the rectangular coordinates
+  are given by
+  \begin{equation}\label{eq:polar-key-sincos-identity}
+    x = r\cos \theta \quad \text{and} \quad y = r\sin \theta
+  \end{equation}
+  On the other hand, given a point $(x,y)$ in rectangular coordinates, the polar
+  coordinates are determined by the identities
+  \begin{equation}\label{eq:polar-key-cart-identities}
+    r^{2} = x^{2}+y^{2} \quad \text{and} \quad \tan \theta = \frac{y}{x}
+  \end{equation}
+\end{theorem}
+
+\cref{eq:polar-key-sincos-identity} allows us to find the Cartesian coordinates
+of a point when the polar coordinates are known. More generally, can use the
+identities in
+\cref{thm:key-identities-for-converting-between-polar-and-rectangular-coordinates}
+to convert between coordinate systems, as shown in the next examples.
+
+\begin{example}
+  Consider the point on the plane whose Cartesian coordinates are $(1,-1)$. What
+  are the polar coordinates of the point?
+
+
+  \begin{center}
+    \begin{tikzpicture}[scale=3]
+      % Draw axes
+      \draw[<->] (-0.5,0) -- (1.5,0) node[right] {$x$};%
+      \draw[<->] (0,-1.5) -- (0,.5) node[above] {$y$};%
+      
+      % Plot the point (sqrt(3),1)
+      \coordinate (A) at (1,-1);%
+      \fill (A) circle (1pt) node[above right] {$(1,-1)$};
+      
+      % Draw dashed blue ray
+      \draw[dashed, blue] (0,0) -- (A) node[midway, above] {$r$};
+      
+      % Add theta
+      \draw[blue] (0.3,0) arc (0:-45:0.3) node[midway, right] {$\theta$};
+
+      % Add tick marks
+      \draw (1,0.05) -- (1,-0.05) node[below] {$1$};%
+      \draw (0.05,-1) -- (-0.05,-1) node[left] {$-1$};%
+    \end{tikzpicture}
+  \end{center}
+
+  \Fli{Solution:} We need to determine $r$ and $\theta$. We use \cref{eq:polar-key-cart-identities}:
+  \begin{itemize}
+    \item $r = \sqrt{1^{2}+(-1)^{2}}=\sqrt{2}$. 
+    \item $\tan\theta = \frac{y}{x} = -1$. This implies that
+    $\theta=-\frac{\pi}{4}$ (or $\theta=\frac{7\pi}{4}$ works too).
+  \end{itemize}
+\end{example}
+
+
+\begin{example}
+  \begin{itemize}
+    \item []
+    \item What is the curve represented by the polar equation $r=2$?
+    \item What abou the the curve $\theta = \frac{\pi}{3}$?
+  \end{itemize}
+\end{example}
+\begin{example}
+  Find a polar equation of the form $r=f(\theta)$ for the
+  curve represented by the Cartesian equation $x=3$.
+
+  \Fli{Solution:} Use $x=r\cos(\theta)$:
+
+  \begin{equation*}
+    r\cos(\theta) = 3
+  \end{equation*}
+  so
+  \begin{align*}
+    r = \frac{3}{\cos(\theta)} 
+  \end{align*}
+  or equivalently,
+  \begin{equation*}
+    r = 3\sec(\theta)
+  \end{equation*}
+\end{example}
+
+\end{document}
+\subsection{Converting between Polar to Cartesian form}
+\begin{example}[Cartesian $\implies$ Polar ]
+  Find a polar equation of the form $r = f(\theta)$ for the
+  curve represented by the Cartesian equation $x=-2y^{2}$.
+
+  \Fli{Solution:} Use
+  $x=r\cos(\theta)$ and $y=r\sin(\theta)$:
+  \begin{align*}
+    r\cos(\theta) 
+    &= -2 \left( r\sin(\theta) \right)^{2}\\
+    &= -2 r^{2}\sin^{2}(\theta).
+  \end{align*}
+  Divide both sides by $r$:
+  \begin{equation*}
+    \cos(\theta) = -2r \sin^{2}(\theta).
+  \end{equation*}
+  Solve for $r$:
+  \begin{equation*}
+    r = -\frac{\cos(\theta)}{2\sin^{2}(\theta)}
+  \end{equation*}
+\end{example}
+
+
+\begin{example}[Polar $\implies$ Cartesian]
+  Find a Cartesian equation for the polar curve $r=2\cos(\theta)$.
+
+  \Fli{Solution:} By \cref{eq:polar-key-sincos-identity}, we know that 
+  \begin{equation*}
+    x= r\cos(\theta).
+  \end{equation*}
+  Multiply both sides of our original equation by $r$:
+  \begin{equation*}
+    r^{2} = 2r\cos(\theta)
+  \end{equation*}
+  Thus
+  \begin{equation*}
+    r^{2} = 2x.
+  \end{equation*}
+  By \cref{eq:polar-key-cart-identities}, we know that $r^{2} = x^{2}+y^{2}$.
+  Therefore
+  \begin{equation*}
+    x^{2}+y^{2} = 2x.
+  \end{equation*}
+  Completing the square gives
+  \begin{equation*}
+    (x-1)^{2} + y^{2} =1
+  \end{equation*}
+  This is a circle of radius 1 with center at $(1,0)$. 
+\end{example}
+
+
+\subsection{Sketching polar functions}
+
+\begin{example}
+  Sketch the polar function
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r=1+\cos(\theta) \\ 0 \leq \theta \leq 2\pi\end{array}\right.
+  \end{equation*}
+  \textit{Solution:} Let's use the method of making a table to plot points. It will be convenient to use
+  the approximations $\sqrt{3}\approx 1.7$ and $\sqrt{2}\approx 1.4$.
+
+  \begin{center}
+    \begin{tikzpicture}
+      \node at (-6,.5){
+        \begin{tabular}{c|c}
+          \hline
+          $\theta$  & $r=1+\cos(\theta)$ \\
+          \hline
+          $0$ & $2$ \\
+          $\pi/6$ & $1+\frac{\sqrt{3}}{2}\approx 1.85$ \\
+          $\pi/4$ & $1+\frac{\sqrt{2}}{2}\approx 1.7$ \\
+          $\pi/3$ & $1.5$ \\
+          $\pi/2$ & $1$ \\
+          $2\pi/3$ & $1-\frac{1}{2}=.5$ \\
+          $3\pi/4$ & $1-\frac{\sqrt{2}}{2}\approx 1-0.7 = .3$ \\
+          $5\pi/6$ & $1-\frac{\sqrt{3}}{2}\approx 1-.85 = .15$ \\
+          $\pi$ & $0$ \\
+          \hline
+        \end{tabular}};
+      % Axis
+      \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$}; \draw[->] (0,-1.5) -- (0,2.5) node[above] {$y$};
+      % Points
+      \foreach \angle/\radius in { 0/2, 30/1.85, 45/1.7, 60/1.5, 90/1, 120/0.5, 135/.3, 150/.15 180/0} \fill
+      (\angle:\radius) circle[radius=2pt];
+    \end{tikzpicture}
+  \end{center}
+  
+  After plotting these points, we make the observation that since $\cos(\theta)$ is an even function,
+  $\cos(-\theta)=\cos(\theta)$. Therefore the graph is symmetric about the horizontal axis. Using this
+  property to sketch the curve, we obtain:
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[->] (-1.5,0) -- (2.5,0) node[right] {$x$};%
+      \draw[->] (0,-1.5) -- (0,2.5) node[above] {$y$};%
+      % Curve
+      \draw[domain=0:360,samples=180,smooth,variable=\t,blue] plot ({\t}:{1 + cos(\t)});%
+    \end{tikzpicture}
+  \end{center}
+  This shape is called a cardiod.
+\end{example}
+
+
+\begin{example}
+  Sketch the graph of the polar equation
+  \begin{equation*}
+    r = \frac{1}{\sin(\theta)+2\cos(\theta)}.
+  \end{equation*}
+  \textit{Solution:} No way are we making a table for this problem. Maybe we can rewrite it in Cartesian
+  coordinates.
+
+  Start by mutlipying both sides by $(\sin\theta + 2\cos \theta)$:
+  \begin{equation*}
+    r\sin(\theta)+2r\cos(\theta) = 1
+  \end{equation*}
+  Now use \cref{thm:key-identities-for-converting-between-polar-and-rectangular-coordinates}, which says
+  $x=r\cos(\theta)$ and $y=r\sin(\theta)$:
+  \begin{equation*}
+    y +2x = 1.
+  \end{equation*}
+  This is the line $y=-2x+1$. Easy-peasy to graph. :)
+\end{example}
+
+
+\subsection{Finding $\frac{dy}{dx}$ with polar functions}
+No matter what coordinate system we use, the slope of a tangent line is always given by the quantity $\frac{dy}{dx}$.
+
+We've seen how to compute that in other contexts. How do we compute $\frac{dy}{dx}$ when our equation is
+a polar function of the form $r = f(\theta)$?
+
+As a function of $\theta$, the $(x,y)$-coordinates are
+\begin{equation*}
+  x=f(\theta)\cos(\theta), \quad y = f(\theta)\sin(\theta).
+\end{equation*}
+By the product rule,
+\begin{equation*}
+  \frac{dx}{d\theta} = f'(\theta)\cos(\theta)-f(\theta)\sin(\theta) \quad \text{and} \quad  \frac{dy}{d\theta} = f'(\theta)\sin(\theta) + f(\theta)\cos(\theta).
+\end{equation*}
+Certainly, we must have:
+\begin{equation*}
+  \frac{dy}{dx} = \frac{dy/d\theta}{dx/d\theta}.
+\end{equation*}
+Therefore,
+\begin{equation*}
+  \boxed{
+    \frac{dy}{dx} = \frac{f'(\theta)\sin(\theta) + f(\theta)\cos(\theta)}{f'(\theta)\cos(\theta)-f(\theta)\sin(\theta)}
+  }
+\end{equation*}
+
+\newpage
+\section{2025-02-03 | Week 4 | Lecture 9}
+\subsection{Derivatives of polar functions}
+Recall that for a polar curve in the form $r = f(\theta)$, the derivative is
+\begin{equation}\label{eq:derivative-of-polar-curve}
+  \boxed{
+    \frac{dy}{dx} = \frac{f'(\theta)\sin(\theta) + f(\theta)\cos(\theta)}{f'(\theta)\cos(\theta)-f(\theta)\sin(\theta)}.
+  }
+\end{equation}
+
+\begin{example}
+  Consider the polar function
+  \begin{equation*}
+    r = 1+2\sin \theta.
+  \end{equation*}
+  This polar function has graph:
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[<->] (-3,0) -- (3,0) node[right] {$x$};%
+      \draw[<->] (0,-1) -- (0,3.3) node[above] {$y$};%
+      % Curve 1: r = 1 + 2*sin(theta)
+      \draw[domain=0:720,samples=360,smooth,variable=\t,red] plot ({\t}:{1 + 2*sin(\t)});%
+      % Curve 2: theta = pi/4
+      \draw[dashed] (0,0) -- (45:2.41);%
+      % Point
+      \fill (45:2.41) circle[radius=2pt] node[above right] {$(r,\theta) = (1 + 2\sin(\frac{\pi}{4}), \frac{\pi}{4})$ };%
+      % Add ticks on x-axis
+      \foreach \x in {-2,-1,1,2} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};%
+      % Add ticks on y-axis
+      \foreach \y in {1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
+    \end{tikzpicture}
+  \end{center}
+  \textit{Questions:}
+  \begin{enumerate}
+    \item Find the equations of the tangent and normal lines to the graph at $\theta=\frac{\pi}{4}$.
+    \item Find where the graph has vertical and horizontal tangent lines.
+  \end{enumerate}
+
+  \noindent\textit{Solution:} To find the tangent line, first compute $\frac{dy}{dx}$.  Since $r(\theta) = 1+2\sin(\theta)$, we
+  have
+  \begin{equation*}
+    r'(\theta) = 2\cos(\theta).
+  \end{equation*}
+  Therefore, by the boxed formula above, we have:
+  \begin{align*}
+    \frac{dy}{dx} 
+    &= \frac{r'(\theta)\sin(\theta) + r(\theta)\cos(\theta)}{r'(\theta)\cos(\theta)-r(\theta)\sin(\theta)}\\
+    &= \frac{2\sin(\theta)\cos(\theta)+ (1+2\sin\theta)\cos(\theta)}{2\cos^{2}(\theta)- (1+2\sin \theta)\sin \theta}
+  \end{align*}
+  Plugging in $\theta=\frac{\pi}{4}$, we get
+  \begin{equation}\label{eq:12}
+    \frac{dy}{dx}(\pi/4) = -2 \sqrt{2} -1 \approx -3.8
+  \end{equation}
+  We now have the slope of the tangent line, but we need it's $xy$-coordinates.
+
+  When $\theta=\frac{\pi}{4}$, we have
+  \begin{equation*}
+    r = 1+2\sin(\frac{\pi}{4}) = 1+\sqrt{2}.
+  \end{equation*}
+  \begin{itemize}
+    \item Using this along with the formula $x=r\sin(\theta)$, observe that when $\theta=\frac{\pi}{4}$, we have:
+    \begin{align*}
+      x  = (1+\sqrt{2})\sin(\frac{\pi}{4}) = \left( 1+\sqrt{2} \right)\frac{\sqrt{2}}{2} 
+    \end{align*}
+    or approximately
+    \begin{equation*}
+      x \approx 1.7
+    \end{equation*}
+    \item Similarly, we can use the formula $y=r\sin(\theta)$ to obtain the value of $y$ whe $\theta=\frac{\pi}{4}$. In that
+    case, we also get $y \approx 1.7$ (work not shown).
+  \end{itemize}
+  So the tangent line is approximately the line
+  \begin{equation*}
+    y -1.7 = -3.8(x-1.7)
+  \end{equation*}
+  or
+  \begin{equation*}
+    y = -3.8 x + 8.2
+  \end{equation*}
+\end{example}
+
+\subsection{Areas enclosed by polar graphs}
+
+Next lecture will discuss computing areas enclosed by polar graphs. The formula for this is the following
+
+
+A \demph{sector} is the following
+\begin{center}
+  \includegraphics[scale=1]{images/sector}
+\end{center}
+\begin{theorem}[Area of a sector]
+  The area of a sector with angle $\theta$ is
+  \begin{equation*}
+    \text{area } = \frac{1}{2}\theta r^{2}
+  \end{equation*}
+\end{theorem}
+For example, if $\theta=360^{\circ} = 2\pi$, then
+\begin{equation*}
+  \text{area } = \pi r^{2},
+\end{equation*}
+which is the formula for the area of a circle.
+
+\begin{theorem}\label{thm:polar-area-theorem}
+  If $r=f(\theta)$ and $f$ is a continuous and \textbf{nonnegative} function on the interval $[\alpha,\beta]$, where $0
+  \leq \beta-\alpha \leq 2\pi$ then the area of the region bounded by the
+  lines $r =f(\theta)$ and $\theta=a$ and $\theta = b$ is
+  \begin{equation*}
+    \text{Area} = \frac{1}{2}\int_{\alpha}^{\beta}r^{2}d\theta =  \frac{1}{2} \int_{\alpha}^{\beta}\left[ f(\theta) \right]^{2}d\theta   
+  \end{equation*}
+\end{theorem}
+\begin{remark}
+  It's really important that you check that the conditions $0 \leq \beta - \alpha \leq 2\pi$ and
+  nonnegativity of $f$. Otherwise cancelletion or double counting of regions may occur, resulting in the
+  integral not actually equalling the area.
+\end{remark}
+
+Throughout we will use the following useful proposition.
+
+\begin{proposition}[Useful integrals]
+  \label{prop:useful-integrals}
+  It holds that
+  \begin{align*}
+    \int \cos^{2}(\theta)d\theta  &= \frac{\theta}{2}+\frac{\sin(2\theta)}{4}+C\\
+    \int \sin^{2}(\theta)d\theta  &= \frac{\theta}{2}-\frac{\sin(2\theta)}{4}+C
+  \end{align*}
+\end{proposition}
+The integrals of \cref{prop:useful-integrals} can be computed using the power-reduction identities
+$\cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2}$ and $\sin^{2}(\theta) = \frac{1-\cos(2\theta)}{2}$.
+
+\begin{example}[Area of region enclosed by polar coordinates]
+  \label{ex:area-region-enclosed-polar-coordinates}
+  Consider the polar function
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r = 4 \sin(3\theta) \\ 0 \leq \theta \leq \frac{\pi}{3}\end{array}\right.
+  \end{equation*}
+  This is a petal. As $\theta$ ranges from 0 to $\frac{\pi}{3}$, the curve loops counterclockwise from
+  the origin back to the origin. To see why, think about the motion of a particle whose trajectory is
+  traced out by $(r,\theta) = (\sin(3\theta),\theta)$. At $\theta=0$, the particle starts at the origin.
+  When $\theta = \frac{\pi}{6}$, the particle's distance from the origin is maximized. When
+  $\theta=\frac{\pi}{3}$, the particle is back at the origin. This traces out exactly the full petal.. So
+  we will integrate over the interval $0 \leq \theta \leq \frac{\pi}{3}$.
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[<->] (-5,0) -- (5,0) node[right] {$x$};%
+      \draw[<->] (0,-3.5) -- (0,3.3) node[above] {$y$};%
+      % Curve 1: r = 1 + 2*sin(theta)
+      \draw[domain=0:60,samples=360,smooth,variable=\t,red] plot ({\t}:{4*sin(3*\t)});%
+      % Curve 2: theta = 2pi/3
+      \draw[dashed] (0,0) -- (60:2.41) node[above] {$\theta=\frac{\pi}{3}$};%
+      % Curve 2: theta = pi/3
+      \draw[dashed] (0,0) -- (30:4.41) node[above] {$\theta=\frac{\pi}{6}$};%
+      % Add ticks on x-axis
+      \foreach \x in {-4,-3,-2,-1,1,2,3,4} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};%
+      % Add ticks on y-axis
+      \foreach \y in {,-3,-2,-1,1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
+    \end{tikzpicture}
+  \end{center}
+
+
+  \begin{align*}
+    \text{Area of one petal}
+    &= \frac{1}{2} \int_{0}^{\pi/3}r^{2}d\theta\\
+    &= \frac{1}{2} \int_{0}^{\pi/3}\left[ 4\sin(3\theta) \right]^{2}d\theta\\  
+    &= 8 \int_{0}^{\pi/3}\sin^{2}(3\theta)d\theta.
+  \end{align*}
+  Use the $u$-substitution $u=3\theta$, $du = 3d\theta $
+  \begin{align*}
+    \text{Area of one petal}
+    &= \frac{8}{3} \int_{0}^{\pi}\sin^{2}(u)du\\ 
+    &= \frac{8}{3} \left[ \frac{u}{2}-\frac{\sin(2u)}{4} \right]^{u=\pi}_{u=0}
+    &&\text{ by \cref{prop:useful-integrals}}\\
+    &= \frac{4}{3}\pi.
+  \end{align*}
+\end{example}
+
+\newpage
+\section{2025-02-05 | Week 4 | Lecture 10}
+\textit{Today we finish section 10.4 in the texbook and start 12.1 and 12.2}
+
+The next example illustrates by the nonnegativity assumption of \cref{thm:polar-area-theorem} is so essential
+
+\begin{example}[Necessity of the hypotheses of \cref{thm:polar-area-theorem}]
+  Consider the polar function
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r=4\sin(3\theta) \\ 0 \leq \theta \leq 2\pi\end{array}\right.
+  \end{equation*}
+  This is a continuation of the curve from \cref{ex:area-region-enclosed-polar-coordinates}, but now we
+  allow $\theta$ to range all the way to $2\pi$. This gives the following 3-petal flower:
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[<->] (-5,0) -- (5,0) node[right] {$x$};%
+      \draw[<->] (0,-5) -- (0,3.3) node[above] {$y$};%
+      % Curve 1: r = 1 + 2*sin(theta)
+      \draw[domain=0:720,samples=360,smooth,variable=\t,red] plot ({\t}:{4*sin(3*\t)});%
+      % Add ticks on x-axis
+      \foreach \x in {-4,-3,-2,-1,1,2,3,4} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};%
+      % Add ticks on y-axis
+      \foreach \y in {,-4,-3,-2,-1,1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
+    \end{tikzpicture}
+  \end{center}
+  What is the area of the entire bounded region enclosed by the graph?
+
+  The first thing we might think to do is to integrate over $0 \leq \theta \leq 2\pi$, as follows:
+  \begin{align*}
+    A&=\frac{1}{2}\int_{0}^{2\pi}r^{2}d\theta = \frac{1}{2}\int_{0}^{2\pi}\left[4\sin(3\theta)\right]^{2}d\theta = 8 \int_{0}^{2\pi} \sin^{2}(3\theta)d\theta.
+  \end{align*}
+  Now do the $u$-substitution $u=3\theta$, $du = 3d\theta$:
+  \begin{align*}
+    A&= \frac{8}{3}\int_{0}^{6\pi}\sin^{2}(u)du = \frac{8}{3}\left[ \frac{u}{2}-\frac{\sin(2u)}{4} \right]^{6\pi}_{0} = \frac{8}{3} \left[ 3\pi \right] =8\pi.
+  \end{align*}
+  \textbf{Although it seemed like everything worked out nicely, the above answer of $8\pi$ is wrong.} The problem is that the function
+  $\sin(3\theta)$ is not nonnegative on the interval $0 \leq \theta \leq 2\pi$.
+
+  The correct area is $4\pi$, obtained by observing that there are 3 petals and the area of a single
+  petal is $\frac{4}{3}\pi$ by \cref{ex:area-region-enclosed-polar-coordinates}.
+\end{example}
+
+
+
+\begin{example} Find the area enclosed by one loop of the curve
+  \begin{equation*}
+    r = 3\cos(5\pi).
+  \end{equation*}
+
+  The plot of this is shown below:
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[<->] (-4,0) -- (4,0) node[right] {$x$};%
+      \draw[<->] (0,-4) -- (0,3.3) node[above] {$y$};%
+      % Curve 1: r = 1 + 2*sin(theta)
+      \draw[domain=0:720,samples=360,smooth,variable=\t,red] plot ({\t}:{3*cos(5*\t)});%
+      % Add ticks on x-axis
+      \foreach \x in {-3,-2,-1,1,2,3} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};%
+      % Add ticks on y-axis
+      \foreach \y in {,-3,-2,-1,1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
+    \end{tikzpicture}
+  \end{center}
+  What should we pick as the interval? One way to figure this out is to look at when the polar function crosses the
+  origin, i.e., when $r = 0$:
+  \begin{gather*} 
+    r = 0\\
+    \Updownarrow\\
+    \cos(5\theta) = 0\\
+    \Updownarrow\\
+    5\theta = \pm \frac{\pi}{2}, \pm \frac{3\pi}{2}, \pm \frac{5\pi}{2},\ldots\\
+    \Updownarrow\\
+    \theta = \pm \frac{\pi}{10}, \pm \frac{3\pi}{10}, \pm \frac{5\pi}{10},\ldots
+  \end{gather*}
+  Here, the smallest angles about $\theta=0$ are $\theta=\pm \frac{\pi}{10}$. So the equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r=3\cos(5\pi) \\ -\frac{\pi}{10} \leq \theta \leq \frac{\pi}{10}\end{array}\right.
+  \end{equation*}
+  traces out the following petal:
+  \begin{center}
+    \begin{tikzpicture}
+      % Axis
+      \draw[<->] (-4,0) -- (5,0) node[right] {$x$};%
+      \draw[<->] (0,-4) -- (0,3.3) node[above] {$y$};%
+      % Curve 1: r = 1 + 2*sin(theta)
+      \draw[domain=-18:18,samples=360,smooth,variable=\t,red] plot ({\t}:{3*cos(5*\t)});%
+      % Add ticks on x-axis
+      \foreach \x in {-3,-2,-1,1,2,3} \draw (\x,0.1) -- (\x,-0.1) node[below] {\x};%
+      % Add ticks on y-axis
+      \foreach \y in {-3,-2,-1,1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
+    \end{tikzpicture}
+  \end{center}
+  The area of enclosed by this loop is
+  \begin{align*}
+    A 
+    &= \frac{1}{2}\int_{-\pi/10}^{\pi/10} r^{2}d\theta\\
+    &= \frac{1}{2}\int_{-\pi/10}^{\pi/10} \left[ 3\cos(5\theta) \right]^{2}  d\theta\\
+    &= \frac{9}{10}\int_{-\pi/2}^{\pi/2} \cos^{2}(\theta)d\theta &&\text{subtitution: $u=5\theta$ }\\
+    &= \frac{9}{10} \left[ \frac{u}{2}+\frac{\sin(2u)}{4} \right]^{\pi/2}_{-\pi/2} &&\text{by \cref{prop:useful-integrals} } \\
+    &= \frac{9}{10} \left[ \frac{\pi}{2}    \right]\\
+    &= \frac{9\pi}{20}.
+  \end{align*}
+\end{example}
+
+
 
 
 
