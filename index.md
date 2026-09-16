@@ -21,6 +21,8 @@ title: Lecture Notes
  2026-09-04  |  smoothness, tangent lines, normal lines
  2026-09-09  |  concavity of parameterized curves
  2026-09-11  |  introduction to polar coordinates
+ 2026-09-14  |  converting between polar and Cartesian form, sketching polar curves
+ 2026-09-16  |  calculus with polar curves (slopes and areas) 
  
 # Other links
 

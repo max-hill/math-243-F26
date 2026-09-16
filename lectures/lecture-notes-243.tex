@@ -1787,8 +1787,16 @@ This give the following formula:
 \end{example}
 \newpage
 \section{2026-09-11 | Week 03 | Lecture 08}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Introduction to polar coordinates}
+
+    \textit{\textbf{Reading assignment:} sections 11.3, 11.4}
+  \end{tcolorbox}
+\end{center}
+
 \subsection{Polar Coordinates}
-\textit{Reading assignment: section 11.3, 11.4}
   
 Consider the point on the plane whose Cartesian coordinates are $(x,y)= (\sqrt{3},1)$:
 
@@ -1936,7 +1944,15 @@ to convert between coordinate systems, as shown in the next examples.
   \end{equation*}
 \end{example}
 
-\end{document}
+\newpage
+\section{2026-09-14 | Week 04 | Lecture 09}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topics of this lecture:} Converting between polar and
+      cartesian form, sketching polar curves}
+  \end{tcolorbox}
+\end{center}
+
 \subsection{Converting between Polar to Cartesian form}
 \begin{example}[Cartesian $\implies$ Polar ]
   Find a polar equation of the form $r = f(\theta)$ for the
@@ -2040,25 +2056,35 @@ to convert between coordinate systems, as shown in the next examples.
 \end{example}
 
 
-\begin{example}
-  Sketch the graph of the polar equation
-  \begin{equation*}
-    r = \frac{1}{\sin(\theta)+2\cos(\theta)}.
-  \end{equation*}
-  \textit{Solution:} No way are we making a table for this problem. Maybe we can rewrite it in Cartesian
-  coordinates.
+% \begin{example}
+%   Sketch the graph of the polar equation
+%   \begin{equation*}
+%     r = \frac{1}{\sin(\theta)+2\cos(\theta)}.
+%   \end{equation*}
+%   \textit{Solution:} No way are we making a table for this problem. Maybe we can rewrite it in Cartesian
+%   coordinates.
 
-  Start by mutlipying both sides by $(\sin\theta + 2\cos \theta)$:
-  \begin{equation*}
-    r\sin(\theta)+2r\cos(\theta) = 1
-  \end{equation*}
-  Now use \cref{thm:key-identities-for-converting-between-polar-and-rectangular-coordinates}, which says
-  $x=r\cos(\theta)$ and $y=r\sin(\theta)$:
-  \begin{equation*}
-    y +2x = 1.
-  \end{equation*}
-  This is the line $y=-2x+1$. Easy-peasy to graph. :)
-\end{example}
+%   Start by mutlipying both sides by $(\sin\theta + 2\cos \theta)$:
+%   \begin{equation*}
+%     r\sin(\theta)+2r\cos(\theta) = 1
+%   \end{equation*}
+%   Now use \cref{thm:key-identities-for-converting-between-polar-and-rectangular-coordinates}, which says
+%   $x=r\cos(\theta)$ and $y=r\sin(\theta)$:
+%   \begin{equation*}
+%     y +2x = 1.
+%   \end{equation*}
+%   This is the line $y=-2x+1$. Easy-peasy to graph. :)
+% \end{example}
+
+\newpage
+\section{2026-09-16 | Week 04 | Lecture 10}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Calculus with polar curves}
+
+    \textit{\textbf{Reading assignment:} sections 11.4, 11.5}
+  \end{tcolorbox}
+\end{center}
 
 
 \subsection{Finding $\frac{dy}{dx}$ with polar functions}
@@ -2086,8 +2112,7 @@ Therefore,
   }
 \end{equation*}
 
-\newpage
-\section{2025-02-03 | Week 4 | Lecture 9}
+
 \subsection{Derivatives of polar functions}
 Recall that for a polar curve in the form $r = f(\theta)$, the derivative is
 \begin{equation}\label{eq:derivative-of-polar-curve}
@@ -2119,68 +2144,79 @@ Recall that for a polar curve in the form $r = f(\theta)$, the derivative is
       \foreach \y in {1,2,3} \draw (0.1,\y) -- (-0.1,\y) node[left] {\y};%
     \end{tikzpicture}
   \end{center}
-  \textit{Questions:}
-  \begin{enumerate}
-    \item Find the equations of the tangent and normal lines to the graph at $\theta=\frac{\pi}{4}$.
-    \item Find where the graph has vertical and horizontal tangent lines.
-  \end{enumerate}
+
+  \fl{Question 1.} Find the equations of the tangent and normal lines to the graph at $\theta=\frac{\pi}{4}$.
 
   \noindent\textit{Solution:} To find the tangent line, first compute $\frac{dy}{dx}$.  Since $r(\theta) = 1+2\sin(\theta)$, we
   have
   \begin{equation*}
     r'(\theta) = 2\cos(\theta).
   \end{equation*}
-  Therefore, by the boxed formula above, we have:
+  Therefore, \cref{eq:derivative-of-polar-curve}, 
   \begin{align*}
     \frac{dy}{dx} 
     &= \frac{r'(\theta)\sin(\theta) + r(\theta)\cos(\theta)}{r'(\theta)\cos(\theta)-r(\theta)\sin(\theta)}\\
     &= \frac{2\sin(\theta)\cos(\theta)+ (1+2\sin\theta)\cos(\theta)}{2\cos^{2}(\theta)- (1+2\sin \theta)\sin \theta}
   \end{align*}
   Plugging in $\theta=\frac{\pi}{4}$, we get
-  \begin{equation}\label{eq:12}
+  \begin{equation*}
     \frac{dy}{dx}(\pi/4) = -2 \sqrt{2} -1 \approx -3.8
-  \end{equation}
-  We now have the slope of the tangent line, but we need it's $xy$-coordinates.
+  \end{equation*}
+  Therefore the slope of tha tangent line is $-3.8$.
 
-  When $\theta=\frac{\pi}{4}$, we have
+  \fl{Question 2.} For what values of $\theta$ is the slope of the tangent
+  line zero? For what values is the tangent line vertical?
+
+  \noindent\textit{Solution sketch:} We computed
   \begin{equation*}
-    r = 1+2\sin(\frac{\pi}{4}) = 1+\sqrt{2}.
+    \frac{dy}{dx} = \frac{2\sin(\theta)\cos(\theta)+ (1+2\sin\theta)\cos(\theta)}{2\cos^{2}(\theta)- (1+2\sin \theta)\sin \theta}
   \end{equation*}
-  \begin{itemize}
-    \item Using this along with the formula $x=r\sin(\theta)$, observe that when $\theta=\frac{\pi}{4}$, we have:
-    \begin{align*}
-      x  = (1+\sqrt{2})\sin(\frac{\pi}{4}) = \left( 1+\sqrt{2} \right)\frac{\sqrt{2}}{2} 
-    \end{align*}
-    or approximately
-    \begin{equation*}
-      x \approx 1.7
-    \end{equation*}
-    \item Similarly, we can use the formula $y=r\sin(\theta)$ to obtain the value of $y$ whe $\theta=\frac{\pi}{4}$. In that
-    case, we also get $y \approx 1.7$ (work not shown).
-  \end{itemize}
-  So the tangent line is approximately the line
-  \begin{equation*}
-    y -1.7 = -3.8(x-1.7)
-  \end{equation*}
-  or
-  \begin{equation*}
-    y = -3.8 x + 8.2
-  \end{equation*}
+  To find when the tangent line has slope zero, find the values of $\theta$
+  that make this equation zero.
+
+  Similarly, a tangent line is vertical when the slope is undefined. So for
+  the second part of the problem, find the values of $\theta$ such that the
+  denominator is zero and the numerator is nonzero.
+  % We now have the slope of the tangent line, but we need it's $xy$-coordinates.
+  % When $\theta=\frac{\pi}{4}$, we have
+  % \begin{equation*}
+  %   r = 1+2\sin(\frac{\pi}{4}) = 1+\sqrt{2}.
+  % \end{equation*}
+  % \begin{itemize}
+  %   \item Using this along with the formula $x=r\sin(\theta)$, observe that when $\theta=\frac{\pi}{4}$, we have:
+  %   \begin{align*}
+  %     x  = (1+\sqrt{2})\sin(\frac{\pi}{4}) = \left( 1+\sqrt{2} \right)\frac{\sqrt{2}}{2} 
+  %   \end{align*}
+  %   or approximately
+  %   \begin{equation*}
+  %     x \approx 1.7
+  %   \end{equation*}
+  %   \item Similarly, we can use the formula $y=r\sin(\theta)$ to obtain the value of $y$ whe $\theta=\frac{\pi}{4}$. In that
+  %   case, we also get $y \approx 1.7$ (work not shown).
+  % \end{itemize}
+  % So the tangent line is approximately the line
+  % \begin{equation*}
+  %   y -1.7 = -3.8(x-1.7)
+  % \end{equation*}
+  % or
+  % \begin{equation*}
+  %   y = -3.8 x + 8.2
+  % \end{equation*}
 \end{example}
 
 \subsection{Areas enclosed by polar graphs}
 
-Next lecture will discuss computing areas enclosed by polar graphs. The formula for this is the following
+How do we compute the area enclosed by a polar graphs? 
 
 
-A \demph{sector} is the following
+A \demph{sector} is the technical term for a pie slice of a circle, like the following:
 \begin{center}
   \includegraphics[scale=1]{images/sector}
 \end{center}
 \begin{theorem}[Area of a sector]
-  The area of a sector with angle $\theta$ is
+  The area of a sector with angle $\theta$ and radius $r$ is
   \begin{equation*}
-    \text{area } = \frac{1}{2}\theta r^{2}
+    \text{area of sector} = \frac{1}{2}\theta r^{2}
   \end{equation*}
 \end{theorem}
 For example, if $\theta=360^{\circ} = 2\pi$, then
@@ -2188,6 +2224,9 @@ For example, if $\theta=360^{\circ} = 2\pi$, then
   \text{area } = \pi r^{2},
 \end{equation*}
 which is the formula for the area of a circle.
+
+
+In class, we derived the following theorem:
 
 \begin{theorem}\label{thm:polar-area-theorem}
   If $r=f(\theta)$ and $f$ is a continuous and \textbf{nonnegative} function on the interval $[\alpha,\beta]$, where $0
@@ -2262,9 +2301,9 @@ $\cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2}$ and $\sin^{2}(\theta) = \frac{1-\
     &= \frac{4}{3}\pi.
   \end{align*}
 \end{example}
-
+\end{document}
 \newpage
-\section{2025-02-05 | Week 4 | Lecture 10}
+\section{2026-09-18 | Week 4 | Lecture 11}
 \textit{Today we finish section 10.4 in the texbook and start 12.1 and 12.2}
 
 The next example illustrates by the nonnegativity assumption of \cref{thm:polar-area-theorem} is so essential
