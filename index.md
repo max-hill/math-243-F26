@@ -23,6 +23,8 @@ title: Lecture Notes
  2026-09-11  |  introduction to polar coordinates
  2026-09-14  |  converting between polar and Cartesian form, sketching polar curves
  2026-09-16  |  calculus with polar curves (slopes and areas) 
+ 2026-09-18  |  areas of regions enclosed by polar curves
+ 2026-09-21  |  3D space, vectors
  
 # Other links
 

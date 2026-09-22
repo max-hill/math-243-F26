@@ -9,8 +9,11 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{tikz-3dplot}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc}
+
+
 \usepackage{forest}
 \usepackage{tikz-qtree}
 \graphicspath{ {./images/} }
@@ -2252,8 +2255,12 @@ Throughout we will use the following useful proposition.
     \int \sin^{2}(\theta)d\theta  &= \frac{\theta}{2}-\frac{\sin(2\theta)}{4}+C
   \end{align*}
 \end{proposition}
-The integrals of \cref{prop:useful-integrals} can be computed using the power-reduction identities
-$\cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2}$ and $\sin^{2}(\theta) = \frac{1-\cos(2\theta)}{2}$.
+The integrals of \cref{prop:useful-integrals} can be computed using the
+\textbf{power-reduction identities} and
+\begin{equation*}
+  \cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2} \quad \sin^{2}(\theta) = \frac{1-\cos(2\theta)}{2}.
+\end{equation*}
+
 
 \begin{example}[Area of region enclosed by polar coordinates]
   \label{ex:area-region-enclosed-polar-coordinates}
@@ -2301,10 +2308,50 @@ $\cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2}$ and $\sin^{2}(\theta) = \frac{1-\
     &= \frac{4}{3}\pi.
   \end{align*}
 \end{example}
-\end{document}
+
 \newpage
-\section{2026-09-18 | Week 4 | Lecture 11}
-\textit{Today we finish section 10.4 in the texbook and start 12.1 and 12.2}
+\section{2026-09-18 | Week 04 | Lecture 11}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Computing areas of regions
+      enclosed by polar curves}
+
+    \textit{\textbf{Reading assignment:} sections 11.5, start chapter 12.1}
+  \end{tcolorbox}
+\end{center}
+
+
+\begin{theorem}\label{thm:polar-area-theorem}
+  If $r=f(\theta)$ and $f$ is a continuous and \textbf{nonnegative} function on the interval $[\alpha,\beta]$, where $0
+  \leq \beta-\alpha \leq 2\pi$ then the area of the region bounded by the
+  lines $r =f(\theta)$ and $\theta=a$ and $\theta = b$ is
+  \begin{equation*}
+    \text{Area} = \frac{1}{2}\int_{\alpha}^{\beta}r^{2}d\theta =  \frac{1}{2} \int_{\alpha}^{\beta}\left[ f(\theta) \right]^{2}d\theta   
+  \end{equation*}
+\end{theorem}
+\begin{remark}
+  It's really important that you check that the conditions $0 \leq \beta - \alpha \leq 2\pi$ and
+  nonnegativity of $f$. Otherwise cancelletion or double counting of regions may occur, resulting in the
+  integral not actually equalling the area.
+\end{remark}
+
+Throughout we will use the following useful proposition.
+
+\begin{proposition}[Useful integrals]
+  \label{prop:useful-integrals}
+  It holds that
+  \begin{align*}
+    \int \cos^{2}(\theta)d\theta  &= \frac{\theta}{2}+\frac{\sin(2\theta)}{4}+C\\
+    \int \sin^{2}(\theta)d\theta  &= \frac{\theta}{2}-\frac{\sin(2\theta)}{4}+C
+  \end{align*}
+\end{proposition}
+The integrals of \cref{prop:useful-integrals} can be computed using the
+\textbf{power-reduction identities} and
+\begin{equation*}
+  \cos^{2}(\theta) = \frac{1+\cos(2\theta)}{2} \quad \sin^{2}(\theta) = \frac{1-\cos(2\theta)}{2}.
+\end{equation*}
+
 
 The next example illustrates by the nonnegativity assumption of \cref{thm:polar-area-theorem} is so essential
 
@@ -2407,6 +2454,721 @@ The next example illustrates by the nonnegativity assumption of \cref{thm:polar-
   \end{align*}
 \end{example}
 
+\newpage
+\section{2026-09-21 | Week 05 | Lecture 12}
+
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} 3-dimensional space}
+
+    \textit{\textbf{Reading assignment:} chapter 12.1, start 12.2. Watch this
+      video: \url{https://www.3blue1brown.com/lessons/vectors}}
+  \end{tcolorbox}
+\end{center}
+
+\subsection{3D Space}
+\textit{Based on sections 12.1 in the texbook}
+
+3D space is denoted by the symbol $\demph{\R^{3}}$. A point in 3D space is specified as an ordered triple
+\begin{equation*}
+  \left( x,y,z \right) 
+\end{equation*}
+where $x,y,z\in \R$. Here, $z$ is the distance above (or below) the $xy$-plane.
+
+
+Many familiar equations take on new meaning in 3D space, compared to 2D space.
+
+\begin{itemize}
+  \item Consider the equation
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x^{2}+y^{2} =1 \\ z=3 \end{array}\right.
+  \end{equation*}
+  This is a unit circle floating 3 units above the $xy$-plane.
+
+  On the other hand, the equation
+  \begin{equation*}
+    x^{2}+y^{2}=1
+  \end{equation*}
+  imposes no restriction on the value of $z$. Consequently, this is the equation of a (hollow) cyclinder.
+
+  \item The equation
+  \begin{equation*}
+    x^{2}+y^{2}+z^{2}=1
+  \end{equation*}
+  is the equation of a sphere with radius 1 centered at the origin.
+
+\end{itemize}
+
+
+\subsection{Introduction to vectors}
+\textit{Based on textbook section 12.2}
+
+What is a vector? Here are three definitions:
+
+\begin{itemize}
+  \item \textbf{Algebraic definition:} A \demph{vector} is a list of numbers.
+  \item \textbf{Geometric definition:} the difference between two points in space.
+  \item \textbf{Physical definition:} an arrow with direction and magnitude.
+\end{itemize}
+
+[picture]
+
+
+\begin{example}[Vector]
+  Consider three points in the plane
+  \begin{equation*}
+    A = (4,3), \quad \text{and} \quad  B = (1,2)
+  \end{equation*}
+  Then, for example, we have the vector
+  $\overrightarrow{AB} = \left\langle 4-1,3-2 \right\rangle = \left\langle 3,1 \right\rangle$.
+
+  \begin{notation}
+    The textbook uses the angled brackets notation $\left\langle x,y\right\rangle $ for vectors. We will
+    sometimes use
+    \begin{equation*}
+      \begin{bmatrix}
+        x\\y
+      \end{bmatrix}
+      \quad \text{or} \quad
+      \begin{bmatrix}
+        x\\y\\z
+      \end{bmatrix}
+    \end{equation*}
+    or
+    \begin{equation*}
+      (x,y)
+      \quad \text{or} \quad
+      (x,y,z)
+    \end{equation*}
+    All of these notations are common. The entries of a vector (e.g., $x$, $y$,
+    etc) are called \demph{components}.
+
+    The book denotes vectors with \textbf{bold} letters, like $\mathbf{v}$ or
+    $\mathbf{x}$. Sometimes people write $\vec{v}$ or $\vec{x}$, which is
+    easier to write by hand.
+  \end{notation}
+\end{example}
+
+
+\begin{example}[Vector addition and scaling]
+  Let $\mathbf{u} = \left\langle 1,2 \right\rangle $, $\mathbf{v} = \left\langle -3,-1 \right\rangle$. Find the
+  sum of the fetors and illustrate geometrically. Then
+  \begin{equation*}
+    \mathbf{u} + \mathbf{v} = \left\langle -2,1 \right\rangle.
+  \end{equation*}
+  and you can add in any order
+  \begin{equation*}
+    \mathbf{v} + \mathbf{u} = \left\langle -2,1 \right\rangle.
+  \end{equation*}
+  What about $\left\langle -1,4 \right\rangle $ and $\left\langle 6,-2 \right\rangle $?
+
+  
+  We can have 3d vectors, like
+  \begin{equation*}
+    \left\langle 3,-2,5 \right\rangle 
+  \end{equation*}
+  and multiplying a vector by a number $a$ (called a \demph{scalar}) \textit{scales} the vector by
+  stretching it out or whatever. For example, compare the vectors the vector
+  \begin{equation*}
+    \mathbf{u} 
+    = \left\langle 2,3 \right\rangle  \quad \text{and} \quad  2\cdot\mathbf{u} 
+    = \left\langle 4,6 \right\rangle
+  \end{equation*}
+\end{example}
+
+\begin{proposition}
+  The length of a 2D vector $\mathbf{a} = (a_{1},a_{2})$ is
+  \begin{equation*}
+    |\mathbf{a}| = \sqrt{a_{1}^{2}+a_{2}^{2}}
+  \end{equation*}
+  and the length of a 3D vector $\mathbf{a} = (a_{1},a_{2},a_{3})$ is
+  \begin{equation*}
+    |\mathbf{a}| = \sqrt{a_{1}^{2}+a_{2}^{2}+a_{3}^{2}}
+  \end{equation*}
+\end{proposition}
+This is shown below
+
+\begin{center}
+  \tdplotsetmaincoords{68}{115}
+
+  \begin{tikzpicture}[
+    tdplot_main_coords,
+    scale=2,
+    line cap=round,
+    line join=round
+    ]
+    % Numerical lengths used to draw the picture
+    \def\aone{4}
+    \def\atwo{3}
+    \def\athree{3}
+
+    \coordinate (O) at (0,0,0);
+    \coordinate (P) at (0,\atwo,0);
+    \coordinate (Q) at (\aone,\atwo,0);
+    \coordinate (A) at (\aone,\atwo,\athree);
+
+    % Coordinate axes
+    \draw[->,gray] (O) -- (4,0,0) node[below] {$x_1$};
+    \draw[->,gray] (O) -- (0,4,0) node[right]  {$x_2$};
+    \draw[->,gray] (O) -- (0,0,2) node[left]  {$x_3$};
+
+    % Dashed sides of the two right triangles
+    \draw[dashed,thick] (O) -- node[midway,above right] {$a_2$} (P);
+
+    \draw[dashed,thick] (P) -- node[midway,below right] {$a_1$} (Q);
+
+    \draw[dashed,thick] (O) -- node[midway,below left] {$\sqrt{a_1^2+a_2^2}$} (Q);
+
+    \draw[dashed,thick] (Q) -- node[midway,left] {$a_3$} (A);
+
+    % The vector
+    \draw[->,blue,very thick] (O) -- node[midway,above left] {} (A);
+
+    \fill[blue] (A) circle (0pt) node[above right] {$\left\langle a_1,a_2,a_3 \right\rangle $};
+
+    % Right-angle marker in the x_1x_2-plane
+    \coordinate (PO) at ($(P)!0.12!(O)$);
+    \coordinate (PQ) at ($(P)!0.12!(Q)$);
+    \coordinate (PC) at ($(PO)+(PQ)-(P)$);
+    \draw (PO) -- (PC) -- (PQ);
+
+    % Right-angle marker between the projection and a_3
+    \coordinate (QO) at ($(Q)!0.10!(O)$);
+    \coordinate (QA) at ($(Q)!0.14!(A)$);
+    \coordinate (QC) at ($(QO)+(QA)-(Q)$);
+    \draw (QO) -- (QC) -- (QA);
+
+  \end{tikzpicture}
+\end{center}
+
+The \demph{zero vector}, denoted \textbf{0}, is the vector whose components
+are all equal to zero.
+A vector of length 1 is called a \demph{unit vector}. If $\mathbf{v}\neq \mathbf{0}$,
+then you can \demph{normalize} $\mathbf{v}$ by dividing it by its length. That
+is, let
+\begin{equation*}
+  \mathbf{u} := \frac{\mathbf{v}}{|\mathbf{v}|}.
+\end{equation*}
+When you do this, the vector $\mathbf{u}$ is a unit vector.
+
+\end{document}
+\newpage
+
+\begin{definition}[Standard Basis Vectors]
+  In 3 dimensions, the \demph{standard basis vectors} are
+  \begin{gather}
+    \mathbf{i} = e_{1} = \left\langle 1,0,0 \right\rangle \\
+    \mathbf{j} = e_{2} = \left\langle 0,1,0 \right\rangle \\
+    \mathbf{k} = e_{3} = \left\langle 0,0,1 \right\rangle
+  \end{gather}
+  Sometimes we use the notation $\mathbf{i}, \mathbf{j}, \mathbf{k}$, and other times we use the
+  notation $e_{1},e_{2},e_{3}$. 
+\end{definition}
+
+\newpage
+
+\section{2025-02-07 | Week 4 | Lecture 11}
+\begin{itemize}
+  \item please skim chapters 12.1 and 12.2
+  \item plase read 12.3, 12.4
+  \item next week's homework will be posted later today
+\end{itemize}
+\textit{Today: sections 12.3}
+\subsection{Eratosthenes' estimation of the Earth's circumference}
+
+To motivate the present discussion of vectors, I presented Eratosthenes' famous calculation in which he
+correctly estimated the circumference of the Earth over 2200 years ago using nothing but sticks, shadows,
+and trigonometry. 
+
+We are interested in understanding---in a precise, mathematical way---the \textit{shadow} of a vector as it
+falls onto another vector, as shown:
+\begin{center}
+  \includegraphics[scale=.05]{images/shadow-projection}
+\end{center}
+Eratosthenes' calculation (which isn't written up in these notes) suggests that understanding shadows
+like this can be a powerful mathematical tool.
+
+The shadow above is an example of a \textit{vector projection}. To understand vector projections, we'll need to
+have a firm grasp of the following things
+\begin{itemize}
+  \item lengths of vectors
+  \item the geometry of vectors and angles between them
+  \item how to scale and rescale vectors
+  \item and some more things that aren't apparent yet.
+\end{itemize}
+
+\subsection{Vectors and 3D space}
+
+Any vector in 3D can be written as a sum of the standard basis vectors, like this:
+\begin{align*}
+  \left\langle 5,-4,2 \right\rangle 
+  &= 5 \mathbf{i} -4 \mathbf{j} + 2 \mathbf{k}\\
+  &= 5 e_{1} -4 e_{2} + 2 e_{3}
+\end{align*}
+
+
+\begin{example}
+  Let $\mathbf{a} = \mathbf{i}+2\mathbf{j}-3\mathbf{k}$ and $\mathbf{b} = 4\mathbf{i}+7\mathbf{k}$. Express the
+  vector $2\mathbf{a}+3\mathbf{b}$ in terms of $\mathbf{i},\mathbf{j},$ and $\mathbf{k}$:
+  \begin{align*}
+    2\mathbf{a}+3\mathbf{b}
+    &=2 \left(\mathbf{i}+2\mathbf{j}-3\mathbf{k}  \right)
+      + 3 \left( 4\mathbf{i}+7\mathbf{k} \right)\\ 
+    &= (2+12)\mathbf{i} + 4 \mathbf{j} + (-6+21)\mathbf{k}\\
+    &= 14 \mathbf{i} + 4 \mathbf{j} + 15 \mathbf{k}.
+  \end{align*}
+\end{example}
+
+
+
+\newpage
+\section{2025-02-10 | Week 5 | Lecture 12}
+
+\subsection{Vector Scaling and Magnitude}
+The vector with length $0$ is called the \demph{zero vector}. It's the vector
+\begin{equation*}
+  \mathbf{0} = \left\langle 0,0 \right\rangle
+  \quad \text{or} \quad
+  \mathbf{0} = \left\langle 0,0,0 \right\rangle 
+\end{equation*}
+depending on what space you are working with.
+
+
+A \demph{unit vector} is any vector of length 1. So $\mathbf{i},\mathbf{j},$ and $\mathbf{k}$ are all
+unit vectors. If $\mathbf{v}\neq 0$, then you can \demph{normalize} $\mathbf{v}$ by dividing it by its
+length. That is, let
+\begin{equation*}
+  \mathbf{u} := \frac{v}{|\mathbf{v}|}.
+\end{equation*}
+When you do this, the vector $\mathbf{u}$ is a unit vector.
+
+
+\begin{example}[Scaling a vector]
+  In general, one can \demph{scale} a vector by multiplying it by a number. Let
+  \begin{equation*}
+    \mathbf{v} = \left\langle -2,4,4 \right\rangle 
+  \end{equation*}
+  Then $\mathbf{v}$ has length
+  \begin{equation*}
+    \left| \mathbf{v} \right| = \sqrt{(-2)^{2}+(4)^{2}+(4)^{2}} = \sqrt{ 4+16+16} = \sqrt{36} = 6.
+  \end{equation*}
+  If we scale $\mathbf{v}$ by a factor of $3$, then the resulting vector is
+  \begin{equation*}
+    \mathbf{u} = 3 \mathbf{v} = \left\langle -6,12,12 \right\rangle 
+  \end{equation*}
+  which has three times the length:
+  \begin{equation*}
+    \left| \mathbf{u} \right| = \sqrt{(-6)^{2}+(12)^{2}+(12)^{2}} = \sqrt{ 36 + 144 + 144} = \sqrt{324} = 18.
+  \end{equation*}
+  Similarly, if I scale a vector by $2$, then its length gets doubled. If I scale a vector by $1/2$, its
+  length gets halved.
+\end{example}
+
+\begin{example}[Distance between points]
+  The formula for computing the distance between two points in 3D space is related to the formula for
+  computing the length of a 3D vector. Say you have a fly which starts at point $P:=(x_{1},y_{1},z_{1})$,
+  flies around around a bit, and then terminates at point $Q:=(x_{2},y_{2},z_{2})$. Then the
+  \demph{displacement vector} is
+  \begin{equation*}
+    \overrightarrow{PQ} = \left\langle x_{2}-x_{1},y_{2}-y_{1},z_{2}-z_{1} \right\rangle 
+  \end{equation*}
+  You can think of this as an arrow drawn from the fly's starting position $P$ to its ending position
+  $Q$. The distance between points $P$ and $Q$ is nothing other than the magnitude of this vector.
+  % 
+  Therefore, distance between two points $(x_{1},y_{1},z_{1})$
+  and $(x_{2},y_{2},z_{2})$ is
+  \begin{equation*}
+    \text{distance } 
+    = \sqrt{\left( x_{2}-x_{1} \right)^{2} + \left( y_{2}-y_{1} \right)^{2} + \left( z_{2}-z_{1} \right)^{2}}.
+  \end{equation*}
+  For example, say the fly starts at $(3,2,9)$ and ends at $(2,-2,1)$. The distance between these two
+  points is
+  \begin{align*}
+    \text{distance }
+    &= \sqrt{\left( 3-2 \right)^{2}+\left( 2-(-2) \right)^{2}+(9-1)^{2}  }\\
+    &= \sqrt{1^{2}+4^{2}+8^{2}}\\
+    &= \sqrt{1+16+64}\\
+    &= \sqrt{81}\\
+    &=9.
+  \end{align*}
+\end{example}
+
+\subsection{Connection to Physics: Force}
+Vectors are used to represent \demph{force}, understood in physics as a physical interaction (e.g. a
+push or a pull) which causes (or can cause) change in an object's motion, shape, or resting position.
+Force has magnitude (i.e., length) and a direction.
+% 
+\begin{example}[Forces]
+  If you are floating in the ocean, you get pushed around by lots of forces: (1) gravity, (2) waves, (3)
+  current, (4) wind, (5) forces created by your own motion, (6) buoyant force, and others. Each of these
+  forces can be modeled by a vector. The magnitude of the vector indicates the ``strength'' of the
+  corresponding force. For example, wind doesn't exert much force on a swimmer, so that vector might be
+  tiny. By comparison the vector for current might be very large.
+
+  The \demph{resultant force} is the sum of these vectors, and determines your net motion.
+\end{example}
+
+Force is measured in \textbf{Newtons}, denoted $N$. How much is one $1N$? It's approximately equal to the
+weight that you feel pushing down on your hand when you hold up a stick of butter. (Note: \textit{weight}
+is a force).
+
+Technically, $N=\mathrm{kg}\cdot \mathrm{m/s^{2}}$. In words one Newton is the amount of force needed to
+accelerate one \textrm{kg} of mass at one meter per second per second (e.g., so that after two seconds
+the mass is moving at two meters per second). This is a bit confusing at first, as it is the product of a
+unit of mass (\textrm{kg}) with a unit of acceleration $(\mathrm{m/s^{2}})$. This is due to
+\textbf{Newton's Second Law}, which states
+\begin{equation*}
+  \text{force} = \text{mass}\times \text{acceleration}.
+\end{equation*}
+
+
+
+
+\subsection{Dot Product}
+
+\begin{definition}[Dot Product]
+  Let $\mathbf{a}$ and $\mathbf{b}$ be vectors. The \demph{dot product} of $\mathbf{a}$ and $\mathbf{b}$ is
+  \begin{equation*}
+    \mathbf{a}\cdot \mathbf{b} = a_{1}b_{1}+ a_{2}b_{2}+ a_{3}b_{3}.
+  \end{equation*}
+  A similar definition holds for vectors of length $2$ (or $10$, or $35$, etc).
+\end{definition}
+
+\begin{example}
+  Let $\mathbf{a} = \left\langle 1,-4,1 \right\rangle$, $\mathbf{b} = \left\langle 0,2,-2 \right\rangle$, and
+  $\mathbf{c} = \left\langle 5,2,1 \right\rangle $
+  Then
+  \begin{equation*}
+    \mathbf{a} \cdot \mathbf{b} = (1)(0)+ (-4)(2)+(1)(-2) = 0-8-2 = -10.
+  \end{equation*}
+  Similarly,
+  \begin{equation*}
+    \mathbf{a}\cdot \mathbf{c} = 5-8+1 = -2
+    \quad \text{and} \quad
+    \mathbf{b} \cdot \mathbf{c} = 0 +4-2 = 2.
+  \end{equation*}
+\end{example}
+
+The dot product has important geometric meaning, which we will explore. But first, let's make some
+observations about the properties of the dot product, summarized in the following proposition:
+
+\begin{proposition}[Dot Product Properties]
+  Let $\mathbf{a}=(a_{1},a_{2},a_{3})$, and $\mathbf{b} = (b_{1},b_{2},b_{3})$ and
+  $\mathbf{c}=(c_{1},c_{2},c_{3})$ be vectors. Then the following properties hold
+  \begin{itemize}
+    \item $\mathbf{0} \cdot \mathbf{a} = 0$
+    \item $\mathbf{a}\cdot \mathbf{b} = \mathbf{b} + \mathbf{a}$ 
+    \item $\mathbf{a}\cdot \mathbf{a} = a_{1}^{2}+a_{2}^{2}+a_{3}^{2} = |\mathbf{a}|^{2}$ 
+    \item $\mathbf{a}\cdot (\mathbf{b}+\mathbf{c}) = \mathbf{a}\cdot \mathbf{b} + \mathbf{a} \cdot\mathbf{c} $
+  \end{itemize}
+\end{proposition}
+
+The next theorem connects the dot product of two vectors with the angle between them.
+
+\begin{theorem}[The dot-product/angle relationship]
+  \label{thm:dot-productangle-relationship}
+  Let $\mathbf{a}$ and $\mathbf{b}$ be vectors. Suppose that the angle between $\mathbf{a}$ and $\mathbf{b}$ is
+  $\theta$. Then
+  \begin{equation*}
+    \mathbf{a}\cdot \mathbf{b} = | \mathbf{a} | |\mathbf{b}| \cos(\theta).
+  \end{equation*}
+\end{theorem}
+Let's try to unwrap some implications of this theorem:
+\begin{itemize}
+  \item When $\theta$ is an acute angle, that means $0 < \theta < \frac{\pi}{2}$. In that case, $\cos(\theta)>0$,
+  so $\mathbf{a}\cdot \mathbf{b} >0$.
+  \item On the other hand, when $\theta $ is an obtuse angle, that means $\frac{\pi}{2}< \theta < \pi$.
+  In that case, $\cos(\theta)<0$, and so $\mathbf{a}\cdot \mathbf{b} <0$.
+  \item When we have a right angle, $\theta=\frac{\pi}{2}$, so in that case $\mathbf{a}\cdot \mathbf{b} =0$. 
+\end{itemize}
+\newpage
+
+\section{2025-02-12 | Week 5 | Lecture 13}
+\textit{12.3 (dot product) and 12.4 (cross product)}
+
+\begin{theorem}[The dot-product/angle relationship]
+  \label{thm:dot-productangle-relationship}
+  Let $\mathbf{a}$ and $\mathbf{b}$ be vectors. Suppose that the angle between $\mathbf{a}$ and $\mathbf{b}$ is
+  $\theta$. Then
+  \begin{equation*}
+    \mathbf{a}\cdot \mathbf{b} = | \mathbf{a} | |\mathbf{b}| \cos(\theta).
+  \end{equation*}
+\end{theorem}
+
+\begin{proposition}[Orthogonality condition]
+  We say that two vectors $\mathbf{a}$ and $\mathbf{b}$ are \demph{orthogonal} (or equivalently,
+  \demph{perpendicular}) if the angle between them is $\theta=\frac{\pi}{2}$.
+  \cref{thm:dot-productangle-relationship} implies $\mathbf{a}$ and $\mathbf{b}$ are orthogonal precisely
+  when
+  \begin{equation*}
+    \mathbf{a}\cdot \mathbf{b} = 0.
+  \end{equation*}
+  Morover, whether the dot product is positive or negative tells us whether the angle $\theta$ is acute
+  or obtuse.
+\end{proposition}
+
+A direct consequence of \cref{thm:dot-productangle-relationship} and the fact that $\left| \cos(\theta)
+\right| \leq 1$ is the following theorem:
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+  \label{thm:cauchy-shwarz-inequality}
+  \begin{equation*}
+    | \mathbf{a}\cdot \mathbf{b} | \leq | \mathbf{a} || \mathbf{b} |
+  \end{equation*}
+\end{theorem}
+
+
+\begin{example}
+  Find the angles between the following vectors
+  \begin{itemize}
+    \item $\mathbf{a} = \left\langle 2,1,2 \right\rangle $ and $\mathbf{b}=\left\langle 3,3,1 \right\rangle $ 
+    \item $\mathbf{a} = \left\langle 2,2,-1 \right\rangle $ and $\mathbf{b}=\left\langle 5,-4,2 \right\rangle $ (perpendicular)
+  \end{itemize}
+\end{example}
+
+
+\begin{example}
+  Consider the triangle consisting of the following 3 points:
+  \begin{itemize}
+    \item $P = \left( 1,-3,-2 \right) $
+    \item $Q = \left( 2,0,-4 \right) $
+    \item $R = \left( 6, -2, -5 \right) $
+  \end{itemize}
+  Is this triangle a right triangle? Since the triangle lives in 3D spaces, so it's not so easy to simply
+  plot it and look. Use vectors to determine if it is a right triangle.
+\end{example}
+
+
+\subsection{Projection}
+\begin{definition}[Vector Projection]
+  \label{def:vector-projection}
+  Let $\mathbf{a},\mathbf{b}$ be vectors. The \demph{vector projection of $\mathbf{b}$ onto $\mathbf{a}$} is
+  \begin{align*}
+    \mathbf{P}
+    &:= \left( \frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}|} \right) \left(\frac{\mathbf{a}}{|\mathbf{a}|}\right)\\
+    &= \left( \text{length of }P \right)\left( \text{unit vector} \right) \nonumber
+  \end{align*}
+  The book uses the notation $\mathbf{P} = \text{proj}_{\mathbf{a}}(\mathbf{b})$.
+\end{definition}
+
+To break this equation down, observe that $\frac{\mathbf{a}}{|\mathbf{a}|}$ is a unit vector in the direction
+of $\mathbf{a}$. The quantity in parentheses is a number, not a vector. It scales the unit vector
+$\frac{\mathbf{a}}{|\mathbf{a}|}$. This number is the (signed) length of the shadow cast by $\mathbf{b}$ on
+$\mathbf{a}$ when the sun is directly overhead. It is called the \demph{component of $\mathbf{b}$ along
+  $\mathbf{a}$}, or alternatively, the \demph{scalar projection of $\mathbf{b}$ onto $\mathbf{a}$}.
+
+I think of projections in terms of shadows.
+
+
+\Fl{Question:}  Why is $\frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}|}$ equal to the (signed) length of $\mathbf{P}$?
+
+
+\fl{Answer:} Suppose we've got two vectors like this:
+\begin{center}
+  \begin{tikzpicture}
+    % Draw vectors
+    \draw[->, thick] (0,0) -- (3,2) node[above] { $\mathbf{b}$} ;%
+    \draw[->, thick] (0,0) -- (4,0) node[right] { $\mathbf{a} $ };%
+
+    % Label angle
+    \draw (1.2,0) arc[start angle=0, end angle=33.69, radius=1.2cm];%
+    \node at (1.5,0.4) {$\theta$};%
+  \end{tikzpicture}
+\end{center}
+
+
+Now let's draw the projection $\mathbf{P}$, along with a dotted line perpendicular to $\mathbf{a}$:
+
+\begin{center}
+  \begin{tikzpicture}
+    % Draw vectors
+    \draw[->, thick] (0,0) -- (3,2) node[above] { $\mathbf{b} $ };%
+    \draw[->, thick] (0,0) -- (4,0) node[right] { $\mathbf{a}$ };%
+    \draw[->, very thick, red] (0,0) -- (3,0) node[below] { $\mathbf{P}$ };%
+    \draw[dotted] (3,0) -- (3,2) ;%
+    % Label angle
+    \draw (1.2,0) arc[start angle=0, end angle=33.69, radius=1.2cm];%
+    \node at (1.5,0.4) {$\theta$};%
+  \end{tikzpicture}
+\end{center}
+Note that we have a right angle. By trigonometry, we know that
+\begin{equation*}
+  \cos(\theta) = \frac{\text{length of adjacent side}}{\text{length of hypotenuse}}
+\end{equation*}
+In our case, that means
+\begin{equation}
+  \label{eq:4}
+  \cos(\theta) = \frac{\text{length of }\mathbf{P}}{\text{length of }\mathbf{b}} = \frac{|\mathbf{P}|}{|\mathbf{b}|}
+\end{equation}
+ON THE OTHER HAND, by \cref{thm:dot-productangle-relationship}, we ALSO know that
+\begin{equation}
+  \label{eq:5}
+  \cos(\theta) = \frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|}
+\end{equation}
+Therefore, combining \cref{eq:4,eq:5}, we have:
+\begin{equation*}
+  \frac{|\mathbf{P}|}{|\mathbf{b}|} =  \frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|},
+\end{equation*}
+which simplifies to
+\begin{equation*}
+  \boxed{|\mathbf{P}| =  \frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}|}}
+\end{equation*}
+This answers our original question. [To be pedantic, here we have actually only considered the case where
+$\theta$ is an acute angle. The case where $\theta$ is an obtuse angle is a little bit different, but not
+much.]
+
+
+
+\begin{example}
+  A plane is flying in the direction $\mathbf{D}=\left\langle 1,1 \right\rangle $. The plane is getting hit
+  by a tailwind with wind velocity $\mathbf{V}=\left\langle 100,0 \right\rangle$. Find $P$, the projection
+  of $V$ onto $D$. Here, $V$ points east and $D$ points northeast.
+
+  \begin{equation*}
+    \text{length } |P| = \frac{D\cdot V}{|D|} = \frac{100}{\sqrt{2}}
+  \end{equation*}
+  \begin{align*}
+    \text{vector } P 
+    &=  |P|   \left( \frac{D}{|D|} \right) \\
+    &= \left( \frac{100}{\sqrt{2}} \right) \left(\frac{ \left\langle 1,1 \right\rangle}{\sqrt{2}}  \right) \\
+    &=\left\langle 50,50 \right\rangle 
+  \end{align*}
+\end{example}
+
+
+\newpage
+\section{2025-02-14 | Week 5 | Lecture 14}
+
+\begin{definition}[Vector Projection]
+  \label{def:vector-projection}
+  Let $A,B$ be vectors. The \demph{vector projection of $B$ along $A$} is
+  \begin{align*}
+    {P}
+    &:= \left( \frac{A\cdot B}{|A|} \right) \left(\frac{A}{|A|}\right)\\
+    &= \left( \text{signed length of }P \right)\left( \text{unit vector} \right) \nonumber
+  \end{align*}
+  The book uses the notation ${P} = \text{proj}_{A}(B)$, and
+  $\text{comp}_{A}B= \frac{A\cdot B}{|A|}$
+\end{definition}
+
+
+\begin{example}
+  Find the vector projection of $\mathbf{b}=\left\langle 1,1,2 \right\rangle $ onto
+  $\mathbf{a} = \left\langle -2,3,1 \right\rangle$. 
+
+  \noindent\textit{Solution:} We will first compute the length of $P$:
+
+  \begin{align*}
+    \text{signed length of }\overrightarrow{P}
+    &= \frac{\mathbf{a}\cdot \mathbf{b}}{|\mathbf{a}|} \\
+    &= \frac{(-2)(1)+3(1)+1(2)}{\sqrt{(-2)^{2}+3^{2}+1^{2}}} \\
+    &= \frac{3}{\sqrt{14}}
+  \end{align*}
+  Therefore the length of the projection is $\frac{3}{14}$. Note that we computed $|a|=\sqrt{14}$.
+
+  The vector projection is therefore
+  \begin{align*}
+    P
+    &= \left( \frac{3}{\sqrt{14}} \right) \frac{\mathbf{a}}{|\mathbf{a}|}\\
+    &= \left( \frac{3}{\sqrt{14}} \right) \frac{\mathbf{a}}{\sqrt{14}}\\
+    &= \frac{3}{14}\mathbf{a}\\
+    &= \frac{3}{14} \left\langle -2, 3,1 \right\rangle \\
+    &= \left\langle -\frac{6}{14}, \frac{9}{14}, \frac{3}{14} \right\rangle.
+  \end{align*}
+\end{example}
+
+
+\subsection{Connection to physics: Effective force in a direction}
+
+If a force $\overrightarrow{F}$ is applied to a particle moving along a path, we may wish to know the
+magnitude of the force in the direction of motion. If $A$ is a direction, then the projection  of $F$
+along $A$ is the \demph{effective force} in the direction $A$.
+
+\begin{example}
+  Suppose you are talking a dog on a walk and that you are facing in direction $\overrightarrow{A}$. Suppose the dog
+  lunges in some other direction. Let $\overrightarrow{D}$ be force exerted by the pull of the leash.
+  Then the effective force with whic the dog pulls you forward is the projection of $D$ along $A$.
+  \begin{center}
+    \includegraphics[scale=.04]{images/dog-pull}
+  \end{center}
+  For example, if $A = \left\{1,1,0\right\}$ and $D=\left\langle 13,12,-5 \right\rangle$, then the
+  projection is
+  \begin{align*}
+    P 
+    &= \left( \frac{A\cdot D}{|A|} \right) \left( \frac{A}{|A|} \right)\\
+    &= \left( \frac{\left\langle 13+12+0 \right\rangle}{\sqrt{2}}  \right)\left( \frac{\left\langle 1,1,0 \right\rangle }{\sqrt{2}} \right)\\   
+    &= \left( \frac{25}{\sqrt{2}} \right) \left\langle \frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}},0 \right\rangle\\ 
+    &= \left\langle \frac{25}{2},\frac{25}{2},0 \right\rangle .
+  \end{align*}
+  The length of $P$ is
+  \begin{equation*}
+    |P| = \frac{A\cdot D}{|A|} = \frac{25}{\sqrt{2}}\approx 17.7.
+  \end{equation*}
+  So the dog pulls you forward with about $17.7\ \mathrm{N}$ of force. That's not enough to topple you
+  unless you are either very frail, or a toddler.
+\end{example}
+
+\begin{example}
+  Suppose we have a surfer pointed in direction ${A}$, who catches a wave which exerts a
+  force (represented by the vector ${W}$) on the surfboard, as shown:
+  \begin{center}
+    \includegraphics[scale=.1]{images/surf-force-example}
+  \end{center}
+  Let's assume that ${A} = \left\langle -4, -1 \right\rangle$ and that
+  ${W} = \left\langle -700,-600 \right\rangle$. The length of vector $A$ doesn't matter; this vector is
+  just here to indicate the direction of the surfboard. We are assuming that the surfboard starts out
+  stationary. On the other hand, $-700$ and $-600$ are measured in Newtons. (These vectors aren't quite to scale in
+  the above picture). The effective force of of the wave moving surfboard forward in the ${A}$ direction
+  is the projection of $W$ along $A$, which we will denote by $P$.
+
+  To compute this, we will first do some preliminary computations:
+  \begin{equation*}
+    |A| = \sqrt{(-4)^{2}+(-1)^{2}} = \sqrt{17},
+  \end{equation*}
+  and
+  \begin{equation*}
+    A\cdot W = \left\langle -4,-1 \right\rangle \cdot \left\langle -700,-600 \right\rangle  = 2800+600 = 3400.
+  \end{equation*}
+  Then
+  \begin{align*}
+    {P} 
+    &= \left( \frac{A\cdot W}{|A|}  \right) \left( \frac{A}{|A|} \right) &&\text{by \cref{def:vector-projection}. }\\ 
+    &= \left( \frac{\left\langle -4,-1 \right\rangle  \cdot \left\langle -700,-600 \right\rangle  }{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\ 
+    &= \left( \frac{3400}{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\  
+    &= \frac{3400}{17} \left\langle -4,-1 \right\rangle\\ 
+    &= 200 \left\langle -4,-1 \right\rangle\\ 
+    &= \left\langle -800,-200 \right\rangle .
+  \end{align*}
+  Here, the intial force of the wave was $W$, which had a magnitude of $|W|= \sqrt{(-700)^{2}+(-600)^{2}} =
+  \sqrt{100^{2} \left( 7^{2}+6^{2} \right) }
+  =100\sqrt{85}\approx 920 \mbox{N}$ . The
+  effective force in the directio of motion, was $P = \left\langle -800 ,-200\right\rangle = 100 \left\langle -8,-2 \right\rangle $, which had a
+  slightly lower magnitude of $|P| = 100\sqrt{64+4} \approx 820 \mbox{N}$.
+
+  \textbf{Question:} How much does the surfboard accelerate in direction $\mathbf{A}$? Assume the surfer
+  weighs $70 \mbox{kg}$.
+
+  By Newton's second law,
+  \begin{equation*}
+    F= ma
+  \end{equation*}
+  and therefore,
+  \begin{align*}
+    a 
+    &= \frac{F}{m}\\
+    &= \frac{820\ \mathrm{N}}{70\ \mathrm{kg}}\\
+  \end{align*}
+
+  Recall that $\mathrm{N} = \mathrm{kg}\times \frac{\mathrm{m}}{\mathrm{s}^{2}}$, so
+  $\frac{\mathrm{N}}{\mathrm{kg}} = \frac{\mathrm{m}}{\mathrm{s}^{2}}$
+  \begin{equation*}
+    a = \frac{820}{70} \frac{\mathrm{m}}{\mathrm{s}^{2}} \approx 11.7 \mathrm{m}/\mathrm{s}^{2}
+  \end{equation*}
+  This means that if the force lasts for half a second, the surfer will be accelerated to about
+  $\frac{11.7}{2} = 5.85$ meters per second.
+  
+\end{example}
 
 
 
