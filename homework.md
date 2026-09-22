@@ -11,5 +11,6 @@ permalink: /homework/
 2026-09-09 | [homework-02](hw/homework-02/homework-02.pdf) | this is Wednesday's in-class worksheet
 2026-09-11 | [homework-03](hw/homework-03/homework-03.pdf) | 
 2026-09-18 | [homework-04](hw/homework-04/homework-04.pdf) | 
+2026-09-28 | [homework-05](hw/homework-04/homework-05.pdf) | 
 
 
