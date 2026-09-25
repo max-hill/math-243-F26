@@ -25,6 +25,8 @@ title: Lecture Notes
  2026-09-16  |  calculus with polar curves (slopes and areas) 
  2026-09-18  |  areas of regions enclosed by polar curves
  2026-09-21  |  3D space, vectors
+ 2026-09-23  |  circumference of Earth, vector algebra, dot product
+ 2026-09-25  |  vector problems, vector projections
  
 # Other links
 
