@@ -3169,26 +3169,24 @@ $\mathbf{A}$ is the \demph{effective force} in the direction $\mathbf{A}$.
   \begin{align*}
     \mathbf{P} 
     &= \left( \frac{\mathbf{A}\cdot \mathbf{W}}{|\mathbf{A}|}  \right) \left( \frac{\mathbf{A}}{|\mathbf{A}|} \right) &&\text{by \cref{def:vector-projection}. }\\ 
-    &= \left( \frac{(-4)(-700)+(-1)(-600)  }{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\ 
     &= \left( \frac{3400}{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\  
     &= \frac{3400}{17} \left\langle -4,-1 \right\rangle\\ 
-    &= 200 \left\langle -4,-1 \right\rangle\\ 
     &= \left\langle -800,-200 \right\rangle .
-  \end{align*}
+  \end{align*}  
   Here, the initial force of the wave was $\mathbf{W}$, which had a magnitude of
   \begin{equation*}
     |\mathbf{W}| 
     = \sqrt{(-700)^{2}+(-600)^{2}} 
-    = \sqrt{100^{2} \left( 7^{2}+6^{2} \right) } 
-    = 100\sqrt{85} 
-    \approx 920 \mbox{N}
+    % = \sqrt{100^{2} \left( 7^{2}+6^{2} \right) } 
+    % = 100\sqrt{85} 
+    \approx 920\ \mathtt{N}
   \end{equation*}
-  The effective force in the direction of motion, was
+  The ``effective force in the direction of motion'' is
+  $\mathbf{P}=\left\langle -800,-200 \right\rangle$, which has a slightly
+  smaller magnitude than the inital force:
   \begin{equation*}
-    \mathbf{P} = \left\langle -800 ,-200\right\rangle = 100 \left\langle -8,-2 \right\rangle,
+    |\mathbf{P}| = 100\sqrt{64+4} \approx 820 \mathtt{N}
   \end{equation*}
-  which had a slightly lower magnitude of
-  $|\mathbf{P}| = 100\sqrt{64+4} \approx 820 \mathtt{N}$.
 
   \textbf{Question:} How much does the surfboard accelerate in direction $\mathbf{A}$? Assume the surfer
   weighs $70 \mathtt{kg}$.
@@ -3210,17 +3208,194 @@ $\mathbf{A}$ is the \demph{effective force} in the direction $\mathbf{A}$.
     a = \frac{820}{70} \frac{\mathtt{m}}{\mathtt{s}^{2}} \approx 11.7 \mathtt{m}/\mathtt{s}^{2}
   \end{equation*}
   This means that if the force lasts for half a second, the surfer will be accelerated to about
-  $\frac{11.7}{2} = 5.85$ meters per second.
+  $\frac{11.7}{2} = 5.85$ meters per second in the $A$-direction.
   
 \end{example}
 
 \end{document}
+\subsection{Lines in any dimension}
+\textit{chapter 12.4 in textbook}
+
+
+In this section, we'll use the notation $\R^{n}$ to mean $n$-dimensional space,
+which is the set of points of the form
+\begin{equation*}
+  (x_{1},x_{2},\ldots,x_{n})
+\end{equation*}
+where $x_{1},\ldots,x_{n}$ are all real numbers. You are already familiar with
+$\R^{2}$ and $\R^{3}$, where we usually use $(x,y)$ or $(x,y,z)$ rather than
+$(x_{1},x_{2})$ or $(x_{1},x_{2},x_{3})$.
+
+Let $\mathbf{v}=(v_{1},\ldots,v_{n})$ is a nonzero vector in $n$-dimensional space.
+You can think of $n=2$ or $n=3$, but what follows will hold for any positive
+integer $n$. Then for any scalar $t\in \mathbb{R}$, the vector $t\mathbf{v}$ has the same
+direction as $v$ when $t>0$ and opposite direction when $t<0$. Therefore the set
+of points
+\begin{equation*}
+  \left\{t\mathbf{v}: -\infty<t<\infty\right\}
+\end{equation*}
+is a line through the origin. We we add a vector $\mathbf{p}=\left\langle
+  x_{0},y_{0},z_{0} \right\rangle $ to all of those points, we obtain
+\begin{equation*}
+  \left\{\mathbf{v}t+ \mathbf{p}: -\infty<t<\infty\right\}
+\end{equation*}
+which is a line through $\mathbf{p}$ in the direction of $\mathbf{v}$. 
+
+\begin{definition}[The vector equation of a line]
+  \label{def:vector-equation-line}
+  Given a vector $\mathbf{p}$ and a nonzero vector $\mathbf{v}\in \R^{n}$, the set
+  of all points $\mathbf{y}\in \R^{n}$ satisfying
+  \begin{equation}\label{eq:vector-equation-of-a-line}
+    \mathbf{y}=\mathbf{v}t + \mathbf{p}, \qquad -\infty<t<\infty,
+  \end{equation}
+  is called the \demph{line through $\mathbf{p}$ in the direction of
+    $\mathbf{v}$}.
+\end{definition}
+\cref{eq:vector-equation-of-a-line} can be written as
+\begin{equation*}
+  \begin{bmatrix}
+    y_{1}\\y_{2}\\\vdots\\y_{n}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    v_{1}\\v_{2}\\\vdots\\v_{n}
+  \end{bmatrix}
+  t
+  +
+  \begin{bmatrix}
+    p_{1}\\p_{2}\\\vdots\\p_{n}
+  \end{bmatrix}, \qquad -\infty<t<\infty.
+\end{equation*}
+It can also be written as
+\begin{equation*}
+  \left\{ \begin{array}{l@{}l}
+      y_{1}=v_{1}t+p_{1}\\
+      y_{2}=v_{2}t+p_{2}\\
+      \vdots\\
+      y_{n}=v_{n}t+p_{n}\\
+      -\infty<t<\infty,
+    \end{array}\right.
+\end{equation*}
+which are called the \demph{parametric equations of a line.}
+
+\begin{example}
+  Suppose $L$ is the line in $\R^{2}$ through the point $\mathbf{p}=(1,2)$ in the
+  direction of $\mathbf{v}=(1,-3)$. Then the vector equation of the line is
+  \begin{equation*}
+    \mathbf{y} 
+    = t \left\langle 1,-3 \right\rangle +(1,3) 
+    = \left\langle t+1,-3t+2 \right\rangle 
+  \end{equation*}
+  for $-\infty<t<\infty$. If we let $\mathbf{y}=\left\langle x,y \right\rangle$,
+  this is the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        x=t+1 \\
+        y=-3t+2. \\
+      \end{array}\right.
+  \end{equation*}
+  If we eliminate $t$, we get the equation
+  \begin{equation*}
+    y=-3x+5.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Consider the following two points in 3D space
+  \begin{equation*}
+    A = (2,4,-3) \quad \text{and} \quad B = (3,-1,1)
+  \end{equation*}
+  \begin{enumerate}[(a)]
+    \item Find the equation of the line which passes through $A$ and $B$
+    \item Find the equation of the line segment which connects $A$ and $B$.
+  \end{enumerate}
+
+  \textit{Solution to (a):}
+  We will follow the ideas presented in \cref{def:vector-equation-line}. Let $\mathbf{v} = \overrightarrow{AB} = \left\langle 1,-5,4 \right\rangle$. We
+  need a vector $\mathbf{p}$ on the line, so we can take either $\mathbf{p}=A$ or
+  $\mathbf{p}=B$ since both of these points is on the line. Let's take $\mathbf{p}=A$.
+  Then the vector equation of the line is
+  \begin{equation*}
+    \left\langle y_{1},y_{2},y_{3} \right\rangle 
+    = t\left\langle 1,-5,4 \right\rangle +\left\langle 2,4,-3 \right\rangle 
+  \end{equation*}
+  and the parameteric equations of the line are
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        y_{1}=t+2\\
+        y_{2}=-5t+4\\
+        y_{3}=4t-3 \\
+        -\infty<t<\infty
+      \end{array}\right.
+  \end{equation*}
+
+  Since we are working in 3 dimensions, we may wish to write $x,y,z$ rather than
+  $y_{1},y_{2},y_{3}$, in which case our equations become
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle
+    =t \left\langle 1,-5,4 \right\rangle + \left\langle 2,4,-3 \right\rangle
+  \end{equation*}
+  and
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        x=t+2\\
+        y=-5t+4\\
+        z=4t-3 \\
+        -\infty<t<\infty
+      \end{array}\right.
+  \end{equation*}
+
+  \textit{Solution to (b):} Since $\overrightarrow{AB}=(B-A)$, observe that our
+  equation is of the form
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle  = \overrightarrow{AB}t+A
+  \end{equation*}
+  or
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle  = (B-A)t+A
+  \end{equation*}
+  When $t=0$, we have
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle =A.
+  \end{equation*}
+  In other wordss, when $t=0$, the ant is at point $A$. As $t$ increases, the
+  ant walks in the direction $\overrightarrow{AB}$, i.e., towards $B$.
+
+  Moreover, when $t=1$, we have
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle= (B-A)(1)+A = B.
+  \end{equation*}
+  so the ant arrives at point $B$ at time $t=1$.
+  So the equation of the line segement between $A$ and $B$ is
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        \left\langle x,y,z \right\rangle
+        = t \left\langle 1,-5,4 \right\rangle
+        + \left\langle 2,4,-3 \right\rangle  \\
+        0 \leq t \leq 1
+      \end{array}\right.
+  \end{equation*}
+
+  This example also illustrates the more general fact that the \demph{line
+    segment} between two points $A$ and $B$ is given by the parametric equation
+  \begin{align*}
+    \left\langle x,y,z \right\rangle 
+    &= (B-A)t+A\\
+    &= tB+(1-t)A
+  \end{align*}
+  for $0 \leq t \leq 1$.
+
+  (This equation makes sense: e.g. if $t=1/2$ then we get the midpoint between
+  $A$ and $B$.)
+\end{example}
+
+
+
 
 
 
 \newpage
 \section{2025-02-19 | Week 6 | Lecture 15}
-\textit{Section 12.4}
 
 \subsection{Cross Product}
 
@@ -3522,184 +3697,6 @@ with the righty-tighty lefty-loosy convention that almost all bolts and screws
 obey.)
 
 
-
-\subsection{Lines in any dimension}
-\textit{12.5 in Stewart}
-
-
-In this section, we'll use the notation $\R^{n}$ to mean $n$-dimensional space,
-which is the set of points of the form
-\begin{equation*}
-  (x_{1},x_{2},\ldots,x_{n})
-\end{equation*}
-where $x_{1},\ldots,x_{n}$ are all real numbers. You are already familiar with
-$\R^{2}$ and $\R^{3}$, where we usually use $(x,y)$ or $(x,y,z)$ rather than
-$(x_{1},x_{2})$ or $(x_{1},x_{2},x_{3})$.
-
-Let $\vec{v}=(v_{1},\ldots,v_{n})$ is a nonzero vector in $n$-dimensional space.
-You can think of $n=2$ or $n=3$, but what follows will hold for any positive
-integer $n$. Then for any scalar $t$, the vector $t\vec{v}$ has the same
-direction as $v$ when $t>0$ and opposite direction when $t<0$. Therefore the set
-of points
-\begin{equation*}
-  \left\{t\vec{v}: -\infty<t<\infty\right\}
-\end{equation*}
-is a line through the origin. We we add a vector $\vec{p}=\left\langle
-  x_{0},y_{0},z_{0} \right\rangle $ to all of those points, we obtain
-\begin{equation*}
-  \left\{t\vec{v}+ \vec{p}: -\infty<t<\infty\right\}
-\end{equation*}
-which is a line through $\vec{p}$ in the direction of $\vec{v}$. 
-
-\begin{definition}[vector equation of a line]
-  \label{def:vector-equation-line}
-  Given a vector $\vec{p}$ and a nonzero vector $\vec{v}$ in $\R^{n}$, the set
-  of all points $\vec{y}$ in $\R^{n}$ such that
-  \begin{equation}\label{eq:vector-equation-of-a-line}
-    \vec{y}=t \vec{v} + \vec{p}
-  \end{equation}
-  where $-\infty<t<\infty$ is called the \demph{line through $\vec{p}$ in the
-    direction of $\vec{v}$}.
-\end{definition}
-If we write $\vec{y}=(y_{1},y_{2},\ldots,y_{n})$ and
-$\vec{v}=(v_{1},v_{2},\ldots,v_{n})$ and $\vec{p}=(p_{1},p_{2},\ldots,p_{n})$,
-then \cref{eq:vector-equation-of-a-line} can be written as
-\begin{equation*}
-  \begin{bmatrix}
-    y_{1}\\y_{2}\\\vdots\\y_{n}
-  \end{bmatrix}
-  =
-  t
-  \begin{bmatrix}
-    v_{1}\\v_{2}\\\vdots\\v_{n}
-  \end{bmatrix}
-  +
-  \begin{bmatrix}
-    p_{1}\\p_{2}\\\vdots\\p_{n}
-  \end{bmatrix}
-\end{equation*}
-This vector equation can be written as
-\begin{equation*}
-  \left\{ \begin{array}{l@{}l}
-      y_{1}=v_{1}t+p_{1}\\
-      y_{2}=v_{2}t+p_{2}\\
-      \vdots\\
-      y_{n}=v_{n}t+p_{n}\\
-      -\infty<t<\infty
-    \end{array}\right.
-\end{equation*}
-which are called the \demph{parametric equations of a line.}
-
-\begin{example}
-  Suppose $L$ is the line in $\R^{2}$ through the point $\vec{p}=(1,2)$ in the
-  direction of $\vec{v}=(1,-3)$. Then the vector equation of the line is
-  \begin{equation*}
-    \vec{y} 
-    = t \left\langle 1,-3 \right\rangle +(1,3) 
-    = \left\langle t+1,-3t+2 \right\rangle 
-  \end{equation*}
-  for $-\infty<t<\infty$. If we let $\vec{y}=\left\langle x,y \right\rangle$,
-  this is the parametric equations
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
-        x=t+1 \\
-        y=-3t+2. \\
-      \end{array}\right.
-  \end{equation*}
-  If we eliminate $t$, we get the equation
-  \begin{equation*}
-    y=-3x+5.
-  \end{equation*}
-\end{example}
-
-\begin{example}
-  Consider the following two points in 3D space
-  \begin{equation*}
-    A = (2,4,-3) \quad \text{and} \quad B = (3,-1,1)
-  \end{equation*}
-  \begin{enumerate}[(a)]
-    \item Find the equation of the line which passes through $A$ and $B$
-    \item Find the equation of the line segment which connects $A$ and $B$.
-  \end{enumerate}
-
-  \textit{Solution to (a):}
-  We will follow the ideas presented in \cref{def:vector-equation-line}. Let $\vec{v} = \overrightarrow{AB} = \left\langle 1,-5,4 \right\rangle$. We
-  need a vector $\vec{p}$ on the line, so we can take either $\vec{p}=A$ or
-  $\vec{p}=B$ since both of these points is on the line. Let's take $\vec{p}=A$.
-  Then the vector equation of the line is
-  \begin{equation*}
-    \left\langle y_{1},y_{2},y_{3} \right\rangle 
-    = t\left\langle 1,-5,4 \right\rangle +\left\langle 2,4,-3 \right\rangle 
-  \end{equation*}
-  and the parameteric equations of the line are
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
-        y_{1}=t+2\\
-        y_{2}=-5t+4\\
-        y_{3}=4t-3 \\
-        -\infty<t<\infty
-      \end{array}\right.
-  \end{equation*}
-
-  Since we are working in 3 dimensions, we may wish to write $x,y,z$ rather than
-  $y_{1},y_{2},y_{3}$, in which case our equations become
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle
-    =t \left\langle 1,-5,4 \right\rangle + \left\langle 2,4,-3 \right\rangle
-  \end{equation*}
-  and
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
-        x=t+2\\
-        y=-5t+4\\
-        z=4t-3 \\
-        -\infty<t<\infty
-      \end{array}\right.
-  \end{equation*}
-
-  \textit{Solution to (b):} Since $\overrightarrow{AB}=(B-A)$, observe that our
-  equation is of the form
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle  = \overrightarrow{AB}t+A
-  \end{equation*}
-  or
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle  = (B-A)t+A
-  \end{equation*}
-  When $t=0$, we have
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle =A.
-  \end{equation*}
-  In other wordss, when $t=0$, the ant is at point $A$. As $t$ increases, the
-  ant walks in the direction $\overrightarrow{AB}$, i.e., towards $B$.
-
-  Moreover, when $t=1$, we have
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle= (B-A)(1)+A = B.
-  \end{equation*}
-  so the ant arrives at point $B$ at time $t=1$.
-  So the equation of the line segement between $A$ and $B$ is
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
-        \left\langle x,y,z \right\rangle
-        = t \left\langle 1,-5,4 \right\rangle
-        + \left\langle 2,4,-3 \right\rangle  \\
-        0 \leq t \leq 1
-      \end{array}\right.
-  \end{equation*}
-
-  This example also illustrates the more general fact that the \demph{line
-    segment} between two points $A$ and $B$ is given by the parametric equation
-  \begin{align*}
-    \left\langle x,y,z \right\rangle 
-    &= (B-A)t+A\\
-    &= tB+(1-t)A
-  \end{align*}
-  for $0 \leq t \leq 1$.
-
-  (This equation makes sense: e.g. if $t=1/2$ then we get the midpoint between
-  $A$ and $B$.)
-\end{example}
 
 
 \end{document}
