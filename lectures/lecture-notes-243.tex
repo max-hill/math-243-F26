@@ -3061,129 +3061,645 @@ is an obtuse angle is a little bit different, but not much.]
 
 \newpage
 
-\end{document}
+\section{2026-09-30 | Week 06 | Lecture 16}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} force}
+
+    \textit{\textbf{Reading assignment:} 12.3, 12.4}
+  \end{tcolorbox}
+\end{center}
 
 \subsection{Connection to Physics: Force}
-Vectors are used to represent \demph{force}, understood in physics as a physical interaction (e.g. a
-push or a pull) which causes (or can cause) change in an object's motion, shape, or resting position.
-Force has magnitude (i.e., length) and a direction.
+Vectors are used to represent \demph{force}, understood in physics as a
+physical interaction (e.g. a push or a pull) which causes (or can cause)
+change in an object's motion, shape, or resting position. Force has magnitude
+(i.e., length) and a direction.
 % 
 \begin{example}[Forces]
-  If you are floating in the ocean, you get pushed around by lots of forces: (1) gravity, (2) waves, (3)
-  current, (4) wind, (5) forces created by your own motion, (6) buoyant force, and others. Each of these
-  forces can be modeled by a vector. The magnitude of the vector indicates the ``strength'' of the
-  corresponding force. For example, wind doesn't exert much force on a swimmer, so that vector might be
-  tiny. By comparison the vector for current might be very large.
+  If you are floating in the ocean, you get pushed around by lots of forces:
+  (1) gravity, (2) waves, (3) current, (4) wind, (5) forces created by your
+  own motion, (6) buoyant force, and others. Each of these forces can be
+  modeled by a vector. The magnitude of the vector indicates the ``strength''
+  of the corresponding force. For example, wind doesn't exert much force on a
+  swimmer, so that vector might be tiny. By comparison the vector for current
+  might be very large.
 
-  The \demph{resultant force} is the sum of these vectors, and determines your net motion.
+  The \demph{resultant force} is the sum of these vectors, and determines how
+  your velocity changes.
 \end{example}
 
-Force is measured in \demph{Newtons}, denoted $N$. How much is one $1N$? It's approximately equal to the
-weight that you feel pushing down on your hand when you hold up a stick of butter. (Note: \textit{weight}
-is a force).
+Force is measured in \demph{Newtons}, denoted $\mathtt{N}$. How much is one $1\mathtt{N}$? It's
+approximately equal to the weight that you feel pushing down on your hand when
+you hold up a stick of butter. (Note: \textit{weight} is a force).
 
-Technically, $N=\mathrm{kg}\cdot \mathrm{m/s^{2}}$. In words one Newton is the amount of force needed to
-accelerate one \textrm{kg} of mass at one meter per second per second (e.g., so that after two seconds
-the mass is moving at two meters per second). This is a bit confusing at first, as it is the product of a
-unit of mass (\textrm{kg}) with a unit of acceleration $(\mathrm{m/s^{2}})$. This is due to
-\demph{Newton's Second Law}, which states
+Technically, $\mathtt{N}=\mathtt{kg}\cdot \mathtt{m}/\mathtt{s}^{2}$. In words one Newton is the
+amount of force needed to accelerate one \textrm{kg} of mass at one meter per
+second per second (e.g., so that after two seconds the mass is moving at two
+meters per second). This is a bit confusing at first, as it is the product of
+a unit of mass ($\mathtt{kg}$) with a unit of acceleration $(\mathtt{m}/\mathtt{s}^{2})$.
+This is due to \demph{Newton's Second Law}, which states
 \begin{equation*}
   \text{force} = \text{mass}\times \text{acceleration}.
 \end{equation*}
+or
+\begin{equation*}
+  \mathbf{F} = m\mathbf{a}
+\end{equation*}
+Here both $\mathbf{F}$ and $\mathbf{a}$ are vectors, $m$ is a scalar.
 
 
 \subsection{Connection to physics: Effective force in a direction}
 
-If a force $\overrightarrow{F}$ is applied to a particle moving along a path, we may wish to know the
-magnitude of the force in the direction of motion. If $A$ is a direction, then the projection  of $F$
-along $A$ is the \demph{effective force} in the direction $A$.
+If a force $\mathbf{F}$ is applied to a particle moving along a path, we may
+wish to know the magnitude of the force in the direction of motion. If
+$\mathbf{A}$ is a direction, then the projection of $\mathbf{F}$ along
+$\mathbf{A}$ is the \demph{effective force} in the direction $\mathbf{A}$.
 
 \begin{example}
-  Suppose you are talking a dog on a walk and that you are facing in direction $\overrightarrow{A}$. Suppose the dog
-  lunges in some other direction. Let $\overrightarrow{D}$ be force exerted by the pull of the leash.
-  Then the effective force with whic the dog pulls you forward is the projection of $D$ along $A$.
+  Suppose you are walking a dog on a walk and that you are facing in direction
+  $\mathbf{A}$. Suppose the dog lunges in some other direction. Let
+  $\mathbf{D}$ be force exerted by the pull of the leash. Then the effective
+  force with which the dog pulls you forward is the projection $\mathbf{P}$ of $\mathbf{D}$
+  along $\mathbf{A}$.
   \begin{center}
     \includegraphics[scale=.04]{images/dog-pull}
   \end{center}
-  For example, if $A = \left\{1,1,0\right\}$ and $D=\left\langle 13,12,-5 \right\rangle$, then the
-  projection is
+  If $\mathbf{A} = \left\{1,1,0\right\}$ and $\mathbf{D}=\left\langle 13,12,-5 \right\rangle$, then 
   \begin{align*}
-    P 
-    &= \left( \frac{A\cdot D}{|A|} \right) \left( \frac{A}{|A|} \right)\\
-    &= \left( \frac{\left\langle 13+12+0 \right\rangle}{\sqrt{2}}  \right)\left( \frac{\left\langle 1,1,0 \right\rangle }{\sqrt{2}} \right)\\   
+    \mathbf{P} 
+    &= \left( \frac{\mathbf{A}\cdot \mathbf{D}}{|\mathbf{A}|} \right) \left( \frac{\mathbf{A}}{|\mathbf{A}|} \right)\\
+    &= \left( \frac{ 13+12+0}{\sqrt{2}}  \right)\left( \frac{\left\langle 1,1,0 \right\rangle }{\sqrt{2}} \right)\\   
     &= \left( \frac{25}{\sqrt{2}} \right) \left\langle \frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}},0 \right\rangle\\ 
     &= \left\langle \frac{25}{2},\frac{25}{2},0 \right\rangle .
   \end{align*}
-  The length of $P$ is
+  The length of $\mathbf{P}$ is
   \begin{equation*}
-    |P| = \frac{A\cdot D}{|A|} = \frac{25}{\sqrt{2}}\approx 17.7.
+    |\mathbf{P}| = \frac{\mathbf{A}\cdot \mathbf{D}}{|\mathbf{A}|} = \frac{25}{\sqrt{2}}\approx 17.7.
   \end{equation*}
-  So the dog pulls you forward with about $17.7\ \mathrm{N}$ of force. That's not enough to topple you
+  So the dog pulls you forward with about $17.7\ \mathtt{N}$ of force. That's not enough to topple you
   unless you are either very frail, or a toddler.
 \end{example}
 
 \begin{example}
-  Suppose we have a surfer pointed in direction ${A}$, who catches a wave which exerts a
-  force (represented by the vector ${W}$) on the surfboard, as shown:
+  Suppose we have a surfer pointed in direction $\mathbf{A}$, who catches a wave which exerts a
+  force (represented by the vector $\mathbf{W}$) on the surfboard, as shown:
   \begin{center}
     \includegraphics[scale=.1]{images/surf-force-example}
   \end{center}
-  Let's assume that ${A} = \left\langle -4, -1 \right\rangle$ and that
-  ${W} = \left\langle -700,-600 \right\rangle$. The length of vector $A$ doesn't matter; this vector is
+  Let's assume that $\mathbf{A} = \left\langle -4, -1 \right\rangle$ and that
+  $\mathbf{W} = \left\langle -700,-600 \right\rangle$. The length of vector $\mathbf{A}$ doesn't matter; this vector is
   just here to indicate the direction of the surfboard. We are assuming that the surfboard starts out
   stationary. On the other hand, $-700$ and $-600$ are measured in Newtons. (These vectors aren't quite to scale in
-  the above picture). The effective force of of the wave moving surfboard forward in the ${A}$ direction
-  is the projection of $W$ along $A$, which we will denote by $P$.
+  the above picture). The effective force of the wave moving surfboard forward in the $\mathbf{A}$ direction
+  is the projection of $\mathbf{W}$ along $\mathbf{A}$, which we will denote by $\mathbf{P}$.
 
   To compute this, we will first do some preliminary computations:
   \begin{equation*}
-    |A| = \sqrt{(-4)^{2}+(-1)^{2}} = \sqrt{17},
+    |\mathbf{A}| = \sqrt{(-4)^{2}+(-1)^{2}} = \sqrt{17},
   \end{equation*}
   and
   \begin{equation*}
-    A\cdot W = \left\langle -4,-1 \right\rangle \cdot \left\langle -700,-600 \right\rangle  = 2800+600 = 3400.
+    \mathbf{A}\cdot \mathbf{W} 
+    = \left\langle -4,-1 \right\rangle \cdot \left\langle -700,-600 \right\rangle 
+    = 2800+600 
+    = 3400.
   \end{equation*}
   Then
   \begin{align*}
-    {P} 
-    &= \left( \frac{A\cdot W}{|A|}  \right) \left( \frac{A}{|A|} \right) &&\text{by \cref{def:vector-projection}. }\\ 
-    &= \left( \frac{\left\langle -4,-1 \right\rangle  \cdot \left\langle -700,-600 \right\rangle  }{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\ 
+    \mathbf{P} 
+    &= \left( \frac{\mathbf{A}\cdot \mathbf{W}}{|\mathbf{A}|}  \right) \left( \frac{\mathbf{A}}{|\mathbf{A}|} \right) &&\text{by \cref{def:vector-projection}. }\\ 
+    &= \left( \frac{(-4)(-700)+(-1)(-600)  }{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\ 
     &= \left( \frac{3400}{\sqrt{17}} \right) \left( \frac{\left\langle -4,-1 \right\rangle }{\sqrt{17}} \right)\\  
     &= \frac{3400}{17} \left\langle -4,-1 \right\rangle\\ 
     &= 200 \left\langle -4,-1 \right\rangle\\ 
     &= \left\langle -800,-200 \right\rangle .
   \end{align*}
-  Here, the intial force of the wave was $W$, which had a magnitude of $|W|= \sqrt{(-700)^{2}+(-600)^{2}} =
-  \sqrt{100^{2} \left( 7^{2}+6^{2} \right) }
-  =100\sqrt{85}\approx 920 \mbox{N}$ . The
-  effective force in the directio of motion, was $P = \left\langle -800 ,-200\right\rangle = 100 \left\langle -8,-2 \right\rangle $, which had a
-  slightly lower magnitude of $|P| = 100\sqrt{64+4} \approx 820 \mbox{N}$.
+  Here, the initial force of the wave was $\mathbf{W}$, which had a magnitude of
+  \begin{equation*}
+    |\mathbf{W}| 
+    = \sqrt{(-700)^{2}+(-600)^{2}} 
+    = \sqrt{100^{2} \left( 7^{2}+6^{2} \right) } 
+    = 100\sqrt{85} 
+    \approx 920 \mbox{N}
+  \end{equation*}
+  The effective force in the direction of motion, was
+  \begin{equation*}
+    \mathbf{P} = \left\langle -800 ,-200\right\rangle = 100 \left\langle -8,-2 \right\rangle,
+  \end{equation*}
+  which had a slightly lower magnitude of
+  $|\mathbf{P}| = 100\sqrt{64+4} \approx 820 \mathtt{N}$.
 
   \textbf{Question:} How much does the surfboard accelerate in direction $\mathbf{A}$? Assume the surfer
-  weighs $70 \mbox{kg}$.
+  weighs $70 \mathtt{kg}$.
 
   By Newton's second law,
   \begin{equation*}
-    F= ma
+    \mathbf{F}= m\mathbf{a}
   \end{equation*}
   and therefore,
   \begin{align*}
-    a 
-    &= \frac{F}{m}\\
-    &= \frac{820\ \mathrm{N}}{70\ \mathrm{kg}}\\
+    \mathbf{a}
+    &= \frac{\mathbf{F}}{m}\\
+    &= \frac{820\ \mathtt{N}}{70\ \mathtt{kg}}\\
   \end{align*}
 
-  Recall that $\mathrm{N} = \mathrm{kg}\times \frac{\mathrm{m}}{\mathrm{s}^{2}}$, so
-  $\frac{\mathrm{N}}{\mathrm{kg}} = \frac{\mathrm{m}}{\mathrm{s}^{2}}$
+  Recall that $\mathtt{N} = \mathtt{kg}\times \frac{\mathtt{m}}{\mathtt{s}^{2}}$, so
+  $\frac{\mathtt{N}}{\mathtt{kg}} = \frac{\mathtt{m}}{\mathtt{s}^{2}}$
   \begin{equation*}
-    a = \frac{820}{70} \frac{\mathrm{m}}{\mathrm{s}^{2}} \approx 11.7 \mathrm{m}/\mathrm{s}^{2}
+    a = \frac{820}{70} \frac{\mathtt{m}}{\mathtt{s}^{2}} \approx 11.7 \mathtt{m}/\mathtt{s}^{2}
   \end{equation*}
   This means that if the force lasts for half a second, the surfer will be accelerated to about
   $\frac{11.7}{2} = 5.85$ meters per second.
   
 \end{example}
 
+\end{document}
 
+
+
+\newpage
+\section{2025-02-19 | Week 6 | Lecture 15}
+\textit{Section 12.4}
+
+\subsection{Cross Product}
+
+The idea of ``slope'' allows us to describe the tilt of a line. We need something analogous for
+describing the tilt of a plane. This is done with by describing a vector that is \textit{perpendicular}
+to the plane, called the \demph{normal vector}. So we need a way to find vectors that are perpendicular
+to things. In 3D, the simplest way to do this is with the following operation (it's not really simple,
+sorry):
+
+\begin{definition}[Cross Product]
+  \label{def:cross-product}
+  Let $\vec{a}=\left\langle a_{1},a_{2},a_{3} \right\rangle $ and $\vec{b} = \left\langle b_{1},b_{2},b_{3}
+  \right\rangle$. The \demph{cross product} of $\vec{a}$ and $\vec{b}$, denoted $\vec{a}\times \vec{b}$ is the vector
+  \begin{equation*}
+    \vec{a} \times \vec{b} = \left\langle a_{2}b_{3}-a_{3}b_{2},\ \ a_{3}b_{1}-a_{1}b_{3},\ \ a_{1}b_{2}-a_{2}b_{1}\right\rangle.
+  \end{equation*}
+\end{definition}
+\fl{Fact 1:} This new vector is orthogonal to both $\vec{a}$ and $\vec{b}$.
+
+\fl{Fact 2:} There is no cross product for 2D.
+
+There is a trick to computing cross products, and remembering how to compute
+them. This is called the \demph{method of cofactor expansion}, which I will
+demonstrate now. This method touches on important ideas that arise in linear
+algebra, which gives it additional value in its own right. Given a two-by two matrix
+\begin{equation*}
+  \begin{bmatrix}
+    a&b\\
+    c&d
+  \end{bmatrix}
+\end{equation*}
+the determinant of the matrix, which we denote by  $\begin{vmatrix} a&b\\c&d \end{vmatrix}$, is the quantity
+\begin{equation*}
+  \begin{vmatrix}
+    a&b\\
+    c&d
+  \end{vmatrix}
+  = ad-bc.
+\end{equation*}
+The cross product $\vec{a}\times \vec{b}$ can be computed as
+\begin{equation*}
+  \begin{vmatrix}
+    \vec{\imath}&\vec{\jmath}&\vec{k}\\
+    a_{1}&a_{2}&a_{3}\\
+    b_{1}&b_{2}&b_{3}\\
+  \end{vmatrix}
+  =
+  \vec{\imath}
+  \begin{vmatrix}
+    a_{2}&a_{3}\\
+    b_{2}&b_{3}\\
+  \end{vmatrix}
+  -
+  \vec{\jmath}
+  \begin{vmatrix}
+    a_{1}&a_{3}\\
+    b_{1}&b_{3}\\
+  \end{vmatrix}
+  +
+  \vec{k}
+  \begin{vmatrix}
+    a_{1}&a_{2}\\
+    b_{1}&b_{2}\\
+  \end{vmatrix}
+\end{equation*}
+Note that the sign \textit{alternates:} the term with the $\vec{\jmath}$ is subtracted, not
+added like the first and third term.
+\begin{example}
+  Suppose $\vec{a} = \left\langle 1,3,4 \right\rangle $ and $\vec{b} = \left\langle 2,7,-5 \right\rangle$.
+  The cross product is
+  \begin{align*} 
+    \begin{vmatrix}
+      \vec{\imath}&\vec{\jmath}&\vec{k}\\
+      1&3&4\\
+      2&7&-5\\
+    \end{vmatrix}
+                  &=
+                    \vec{\imath}
+                    \begin{vmatrix}
+                      3&4\\
+                      7&-5\\
+                    \end{vmatrix}
+    -
+    \vec{\jmath}
+    \begin{vmatrix}
+      1&4\\
+      2&-5\\
+    \end{vmatrix}
+    +
+    \vec{k}
+    \begin{vmatrix}
+      1&3\\
+      2&7\\
+    \end{vmatrix}\\
+                  &=\vec{\imath} \left(-15-28  \right) - \vec{\jmath}\left( -5-8 \right) +\vec{k}\left( 7-6 \right)\\
+                  &=\vec{\imath} \left(-43  \right) - \vec{\jmath}\left( -13 \right) +\vec{k}\left(1 \right)\\
+                  &=\left\langle -43,13,1 \right\rangle 
+  \end{align*}
+  \textbf{Check our answer:} Is this new vector indeed orthogonal to both
+  $\vec{a}$ and $\vec{b}?$ To check this, we can use the fact that two vectors $A$ and $B$ are orthogonal precisely
+  when $A\cdot B=0$. Indeed, doing the dot product computation gives
+  \begin{equation*}
+    \vec{a} \cdot \left\langle -43,13,1
+    \right\rangle= \left\langle 1,3,4  \right\rangle \cdot \left\langle -43,13,1
+    \right\rangle= -43+39+4 = 0
+  \end{equation*}
+  Since this dot product is zero, we conclude that our new vector $\vec{a}\times \vec{b}$ is orthogonal to $\vec{a}$.
+  Similarly, we have
+  \begin{equation*}
+    \vec{b}\cdot \left\langle -43,13,1 \right\rangle= \left\langle 2,7,-5 \right\rangle\cdot \left\langle -43,13,1
+    \right\rangle= -86+91-5 =0,
+  \end{equation*}
+  and this implies that $\vec{a}\times \vec{b}$ is orthogonal to $\vec{b}$.
+\end{example}
+\newpage
+The next theorem establishes a geometric interpretation of the cross product:
+\begin{theorem}
+  Let $\vec{u}$ and $\vec{v}$ be 3d vectors. If $\vec{u}$ and $\vec{v}$ are not
+  parallel, then the vectors determine a plane. The plane is
+  \begin{equation*}
+    P = \left\{(x,y,z)\in \R^{3} :
+      (x,y,z) = c_{1} \vec{u}+ c_{2} \vec{v} \text{ for some } c_{1},c_{2}\in R^{2}\right\}
+  \end{equation*}
+  In words, $P$ is set of all \demph{linear combinations} of the vectors
+  $\vec{u}$ and $\vec{v}$. We select a unit vector $\vec{n}$ called the \demph{unit
+    normal vector} according to the right hand rule as follows.
+  \begin{center}
+    \includegraphics[scale=.6]{images/right-hand-rule}
+  \end{center}
+  In words, if your fingers curl from $\vec{u}$ to $\vec{v}$, then $\vec{n}$
+  points in the direction of your thumb. Then
+  \begin{equation}\label{eq:geometric-interp-of-cross-product}
+    \vec{u}\times \vec{v} = \left( |\vec{u}| |\vec{v}| \sin(\theta) \right)\vec{n}.
+  \end{equation}
+  where $\theta\in [0,\pi]$ is the angle between the two vectors $\vec{u}$ and $\vec{v}$.
+\end{theorem}
+
+This geometric interpretation comes with a number of implications:
+\begin{enumerate}[(A)]
+  \item \cref{eq:geometric-interp-of-cross-product} implies that two vectors $\vec{u}$
+  and $\vec{v}$ are parallel (i.e., so that $\theta=0$), precisely when
+  \begin{equation*}
+    \vec{u}\times \vec{v} = 0.
+  \end{equation*}
+  \item We verify the fact, stated earlier, that $\vec{u}\times \vec{v}$ is
+  orthogonal to both $\vec{u}$ and $\vec{v}$.
+  \item The cross product is \textit{anticommutative}:
+  \begin{equation*}
+    \vec{v}\times \vec{u} = -(\vec{u}\times \vec{v})
+  \end{equation*}
+  Because when computing $\vec{v}\times \vec{u}$, your fingers have to sweep from $\vec{v}$ to $\vec{u}$,
+  which causes your thumb to point the other way, as shown:
+  \begin{center}
+    \includegraphics[scale=.6]{images/right-hand-rule-upside-down}
+  \end{center}
+  And geometrically, reversing the direction of vector is the same as mupltiplying it by $-1$. This is is
+  why
+  \begin{equation*}
+    \vec{v}\times \vec{u} = -(\vec{u}\times \vec{v})
+  \end{equation*}
+\end{enumerate}
+\newpage
+\section{2025-02-21 | Week 6 | Lecture 16}
+
+Recall we had the following theorem:
+\begin{theorem}
+  If $u$ and $v$ are vectors in 3-space with an angle of $\theta\in [0,\pi]$, then
+  \begin{equation*}
+    u\times v = (|u| |v| \sin(\theta))\vec{n}
+  \end{equation*}
+\end{theorem}
+This is a nice geometric result. Two more implications are as follows:
+\begin{enumerate}
+  \item If $r,s$ are scalars then we can pull them out:
+  \begin{equation*}
+    (s \vec{u})\times (r \vec{v}) = (sr)(\vec{u}\times \vec{v})
+  \end{equation*}
+  \item We get a nice way to compute the \textit{magnitude} of the cross
+  product:
+  \begin{equation*}
+    \left| \vec{u}\times \vec{v} \right| = |u||v| \sin(\theta),
+  \end{equation*}
+  and we get a neat interpretation too: the magnitude of the cross product
+  equals the area of the parallelogram:
+  \begin{center}
+    \includegraphics[scale=.6]{images/parallelogram}
+  \end{center}
+\end{enumerate}
+
+
+% \begin{example}
+%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
+%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
+
+%   \textit{Solution:} this is example 3, p858
+% \end{example}
+
+
+
+
+\begin{example}
+  Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
+  and $R= (1,-1,1)$
+  \textit{Solution:} this is example 4, p858
+\end{example}
+
+
+\begin{example}[Application to physics: torque]
+  Suppose we have a wrench, whose handle is represented by a vector $\vec{r}$. Turning the wrench will
+  tighten a bolt or something. The tendency of an object to rotate is represented by a vector called
+  the \demph{torque vector}, denoted $\vec{\tau}$, which is similar to---but \textit{not} the same as---a force vector.
+
+  The magnitude of $\tau$, $|\tau|$ determines how much push there is to
+  rotate:
+  \begin{equation*}
+    \text{bigger }|\tau| = \text{more push to rotate}
+  \end{equation*}
+  This is similar to a force vector. What is different is that for a force vector $\vec{F}$, the
+  direction of $\vec{F} $ indicates the direction in which motion would occur. This is NOT the case for
+  torque. For torque, as we will see, the direction instead indicates the following two things:
+  \begin{itemize}
+    \item the axis of rotation
+    \item whether the rotation is clockwise or anticlockwise.
+  \end{itemize}
+  Suppose that the bolt is stuck, so I take a hammer and hit the end of my wrench.
+  The hammer strike is represented by a force vector $F$, as shown:
+
+  \begin{center}
+    \includegraphics[scale=0.05]{images/torque-wrench}
+  \end{center}
+  Notice that I didn't have great aim, so although my hammer hit the tip of the wrench, the hammer didn't
+  come down exactly perpendicular to the wrench. Instead, it was at a bit of an angle $\theta$.
+
+  The direction of $\tau$ is always parallel to the axis of rotation---so $\tau$ will be a vector which
+  passes through the bolt. Whether it points up or down is always determined by whether the rotation is
+  clockwise or anticlockwise, according to the right-hand rule.
+  \footnote{i.e., if you curl the fingers of your right hand along the axis in the direction of the
+    rotation, then $\tau$ should point in the direction of your thumb. Whether $\tau$ points up or down
+    has nothing to do with whether the bolt gets looser or tighter.. the direction only indicates whether
+    the rotation is clockwise or anticlockwise.}
+
+  In this setting, if we think about this phsically, we will conclude that the magnitude of the torque
+  should be determined by two things:
+  \begin{itemize}
+    \item The length of the wrench handle $|\vec{r}|$. 
+    \item How much of the force gets applied in the direction perpendicular to $\vec{r}$. In the picture
+    above, this is the magnitude of the vector $\vec{c}$. The vector $\vec{c}$ is the component of
+    $\vec{F}$ which is perpendicular to $\vec{r}$.  In particular we can compute $|\vec{c}|$ by observing that
+    \begin{equation*}
+      \sin(\theta) = \frac{\text{opposite}}{\text{hypotenuse}}\frac{|\vec{c}|}{|\vec{F}|}
+    \end{equation*}
+    so that
+    \begin{equation*}
+      |\vec{c}| = |\vec{F}|\sin(\theta).
+    \end{equation*}
+  \end{itemize}
+  It turns out that the cross product is the right thing to use to represent the torque. That is, we
+  define
+  \begin{equation*}
+    \vec{\tau} = \vec{r}\times \vec{F}
+  \end{equation*}
+  In particular, by \cref{eq:geometric-interp-of-cross-product}, the magnitude of the torque is
+  \begin{align*}
+    |\vec{\tau}| 
+    &=|\vec{r}\times \vec{F}|\\
+    &=\underbrace{|r|}_{\overset{\text{length of}}{\text{wrench}}} \underbrace{|F| \sin(\theta)}_{|\vec{c}|}
+  \end{align*}
+
+\end{example}
+\newpage
+
+\section{2025-02-24 | Week 7 | Lecture 17}
+
+
+\subsection{Torque Example}
+Recall that $A\times B = \left(|A||B|\sin(\theta)\right)\vec{n}$.
+
+Suppose we are attempting to turn a bolt using a wrench of length
+$r=.25 \mathtt{m}$ and we apply a force $\vec{F}$ of $40\mathtt{N}$ at an angle
+of $75^{\circ}$. What is the magnitude of the torque applied to the bolt?
+
+\begin{align*}
+  |\tau|
+  &= |\vec{r}\times \vec{F}|\\
+  &=|r| |F| \sin(\theta)\\
+  &= (0.25 \mathtt{m})(40 \mathtt{N})\sin(75^{\circ})\\ 
+  &\approx 9.66 \mathtt{Nm}\\
+  &=9.66 \mathtt{J}
+\end{align*}
+where we used the fact that \texttt{1 Joule = 1 Netwon-meter}.
+
+The torque vector is
+\begin{equation*}
+  \tau\approx  9.66 \vec{n}
+\end{equation*}
+What direction does $\vec{n}$ point? If we are tightening the bolt then the
+rotation is clockwise, and the torque vector points away from us. (This matches
+with the righty-tighty lefty-loosy convention that almost all bolts and screws
+obey.)
+
+
+
+\subsection{Lines in any dimension}
+\textit{12.5 in Stewart}
+
+
+In this section, we'll use the notation $\R^{n}$ to mean $n$-dimensional space,
+which is the set of points of the form
+\begin{equation*}
+  (x_{1},x_{2},\ldots,x_{n})
+\end{equation*}
+where $x_{1},\ldots,x_{n}$ are all real numbers. You are already familiar with
+$\R^{2}$ and $\R^{3}$, where we usually use $(x,y)$ or $(x,y,z)$ rather than
+$(x_{1},x_{2})$ or $(x_{1},x_{2},x_{3})$.
+
+Let $\vec{v}=(v_{1},\ldots,v_{n})$ is a nonzero vector in $n$-dimensional space.
+You can think of $n=2$ or $n=3$, but what follows will hold for any positive
+integer $n$. Then for any scalar $t$, the vector $t\vec{v}$ has the same
+direction as $v$ when $t>0$ and opposite direction when $t<0$. Therefore the set
+of points
+\begin{equation*}
+  \left\{t\vec{v}: -\infty<t<\infty\right\}
+\end{equation*}
+is a line through the origin. We we add a vector $\vec{p}=\left\langle
+  x_{0},y_{0},z_{0} \right\rangle $ to all of those points, we obtain
+\begin{equation*}
+  \left\{t\vec{v}+ \vec{p}: -\infty<t<\infty\right\}
+\end{equation*}
+which is a line through $\vec{p}$ in the direction of $\vec{v}$. 
+
+\begin{definition}[vector equation of a line]
+  \label{def:vector-equation-line}
+  Given a vector $\vec{p}$ and a nonzero vector $\vec{v}$ in $\R^{n}$, the set
+  of all points $\vec{y}$ in $\R^{n}$ such that
+  \begin{equation}\label{eq:vector-equation-of-a-line}
+    \vec{y}=t \vec{v} + \vec{p}
+  \end{equation}
+  where $-\infty<t<\infty$ is called the \demph{line through $\vec{p}$ in the
+    direction of $\vec{v}$}.
+\end{definition}
+If we write $\vec{y}=(y_{1},y_{2},\ldots,y_{n})$ and
+$\vec{v}=(v_{1},v_{2},\ldots,v_{n})$ and $\vec{p}=(p_{1},p_{2},\ldots,p_{n})$,
+then \cref{eq:vector-equation-of-a-line} can be written as
+\begin{equation*}
+  \begin{bmatrix}
+    y_{1}\\y_{2}\\\vdots\\y_{n}
+  \end{bmatrix}
+  =
+  t
+  \begin{bmatrix}
+    v_{1}\\v_{2}\\\vdots\\v_{n}
+  \end{bmatrix}
+  +
+  \begin{bmatrix}
+    p_{1}\\p_{2}\\\vdots\\p_{n}
+  \end{bmatrix}
+\end{equation*}
+This vector equation can be written as
+\begin{equation*}
+  \left\{ \begin{array}{l@{}l}
+      y_{1}=v_{1}t+p_{1}\\
+      y_{2}=v_{2}t+p_{2}\\
+      \vdots\\
+      y_{n}=v_{n}t+p_{n}\\
+      -\infty<t<\infty
+    \end{array}\right.
+\end{equation*}
+which are called the \demph{parametric equations of a line.}
+
+\begin{example}
+  Suppose $L$ is the line in $\R^{2}$ through the point $\vec{p}=(1,2)$ in the
+  direction of $\vec{v}=(1,-3)$. Then the vector equation of the line is
+  \begin{equation*}
+    \vec{y} 
+    = t \left\langle 1,-3 \right\rangle +(1,3) 
+    = \left\langle t+1,-3t+2 \right\rangle 
+  \end{equation*}
+  for $-\infty<t<\infty$. If we let $\vec{y}=\left\langle x,y \right\rangle$,
+  this is the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        x=t+1 \\
+        y=-3t+2. \\
+      \end{array}\right.
+  \end{equation*}
+  If we eliminate $t$, we get the equation
+  \begin{equation*}
+    y=-3x+5.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Consider the following two points in 3D space
+  \begin{equation*}
+    A = (2,4,-3) \quad \text{and} \quad B = (3,-1,1)
+  \end{equation*}
+  \begin{enumerate}[(a)]
+    \item Find the equation of the line which passes through $A$ and $B$
+    \item Find the equation of the line segment which connects $A$ and $B$.
+  \end{enumerate}
+
+  \textit{Solution to (a):}
+  We will follow the ideas presented in \cref{def:vector-equation-line}. Let $\vec{v} = \overrightarrow{AB} = \left\langle 1,-5,4 \right\rangle$. We
+  need a vector $\vec{p}$ on the line, so we can take either $\vec{p}=A$ or
+  $\vec{p}=B$ since both of these points is on the line. Let's take $\vec{p}=A$.
+  Then the vector equation of the line is
+  \begin{equation*}
+    \left\langle y_{1},y_{2},y_{3} \right\rangle 
+    = t\left\langle 1,-5,4 \right\rangle +\left\langle 2,4,-3 \right\rangle 
+  \end{equation*}
+  and the parameteric equations of the line are
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        y_{1}=t+2\\
+        y_{2}=-5t+4\\
+        y_{3}=4t-3 \\
+        -\infty<t<\infty
+      \end{array}\right.
+  \end{equation*}
+
+  Since we are working in 3 dimensions, we may wish to write $x,y,z$ rather than
+  $y_{1},y_{2},y_{3}$, in which case our equations become
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle
+    =t \left\langle 1,-5,4 \right\rangle + \left\langle 2,4,-3 \right\rangle
+  \end{equation*}
+  and
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        x=t+2\\
+        y=-5t+4\\
+        z=4t-3 \\
+        -\infty<t<\infty
+      \end{array}\right.
+  \end{equation*}
+
+  \textit{Solution to (b):} Since $\overrightarrow{AB}=(B-A)$, observe that our
+  equation is of the form
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle  = \overrightarrow{AB}t+A
+  \end{equation*}
+  or
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle  = (B-A)t+A
+  \end{equation*}
+  When $t=0$, we have
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle =A.
+  \end{equation*}
+  In other wordss, when $t=0$, the ant is at point $A$. As $t$ increases, the
+  ant walks in the direction $\overrightarrow{AB}$, i.e., towards $B$.
+
+  Moreover, when $t=1$, we have
+  \begin{equation*}
+    \left\langle x,y,z \right\rangle= (B-A)(1)+A = B.
+  \end{equation*}
+  so the ant arrives at point $B$ at time $t=1$.
+  So the equation of the line segement between $A$ and $B$ is
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l}
+        \left\langle x,y,z \right\rangle
+        = t \left\langle 1,-5,4 \right\rangle
+        + \left\langle 2,4,-3 \right\rangle  \\
+        0 \leq t \leq 1
+      \end{array}\right.
+  \end{equation*}
+
+  This example also illustrates the more general fact that the \demph{line
+    segment} between two points $A$ and $B$ is given by the parametric equation
+  \begin{align*}
+    \left\langle x,y,z \right\rangle 
+    &= (B-A)t+A\\
+    &= tB+(1-t)A
+  \end{align*}
+  for $0 \leq t \leq 1$.
+
+  (This equation makes sense: e.g. if $t=1/2$ then we get the midpoint between
+  $A$ and $B$.)
+\end{example}
 
 
 \end{document}

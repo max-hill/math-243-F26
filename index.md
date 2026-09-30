@@ -28,6 +28,7 @@ title: Lecture Notes
  2026-09-23  |  circumference of Earth, vector algebra, dot product
  2026-09-25  |  vector problems, vector projections
  2026-09-28  |  vector projections
+ 2026-09-30  |  force
  
 # Other links
 
