@@ -29,6 +29,7 @@ title: Lecture Notes
  2026-09-25  |  vector problems, vector projections
  2026-09-28  |  vector projections
  2026-09-30  |  force
+ 2026-09-30  |  how do we describe the tilt of a plane?
  
 # Other links
 

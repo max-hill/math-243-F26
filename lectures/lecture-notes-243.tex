@@ -3208,11 +3208,228 @@ $\mathbf{A}$ is the \demph{effective force} in the direction $\mathbf{A}$.
     a = \frac{820}{70} \frac{\mathtt{m}}{\mathtt{s}^{2}} \approx 11.7 \mathtt{m}/\mathtt{s}^{2}
   \end{equation*}
   This means that if the force lasts for half a second, the surfer will be accelerated to about
-  $\frac{11.7}{2} = 5.85$ meters per second in the $A$-direction.
+  $\frac{11.7}{2} = 5.85$ meters per second in the $\mathbf{A}$-direction.
   
 \end{example}
 
+
+
+
+\newpage
+\section{2026-10-02 | Week 06 | Lecture 17}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Question: How do we describe (and find) the tilt of a plane?} }
+
+    \textit{\textbf{Reading assignment:} Chapter 12.4}
+  \end{tcolorbox}
+\end{center}
+
+\subsection{Cross Product}
+
+The idea of ``slope'' allows us to describe the tilt of a line. We need something analogous for
+describing the tilt of a plane. This is done with by describing a vector that is \textit{perpendicular}
+to the plane, called the \demph{normal vector}. So we need a way to find vectors that are perpendicular
+to things. In 3D, the simplest way to do this is with the following operation (it's not really simple,
+sorry):
+
+\begin{definition}[Cross Product]
+  \label{def:cross-product}
+  Let
+  \begin{equation*}
+    \mathbf{a}=
+    \begin{bmatrix}
+      a_{1}\\a_{2}\\a_{3}
+    \end{bmatrix}
+    \qquad
+    \mathbf{b}=
+    \begin{bmatrix}
+      b_{1}\\b_{2}\\b_{3}
+    \end{bmatrix}
+  \end{equation*}
+  The \demph{cross product} of $\mathbf{a}$ and $\mathbf{b}$, denoted $\mathbf{a}\times \mathbf{b}$, is the vector
+  \begin{equation*}
+    \demph{\mathbf{a} \times \mathbf{b}} =
+    \begin{bmatrix}
+      a_{2}b_{3}-a_{3}b_{2}\\ a_{3}b_{1}-a_{1}b_{3}\\ a_{1}b_{2}-a_{2}b_{1}
+    \end{bmatrix}
+  \end{equation*}
+\end{definition}
+\fl{Fact 1:} This new vector is orthogonal to both $\mathbf{a}$ and $\mathbf{b}$.
+
+\fl{Fact 2:} There is no cross product for 2D.
+
+There is a trick to computing cross products, and remembering how to compute
+them. This is called the \demph{method of cofactor expansion}, which I will
+demonstrate now. This method touches on important ideas that arise in linear
+algebra, which gives it additional value in its own right. Given a $2\times 2$ matrix
+\begin{equation*}
+  \begin{bmatrix}
+    a&b\\
+    c&d
+  \end{bmatrix}
+\end{equation*}
+the determinant of the matrix, which we denote by  $\begin{vmatrix} a&b\\c&d \end{vmatrix}$, is the quantity
+\begin{equation*}
+  \begin{vmatrix}
+    a&b\\
+    c&d
+  \end{vmatrix}
+  = ad-bc.
+\end{equation*}
+Let
+\begin{equation*}
+  \demph{\mathbf{i}} :=
+  \begin{bmatrix}
+    1\\0\\0
+  \end{bmatrix},
+  \qquad
+  \demph{\mathbf{j}} :=
+  \begin{bmatrix}
+    0\\1\\0
+  \end{bmatrix},
+  \quad
+  \demph{\mathbf{k}} :=
+  \begin{bmatrix}
+    0\\0\\1
+  \end{bmatrix}.
+\end{equation*}
+Then the cross product $\mathbf{a}\times \mathbf{b}$ can be computed in the
+following way:
+\begin{equation*}
+  \mathbf{a}\times \mathbf{b}
+  =
+  \begin{vmatrix}
+    \mathbf{i}&\mathbf{j}&\mathbf{k}\\
+    a_{1}&a_{2}&a_{3}\\
+    b_{1}&b_{2}&b_{3}\\
+  \end{vmatrix}
+  =
+  \mathbf{i}
+  \begin{vmatrix}
+    a_{2}&a_{3}\\
+    b_{2}&b_{3}\\
+  \end{vmatrix}
+  -
+  \mathbf{j}
+  \begin{vmatrix}
+    a_{1}&a_{3}\\
+    b_{1}&b_{3}\\
+  \end{vmatrix}
+  +
+  \mathbf{k}
+  \begin{vmatrix}
+    a_{1}&a_{2}\\
+    b_{1}&b_{2}\\
+  \end{vmatrix}.
+\end{equation*}
+Note that the sign \textit{alternates:} the term with the $\mathbf{j}$ is subtracted, not
+added like the first and third term.
+\begin{example}
+  Suppose $\mathbf{a} = \left\langle 1,3,4 \right\rangle $ and $\mathbf{b} = \left\langle 2,7,-5 \right\rangle$.
+  Then
+  \begin{align*} 
+    \mathbf{a}\times \mathbf{b}
+    =
+    \begin{vmatrix}
+      \mathbf{i}&\mathbf{j}&\mathbf{k}\\
+      1&3&4\\
+      2&7&-5\\
+    \end{vmatrix}
+                  &=
+                    \mathbf{i}
+                    \begin{vmatrix}
+                      3&4\\
+                      7&-5\\
+                    \end{vmatrix}
+    -
+    \mathbf{j}
+    \begin{vmatrix}
+      1&4\\
+      2&-5\\
+    \end{vmatrix}
+    +
+    \mathbf{k}
+    \begin{vmatrix}
+      1&3\\
+      2&7\\
+    \end{vmatrix}\\
+                  &=\mathbf{i} \left(-15-28  \right) - \mathbf{j}\left( -5-8 \right) +\mathbf{k}\left( 7-6 \right)\\
+                  &=\mathbf{i} \left(-43  \right) - \mathbf{j}\left( -13 \right) +\mathbf{k}\left(1 \right)\\
+                  &=\left\langle -43,13,1 \right\rangle 
+  \end{align*}
+  \textbf{Check our answer:} Is this new vector $\mathbf{a}\times \mathbf{b}$
+  indeed orthogonal to both $\mathbf{a}$ and $\mathbf{b}$? To check this, we
+  can use the fact that two vectors $\mathbf{u},\mathbf{v}$ are orthogonal
+  exactly when $\mathbf{u}\cdot \mathbf{v}=0$. Indeed,
+  \begin{equation*}
+    \mathbf{a} \cdot \left\langle -43,13,1
+    \right\rangle= \left\langle 1,3,4  \right\rangle \cdot \left\langle -43,13,1
+    \right\rangle= -43+39+4 = 0
+  \end{equation*}
+  Since this dot product is zero, we conclude that our new vector $\mathbf{a}\times \mathbf{b}$ is orthogonal to $\mathbf{a}$.
+  Similarly, we have
+  \begin{equation*}
+    \mathbf{b}\cdot \left\langle -43,13,1 \right\rangle= \left\langle 2,7,-5 \right\rangle\cdot \left\langle -43,13,1
+    \right\rangle= -86+91-5 =0,
+  \end{equation*}
+  and this implies that $\mathbf{a}\times \mathbf{b}$ is orthogonal to $\mathbf{b}$.
+\end{example}
+
+The next theorem establishes a geometric interpretation of the cross product:
+\begin{theorem}
+  Let $\mathbf{u},\mathbf{v}\in \R^{3}$. If $\mathbf{u}$ and $\mathbf{v}$ are
+  not parallel, then the vectors determine a plane. The plane is
+  \begin{equation*}
+    P = \left\{(x,y,z)\in \R^{3} :
+      (x,y,z) = c_{1} \mathbf{u}+ c_{2} \mathbf{v} \text{ for some } c_{1},c_{2}\in R^{2}\right\}
+  \end{equation*}
+  An expression of the form $c_{1}\mathbf{u}+c_{2}\mathbf{v}$ is called a
+  \demph{linear combination} of $\mathbf{u}$ and $\mathbf{v}$. Thus, the plane
+  $P$ is set of all linear combinations of $\mathbf{u}$ and $\mathbf{v}$. We
+  select a unit vector $\mathbf{n}$ called the \demph{unit normal vector}
+  according to the right hand rule as follows.
+  \begin{center}
+    \includegraphics[scale=.53]{images/right-hand-rule}
+  \end{center}
+  In words, if your fingers curl from $\mathbf{u}$ to $\mathbf{v}$, then $\mathbf{n}$
+  points in the direction of your thumb. Then
+  \begin{equation}\label{eq:geometric-interp-of-cross-product}
+    \mathbf{u}\times \mathbf{v} = \left( |\mathbf{u}| |\mathbf{v}| \sin(\theta) \right)\mathbf{n}.
+  \end{equation}
+  where $\theta\in [0,\pi]$ is the angle between the two vectors $\mathbf{u}$ and $\mathbf{v}$.
+\end{theorem}
+
+This geometric interpretation comes with a number of implications:
+\begin{enumerate}[label=(\roman*.),parsep=0pt,itemsep=0pt]
+  \item \cref{eq:geometric-interp-of-cross-product} implies that two vectors $\mathbf{u}$
+  and $\mathbf{v}$ are parallel (i.e., so that $\theta=0$), precisely when
+  \begin{equation*}
+    \mathbf{u}\times \mathbf{v} = 0.
+  \end{equation*}
+  \item It verifies the fact, stated earlier, that
+  $\mathbf{u}\times \mathbf{v}$ is orthogonal to both $\mathbf{u}$ and
+  $\mathbf{v}$.
+  \item The cross product is \textit{anticommutative}:
+  \begin{equation*}
+    \mathbf{v}\times \mathbf{u} = -(\mathbf{u}\times \mathbf{v})
+  \end{equation*}
+  Because when computing $\mathbf{v}\times \mathbf{u}$, your fingers have to
+  sweep from $\mathbf{v}$ to $\mathbf{u}$, which causes your thumb to point
+  the other way, as shown:
+  \begin{center}
+    \includegraphics[scale=.53]{images/right-hand-rule-upside-down}
+  \end{center}
+  And geometrically, reversing the direction of vector is the same as
+  mupltiplying it by $-1$. This is is why
+  \begin{equation*}
+    \mathbf{v}\times \mathbf{u} = -(\mathbf{u}\times \mathbf{v})
+  \end{equation*}
+\end{enumerate}
+
 \end{document}
+\newpage
+
 \subsection{Lines in any dimension}
 \textit{chapter 12.4 in textbook}
 
@@ -3391,173 +3608,6 @@ which are called the \demph{parametric equations of a line.}
 
 
 
-
-
-
-\newpage
-\section{2025-02-19 | Week 6 | Lecture 15}
-
-\subsection{Cross Product}
-
-The idea of ``slope'' allows us to describe the tilt of a line. We need something analogous for
-describing the tilt of a plane. This is done with by describing a vector that is \textit{perpendicular}
-to the plane, called the \demph{normal vector}. So we need a way to find vectors that are perpendicular
-to things. In 3D, the simplest way to do this is with the following operation (it's not really simple,
-sorry):
-
-\begin{definition}[Cross Product]
-  \label{def:cross-product}
-  Let $\vec{a}=\left\langle a_{1},a_{2},a_{3} \right\rangle $ and $\vec{b} = \left\langle b_{1},b_{2},b_{3}
-  \right\rangle$. The \demph{cross product} of $\vec{a}$ and $\vec{b}$, denoted $\vec{a}\times \vec{b}$ is the vector
-  \begin{equation*}
-    \vec{a} \times \vec{b} = \left\langle a_{2}b_{3}-a_{3}b_{2},\ \ a_{3}b_{1}-a_{1}b_{3},\ \ a_{1}b_{2}-a_{2}b_{1}\right\rangle.
-  \end{equation*}
-\end{definition}
-\fl{Fact 1:} This new vector is orthogonal to both $\vec{a}$ and $\vec{b}$.
-
-\fl{Fact 2:} There is no cross product for 2D.
-
-There is a trick to computing cross products, and remembering how to compute
-them. This is called the \demph{method of cofactor expansion}, which I will
-demonstrate now. This method touches on important ideas that arise in linear
-algebra, which gives it additional value in its own right. Given a two-by two matrix
-\begin{equation*}
-  \begin{bmatrix}
-    a&b\\
-    c&d
-  \end{bmatrix}
-\end{equation*}
-the determinant of the matrix, which we denote by  $\begin{vmatrix} a&b\\c&d \end{vmatrix}$, is the quantity
-\begin{equation*}
-  \begin{vmatrix}
-    a&b\\
-    c&d
-  \end{vmatrix}
-  = ad-bc.
-\end{equation*}
-The cross product $\vec{a}\times \vec{b}$ can be computed as
-\begin{equation*}
-  \begin{vmatrix}
-    \vec{\imath}&\vec{\jmath}&\vec{k}\\
-    a_{1}&a_{2}&a_{3}\\
-    b_{1}&b_{2}&b_{3}\\
-  \end{vmatrix}
-  =
-  \vec{\imath}
-  \begin{vmatrix}
-    a_{2}&a_{3}\\
-    b_{2}&b_{3}\\
-  \end{vmatrix}
-  -
-  \vec{\jmath}
-  \begin{vmatrix}
-    a_{1}&a_{3}\\
-    b_{1}&b_{3}\\
-  \end{vmatrix}
-  +
-  \vec{k}
-  \begin{vmatrix}
-    a_{1}&a_{2}\\
-    b_{1}&b_{2}\\
-  \end{vmatrix}
-\end{equation*}
-Note that the sign \textit{alternates:} the term with the $\vec{\jmath}$ is subtracted, not
-added like the first and third term.
-\begin{example}
-  Suppose $\vec{a} = \left\langle 1,3,4 \right\rangle $ and $\vec{b} = \left\langle 2,7,-5 \right\rangle$.
-  The cross product is
-  \begin{align*} 
-    \begin{vmatrix}
-      \vec{\imath}&\vec{\jmath}&\vec{k}\\
-      1&3&4\\
-      2&7&-5\\
-    \end{vmatrix}
-                  &=
-                    \vec{\imath}
-                    \begin{vmatrix}
-                      3&4\\
-                      7&-5\\
-                    \end{vmatrix}
-    -
-    \vec{\jmath}
-    \begin{vmatrix}
-      1&4\\
-      2&-5\\
-    \end{vmatrix}
-    +
-    \vec{k}
-    \begin{vmatrix}
-      1&3\\
-      2&7\\
-    \end{vmatrix}\\
-                  &=\vec{\imath} \left(-15-28  \right) - \vec{\jmath}\left( -5-8 \right) +\vec{k}\left( 7-6 \right)\\
-                  &=\vec{\imath} \left(-43  \right) - \vec{\jmath}\left( -13 \right) +\vec{k}\left(1 \right)\\
-                  &=\left\langle -43,13,1 \right\rangle 
-  \end{align*}
-  \textbf{Check our answer:} Is this new vector indeed orthogonal to both
-  $\vec{a}$ and $\vec{b}?$ To check this, we can use the fact that two vectors $A$ and $B$ are orthogonal precisely
-  when $A\cdot B=0$. Indeed, doing the dot product computation gives
-  \begin{equation*}
-    \vec{a} \cdot \left\langle -43,13,1
-    \right\rangle= \left\langle 1,3,4  \right\rangle \cdot \left\langle -43,13,1
-    \right\rangle= -43+39+4 = 0
-  \end{equation*}
-  Since this dot product is zero, we conclude that our new vector $\vec{a}\times \vec{b}$ is orthogonal to $\vec{a}$.
-  Similarly, we have
-  \begin{equation*}
-    \vec{b}\cdot \left\langle -43,13,1 \right\rangle= \left\langle 2,7,-5 \right\rangle\cdot \left\langle -43,13,1
-    \right\rangle= -86+91-5 =0,
-  \end{equation*}
-  and this implies that $\vec{a}\times \vec{b}$ is orthogonal to $\vec{b}$.
-\end{example}
-\newpage
-The next theorem establishes a geometric interpretation of the cross product:
-\begin{theorem}
-  Let $\vec{u}$ and $\vec{v}$ be 3d vectors. If $\vec{u}$ and $\vec{v}$ are not
-  parallel, then the vectors determine a plane. The plane is
-  \begin{equation*}
-    P = \left\{(x,y,z)\in \R^{3} :
-      (x,y,z) = c_{1} \vec{u}+ c_{2} \vec{v} \text{ for some } c_{1},c_{2}\in R^{2}\right\}
-  \end{equation*}
-  In words, $P$ is set of all \demph{linear combinations} of the vectors
-  $\vec{u}$ and $\vec{v}$. We select a unit vector $\vec{n}$ called the \demph{unit
-    normal vector} according to the right hand rule as follows.
-  \begin{center}
-    \includegraphics[scale=.6]{images/right-hand-rule}
-  \end{center}
-  In words, if your fingers curl from $\vec{u}$ to $\vec{v}$, then $\vec{n}$
-  points in the direction of your thumb. Then
-  \begin{equation}\label{eq:geometric-interp-of-cross-product}
-    \vec{u}\times \vec{v} = \left( |\vec{u}| |\vec{v}| \sin(\theta) \right)\vec{n}.
-  \end{equation}
-  where $\theta\in [0,\pi]$ is the angle between the two vectors $\vec{u}$ and $\vec{v}$.
-\end{theorem}
-
-This geometric interpretation comes with a number of implications:
-\begin{enumerate}[(A)]
-  \item \cref{eq:geometric-interp-of-cross-product} implies that two vectors $\vec{u}$
-  and $\vec{v}$ are parallel (i.e., so that $\theta=0$), precisely when
-  \begin{equation*}
-    \vec{u}\times \vec{v} = 0.
-  \end{equation*}
-  \item We verify the fact, stated earlier, that $\vec{u}\times \vec{v}$ is
-  orthogonal to both $\vec{u}$ and $\vec{v}$.
-  \item The cross product is \textit{anticommutative}:
-  \begin{equation*}
-    \vec{v}\times \vec{u} = -(\vec{u}\times \vec{v})
-  \end{equation*}
-  Because when computing $\vec{v}\times \vec{u}$, your fingers have to sweep from $\vec{v}$ to $\vec{u}$,
-  which causes your thumb to point the other way, as shown:
-  \begin{center}
-    \includegraphics[scale=.6]{images/right-hand-rule-upside-down}
-  \end{center}
-  And geometrically, reversing the direction of vector is the same as mupltiplying it by $-1$. This is is
-  why
-  \begin{equation*}
-    \vec{v}\times \vec{u} = -(\vec{u}\times \vec{v})
-  \end{equation*}
-\end{enumerate}
-\newpage
 \section{2025-02-21 | Week 6 | Lecture 16}
 
 Recall we had the following theorem:
