@@ -60,6 +60,37 @@
 \def\red{\color{Red}} \def\blue{\color{Blue}}
 \def\gray{\color{gray}} \def\purple{\color{Purple}}
 
+
+
+\definecolor{Teal}{rgb}{0,0.35,0.35}
+\newcommand{\MaxComment}[1]{\textcolor{Purple}{[Max: #1]}}        % Purple comments
+
+\usepackage[normalem]{ulem}
+\newcommand{\pstrike}[1]{% strike out
+  \textcolor{Teal}{\sout{#1}}%
+}
+
+
+\NewDocumentEnvironment{remove-this}{}
+{%
+  \begingroup
+  \color{Teal}%
+}
+{%
+  \endgroup
+}
+
+\NewDocumentEnvironment{max-comment}{}
+{%
+  \begingroup
+  \color{Purple}%
+}
+{%
+  \endgroup
+}
+
+
+
 % Claim numbering (the counter restarts after each proof environment)
 \newcounter{claimcount}
 \setcounter{claimcount}{0}
@@ -895,7 +926,7 @@ graphs.
       \foreach \t in {0,0.1,...,4.5} \filldraw (\t^3 - 5*\t^2 + 3*\t + 11,\t^2 - 2*\t + 3) circle (2pt);
       % Parametric curve (negative t-values)
       \foreach \t in {0,0.05,...,1.5} \filldraw (-\t^3 - 5*\t^2 - 3*\t + 11,\t^2 + 2*\t + 3) circle (2pt);
-      % Axis
+j      % Axis
       \draw[->] (-10,0) -- (15,0) node[right] {\(x\)}; \draw[->] (0,-5) -- (0,15) node[above] {\(y\)};
       
       % Tick marks on x-axis
@@ -3427,11 +3458,148 @@ This geometric interpretation comes with a number of implications:
   \end{equation*}
 \end{enumerate}
 
-\end{document}
 \newpage
 
+
+
+\section{2026-10-04 | Week 07 | Lecture 18}
+
+Recall we had the following theorem:
+\begin{theorem}
+  If $\mathbf{u}$ and $\mathbf{v}$ are vectors in 3-space with an angle of $\theta\in [0,\pi]$, then
+  \begin{equation}\label{eq:cross-product-sine}
+    \mathbf{u}\times \mathbf{v} = (|\mathbf{u}| |\mathbf{v}| \sin(\theta))\mathbf{n}
+  \end{equation}
+\end{theorem}
+Here are two properties that follow from \cref{eq:cross-product-sine}:
+\begin{enumerate}[label=(\roman*)]
+  \item If $r,s\in \R$ then we can pull them out:
+  \begin{equation*}
+    (s \mathbf{u})\times (r \mathbf{v}) = (sr)(\mathbf{u}\times \mathbf{v})
+  \end{equation*}
+  \item We get a nice way to compute the \textit{magnitude} of the cross
+  product:
+  \begin{equation*}
+    \left| \mathbf{u}\times \mathbf{v} \right| = |\mathbf{u}||\mathbf{v}| \sin(\theta),
+  \end{equation*}
+  and we get a neat interpretation too: the magnitude of the cross product
+  equals the area of the parallelogram:
+  \begin{center}
+    \includegraphics[scale=.6]{images/parallelogram}
+  \end{center}
+\end{enumerate}
+
+
+% \begin{example}
+%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
+%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
+
+%   \textit{Solution:} this is example 3, p858
+% \end{example}
+
+
+
+
+\begin{example}
+  Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
+  and $R= (1,-1,1)$
+\end{example}
+
+\subsection{Application to physics: Torque}
+Suppose you have a wrench, whose handle is represented by a vector
+$\mathbf{r}$. The wrench is attached to a bolt. Pushing on the wrench
+causes it to turn around an axis of rotation (the bolt). The turning
+effect is described by a vector called the \demph{torque vector}, denoted
+$\boldsymbol{\tau}$, which is similar to---but \textit{not} the same
+as---a force vector.
+
+The magnitude of $\boldsymbol{\tau}$, $|\boldsymbol{\tau}|$ determines how much push there is to
+rotate:
+\begin{equation*}
+  \text{bigger }|\boldsymbol{\tau}| = \text{more push to rotate}
+\end{equation*}
+This is similar to a force vector. What is different is that for a force vector $\mathbf{F}$, the
+direction of $\mathbf{F}$ indicates the direction in which motion would occur. This is NOT the case for
+torque.
+
+The direction of $\boldsymbol{\tau}$ points in a direction
+\textit{parallel to the bolt}. Whether it points up or down is determined
+by whether the rotation is clockwise or counter-clockwise. For a standard
+bolt (which tightens when turned clockwise), the direction is easy to remember:
+\begin{itemize}
+  \item turning clockwise tightens the bolt, and the torque arrow points
+  down;
+  \item turning counter-clockwise loosens the bolt, and the torque arrow
+  points up.
+\end{itemize}
+
+  
+
+Suppose that the bolt is stuck, so I take a hammer and hit the end of my wrench.
+The hammer strike is represented by a force vector $\mathbf{F}$, as shown:
+
+\begin{center}
+  \includegraphics[scale=0.05]{images/torque-wrench}
+\end{center}
+Notice that I didn't have great aim, so although my hammer hit the tip of the wrench, the hammer didn't
+come down exactly perpendicular to the wrench. Instead, it was at a bit of an angle $\theta$.
+
+In this setting, if we think about this phsically, we will conclude that the magnitude of the torque
+should be determined by two things:
+\begin{itemize}
+  \item The length of the wrench handle $|\mathbf{r}|$. 
+  \item How much of the force gets applied in the direction perpendicular to
+  $\mathbf{r}$. In the picture above, this is the magnitude of the vector
+  $\mathbf{c}$. We can compute $|\mathbf{c}|$ by observing that
+  \begin{equation*}
+    \sin(\theta) = \frac{\text{opposite}}{\text{hypotenuse}}=\frac{|\mathbf{c}|}{|\mathbf{F}|},
+  \end{equation*}
+  so that
+  \begin{equation*}
+    |\mathbf{c}| = |\mathbf{F}|\sin(\theta).
+  \end{equation*}
+\end{itemize}
+It turns out that the cross product is the right thing to use to represent the torque. That is, we
+define
+\begin{equation*}
+  \boldsymbol{\tau} = \mathbf{r}\times \mathbf{F}
+\end{equation*}
+In particular, by \cref{eq:geometric-interp-of-cross-product}, the magnitude of the torque is
+\begin{align*}
+  |\boldsymbol{\tau}| 
+  &=|\mathbf{r}\times \mathbf{F}|\\
+  &=\underbrace{|\mathbf{r}|}_{\overset{\text{length of}}{\text{wrench}}} \underbrace{|F| \sin(\theta)}_{|\mathbf{c}|}
+\end{align*}
+
+
+
+\begin{example}[Torque]
+  Suppose we are attempting to turn a bolt using a wrench of length
+  $\mathbf{r}=.25 \mathtt{m}$ and we apply a force $\mathbf{F}$ of $40\mathtt{N}$ at an angle
+  of $75^{\circ}$. What is the magnitude of the torque applied to the bolt?
+
+  \begin{align*}
+    |\boldsymbol{\tau}|
+    &= |\mathbf{r}\times \mathbf{F}|\\
+    &=|\mathbf{r}| |\mathbf{F}| \sin(\theta)\\
+    &= (0.25\ \mathtt{m})(40\ \mathtt{N})\sin(75^{\circ})\\ 
+    &\approx 9.66 \ \mathtt{Nm}\\
+    &=9.66 \ \mathtt{J}
+  \end{align*}
+  where we used the fact that \texttt{1 Joule = 1 Netwon-meter}.
+
+  The torque vector is
+  \begin{equation*}
+    \boldsymbol{\tau}\approx  9.66 \mathbf{n}
+  \end{equation*}
+  What direction does $\mathbf{n}$ point? If we are tightening the bolt then the
+  rotation is clockwise, and the torque vector points away from us. (This matches
+  with the righty-tighty lefty-loosy convention that almost all bolts and screws
+  obey.)
+\end{example}
+
 \subsection{Lines in any dimension}
-\textit{chapter 12.4 in textbook}
+\textit{chapter 12.5 in textbook}
 
 
 In this section, we'll use the notation $\R^{n}$ to mean $n$-dimensional space,
@@ -3605,147 +3773,6 @@ which are called the \demph{parametric equations of a line.}
   (This equation makes sense: e.g. if $t=1/2$ then we get the midpoint between
   $A$ and $B$.)
 \end{example}
-
-
-
-\section{2025-02-21 | Week 6 | Lecture 16}
-
-Recall we had the following theorem:
-\begin{theorem}
-  If $u$ and $v$ are vectors in 3-space with an angle of $\theta\in [0,\pi]$, then
-  \begin{equation*}
-    u\times v = (|u| |v| \sin(\theta))\vec{n}
-  \end{equation*}
-\end{theorem}
-This is a nice geometric result. Two more implications are as follows:
-\begin{enumerate}
-  \item If $r,s$ are scalars then we can pull them out:
-  \begin{equation*}
-    (s \vec{u})\times (r \vec{v}) = (sr)(\vec{u}\times \vec{v})
-  \end{equation*}
-  \item We get a nice way to compute the \textit{magnitude} of the cross
-  product:
-  \begin{equation*}
-    \left| \vec{u}\times \vec{v} \right| = |u||v| \sin(\theta),
-  \end{equation*}
-  and we get a neat interpretation too: the magnitude of the cross product
-  equals the area of the parallelogram:
-  \begin{center}
-    \includegraphics[scale=.6]{images/parallelogram}
-  \end{center}
-\end{enumerate}
-
-
-% \begin{example}
-%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
-%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
-
-%   \textit{Solution:} this is example 3, p858
-% \end{example}
-
-
-
-
-\begin{example}
-  Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
-  and $R= (1,-1,1)$
-  \textit{Solution:} this is example 4, p858
-\end{example}
-
-
-\begin{example}[Application to physics: torque]
-  Suppose we have a wrench, whose handle is represented by a vector $\vec{r}$. Turning the wrench will
-  tighten a bolt or something. The tendency of an object to rotate is represented by a vector called
-  the \demph{torque vector}, denoted $\vec{\tau}$, which is similar to---but \textit{not} the same as---a force vector.
-
-  The magnitude of $\tau$, $|\tau|$ determines how much push there is to
-  rotate:
-  \begin{equation*}
-    \text{bigger }|\tau| = \text{more push to rotate}
-  \end{equation*}
-  This is similar to a force vector. What is different is that for a force vector $\vec{F}$, the
-  direction of $\vec{F} $ indicates the direction in which motion would occur. This is NOT the case for
-  torque. For torque, as we will see, the direction instead indicates the following two things:
-  \begin{itemize}
-    \item the axis of rotation
-    \item whether the rotation is clockwise or anticlockwise.
-  \end{itemize}
-  Suppose that the bolt is stuck, so I take a hammer and hit the end of my wrench.
-  The hammer strike is represented by a force vector $F$, as shown:
-
-  \begin{center}
-    \includegraphics[scale=0.05]{images/torque-wrench}
-  \end{center}
-  Notice that I didn't have great aim, so although my hammer hit the tip of the wrench, the hammer didn't
-  come down exactly perpendicular to the wrench. Instead, it was at a bit of an angle $\theta$.
-
-  The direction of $\tau$ is always parallel to the axis of rotation---so $\tau$ will be a vector which
-  passes through the bolt. Whether it points up or down is always determined by whether the rotation is
-  clockwise or anticlockwise, according to the right-hand rule.
-  \footnote{i.e., if you curl the fingers of your right hand along the axis in the direction of the
-    rotation, then $\tau$ should point in the direction of your thumb. Whether $\tau$ points up or down
-    has nothing to do with whether the bolt gets looser or tighter.. the direction only indicates whether
-    the rotation is clockwise or anticlockwise.}
-
-  In this setting, if we think about this phsically, we will conclude that the magnitude of the torque
-  should be determined by two things:
-  \begin{itemize}
-    \item The length of the wrench handle $|\vec{r}|$. 
-    \item How much of the force gets applied in the direction perpendicular to $\vec{r}$. In the picture
-    above, this is the magnitude of the vector $\vec{c}$. The vector $\vec{c}$ is the component of
-    $\vec{F}$ which is perpendicular to $\vec{r}$.  In particular we can compute $|\vec{c}|$ by observing that
-    \begin{equation*}
-      \sin(\theta) = \frac{\text{opposite}}{\text{hypotenuse}}\frac{|\vec{c}|}{|\vec{F}|}
-    \end{equation*}
-    so that
-    \begin{equation*}
-      |\vec{c}| = |\vec{F}|\sin(\theta).
-    \end{equation*}
-  \end{itemize}
-  It turns out that the cross product is the right thing to use to represent the torque. That is, we
-  define
-  \begin{equation*}
-    \vec{\tau} = \vec{r}\times \vec{F}
-  \end{equation*}
-  In particular, by \cref{eq:geometric-interp-of-cross-product}, the magnitude of the torque is
-  \begin{align*}
-    |\vec{\tau}| 
-    &=|\vec{r}\times \vec{F}|\\
-    &=\underbrace{|r|}_{\overset{\text{length of}}{\text{wrench}}} \underbrace{|F| \sin(\theta)}_{|\vec{c}|}
-  \end{align*}
-
-\end{example}
-\newpage
-
-\section{2025-02-24 | Week 7 | Lecture 17}
-
-
-\subsection{Torque Example}
-Recall that $A\times B = \left(|A||B|\sin(\theta)\right)\vec{n}$.
-
-Suppose we are attempting to turn a bolt using a wrench of length
-$r=.25 \mathtt{m}$ and we apply a force $\vec{F}$ of $40\mathtt{N}$ at an angle
-of $75^{\circ}$. What is the magnitude of the torque applied to the bolt?
-
-\begin{align*}
-  |\tau|
-  &= |\vec{r}\times \vec{F}|\\
-  &=|r| |F| \sin(\theta)\\
-  &= (0.25 \mathtt{m})(40 \mathtt{N})\sin(75^{\circ})\\ 
-  &\approx 9.66 \mathtt{Nm}\\
-  &=9.66 \mathtt{J}
-\end{align*}
-where we used the fact that \texttt{1 Joule = 1 Netwon-meter}.
-
-The torque vector is
-\begin{equation*}
-  \tau\approx  9.66 \vec{n}
-\end{equation*}
-What direction does $\vec{n}$ point? If we are tightening the bolt then the
-rotation is clockwise, and the torque vector points away from us. (This matches
-with the righty-tighty lefty-loosy convention that almost all bolts and screws
-obey.)
-
 
 
 
