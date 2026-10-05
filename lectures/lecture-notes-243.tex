@@ -3464,18 +3464,20 @@ This geometric interpretation comes with a number of implications:
 
 \section{2026-10-04 | Week 07 | Lecture 18}
 
+\subsection{Cross product: geometric interpretation}
 Recall we had the following theorem:
 \begin{theorem}
-  If $\mathbf{u}$ and $\mathbf{v}$ are vectors in 3-space with an angle of $\theta\in [0,\pi]$, then
+  Let $\mathbf{u},\mathbf{v}\in \R^{3}$ and let $\theta\in [0,\pi]$ be the
+  angle between them. Then
   \begin{equation}\label{eq:cross-product-sine}
     \mathbf{u}\times \mathbf{v} = (|\mathbf{u}| |\mathbf{v}| \sin(\theta))\mathbf{n}
   \end{equation}
 \end{theorem}
 Here are two properties that follow from \cref{eq:cross-product-sine}:
 \begin{enumerate}[label=(\roman*)]
-  \item If $r,s\in \R$ then we can pull them out:
+  \item If $a,b\in \R$ then
   \begin{equation*}
-    (s \mathbf{u})\times (r \mathbf{v}) = (sr)(\mathbf{u}\times \mathbf{v})
+    (a \mathbf{u})\times (b \mathbf{v}) = (ab)(\mathbf{u}\times \mathbf{v})
   \end{equation*}
   \item We get a nice way to compute the \textit{magnitude} of the cross
   product:
@@ -3490,22 +3492,7 @@ Here are two properties that follow from \cref{eq:cross-product-sine}:
 \end{enumerate}
 
 
-% \begin{example}
-%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
-%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
-
-%   \textit{Solution:} this is example 3, p858
-% \end{example}
-
-
-
-
-\begin{example}
-  Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
-  and $R= (1,-1,1)$
-\end{example}
-
-\subsection{Application to physics: Torque}
+\subsection{Application to physics: torque}
 Suppose you have a wrench, whose handle is represented by a vector
 $\mathbf{r}$. The wrench is attached to a bolt. Pushing on the wrench
 causes it to turn around an axis of rotation (the bolt). The turning
@@ -3513,19 +3500,19 @@ effect is described by a vector called the \demph{torque vector}, denoted
 $\boldsymbol{\tau}$, which is similar to---but \textit{not} the same
 as---a force vector.
 
-The magnitude of $\boldsymbol{\tau}$, $|\boldsymbol{\tau}|$ determines how much push there is to
+The magnitude of $\boldsymbol{\tau}$ determines how much push there is to
 rotate:
 \begin{equation*}
-  \text{bigger }|\boldsymbol{\tau}| = \text{more push to rotate}
+  \text{bigger magnitude} = \text{more push to rotate}
 \end{equation*}
 This is similar to a force vector. What is different is that for a force vector $\mathbf{F}$, the
 direction of $\mathbf{F}$ indicates the direction in which motion would occur. This is NOT the case for
 torque.
 
-The direction of $\boldsymbol{\tau}$ points in a direction
-\textit{parallel to the bolt}. Whether it points up or down is determined
-by whether the rotation is clockwise or counter-clockwise. For a standard
-bolt (which tightens when turned clockwise), the direction is easy to remember:
+Instead, the direction of $\boldsymbol{\tau}$ points in a direction
+\textit{parallel to the bolt}. Whether it points up or down is determined by
+whether the rotation is clockwise or counter-clockwise. For a standard bolt
+(which tightens when turned clockwise), the direction is easy to remember:
 \begin{itemize}
   \item turning clockwise tightens the bolt, and the torque arrow points
   down;
@@ -3533,7 +3520,6 @@ bolt (which tightens when turned clockwise), the direction is easy to remember:
   points up.
 \end{itemize}
 
-  
 
 Suppose that the bolt is stuck, so I take a hammer and hit the end of my wrench.
 The hammer strike is represented by a force vector $\mathbf{F}$, as shown:
@@ -3544,7 +3530,7 @@ The hammer strike is represented by a force vector $\mathbf{F}$, as shown:
 Notice that I didn't have great aim, so although my hammer hit the tip of the wrench, the hammer didn't
 come down exactly perpendicular to the wrench. Instead, it was at a bit of an angle $\theta$.
 
-In this setting, if we think about this phsically, we will conclude that the magnitude of the torque
+In this setting, if we think about this physically, we will conclude that the magnitude of the torque
 should be determined by two things:
 \begin{itemize}
   \item The length of the wrench handle $|\mathbf{r}|$. 
@@ -3559,23 +3545,24 @@ should be determined by two things:
     |\mathbf{c}| = |\mathbf{F}|\sin(\theta).
   \end{equation*}
 \end{itemize}
-It turns out that the cross product is the right thing to use to represent the torque. That is, we
-define
+It turns out that the cross product is the right thing to use to represent the
+torque. That is, the precise definition of \demph{torque} is 
 \begin{equation*}
-  \boldsymbol{\tau} = \mathbf{r}\times \mathbf{F}
+  \demph{\boldsymbol{\tau}} := \mathbf{r}\times \mathbf{F}.
 \end{equation*}
-In particular, by \cref{eq:geometric-interp-of-cross-product}, the magnitude of the torque is
+Using \cref{eq:geometric-interp-of-cross-product}, the magnitude of the torque
+vector is
 \begin{align*}
   |\boldsymbol{\tau}| 
-  &=|\mathbf{r}\times \mathbf{F}|\\
-  &=\underbrace{|\mathbf{r}|}_{\overset{\text{length of}}{\text{wrench}}} \underbrace{|F| \sin(\theta)}_{|\mathbf{c}|}
+  =|\mathbf{r}\times \mathbf{F}|
+  =\underbrace{|\mathbf{r}|}_{\overset{\text{length of}}{\text{wrench}}} \underbrace{|F| \sin(\theta)}_{|\mathbf{c}|}.
 \end{align*}
 
 
 
 \begin{example}[Torque]
   Suppose we are attempting to turn a bolt using a wrench of length
-  $\mathbf{r}=.25 \mathtt{m}$ and we apply a force $\mathbf{F}$ of $40\mathtt{N}$ at an angle
+  $\mathbf{r}=.25\ \mathtt{m}$ and we apply a force $\mathbf{F}$ of $40\ \mathtt{N}$ at an angle
   of $75^{\circ}$. What is the magnitude of the torque applied to the bolt?
 
   \begin{align*}
@@ -3598,6 +3585,7 @@ In particular, by \cref{eq:geometric-interp-of-cross-product}, the magnitude of 
   obey.)
 \end{example}
 
+\end{document}
 \subsection{Lines in any dimension}
 \textit{chapter 12.5 in textbook}
 
@@ -3774,6 +3762,22 @@ which are called the \demph{parametric equations of a line.}
   $A$ and $B$.)
 \end{example}
 
+
+
+% \begin{example}
+%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
+%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
+
+%   \textit{Solution:} this is example 3, p858
+% \end{example}
+
+
+
+
+% \begin{example}
+%   Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
+%   and $R= (1,-1,1)$
+% \end{example}
 
 
 \end{document}
