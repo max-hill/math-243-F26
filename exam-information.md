@@ -8,6 +8,7 @@ permalink: /exam-information/
 
 - Friday, October 16 (in class)
 
+[practice-midterms](exams/midterm/practice-midterms.pdf)
 
 ## final exam
 
