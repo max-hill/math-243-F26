@@ -1,0 +1,312 @@
+\documentclass[10pt]{article}
+% Math Packages
+\usepackage{amsmath, mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{breqn}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{forest}
+\usepackage{tikz-qtree}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{arrows,matrix,positioning}
+\usepackage{multicol}
+
+
+\pagenumbering{gobble} % Removes page numbers
+
+% for the pipe symbol
+\usepackage[T1]{fontenc}
+
+% Citing theorems by name. (source: https://tex.stackexchange.com/questions/109843/cleveref-and-named-theorems)
+\makeatletter
+\newcommand{\ncref}[1]{\cref{#1}\mynameref{#1}{\csname r@#1\endcsname}}
+
+\def\mynameref#1#2{%
+  \begingroup
+  \edef\@mytxt{#2}%
+  \edef\@mytst{\expandafter\@thirdoffive\@mytxt}%
+  \ifx\@mytst\empty\else
+  \space(\nameref{#1})\fi
+  \endgroup
+}
+\makeatother
+
+% Colorful Notes
+\usepackage{color} \definecolor{Red}{rgb}{1,0,0} \definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5} \def\red{\color{Red}} \def\blue{\color{Blue}}
+\def\gray{\color{gray}} \def\purple{\color{Purple}}
+\newcommand{\rnote}[1]{{\red [#1]}} % \rnote{foo} gives '[foo]' in red
+\newcommand{\pnote}[1]{{\purple [#1]}} % \pnote{foo} gives '[foo]' in purple
+\newcommand{\bnote}[1]{{\blue #1}} % \bnote{foo} gives 'foo' in blue
+\newcommand{\gnote}[1]{{\gray #1}} % \gnote{foo} gives 'foo' in gray
+\newcommand{\Max}[1]{{\purple [#1]}} % \bnote{foo} then 'foo' is blue
+
+
+% Claim numbering (the counter restarts after each proof environment)
+\newcounter{claimcount}
+\setcounter{claimcount}{0}
+\newenvironment{claim}{\refstepcounter{claimcount}\par\addvspace{\medskipamount}\noindent\textbf{Claim \arabic{claimcount}:}}{}
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\setcounter{claimcount}{0}}
+\newenvironment{claimproof}{\par\addvspace{\medskipamount}\noindent\textit{Proof of Claim  \arabic{claimcount}.}}{\hfill\ensuremath{\qedsymbol} \tiny{Claim}
+
+  \medskip}
+% Add claim support to cleverref
+\crefname{claimcount}{Claim}{Claims}
+
+
+% Math Environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+
+% Matrices and Column Vectors. 
+\usepackage{stackengine}
+\setstackgap{L}{1.0\normalbaselineskip}
+\usepackage{tabstackengine}
+\setstackEOL{;}% row separator
+\setstackTAB{,}% column separator
+\setstacktabbedgap{1ex}% inter-column gap
+\setstackgap{L}{1.5\normalbaselineskip}% inter-row baselineskip
+\let\nmatrix\bracketMatrixstack  %Usage: \nmatrix{1,2,3\4,5,6}
+\newcommand\cv[1]{\setstackEOL{,}\bracketMatrixstack{#1}} %usage: \cv{1,2,3}
+
+% Custom Math Coqmmands
+\newcommand{\vt}{\vskip 5mm} % vertical space
+\newcommand{\fl}{\noindent\textbf} % first line
+\newcommand{\Fl}{\vt\noindent\textbf} % first line with space above
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % norm
+\newcommand{\pnorm}[1]{\left\lVert#1\right\rVert_p} % p-norm
+\newcommand{\qnorm}[1]{\left\lVert#1\right\rVert_q} % q-norm
+\newcommand{\1}[1]{\textbf{1}_{\left[#1\right]}} % indicator function 
+\def\limn{\lim_{n\to\infty}} % shortcut for lim as n-> infinity
+\def\sumn{\sum_{n=1}^{\infty}} % shortcut for sum from n=1 to infinity
+\def\sumkn{\sum_{k=1}^{n}} % shortcut for sum from k=1 to n
+\def\sumin{\sum_{i=1}^{n}} % shortcut for sum from i=1 to n
+\def\SAs{\sigma\text{-algebras}} % shortcut for $\sigma$-algebras
+\def\SA{\sigma\text{-algebra}} % shortcut for $\sigma$-algebra
+\def\Ft{\mathcal{F}_t} % time-indexed sigma-algebra (t)
+\def\Fs{\mathcal{F}_s} % time-indexed sigma-algebra (s)
+\def\F{\mathcal{F}} % sigma-algebra
+\def\G{\mathcal{G}} % sigma-algebra
+\def\R{\mathbb{R}} % Real numbers
+\def\N{\mathbb{N}} % Natural numbers
+\def\Z{\mathbb{Z}} % Integers
+\def\E{\mathbb{E}} % Expectation
+\def\P{\mathbb{P}} % Probability
+\def\Q{\mathbb{Q}} % Q probability
+\def\dist{\text{dist}} %Text 'dist' for things like 'dist(x,y)'
+\newcommand{\indep}{\perp \!\!\! \perp}  %independence symbol
+\def\Var{\mathrm{Var}} % Variance
+\def\tr{\mathrm{tr}} % trace
+
+% Brackets and Parentheses
+\def\[{\left [}
+    \def\]{\right ]}
+% \def\({\left (}
+%   \def\){\right )}
+
+
+
+\usepackage{color}
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5}
+\def\red{\color{Red}}
+\def\blue{\color{Blue}}
+\def\gray{\color{gray}}
+\def\purple{\color{Purple}}
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+\newcommand{\dempfcolor}[1]{{\color{RoyalBlue}#1}} 
+\newcommand{\demph}[1]{\dempfcolor{{\sl #1}}}
+
+% comment exactly one of the following line to show / hide the solutions
+% \newcommand{\solution}[1]{{\purple #1}} % uncomment to show the solutions
+\newcommand{\solution}[1]{} % uncomment to hide the solutions
+
+
+
+\title{Lecture Notes for Math 372: \\Elementary Probability and Statistics}
+\date{Last updated: \today}
+% \author{mh}
+
+\begin{document}
+
+
+% \begin{itemize}
+  
+%   \item The exam will be on Monday, March 24. It will be in-class, so you will
+%   have about 50 minutes to do the problems.
+%   \item The exam will be closed book with no calculators or notes. 
+%   \item The exam will cover material from the first 7 weeks of class (i.e.,
+%   lectures 1 through 19). This means that quadric surfaces are not on the exam.
+%   \item The practice exams are very similar to the exam. I strongly encourage
+%   you to work through the practice exams in a timed environment.
+%   \item The exam is meant to be \textit{predictable:} all but one of the
+%   problems will be drawn from homework problems (possibly with minor
+%   alterations). The other problem is drawn verbatim from the lecture examples.
+%   \item I \textit{won't} ask you to do something like Problem 9 from HW 3 or
+%   Problem 11 from HW 4. These problems are too difficult for a 50-minute exam.
+  
+% \end{itemize}
+
+
+
+\begin{center}
+  \section*{Math 243: Practice Midterm \#1}
+\end{center}
+
+\textit{Instructions: you must show your work to recieve credit. You have 50
+  minutes. Calculators are not allowed.}
+
+\begin{problem}[Differentiation of curves]
+  Consider the curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x(t) = 5t^{2}-6t+4 \\y(t)= t^{2}+6t-1 \end{array}\right.
+  \end{equation*}
+  \begin{enumerate}[(a)]
+    \item Find an equation of the tangent line at $t=0$.
+    \item For what values of $t$ is this curve concave down? For what values is it concave up?
+  \end{enumerate}
+\end{problem}
+
+
+\begin{problem}[Arc length]
+  Compute the arc length of the parametrized curve:
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x(t) = \frac{4}{3}t^{3}+t-2 \\ y(t) = \frac{1}{27}(9t^{2}+2)^{\frac{3}{2}} \end{array}\right.
+  \end{equation*}
+\end{problem}
+
+
+\begin{problem}[Polar coordinates]
+  Consider the polar graph
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r= 6\sin(\theta) \\ 0 \leq  \theta \leq \pi \end{array}\right.  %
+  \end{equation*}
+  Convert this equation to Cartesian form and plot it.
+\end{problem}
+
+\begin{problem}[Projections]
+  Let $\vec{u}= \left\langle 1,-1,1 \right\rangle $ and $\vec{v} = \left\langle -2,-2,-2 \right\rangle $.
+  \begin{enumerate}[(a)]
+    \item Find the projection of $\vec{u}$ along $\vec{v}$. 
+    \item What is the cosine of the angle between $\vec{u}$ and $\vec{v}$?
+    \item Find both unit vectors orthogonal to $\vec{u}$ and $\vec{v}$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[Planes]
+  Consider the points  $A=(2,5,-1)$, $B=(-2,1,3)$ and $C = (7,1,1)$.
+  \begin{enumerate}[(a)]
+    \item Find an equation of the line passing through points $A$ and $B$.
+    \item Find an equation the plane passing through points $A$, $B$, and $C$.
+  \end{enumerate}
+\end{problem}
+
+
+\begin{problem}[Sphere]
+  \begin{enumerate}[(a)]
+    \item []
+    \item State the Cartesian formula for a sphere.
+    \item Show that the equation $x^{2}+y^{2}+z^{2} +4x - 6y + 2z +6=0 $ represents a sphere.
+    \item What is the center and radius of the sphere?
+  \end{enumerate}
+\end{problem}
+
+\newpage
+\begin{center}
+  \section*{Math 243: Practice Midterm \#2}
+\end{center}
+
+\textit{Instructions: you must show your work to recieve credit. You have 50
+  minutes. Calculators are not allowed.} \setcounter{theorem}{0}
+
+\begin{problem}[Vectors]
+  \begin{enumerate}[(a)]
+    \item []
+    \item Compute the distance between the following two points $(5,8,15)$ and $(1,4,8)$.
+    \item Are the vectors $\left\langle 2,4,7 \right\rangle $ and $\left\langle 4,8,14 \right\rangle$
+    orthogonal, parallel, or neither? Justify your answer.
+    \item Are the vectors $\left\langle 3,-1,3 \right\rangle $ and $\left\langle 5,9,-2 \right\rangle $
+    orthogonal, parallel, or neither? Justify your answer.
+  \end{enumerate}
+\end{problem}
+
+
+\begin{problem}[Arc length]
+  Find the arc length of the parametric curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x(t) = \frac{1}{2}t^{2}-t-1 \\ y(t)=\frac{4}{3}t^{\frac{3}{2}} \end{array}\right.
+  \end{equation*}
+  on the itnerval $1 \leq t \leq 2$
+\end{problem}
+
+
+
+\begin{problem}[Polar stuff]
+  % [Peanut curve]
+  Find the area enclosed by the curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} r = 1+ \cos(2\theta) \\ 0 \leq \theta \leq \pi\end{array}\right.
+  \end{equation*}
+  \begin{center}
+    \includegraphics[scale=.4]{images/plot}
+  \end{center}
+\end{problem}
+
+
+\begin{problem}[Projections]
+  Consider the point $W=(1,0,3)$ and the plane given by the equation $5x-y-z=3$.
+  Find the shortest distance from $W$ to the plane. Include a relevant sketch in
+  your answer.
+\end{problem}
+
+
+\begin{problem}%[Differentiation of Curves]
+  Let $C$ be the curve defined by the parametric equations
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x(t)=t^{2}-t+2 \\ y(t) = t-\frac{1}{3}t^{3}, \end{array}\right.
+  \end{equation*}
+  where $-10 \leq t \leq 10$.
+  \begin{enumerate}[(a)]
+    \item Find the equation of the tangent line to $C$ at $t=2$.
+    \item For what values of $t$ is the tangent line horizontal? For what values is it vertical?
+    \item Compute $\frac{d^{2}y}{dx^{2}}$.
+    \item Is $C$ concave up or concave down when $t=1$? You must justify your answer to recieve credit.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}[Planes and cross product]
+  The planes given by the equations
+  \begin{equation*}
+    4x-y+3z = 1 \quad \text{and} \quad  2x-2y+z=1
+  \end{equation*}
+  intersect to form a line $L$. 
+  \begin{enumerate}[(a)]
+    \item Find a vector in the direction of the line $L$.
+    \item Give an example of a point on the line $L$.
+    \item Find an equation of the line $L$ (either a vector equation or a parametric equation is fine).
+  \end{enumerate}
+\end{problem}
+
+
+\end{document}
