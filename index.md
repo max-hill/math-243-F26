@@ -30,6 +30,9 @@ title: Lecture Notes
  2026-09-28  |  vector projections
  2026-09-30  |  force
  2026-09-30  |  how do we describe the tilt of a plane?
+ 2026-10-02  |  cross product
+ 2026-10-04  |  cross product, torque
+ 2026-10-07  |  lines and planes in 3-dimensions
  
 # Other links
 

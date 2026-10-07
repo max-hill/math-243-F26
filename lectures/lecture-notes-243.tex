@@ -3585,91 +3585,129 @@ vector is
   obey.)
 \end{example}
 
-\end{document}
-\subsection{Lines in any dimension}
-\textit{chapter 12.5 in textbook}
+\newpage
+\section{2026-10-07 | Week 07 | Lecture 19}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} lines and planes in 3-dimension}
+
+    \textit{\textbf{Reading assignment:} chapter 12.5}
+  \end{tcolorbox}
+\end{center}
+
+\subsection{Lines in $\R^{3}$}
 
 
-In this section, we'll use the notation $\R^{n}$ to mean $n$-dimensional space,
-which is the set of points of the form
-\begin{equation*}
-  (x_{1},x_{2},\ldots,x_{n})
-\end{equation*}
-where $x_{1},\ldots,x_{n}$ are all real numbers. You are already familiar with
-$\R^{2}$ and $\R^{3}$, where we usually use $(x,y)$ or $(x,y,z)$ rather than
-$(x_{1},x_{2})$ or $(x_{1},x_{2},x_{3})$.
-
-Let $\mathbf{v}=(v_{1},\ldots,v_{n})$ is a nonzero vector in $n$-dimensional space.
-You can think of $n=2$ or $n=3$, but what follows will hold for any positive
-integer $n$. Then for any scalar $t\in \mathbb{R}$, the vector $t\mathbf{v}$ has the same
-direction as $v$ when $t>0$ and opposite direction when $t<0$. Therefore the set
-of points
-\begin{equation*}
-  \left\{t\mathbf{v}: -\infty<t<\infty\right\}
-\end{equation*}
-is a line through the origin. We we add a vector $\mathbf{p}=\left\langle
-  x_{0},y_{0},z_{0} \right\rangle $ to all of those points, we obtain
-\begin{equation*}
-  \left\{\mathbf{v}t+ \mathbf{p}: -\infty<t<\infty\right\}
-\end{equation*}
-which is a line through $\mathbf{p}$ in the direction of $\mathbf{v}$. 
-
-\begin{definition}[The vector equation of a line]
+\begin{definition}[\demph{The vector equation of a line}]
   \label{def:vector-equation-line}
-  Given a vector $\mathbf{p}$ and a nonzero vector $\mathbf{v}\in \R^{n}$, the set
-  of all points $\mathbf{y}\in \R^{n}$ satisfying
+  Let $\mathbf{p}\in \R^{3}$ be a point and let $\boldsymbol{v}\in \R^{3}$ be
+  a nonzero vector. Consider the line $L$ parallel to
+  $\boldsymbol{v}$ which passes through $\boldsymbol{p}$. We may express $L$ as
   \begin{equation}\label{eq:vector-equation-of-a-line}
-    \mathbf{y}=\mathbf{v}t + \mathbf{p}, \qquad -\infty<t<\infty,
+    \boldsymbol{r}(t)=\mathbf{v}t + \mathbf{p}, \qquad -\infty<t<\infty.
   \end{equation}
-  is called the \demph{line through $\mathbf{p}$ in the direction of
-    $\mathbf{v}$}.
+  This is called a \demph{vector equation} for $L$.
 \end{definition}
 \cref{eq:vector-equation-of-a-line} can be written as
 \begin{equation*}
-  \begin{bmatrix}
-    y_{1}\\y_{2}\\\vdots\\y_{n}
-  \end{bmatrix}
+  \boldsymbol{r}(t)
   =
   \begin{bmatrix}
-    v_{1}\\v_{2}\\\vdots\\v_{n}
+    v_{1}\\v_{2}\\v_{3}
   \end{bmatrix}
   t
   +
   \begin{bmatrix}
-    p_{1}\\p_{2}\\\vdots\\p_{n}
+    p_{1}\\p_{2}\\p_{3}
   \end{bmatrix}, \qquad -\infty<t<\infty.
 \end{equation*}
-It can also be written as
+This may be expressed as the \demph{parametric equations for the line $L$:}
 \begin{equation*}
   \left\{ \begin{array}{l@{}l}
-      y_{1}=v_{1}t+p_{1}\\
-      y_{2}=v_{2}t+p_{2}\\
-      \vdots\\
-      y_{n}=v_{n}t+p_{n}\\
+      x=v_{1}t+p_{1}\\
+      y=v_{2}t+p_{2}\\
+      z=v_{3}t+p_{3}\\
       -\infty<t<\infty,
     \end{array}\right.
 \end{equation*}
 which are called the \demph{parametric equations of a line.}
 
 \begin{example}
-  Suppose $L$ is the line in $\R^{2}$ through the point $\mathbf{p}=(1,2)$ in the
-  direction of $\mathbf{v}=(1,-3)$. Then the vector equation of the line is
+  Suppose $L$ is the line in $\R^{2}$ through the point $\mathbf{p}=(1,2,3)$ in the
+  direction of $\mathbf{v}=
+  \begin{bmatrix}
+    1\\-3\\4
+  \end{bmatrix}
+  $. Then the vector equation of the line is
   \begin{equation*}
-    \mathbf{y} 
-    = t \left\langle 1,-3 \right\rangle +(1,3) 
-    = \left\langle t+1,-3t+2 \right\rangle 
+    \mathbf{r}(t) 
+    =
+    \begin{bmatrix}
+      1\\-3\\4
+    \end{bmatrix}
+    t  +
+    \begin{bmatrix}
+      1\\2\\3
+    \end{bmatrix}, \qquad -\infty<t<\infty.
   \end{equation*}
-  for $-\infty<t<\infty$. If we let $\mathbf{y}=\left\langle x,y \right\rangle$,
-  this is the parametric equations
+
+  The parametric equations are
   \begin{equation*}
     \left\{ \begin{array}{l@{}l}
         x=t+1 \\
-        y=-3t+2. \\
+        y=-3t+2 \\
+        z=4t+3
       \end{array}\right.
+    \qquad -\infty<t<\infty.
   \end{equation*}
   If we eliminate $t$, we get the equation
   \begin{equation*}
     y=-3x+5.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  A dragonfly flies from a lilypad at the origin in the direction of the
+  point $(1,1,1)$ at a speed of 40 ft per second. What is the position of the
+  dragonfly after 10 seconds?
+
+  \textit{Solution:} The normalized direction is
+  \begin{equation*}
+    \boldsymbol{u} =
+    \begin{bmatrix}
+      1/\sqrt{3}\\
+      1/\sqrt{3}\\
+      1/\sqrt{3}
+    \end{bmatrix}.
+  \end{equation*}
+  The dragonfly's position at time $t$ is
+  \begin{equation*}
+    \boldsymbol{r}(t) =
+    \boldsymbol{r}(0)
+    + \boldsymbol{v}t,
+  \end{equation*}
+  where $\boldsymbol{r}(0)=(0,0,0)$ is its position at time $t=0$, and
+  $\boldsymbol{v}$ is its velocity. We may write the velocity as
+  \begin{align*}
+    \boldsymbol{v} 
+    &= (\text{speed})(\text{direction}) \\
+    &= |\boldsymbol{v}|\left(  \frac{\boldsymbol{v}}{|\boldsymbol{v}|} \right)\\
+    &= (40\mathtt{ft}/\mathtt{sec})
+      \begin{bmatrix}
+        1/\sqrt{3}\\
+        1/\sqrt{3}\\
+        1/\sqrt{3}
+      \end{bmatrix}.
+  \end{align*}
+  Therefore
+  \begin{equation*}
+    \boldsymbol{r}(10) =
+    \begin{bmatrix}
+      400/\sqrt{3}\\
+      400/\sqrt{3}\\
+      400/\sqrt{3}
+    \end{bmatrix}
+    \ \mathtt{feet}
   \end{equation*}
 \end{example}
 
@@ -3684,100 +3722,268 @@ which are called the \demph{parametric equations of a line.}
   \end{enumerate}
 
   \textit{Solution to (a):}
-  We will follow the ideas presented in \cref{def:vector-equation-line}. Let $\mathbf{v} = \overrightarrow{AB} = \left\langle 1,-5,4 \right\rangle$. We
-  need a vector $\mathbf{p}$ on the line, so we can take either $\mathbf{p}=A$ or
-  $\mathbf{p}=B$ since both of these points is on the line. Let's take $\mathbf{p}=A$.
-  Then the vector equation of the line is
+  We will follow the ideas presented in \cref{def:vector-equation-line}. Let $\mathbf{v} = \overrightarrow{AB} =
+  \begin{bmatrix}
+    1\\-5\\4
+  \end{bmatrix}
+  $. Let $\mathbf{p}=A$. (We could take $\boldsymbol{p}=B$ instead, if we
+  want). Then the vector equation of the line is
   \begin{equation*}
-    \left\langle y_{1},y_{2},y_{3} \right\rangle 
-    = t\left\langle 1,-5,4 \right\rangle +\left\langle 2,4,-3 \right\rangle 
+    \boldsymbol{r}(t)
+    = t
+    \begin{bmatrix}
+      1\\-5\\4
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+      2\\4\\-3
+    \end{bmatrix},
+    \qquad -\infty<t<\infty
   \end{equation*}
   and the parameteric equations of the line are
   \begin{equation*}
     \left\{ \begin{array}{l@{}l}
-        y_{1}=t+2\\
-        y_{2}=-5t+4\\
-        y_{3}=4t-3 \\
-        -\infty<t<\infty
-      \end{array}\right.
-  \end{equation*}
-
-  Since we are working in 3 dimensions, we may wish to write $x,y,z$ rather than
-  $y_{1},y_{2},y_{3}$, in which case our equations become
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle
-    =t \left\langle 1,-5,4 \right\rangle + \left\langle 2,4,-3 \right\rangle
-  \end{equation*}
-  and
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
         x=t+2\\
         y=-5t+4\\
-        z=4t-3 \\
-        -\infty<t<\infty
+        z=4t-3
       \end{array}\right.
+    \qquad-\infty<t<\infty
   \end{equation*}
 
   \textit{Solution to (b):} Since $\overrightarrow{AB}=(B-A)$, observe that our
   equation is of the form
   \begin{equation*}
-    \left\langle x,y,z \right\rangle  = \overrightarrow{AB}t+A
+    \boldsymbol{r}(t) = \overrightarrow{AB}t+A
   \end{equation*}
   or
   \begin{equation*}
-    \left\langle x,y,z \right\rangle  = (B-A)t+A
+    \boldsymbol{r}(t)  = (B-A)t+A
   \end{equation*}
-  When $t=0$, we have
+  Hence
   \begin{equation*}
-    \left\langle x,y,z \right\rangle =A.
+    \boldsymbol{r}(0) =A, \qquad \boldsymbol{r}(1) = B
   \end{equation*}
-  In other wordss, when $t=0$, the ant is at point $A$. As $t$ increases, the
-  ant walks in the direction $\overrightarrow{AB}$, i.e., towards $B$.
+  Therefore the equation of the line segement between $A$ and $B$ is
+  \begin{equation*}
+    \boldsymbol{r}(t)
+    = t
+    \begin{bmatrix}
+      1\\-5\\4
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+      2\\4\\-3
+    \end{bmatrix},
+    \qquad
+    0 \leq t \leq 1
+  \end{equation*}
+\end{example}
 
-  Moreover, when $t=1$, we have
-  \begin{equation*}
-    \left\langle x,y,z \right\rangle= (B-A)(1)+A = B.
-  \end{equation*}
-  so the ant arrives at point $B$ at time $t=1$.
-  So the equation of the line segement between $A$ and $B$ is
-  \begin{equation*}
-    \left\{ \begin{array}{l@{}l}
-        \left\langle x,y,z \right\rangle
-        = t \left\langle 1,-5,4 \right\rangle
-        + \left\langle 2,4,-3 \right\rangle  \\
-        0 \leq t \leq 1
-      \end{array}\right.
-  \end{equation*}
+\subsection{Planes in $\mathbb{R}^{3}$}
+Recall that, geometrically, a line is determined by two features:
+\begin{enumerate}
+  \item A slope $m$ which determines the direction of the line
+  \item A point $(x_{0},y_{0})$ which the line passes through, as this
+  determines where the line lives on the $xy$-plane
+\end{enumerate}
+It is easy to see that these two things determine everything about a line
+because the equation of a line can be expressed as
+\begin{equation*}
+  y-y_{0} = m(x-x_{0})
+\end{equation*}
+and to write this down, all we need are $m$ and $(x_{0},y_{0}).$
 
-  This example also illustrates the more general fact that the \demph{line
-    segment} between two points $A$ and $B$ is given by the parametric equation
+Just like a line, a plane is determined by two things:
+\begin{enumerate}
+  \item A normal vector $\boldsymbol{n}= \left\langle A,B,C \right\rangle$ which
+  determines the tilt of the plane. (Here, $A,B,C\in \R$.)
+  \item A point $(x_{0},y_{0},z_{0})\in \R^{3}$ which the plane passes
+  through, to determine the location in 3D space the plane sits.
+\end{enumerate}
+To be precise, in 3-dimensional space $\R^{3}$, a plane $\mathbb{P}$ consists of the set of points $(x,y,z)$ satisfying
+the following equation:
+\begin{equation}\label{eq:definition-normal-form-eq-of-plane}
+  A(x-x_{0}) + B(y-y_{0})+C(z-z_{0})=0
+\end{equation}
+This is called the \demph{standard form} (or \demph{normal form}) equation of
+a plane, and we can write it down if we know both
+$\boldsymbol{n}=\left\langle A,B,C \right\rangle $ and $(x_{0},y_{0},z_{0})$.
+So if we know those two things, then we know the equation of the plane,
+meaning we know everything about it.
+
+By a little bit of algebra, we can rewrite
+\cref{eq:definition-normal-form-eq-of-plane} as
+\begin{equation*}
+  Ax+By+Cz=D
+\end{equation*}
+where $D = Ax_{0}+By_{0}+Cz_{0}$.
+
+We can also write \cref{eq:definition-normal-form-eq-of-plane} as the following dot product:
+\begin{equation*}
+  \underbrace{
+    \begin{bmatrix}
+      A\\B\\C
+    \end{bmatrix}
+  }_{\text{this is }\boldsymbol{n}} \cdot
+  \begin{bmatrix}
+    x-x_{0}\\y-y_{0}\\z-z_{0}
+  \end{bmatrix}=0
+\end{equation*}
+or
+\begin{equation*}
+  \boldsymbol{n}\cdot
+  \begin{bmatrix}
+    x-x_{0}\\y-y_{0}\\z-z_{0}
+  \end{bmatrix}
+  =0.
+\end{equation*}
+
+\begin{example}
+  Find the normal equation of the plane through the point $\boldsymbol{p} = (2,4,-1)$ with
+  normal vector $\boldsymbol{n}=\left\langle 2,3,4 \right\rangle$. Find the intercepts
+  and sketch the plane.
+
+  \textit{Solution:} By \cref{eq:definition-normal-form-eq-of-plane}, with $A=2$, $B=3$, $C=4$, we have:
+  \begin{equation*}
+    2(x-2)+3(y-4)+4(z+1)=0.
+  \end{equation*}
+  We are done. We could also write this as:
+  \begin{equation}\label{eq:7}
+    2x+3y+4z=12.
+  \end{equation}
+  To find the intercepts, we consider what happens when we set two of the
+  variables $x,y,z$ to be equal to zero at a time:
+  \begin{itemize}
+    \item To find the $x$-interecept, set $y=z=0$ in \cref{eq:7}. In that case, we get $x=6$. Hence
+    the $x$-intercept is $(6,0,0)$.
+    \item To find the $y$-interecept, set $x=z=0$ in \cref{eq:7}. In that case, we get $y=4$. Hence
+    the $y$-intercept is $(0,4,0)$.
+    \item To find the $z$-interecept, set $x=y=0$ in \cref{eq:7}. In that case, we get $z=3$. Hence
+    the $z$-intercept is $(0,0,3)$.
+  \end{itemize}
+  Recall that any two points uniquely determine a line. A similar fact holds for planes:
+
+  \fl{Fact:} A plane is uniquely determined by any three points (as long as they don't all lie in a line).
+
+  So the plane can be plotted as follows:
+  \begin{center}
+    \includegraphics[scale=.3]{images/plane-ex}
+    
+    (see: \url{https://www.desmos.com/3d/brbgxh7qz7})
+  \end{center}
+\end{example}
+
+\end{document}
+
+\begin{example}
+  Consider the three points $P=(1,3,2)$, $Q=(3,-1,6)$, and $R=(5,2,0)$. These three points are not
+  colinear (i.e., they don't all lie in a line), and hence there is a single, unique plane passing
+  through all three of them. Find the equation of the plane passing through $P,Q,$ and $R$.
+
+  \textit{Solution:}
+
+
+
+  
+  \begin{itemize}
+    \item $\overrightarrow{PQ}=\left\langle 2,-4,4 \right\rangle$
+    \item $\overrightarrow{PR}=\left\langle 4,-1,-2 \right\rangle$
+  \end{itemize}
+  We need a normal vector $\boldsymbol{n}$ which is orthogonal to both $\overrightarrow{PQ}$ and
+  $\overrightarrow{PR}$. We can use the cross product. Let
   \begin{align*}
-    \left\langle x,y,z \right\rangle 
-    &= (B-A)t+A\\
-    &= tB+(1-t)A
+    \boldsymbol{n} 
+    &= \overrightarrow{PQ}\times \overrightarrow{PR}\\
+    &=
+      \begin{vmatrix}
+        \vec{\imath}&\vec{\jmath}&\vec{k}\\
+        2&-4&4\\
+        4&-1&-2
+      \end{vmatrix}\\
+    &=\vec{\imath} \left( 8+4 \right) -\vec{\jmath} \left( -4-16 \right) + \vec{k} \left( -2+16 \right)\\ 
+    &=12\vec{\imath}+20\vec{\jmath}+14\vec{k}\\
+    &= \left\langle 12,20,14 \right\rangle 
   \end{align*}
-  for $0 \leq t \leq 1$.
+  Here's a picture:
+  \begin{center}
+    \includegraphics[scale=.2]{images/plane-ex2}
 
-  (This equation makes sense: e.g. if $t=1/2$ then we get the midpoint between
-  $A$ and $B$.)
+    (see \url{https://www.desmos.com/3d/sqdoxhvsng})
+  \end{center}
 \end{example}
 
 
-
-% \begin{example}
-%   Consider the plane $H$ which passes through the three points $P=(1,4,6)$, $Q =
-%   (-2,5,-1)$, and $R = (1,-1,1)$.  Find a vector perpendicular to $H$.
-
-%   \textit{Solution:} this is example 3, p858
-% \end{example}
+\begin{example}
+  Find the vector parallel to the line of interesection of the planes
+  \begin{equation*}
+    3x-6y-2z = 16, \qquad 2x+y-2z=5.
+  \end{equation*}
 
 
+  \textit{Solution:} Take the cross product of the two normal vectors. This
+  gives
+  \begin{equation*}
+    \begin{bmatrix}
+      14\\2\\15
+    \end{bmatrix}
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Find the parameteric equations for the line in which the planes in the
+  previous example intersect.
+
+  \textit{Solution:} We have the direction vector, we need only a point. Take
+  $z=0$. This gives $(3,-1,0)$. The vector equation is
+  \begin{equation*}
+    \boldsymbol{r}(t) =
+    \begin{bmatrix}
+      14\\2\\15
+    \end{bmatrix}t
+    +
+    \begin{bmatrix}
+      3\\-1\\0
+    \end{bmatrix}
+  \end{equation*}
+  Writing this in parametric equation form gives
+  \begin{equation*}
+    x=3+14t, \qquad y = -1+2t, \qquad z=15t.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Find the point where the line
+  \begin{equation*}
+    x = \frac{8}{3}+2t, \qquad y = -2t, \qquad z = 1+t
+  \end{equation*}
+  intersects the plane $3x+2y+6z=6$.
+
+  \textit{Solution:} $(2/3,2,0) $
+\end{example}
+\begin{example}
+  Find the angle between the two planes $x+y+z=1$ and $x-2y+3x=1$.
+
+  \textit{Solution:} It will be enough to find the angle between the two normal
+  vectors. We can use the dot product. We'll get
+  $\cos(\theta) = \frac{2}{\sqrt{41}}$. The angle with this cosine is about $72$
+  degrees.
+\end{example}
+
+\begin{example}
+  Consider the plane $H$ which passes through the three points
+  \begin{equation*}
+    P=(1,4,6), \qquad Q = (-2,5,-1), \qquad R = (1,-1,1).
+  \end{equation*}
+  Find a vector perpendicular to $H$.
+\end{example}
 
 
-% \begin{example}
-%   Find the area of the triangle with vertices $P = (1,4,6)$, $Q = (-2,5,-1) $
-%   and $R= (1,-1,1)$
-% \end{example}
+\begin{example}
+  Find the area of the triangle with vertices
+  \begin{equation*}
+    P = (1,4,6), \qquad  Q = (-2,5,-1), \qquad  R= (1,-1,1).
+  \end{equation*}
+\end{example}
 
 
 \end{document}
