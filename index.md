@@ -33,6 +33,7 @@ title: Lecture Notes
  2026-10-02  |  how do we describe the tilt of a plane? cross product
  2026-10-04  |  cross product, torque
  2026-10-07  |  lines and planes in 3-dimensions
+ 2026-10-09  |  planes in 3-dimensions
  
 # Other links
 

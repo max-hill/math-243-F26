@@ -3882,7 +3882,19 @@ This is why \cref{eq:definition-normal-form-eq-of-plane} is called the
   \end{center}
 \end{example}
 
-\end{document}
+\newpage
+\section{2026-10-09 | Week 07 | Lecture 20}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Planes}
+
+    \textit{\textbf{Reading assignment:} 12.5}
+  \end{tcolorbox}
+\end{center}
+
+
+\textit{Note: the solutions to the example problems here are somewhat simpler
+  than the solutions I presented in class.}
 
 \begin{example}
   Consider the three points $P=(1,3,2)$, $Q=(3,-1,6)$, and $R=(5,2,0)$. These three points are not
@@ -3891,9 +3903,6 @@ This is why \cref{eq:definition-normal-form-eq-of-plane} is called the
 
   \textit{Solution:}
 
-
-
-  
   \begin{itemize}
     \item $\overrightarrow{PQ}=\left\langle 2,-4,4 \right\rangle$
     \item $\overrightarrow{PR}=\left\langle 4,-1,-2 \right\rangle$
@@ -3923,27 +3932,61 @@ This is why \cref{eq:definition-normal-form-eq-of-plane} is called the
 
 
 \begin{example}
-  Find the vector parallel to the line of interesection of the planes
+  The two planes
   \begin{equation*}
-    3x-6y-2z = 16, \qquad 2x+y-2z=5.
+    3x-6y-2z = 15, \qquad 2x+y-2z=5
   \end{equation*}
+  intersect to form a line. Find a vector parallel to this line.
 
-
-  \textit{Solution:} Take the cross product of the two normal vectors. This
-  gives
+  \textit{Solution:} By inspection of the two above equations, the normal
+  vectors for the two planes are
   \begin{equation*}
+    \boldsymbol{n}_{1} = \left\langle 3,-6,-2 \right\rangle, \qquad \boldsymbol{n}_{2}=\left\langle 2,1,-2 \right\rangle.
+  \end{equation*}
+  If $\boldsymbol{w}$ is a vector which is parallel to the line of
+  intersection then it must be orthogonal to both $\boldsymbol{n}_{1}$ and
+  $\boldsymbol{n}_{2}$ [think about why].
+
+  Therefore we may take $\boldsymbol{w}$ to be the cross product of the two
+  normal vectors:
+  \begin{equation*}
+    \boldsymbol{w} 
+    = \boldsymbol{n}_{1}\times \boldsymbol{n}_{2} 
+    = ... =
     \begin{bmatrix}
       14\\2\\15
-    \end{bmatrix}
+    \end{bmatrix}.
   \end{equation*}
 \end{example}
 
 \begin{example}
-  Find the parameteric equations for the line in which the planes in the
-  previous example intersect.
+  Consider the two planes from the previous example:
+  \begin{equation}\label{eq:two-planes}
+    3x-6y-2z = 15, \qquad 2x+y-2z=5.
+  \end{equation}
+  These intersect to form a line. Find the parameteric equations for this
+  line.
 
-  \textit{Solution:} We have the direction vector, we need only a point. Take
-  $z=0$. This gives $(3,-1,0)$. The vector equation is
+  \textit{Solution:} We computed the direction vector
+  $\left\langle 14,2,15 \right\rangle$ in the previous example, so we need
+  only a point on the line.
+
+  Set $z=0$ in both equations of \cref{eq:two-planes}. This gives
+  \begin{align*}
+    3x-6y &= 15\\
+    2x+y &= 5
+  \end{align*}
+  Solving for $x$ and $y$ gives
+  \begin{equation*}
+    x = 3, \qquad y = -1
+  \end{equation*}
+  Therefore the point
+  \begin{equation*}
+    (x,y,z) = \left( 3, -1, 0 \right) 
+  \end{equation*}
+  lies on the line.
+
+  Hence we may write the line in \textit{vector form} as
   \begin{equation*}
     \boldsymbol{r}(t) =
     \begin{bmatrix}
@@ -3952,14 +3995,16 @@ This is why \cref{eq:definition-normal-form-eq-of-plane} is called the
     +
     \begin{bmatrix}
       3\\-1\\0
-    \end{bmatrix}
+    \end{bmatrix}, \qquad -\infty<t<\infty.
   \end{equation*}
-  Writing this in parametric equation form gives
+  Writing this in \textit{parametric form} gives
   \begin{equation*}
     x=3+14t, \qquad y = -1+2t, \qquad z=15t.
   \end{equation*}
+  for $-\infty<t<\infty$.
 \end{example}
 
+\end{document}
 \begin{example}
   Find the point where the line
   \begin{equation*}
