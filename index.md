@@ -34,6 +34,8 @@ title: Lecture Notes
  2026-10-04  |  cross product, torque
  2026-10-07  |  lines and planes in 3-dimensions
  2026-10-09  |  planes in 3-dimensions
+ 2026-10-12  |  plane geometry examples
+ 2026-10-14  |  practice test
  
 # Other links
 
