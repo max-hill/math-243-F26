@@ -14,5 +14,6 @@ permalink: /homework/
 2026-09-28 | [homework-05](hw/homework-05/homework-05.pdf) | 
 2026-10-05 | [homework-06](hw/homework-06/homework-06.pdf) | 
 2026-10-12 | [homework-07](hw/homework-07/homework-07.pdf) | 
+2026-10-28 | [homework-08](hw/homework-08/homework-08.pdf) | 
 
 

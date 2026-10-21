@@ -215,7 +215,6 @@
 \setcounter{section}{-1}
 \section{Tentative Course Outline}
 
-
 \begin{itemize}
   \item \textbf{Weeks 1-3:} Parametric equations and Polar coordinates
   \begin{enumerate}
@@ -4133,159 +4132,252 @@ This is why \cref{eq:definition-normal-form-eq-of-plane} is called the
 \section{2026-10-14 | Week 08 | Lecture 22}
 
 We did practice exam in class today.
-\end{document}
-
 
 
 \newpage
 
+\section{2026-10-19 | Week 09 | Lecture 23}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} cylinders and quadric surfaces}
+
+    \textit{\textbf{Reading assignment:} chapter 12.6}
+  \end{tcolorbox}
+\end{center}
+
 \subsection{Cylinders and quadric surfaces}
-Let $f=f(x,y,z)$ be a function. A \demph{level set} of $f$ is an set of the from
-\begin{equation*}
-  \left\{(x,y,z)\in \R^{3} : f(x,y,z)=c\right\}
-\end{equation*}
-where $c\in \R$.
+\begin{definition}[Level set, zero set]
+  \label{def:level-set-zero-set}
+  Let $f=f(x,y,z)$ be a function of three variables. A \demph{level set} of $f$
+  is an set of the from
+  \begin{equation}\label{eq:level-set}
+    \left\{(x,y,z)\in \R^{3} : f(x,y,z)=c\right\}
+  \end{equation}
+  where $c\in \R$. A level set with $c=0$ is called the \demph{zero set} of
+  $f$.
 
-If we take $c=0$,
-\begin{equation*}
-  \left\langle (x,y,z)\in \R^{3}: f(x,y,z)=0  \right\rangle 
-\end{equation*}
-is called the \demph{zero set} of $f$. For brevity, we usually don't write out all the set notation, and instead
-just write the equation, like this:
-\begin{equation*}
-  f(x,y,z)=0.
-\end{equation*}
-Frequently, level sets form interesting shapes or surfaces, especially in higher dimensions. In two
-dimensions,
-\begin{itemize}
-  \item $y-x^{2}=0$ is a parabola
-  \item $2x+y-3=0$ is a line
-  \item $x^{2}+y^{2}=0$ is a circle
-\end{itemize}
-Here we focus on 3-dimension. Here are some examples in 3-dimensions
-\begin{itemize}
-  \item $x^{2}+y^{2}-1=0$ is the unit cylinder
-  \item $x^{2}+y^{2}+z^{2}-9=0$ is a sphere with radius 3.
-  \item $z=x^{2}$ is a parabolic cylinder
-  \item $Ax+By+Cz+D=0$ is a plane
-\end{itemize}
+  Level sets for functions of other numbers of variables are defined similarly.
+\end{definition}
 
-In 3-dimensions, a \demph{quadric surface} is the zero set of a degree 2 polynomial in the variables
-$x,y,$ and $z$. In other words, it is the graph of an equation of the form
-\begin{equation*}
-  Ax^{2}+By^{2}+Cz^{2}+Dxy+Eyz+Fxz+Gx+Hy+Iz+J = 0,
-\end{equation*}
-wher $A,B,\ldots,J$ are real numbers. This forms a surface. There are, obviously, lots of possibilities
-so we can't do them all, but we'll do some special cases that will provide a rich source of examples of
-surfaces in 3D that we can work with.
+\begin{notation}
+  For brevity, we usually omit the set notation, and instead of
+  \cref{eq:level-set}, we just write
+  \begin{equation*}
+    f(x,y,z)=0.
+  \end{equation*}
+\end{notation}
 
-Before we start we recall some things from 2-dimensional space (see section 10.5 in the texbook):
+Many shapes and surfaces are defined by level sets.
+\begin{example}
+  In 2 dimensions,
+  \begin{itemize}
+    \item $y-x^{2}=0$ is a parabola
+    \item $2x+y-3=0$ is a line
+    \item $x^{2}+y^{2}=0$ is a circle
+  \end{itemize}
+  In 3 dimensions,
+  \begin{itemize}
+    \item $x^{2}+y^{2}-1=0$ is the unit cylinder
+    \item $x^{2}+y^{2}+z^{2}-9=0$ is a sphere with radius 3.
+    \item $z=x^{2}$ is a parabolic cylinder
+    \item $Ax+By+Cz-D=0$ is a plane
+  \end{itemize}
+\end{example}
+
+\begin{definition}[Quadric surface]
+  \label{def:quadric-surface}
+  A general degree-2 polynomial in the variables $x,y,z$ takes the form
+  \begin{equation*}
+    f(x,y,z) = Ax^{2}+By^{2}+Cz^{2}+Dxy+Eyz+Fxz+Gx+Hy+Iz+J,
+  \end{equation*}
+  where $A,B,C,\ldots,J\in \R$. The zero set of such a polynomial is called a
+  \demph{quadric surface}.
+\end{definition}
+
+There are many different quadric surfaces, so we can't do them all, but we'll
+do some special cases that will provide a rich source of examples.
+
+Before we start we recall some things from 2-dimensional space (see chapter
+11.6 in the texbook):
 
 \begin{proposition}[Conic sections in 2D]
   \label{prop:conic-sections-2d}
   \begin{enumerate}
     \item[]
-    \item The equations
+    \item \textbf{Ellipse}:
     \begin{equation*}
-      \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}} =1 
+      \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}} =1.
     \end{equation*}
-    is an ellipse passing through the points  $(a,b), (a,-b), (-a,b)$ and $(-a,-b).$
-    \item  The equation
+    This ellipse is centered at $(0,0)$ and passes through the points $(\pm
+    a,\pm b)$.
+    \item Left-right \textbf{hyperbola}:
     \begin{equation*}
       \frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1
     \end{equation*}
-    is a hyperbola which opens to the sides with vertices $(\pm a,0)$ and asymptotes $y=\pm\frac{b}{a}x$.
-    \item The equation
+    The vertices are $(\pm a,0)$ and asymptotes $y=\pm\frac{b}{a}x$.
+    \item Up-down \textbf{hyperbola}:
     \begin{equation*}
       \frac{y^{2}}{a^{2}}-\frac{x^{2}}{b^{2}}=1
     \end{equation*}
-    is a hyperbola which opens up and down, with vertices $(0,\pm b)$ and asymptotes $y=\pm \frac{a}{b}x$
+    The vertices $(0,\pm b)$ and asymptotes $y=\pm \frac{a}{b}x$.
   \end{enumerate}
 \end{proposition}
 
+\begin{definition}
+  The intersection of a set with a plane is called a \demph{cross section}, or a \demph{slice}.
+\end{definition}
 
-\begin{example}[Quadric Form, Special case \#1: Ellipsoid]
-  \label{ex:quadric-form-special-case-1}
-  Consider the quadric form 
-  \begin{equation*}
-    \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{c^{2}}-1=0.
-  \end{equation*}
-  For example,
-  \begin{equation*}
-    x^{2}+\frac{y^{2}}{9}+\frac{z^{2}}{4}-1=0
-  \end{equation*}
-  What is this shape?
-
-  To help determine, we will consider the \demph{traces}, which are the cross-sections of the surface
-  obtained by intersecting it with planes parallel to the coordinate planes.
-
-  For example, we could intersect the surface with the plane $z=k$, where $k$ is a number. This plane is
-  parallel to the $xy$-plane. That gives
-  \begin{equation*}
-    x^{2} + \frac{y^{2}}{9}+ \frac{k^{2}}{4}-1=0
-  \end{equation*}
-  or
-  \begin{equation*}
-    x^{2}+\frac{y^{2}}{9}=1-\frac{k^{2}}{4}.
-  \end{equation*}
-  As long as $k^{2}<4$, we can write this as
-  \begin{equation*}
-    \frac{x^{2}}{1-\frac{k^{2}}{4}} + \frac{y^{2}}{9(1-\frac{k^{2}}{4})} = 1
-  \end{equation*}
-  which is the equation of an ellipse by \cref{prop:conic-sections-2d}.
-
-  All of the traces are ellipses. (You should check this). Ths is an \demph{ellipsoid}.
-\end{example}
-e
-
-\begin{example}[Quadric Form, Special case \#2: Elliptic Paraboloid]
-  Consider the surface defined by the equation
-  \begin{equation*}
-    Ax^{2}+By^{2} +z =0.
-  \end{equation*}
-  For example,
+\begin{example}[Quadric Form, Special case \#1: Elliptic Paraboloid]
+  \label{ex:quadric-form-special-case-1:-elliptic-paraboloid}
+  Consider level set
+  \begin{equation}\label{eq:elliptic-paraboloid-ex}
+    4x^{2}+y^{2}-z =0,
+  \end{equation}
+  or equivalently
   \begin{equation*}
     z = 4x^{2}+y^{2}.
   \end{equation*}
-  What is this shape?
-
-  Again, we consider the traces. If $x =0$, then we get $z=y^{2}$, a parabola. So the $yz$-plane
-  intersects at a parabola. If we put $x=k$ for any constant $k$, we get
-  \begin{equation*}
-    z=y^{2}+4k^{2}.
-  \end{equation*}
-  This means that any plane parallel to the $yz$-plane intersects our surface in a parabola.
-
-  The traces $y=k$ also gives parabola.
-
-  The traces $z=k$ gives something different:
-  \begin{equation*}
-    4x^{2}+y^{2} = k
-  \end{equation*}
-  When $k<0$, there are no real numbers which satisfy the equation. But when $k>0$, this is an ellipse:
-  \begin{equation*}
-    \frac{x^{2}}{(k/4)}+ \frac{y^{2}}{k}=1.
-  \end{equation*}
-  As $k$ increases, this elipse gets bigger. This shape is called an \demph{elliptic paraboloid.}
+  \textbf{Question:} What is this shape? Consider its cross-sections:
+  \begin{itemize}
+    \item Consider the plane $x=0$. Intersecting the plane with
+    \cref{eq:elliptic-paraboloid-ex} gives
+    \begin{equation*}
+      z=y^{2}.
+    \end{equation*}
+    So this cross section is a parabola.
+    \item Now consider the  plane $x=k$, where $k\in \R$ is a constant. This
+    plane is parallel to to the $yz$-plane. The intersection is 
+    \begin{equation*}
+      z = y^{2}+4k^{2}
+    \end{equation*}
+    Thus every cross-section of our surface with a plane parallel to the
+    $yz$-plane is a parabola.
+    \item The cross-sections with $y=k$ also give parabolas (you should check this).
+    \item The plane $z=k$ is parallel to the $xy$-axis. Cross sections with
+    this plane are different:
+    \begin{equation*}
+      4x^{2}+y^{2} = k
+    \end{equation*}
+    When $k<0$, there are no real numbers which satisfy the equation. But when $k>0$, this is an ellipse:
+    \begin{equation*}
+      \frac{x^{2}}{(k/4)}+ \frac{y^{2}}{k}=1.
+    \end{equation*}
+    As $k$ increases, this elipse gets bigger.
+  \end{itemize}
+  Thus, the shape is
+  \begin{center}
+    \includegraphics[scale=.26]{images/elliptic-paraboloid}
+  \end{center}
 \end{example}
 
-\begin{example}[Quadric Form, Special case \#3: Hyperbolic Paraboloid]
+\cref{ex:quadric-form-special-case-1:-elliptic-paraboloid} is an example of an
+\demph{elliptic paraboloid}, which (up to translation and rotation) has
+equation
+\begin{equation*}
+  z=Ax^{2}+By^{2}.
+\end{equation*}
+
+\newpage
+\section{2026-10-21 | Week 09 | Lecture 24}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} quadric surfaces}
+
+    \textit{\textbf{Reading assignment:} chapter 12.6. Please start 13.1}
+  \end{tcolorbox}
+\end{center}
+
+
+\begin{example}[Quadric Form, Special case \#2: Hyperbolic Paraboloid]
   \label{ex:quadric-form-special-case-3:-hyperbolic-paraboloid}
-  \begin{equation*}
-    \frac{z}{c} = \frac{x^{2}}{a^{2}} - \frac{y^{2}}{b^{2}}
-  \end{equation*}
-  for example
-  \begin{equation*}
-    z = \frac{x^{2}}{9} - \frac{y^{2}}{4}
-  \end{equation*}
+
+  Consider the surface defined by
+  \begin{equation}\label{eq:hyperbolic-paraboloid-ex}
+    z = \frac{x^{2}}{9} - \frac{y^{2}}{4}.
+  \end{equation}
+  \textbf{Question:} What shape is this?
+
+  Again, consider the cross-sections.
   \begin{itemize}
-    \item some traces are hyperbolas
-    \item some traces  parabolas
+    \item Cross section $x=k$:
+    \begin{equation*}
+      z = \frac{k^{2}}{9} - \frac{y^{2}}{4}.
+    \end{equation*}
+    This is a downward-opening parabola.
+    \item Cross section $y=k$:
+    \begin{equation*}
+      z = \frac{x^{2}}{9}-\frac{k^{2}}{4}
+    \end{equation*}
+    This is an upward-opening parabola
+    \item Cross section $z=k$:
+    \begin{equation*}
+      k = \frac{x^{2}}{9}-\frac{y^{2}}{4}
+    \end{equation*}
+    This is hyperbola. How it opens depends on whether $k>0$ or $k<0$
   \end{itemize}
-  It looks like a pringle. Check it out on Desmos (along with some cross sections) here:
+
+  \cref{ex:quadric-form-special-case-3:-hyperbolic-paraboloid} looks like a pringle.
+
+  \begin{center}
+    \includegraphics[scale=.3]{images/pringle}
+  \end{center}
+  Check it out on Desmos (along with some cross sections) here:
   \begin{center}
     \url{https://www.desmos.com/3d/xuaxssutef}
   \end{center}
 \end{example}
+
+\cref{ex:quadric-form-special-case-3:-hyperbolic-paraboloid} is an example of
+a \demph{hyperbolic paraboloid}, which (up to translation and rotation), has equation
+\begin{equation*}
+  \frac{z}{c} = \frac{x^{2}}{a^{2}} - \frac{y^{2}}{b^{2}}
+\end{equation*}
+
+
+\fl{Important fact:} the origin is a saddle point.
+
+\begin{example}[Quadric Form, Special case \#3: Ellipsoid]
+  \label{ex:quadric-form-special-case-1}
+  Consider the quadric form 
+  \begin{equation}\label{eq:ellipsoid-ex}
+    x^{2}+\frac{y^{2}}{9}+\frac{z^{2}}{4}-1=0
+  \end{equation}
+  What is this shape?
+
+  To investigate, we consider cross sections.
+  \begin{itemize}
+    \item Fix a number $k\in \R$, and consider the plane $z=k$. This plane is
+    parallel to the $xy$-plane. Intersect the plane $z=k$ and ther surface
+    \cref{eq:ellipsoid-ex}. That gives
+    \begin{equation*}
+      x^{2} + \frac{y^{2}}{9}+ \frac{k^{2}}{4}-1=0
+    \end{equation*}
+    or
+    \begin{equation*}
+      x^{2}+\frac{y^{2}}{9}=1-\frac{k^{2}}{4}.
+    \end{equation*}
+    or
+    \begin{equation*}
+      \frac{x^{2}}{1-\frac{k^{2}}{4}} + \frac{y^{2}}{9(1-\frac{k^{2}}{4})} = 1.
+    \end{equation*}
+    As long as $k^{2}<4$, this is the equation of an ellipse by
+    \cref{prop:conic-sections-2d}.
+    \item The cross sections with the plane $x=k$ also gives an ellipse.
+    \item The cross sections with the plane $y=k$ also gives an ellipse.
+  \end{itemize}
+  All of the traces are ellipses. (You should check the last two).
+  This suggests an egg-like shape:
+  \begin{center}
+    \includegraphics[scale=.3]{images/ellipsoid}
+  \end{center}
+\end{example}
+
+\cref{ex:quadric-form-special-case-1} is an example of an \demph{ellipsoid},
+which has equation
+\begin{equation*}
+  \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{c^{2}}-1=0.
+\end{equation*}
+
+
 
 \end{document}
