@@ -1434,6 +1434,7 @@ Since $|\mathbf{r}'(t)|  = \sqrt{ \left[ f'(t) \right]^{2}+ \left[ g'(t) \right]
   \end{equation*}
 \end{definition}
 \begin{definition}[Smooth]
+  \label{def:smooth}
   A curve $C$ parameterized by
   \begin{equation*}
     \mathbf{r}(t) =
@@ -4377,6 +4378,740 @@ which has equation
 \begin{equation*}
   \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{c^{2}}-1=0.
 \end{equation*}
+
+\newpage
+\section{2026-10-23 | Week 09 | Lecture 25}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} vector-valued function}
+
+    \textit{\textbf{Reading assignment:} chapter 13.1}
+  \end{tcolorbox}
+\end{center}
+
+
+\subsection{Vector functions and space curves}
+
+We are interested in describing motion along a curve durin a time interval.
+ A bug flying around during a time interval $I$ has coordinates
+\begin{equation*}
+  \boldsymbol{r}(t) =
+  \begin{bmatrix}
+    x(t)\\y(t)\\z(t)
+  \end{bmatrix}, \qquad t\in I.
+\end{equation*}
+The functions $x(t),y(t),z(t)$ are assumed to be real-valued functions\footnote{Recall that a \demph{real-valued function} is one whose range is a subset of
+  $\R$.}, and
+are called \demph{component functions}. The function $\boldsymbol{r}$ is
+called a \demph{vector-valued function}, aka a \demph{vector function}. The
+points
+\begin{equation*}
+  \left\{(x(t),y(t),z(t)): t\in I\right\} 
+\end{equation*}
+make up a \demph{curve} in space, i.e., the \demph{path} of the bug.
+
+We have already seen examples of vector-valued function.
+\begin{example}[A vector-valued function]
+  A dragonfly takes off from a leaf at position $(2,4,-3)$ traveling in a
+  straight line with velocity $\left\langle 1,-5,4 \right\rangle$. Then the
+  dragonfly's position at time $t \geq 0$ is
+  \begin{equation*}
+    \boldsymbol{r}(t) =
+    \begin{bmatrix}
+      1\\-5\\4
+    \end{bmatrix}t
+    +
+    \begin{bmatrix}
+      2\\4\\-3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      t+2\\-5t+4\\4t-3
+    \end{bmatrix},
+    \qquad t \geq 0.
+  \end{equation*}
+\end{example}
+
+
+Limits, derivatives, integrals of vector-valued functions are defined
+\textit{componentwise}:
+
+\begin{itemize}
+  \item Limits:
+  \begin{equation*}
+    \lim_{t \to a} \boldsymbol{r}(t) =
+    \begin{bmatrix}
+      \lim_{t \to a} f(t)\\
+      \lim_{t \to a} g(t)\\
+      \lim_{t \to a} h(t)
+    \end{bmatrix}
+  \end{equation*}
+  \item Derivatives:
+  \begin{equation*}
+    \boldsymbol{r}'(t) =
+    \begin{bmatrix}
+      x'(t)\\y'(t)\\z'(t)
+    \end{bmatrix}
+  \end{equation*}
+  \item Integrals:
+  \begin{equation*}
+    \int_{a}^{b}\vec{r}(t)dt = \left\langle \int_{a}^{b}f(t)dt , \int_{a}^{b}g(t)dt, \int_{a}^{b}h(t)dt    \right\rangle  
+  \end{equation*}
+\end{itemize}
+
+
+
+\begin{example}
+  Consider
+  \begin{equation*}
+    \mathbf{r}(t) =
+    \begin{bmatrix}
+      2+t^{3}\\
+      \frac{\sin(t)}{t}\\
+      t e^{-t}
+    \end{bmatrix}, \qquad t\in \R.
+  \end{equation*}
+  \textbf{Question:} What is $\lim_{t\to0} \boldsymbol{r}(t)$, and what is $\boldsymbol{r}(t)$?
+  \begin{equation*}
+    \lim_{t\to 0}\mathbf{r}(t)  =
+    \begin{bmatrix}
+      2\\1\\0
+    \end{bmatrix}
+    \quad \text{and} \quad
+    \boldsymbol{r}'(t) =
+    \begin{bmatrix}
+      3t^{2}\\
+      \frac{\cos(t)t-\sin(t)}{t^{2}}\\
+      e^{-t}-te^{-t}.
+    \end{bmatrix}
+  \end{equation*}
+\end{example}
+
+
+We say that a vector function $\boldsymbol{r}$ is \demph{continuous} on $I$ if
+each of its component functions are continuous on $I$. Similarly,
+$\boldsymbol{r}(t)$ is \demph{differentiable} if each of its component
+functions are. We say the curve traced by $\boldsymbol{r}$ on the interval $I$
+is \demph{smooth} if $\boldsymbol{r}'(t)$ is continuous on $I$ and
+\begin{equation*}
+  \boldsymbol{r}(t)\neq
+  \begin{bmatrix}
+    0\\0\\0
+  \end{bmatrix}
+  \qquad \text{for all }t\in I
+\end{equation*}
+As in \cref{def:smooth}, this condition excludes corners and cusps.
+
+\begin{remark}[Interpretation]
+  We regard $\boldsymbol{r}(t)$ as the \demph{position} of the bug at time $t$. Its
+  intantaneous \demph{velocity} is $\boldsymbol{r}'(t)$. It's
+  \demph{acceleration} is $\boldsymbol{r}''(t)$. The normalized velocity is
+  \begin{equation*}
+    \boldsymbol{T}(t) = \frac{\boldsymbol{r}'(t)}{|\boldsymbol{r}'(t)},
+  \end{equation*}
+  which is a unit vector identifying the direction that the bug is moving at
+  time $t$. We call $\boldsymbol{T}(t)$ the \demph{unit tangent vector}.
+\end{remark}
+
+
+
+
+\begin{problem}
+  Find the velocity, speed and acceleration of a particle whose motion in
+  space is given by
+  \begin{equation*}
+    \boldsymbol{r}(t) = \left\langle 2\cos(t), 2\sin(t), 5\cos^{2}(t) \right\rangle 
+  \end{equation*}
+
+
+  \textit{Solution:} The velocity is
+  \begin{align*}
+    \boldsymbol{v}(t) 
+    &= \boldsymbol{r}'(t) \\
+    &= \left\langle -2\sin(t), 2\cos(t), -10\cos(t)\sin(t) \right\rangle \\
+    &= \left\langle -2\sin(t), 2\cos(t), -5\sin(2t) \right\rangle
+  \end{align*}
+  \begin{equation*}
+    \boldsymbol{a}(t) = \boldsymbol{r}''(t) = \left\langle -2\cos(t), -2\sin(t),  -10\cos(2t)\right\rangle 
+  \end{equation*}
+  The speed is
+  \begin{equation*}
+    |\boldsymbol{r}'(t)| = \sqrt{4+25\sin^{2}(2t)}
+  \end{equation*}
+\end{problem}
+
+
+\begin{example}[Helix]
+  A moth flies spirals upwards towards a light. Its trajectory is
+  \begin{equation*}
+    \boldsymbol{r}(t) = \left\langle \cos(t),\sin(t),t \right\rangle, \qquad 0 \leq t \leq 10\pi.
+  \end{equation*}
+  Suppose that the coordinate axes are measured in feet and time is measured
+  in seconds.
+
+  \begin{center}
+    \includegraphics[scale=0.3]{images/helix}
+  \end{center}
+  The velocity of the moth at time $t$ is
+  \begin{equation*}
+    \boldsymbol{r}'(t) = \left\langle -\sin(t),\cos(t),1 \right\rangle,
+  \end{equation*}
+  and its speed is
+  \begin{equation*}
+    |\boldsymbol{r}'(t)| = \sqrt{(-\sin t)^{2}+(\cos t)^{2}+1}= \sqrt{2}.
+  \end{equation*}
+  The unit tangent vector is
+  \begin{equation*}
+    \boldsymbol{T}(t)
+    = \frac{\boldsymbol{r}'(t)}{|\boldsymbol{r}'(t)|}
+    = \left\langle -\frac{\sin(t)}{\sqrt{2}}, \frac{\cos(t)}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right\rangle 
+  \end{equation*}
+  This tells us the direction the moth is facing at time $t$.
+  
+
+  \textbf{Question:} How far did the moth fly? Using the formula
+  \begin{equation*}
+    \boxed{\text{(Arc length)} = \int_{a}^{b}|\boldsymbol{r}'(t)|dt.}
+  \end{equation*}
+  we have
+  \begin{equation*}
+    \text{(Arc length)} = \int_{0}^{10\pi}\sqrt{2}dt = 10\pi\cdot \sqrt{2} \approx 44 \text{ meters.}
+  \end{equation*}
+  The moth traveled $10\pi\cdot \sqrt{2}\approx 44$ feet.
+
+  This makes sense: after all, the moth traveled at a constant velocity of
+  $\sqrt{2}$ meters per second for $10\pi$ seconds. So of course it traveled
+  $10\pi \sqrt{2}$ meters.
+\end{example}
+
+
+\begin{example}[Twisted Cubic]
+  \label{ex:twisted-cubic}
+  
+  Let $\boldsymbol{r}(t) = \left\langle 2t,t^{2},\frac{1}{3}t^{3}
+  \right\rangle$, for $t\in \R$.
+
+  \begin{center}
+    \includegraphics[scale=0.4]{images/ex}
+  \end{center}
+  The velocity is
+  \begin{equation*}
+    \boldsymbol{r}'(t) = \left\langle 2,2t,t^{2} \right\rangle.
+  \end{equation*}
+  The speed is
+  \begin{equation*}
+    |\boldsymbol{r}'(t)| = \sqrt{4+4t^{2}+t^{4}} = \sqrt{(2+t^{2})^{2}} = 2+t^{2}.
+  \end{equation*}
+  So the particle is accelerating as $t \to \infty$ or $t \to -\infty$. 
+
+  The distance traveled by the particle from $t=0$ to $t=3$ is
+  \begin{align*}
+    \text{Arc length} 
+    &= \int_{0}^{3}|\boldsymbol{r}'(t)|dt\\
+    &= \int_{0}^{3}(2+t^{2})dt\\
+    &= \left[ 2t+\frac{t^{3}}{3} \right]^{3}_{0}\\ 
+    &= (6+9) - (0+0)\\
+    &=15.
+  \end{align*}
+
+  The direction of the particle, without respect to the speed is given by the unit tangent vector
+  \begin{equation*}
+    \boldsymbol{T}(t) 
+    = \frac{\boldsymbol{r}'(t)}{|\boldsymbol{r}'(t)|} 
+    = \left\langle \frac{2}{2+t^{2}}, \frac{2t}{2+t^{2}}, \frac{t^{2}}{2+t^{2}} \right\rangle 
+  \end{equation*}
+\end{example}
+
+\end{document}
+\fl{Question:} What does it mean for $|\boldsymbol{r}(t)|=C$ for all $t\in I$?
+
+\textit{Ans:} It means $\boldsymbol{r}(t)$ traces out a curve on surface of a sphere.
+
+\begin{theorem}
+  If $\boldsymbol{r}$ is a differentiable vector function of $t$, and
+  $|\boldsymbol{r}(t)|=C$ for all $t\in I$, then 
+  \begin{equation*}
+    \boldsymbol{r}(t)\cdot \boldsymbol{r}'(t)=0, \qquad t\in I.
+  \end{equation*}
+  That is, $\boldsymbol{r}(t)$ and $\boldsymbol{r}'(t)$ are orthogonal.
+\end{theorem}
+\begin{proof}
+  We are given
+  \begin{equation*}
+    |\boldsymbol{r}(t)| = C, \qquad t\in I.
+  \end{equation*}
+  Hence
+  \begin{equation*}
+    \boldsymbol{r}(t)\cdot \boldsymbol{r}(t) = C^{2}, \qquad t\in I.
+  \end{equation*}
+  Differentiate with respect to $t$:
+  \begin{equation*}
+    \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t) + \boldsymbol{r}(t)+\boldsymbol{r}'(t) = 0.
+  \end{equation*}
+  Since $u\cdot v= v\cdot u$,
+  \begin{equation*}
+    2 \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t)=0.
+  \end{equation*}
+\end{proof}
+
+
+\begin{problem}
+  Find the unit tangent vector of
+  \begin{equation*}
+    \boldsymbol{r}(t) = \left\langle 1+3\cos(t), 3\sin(t), t^{2} \right\rangle, \qquad t\in I.
+  \end{equation*}
+
+
+  \textit{Solution:} Direct computation gives
+  \begin{equation*}
+    \boldsymbol{v}(t) = \boldsymbol{r}'(t) = \left\langle -3\sin(t), 3\cos(t), 2t \right\rangle, \qquad
+    |\boldsymbol{v}(t)| = \sqrt{9+t^{2}}.
+  \end{equation*}
+  Hence
+  \begin{equation*}
+    \boldsymbol{T}(t) = \left\langle \frac{-3\sin(t)}{\sqrt{9+t^{2}}}, \frac{3\cos(t)}{\sqrt{9+t^{2}}}, \frac{2t}{\sqrt{9+t^{2}}} \right\rangle 
+  \end{equation*}
+\end{problem}
+
+
+\begin{problem}
+  Find the arc length of
+  \begin{equation*}
+    \boldsymbol{r}(t) = \left\langle 1,t^{2},t^{3} \right\rangle, \qquad 0 \leq t \leq 9
+  \end{equation*}
+
+  \textit{Solution:} Direct computation gives
+  \begin{equation*}
+    \boldsymbol{r}'(t) = \left\langle 0,2t,3t^{2} \right\rangle, \qquad |\boldsymbol{r}'(t)| = t \sqrt{4+9t^{2}}.
+  \end{equation*}
+  Hence
+  \begin{equation*}
+    \text{(Arc length)} = \int_{0}^{9} t \sqrt{4+9t^{2}}dt,
+  \end{equation*}
+  and doing a $u$-sub gives an answer of about $734.7$.
+  
+\end{problem}
+\newpage
+\section{2025-03-05 | Week 8 | Lecture 21}
+\textit{Please read chapter 13, sections 1-4.}
+
+
+This approach can also handle particles travelling at non-constant velocity, as the next example shows
+
+
+\newpage
+\section{2025-03-07 | Week 8 | Lecture 22}
+\textit{Section 13.3}
+Recall the \demph{unit tangent vector} of a parametrized curve $\vec{r}(t)$ is the vector
+\begin{equation*}
+  \vec{T}(t) = \frac{\vec{r}'(t)}{|\vec{r}\ '(t)|}
+\end{equation*}
+It's what you get when you normalize the velocity. 
+
+The \textbf{curvature} of a curve at a point is a nonnegative number which measures how quickly the the curve
+changes direction at that point. Essentially, it works like this
+\begin{itemize}
+  \item straight line = zero curvature
+  \item wide turns = low curvature
+  \item sharp turns = high curvature
+\end{itemize}
+The direction is given by $\vec{T}(t)$. When a curve is fairly straight, $\vec{T}(t)$ shouldn't change
+much over time. But it should change direction quickly when the curve bends or twists sharply.
+
+To be precise, we define \demph{curvature} to be
+\begin{equation*}
+  \kappa = \left| \frac{d\vec{T}}{ds} \right|
+\end{equation*}
+where $T$ is the unit tangent vector, and $s$ is the arc length function.
+
+By the chain rule,
+\begin{equation*}
+  \frac{d\vec{T}}{dt} = \frac{d\vec{T}}{ds} \frac{ds}{dt}
+\end{equation*}
+or on other words
+\begin{equation*}
+  T'(t) = \frac{d\vec{T}}{ds}s'(t).
+\end{equation*}
+Rearranging this, we get:
+\begin{equation*}
+  \frac{d\vec{T}}{ds} = \frac{1}{s'(t)} T'(t)
+\end{equation*}
+Next, recall that $\frac{ds}{dt} = s'(t) = |\vec{r}\ '(t)|$. This gives
+\begin{equation*}
+  \frac{d\vec{T}}{ds} = \frac{T'(t)}{|r'(t)|}
+\end{equation*}
+Taking absolute valus of both sides gives the following important \textbf{curvature formula:}
+\begin{equation}\label{eq:curvature-formula}
+  \boxed{\kappa(t) = \frac{|T'(t)|}{|r'(t)|}}
+\end{equation}
+
+\begin{example}[Curvature of a line]
+  \label{ex:curvature-line}
+
+  Consider a line in 3d space. This takes the form
+  \begin{equation*}
+    r(t) = vt+p
+  \end{equation*}
+  We can write out the above equation as:
+  \begin{equation*}
+    \begin{bmatrix}
+      x\\y\\z
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      v_{1}\\v_{2}\\v_{3}
+    \end{bmatrix}
+    t
+    +
+    \begin{bmatrix}
+      x_{0}\\y_{0}\\z_{0}
+    \end{bmatrix}
+  \end{equation*}
+  where $v= \left\langle v_{1},v_{2},v_{3} \right\rangle $ is a nonzero vector giving the direction of
+  the line, and $p=(x_{0},y_{0},z_{0})$ is a point the line passes through.
+
+  \fl{Question:} What is the curvature of the line?
+
+  We want to apply \cref{eq:curvature-formula}. First observe that 
+  \begin{equation*}
+    r'(t)  = v
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    T(t) = \frac{v}{|v|} = \left\langle \frac{v_{1}}{|v|}, \frac{v_{2}}{|v|}, \frac{v_{3}}{|v|}  \right\rangle .
+  \end{equation*}
+  This does not depend on $t$. Therefore
+  \begin{equation*}
+    T'(t) = \left\langle 0,0,0 \right\rangle 
+  \end{equation*}
+  Therefore by \cref{eq:curvature-formula},
+  \begin{equation*}
+    \kappa(t)  = 0
+  \end{equation*}
+  for all $t$.
+
+  This makes sense: a straight line never changes direction. So of course under any reasonable definition
+  of ``curvature'', the curvature of a straight line should be zero.
+\end{example}
+
+
+\begin{example}[Curvature of a circle]
+  \label{ex:curvature-circle}
+  Consider a circle of radius $a>0$. We can parametrized this with
+  \begin{equation*}
+    \vec{r}(t) = \left( a\cos(t),a\sin(t) \right) 
+  \end{equation*}
+  What ``should'' the curvature be? It should be
+  \begin{itemize}
+    \item constant
+    \item inversely related to $a$
+  \end{itemize}
+  Indeed, we can compute this and we get $\kappa(t) = \frac{1}{a}$ for all $t$. See example 3 on page 904
+  of the text.
+\end{example}
+
+
+
+
+\begin{proposition}[A very useful formula for curvature]
+  \label{prop:very-useful-formula-for-curvature}
+  \begin{equation*}
+    \kappa(t) = \frac{|r'(t)\times r''(t)|}{|r'(t)|^{3}}
+  \end{equation*}
+\end{proposition}
+
+
+\begin{example}[twisted cubic curvature]
+  \label{ex:twisted-cubic-curvature}
+  Let
+  \begin{equation*}
+    \vec{r}(t) = \left\langle 2t,t^{2},\frac{1}{3}t^{3} \right\rangle,
+  \end{equation*}
+  for $-\infty<t<\infty$. This is an example of a twisted cubic, which we saw in \cref{ex:twisted-cubic}.
+  Recall this has plot
+  
+  \begin{center}
+    \includegraphics[scale=0.4]{images/ex}
+  \end{center}
+  From this picture, we might reasonably conclude that the curvature should be high near the origin (when
+  $t$ is near zero) and then it should be low far away from the origin (when $t$ is large) because there
+  the graph appears to straighten out. Let's try to compute the curvature:
+
+  We already showed that
+  \begin{equation*}
+    r'(t) = \left\langle 2,2t,t^{2} \right\rangle 
+  \end{equation*}
+  and so
+  \begin{equation*}
+    |r'(t)| = \sqrt{4+4t^{2}+t^{4}} = 2+t^{2}
+  \end{equation*}
+  Therefore the unit tangent vector  (i.e., the normalized velocity of the particle) is
+  \begin{align*}
+    T(t) 
+    &= \frac{r'(t)}{|r'(t)|}\\
+    &= \left\langle \frac{2}{2+t^{2}}, \frac{2t}{2+t^{2}}, \frac{t^{2}}{2+t^{2}} \right\rangle 
+  \end{align*}
+  Using \cref{eq:curvature-formula},
+  \begin{equation*}
+    \kappa(t) = \frac{|T'(t)|}{|r'(t)|}
+  \end{equation*}
+  But this is going to be a lot of work to take all those derivatives. So instead, let's use
+  \cref{prop:very-useful-formula-for-curvature}, which says that
+  \begin{equation*}
+    \kappa(t) = \frac{|r'(t)\times r''(t)|}{|r'(t)|^{3}}
+  \end{equation*}
+  \begin{itemize}
+    \item Numerator
+    \begin{align*}
+      r'(t)\times r''(t) 
+      &= 
+        \begin{vmatrix}
+          \vec{\imath}&\vec{\jmath}&\vec{k}\\
+          2&2t&t^{2}\\
+          0&2&2t\\
+        \end{vmatrix}\\
+      &=
+        \left\langle 2t^{2},-4t,4 \right\rangle 
+    \end{align*}
+    And this implies that
+    \begin{equation*}
+      \left| r'(t)\times r''(t)  \right| =  \sqrt{4t^{4}+16t^{2}+16} = 2\sqrt{t^{4}+4t^{2}+4} = 2 \sqrt{(t^{2}+2)^{2}}= 2(t^{2}+2)
+    \end{equation*}
+    \item Denominator. Since $r'(t) = \left\langle 2,2t,t^{2} \right\rangle $, we have
+    \begin{equation*}
+      |r'(t)| = \sqrt{4+4t^{2}+t^{4}} = \sqrt{(2+t^{2})^{2}} = t^{2}+2
+    \end{equation*}
+  \end{itemize}
+  Therefore
+  \begin{equation*}
+    \kappa(t)= \frac{2}{(2+t^{2})^{2}}
+  \end{equation*}
+  This is pretty complicated-looking function, but when we graph $\kappa(t)$, we see that it's actually really simple:
+  \begin{center}
+    \includegraphics[scale=0.3]{images/my-twisted-cubic-curvature}
+  \end{center}
+  As we expected, the curvature has a bump near zero, and then asymptotically approaches zero as
+  $|t|\to \infty$.
+\end{example}
+
+\newpage
+
+\section{2025-03-10 | Week 9 | Lecture 23}
+
+
+The next proposition summarizes an important geometric fact
+
+\begin{proposition}
+  Suppose $C$ is any curve on the surface of a sphere in 3d space. The sphere has some radius $c>0$,
+  which is a constant. Suppose $C$ is parameterized by the vector function
+  \begin{equation*}
+    \vec{r}(t) =
+    \begin{bmatrix}
+      x(t)\\y(t)\\z(t)
+    \end{bmatrix}
+  \end{equation*}
+  for $t\in (-\infty,\infty)$.
+
+  \textbf{Claim:} $\vec{r}'(t)$ and $\vec{r}(t)$ are orthogonal.
+
+  Why?
+
+  Observe that
+  \begin{equation*}
+    \vec{r}(t)\cdot \vec{r}(t)= |\vec{r}(t)|^{2} = c^{2}
+  \end{equation*}
+  Differentiate both sides and use the chain rule. You get that $\vec{r}\ '(t)\cdot \vec{r}(t)=0$, which
+  implies the two vectors are orthogonal
+\end{proposition}
+
+The direction that a curve is turning is given by the \demph{principal unit normal vector $N(t)$},
+defined as
+\begin{equation*}
+  \vec{N}(t) = \frac{\vec{T}'(t)}{|\vec{T}'(t)|}
+\end{equation*}
+
+This vector is normal to $T(t).$ This is because $T(t)$ is a vector on the unit sphere and therefore is
+perpendicular to its derivative, $\vec{T}'(t)$. 
+
+
+\subsection{Motion in space: velocity and acceleration}
+\begin{example}
+  A stone  is dropped form a $1600$ foot high building.
+  \begin{enumerate}[(a)]
+    \item Find, as functions of time, its position and velocity.
+    \item When does it hit the ground?
+    \item How fast is it going when at that time?
+  \end{enumerate}
+  You may assume that acceleration due to gravity is $32 \mbox{ft/sec}^{2}$.
+
+  \fl{Part (a):} Let
+  \begin{align*}
+    s(t)&=\mbox{position}\\
+    v(t)&=\mbox{velocity}\\
+    a(t)&=\mbox{acceleration}
+  \end{align*}
+
+  Then $a(t) = \frac{dv}{dt} = -32$ (negative because the direction is downward). So
+  \begin{equation*}
+    v(t) = \int a(t) dt = \int -32 dt = -32t +C_{0}
+  \end{equation*}
+  Since the stone was dropped, not thrown, its initial velocity was zero, i.e.,
+  \begin{equation*}
+    v(0) = 0.
+  \end{equation*}
+  Therefore $C_{0} =0$, and it follows that
+  \begin{equation*}
+    \boxed{v(t) = -32t}
+  \end{equation*}
+
+  Next we integrate velocity to find position:
+  \begin{equation*}
+    s(t) = \int v(t)dt = \int -32t dt = -16t^{2}+C_{1}
+  \end{equation*}
+  Since the stone started at height $1600$, we have
+  \begin{equation*}
+    s(0) = 1600.
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    100 = -16(0)^{2}+C_{1}
+  \end{equation*}
+  so $C_{1} = 1600$.
+  Thus,
+  \begin{equation*}
+    \boxed{s(t) = -16t^{2}+1600.}
+  \end{equation*}
+  \fl{Part (b):} Let $t^{*}$ be the time that the stone hits the ground. It must be the case that
+  \begin{equation*}
+    s(t^{*}) = 0.
+  \end{equation*}
+  By our formula for $s(t)$, we have
+  \begin{equation*}
+    0 = -16(t^{*})^{2}+1600
+  \end{equation*}
+  and solving for $t^{*}$, we conclude that $\boxed{\text{the stone hits the ground at time } t^{*} =10}$.
+
+  \fl{Part (c):} This part is asking what the speed is at time $t^{*}=10$. At that time, the velocity is
+  $v(10)=-32(10)=-320$ feet per second.
+
+  Therefore $\boxed{\text{the stone is traveling at } $320$ \text{ feet per second when it hits the ground.}}$
+\end{example}
+
+We want to do the same thing in 3 dimensions. We will use the vector equations
+\begin{equation*}
+  \vec{r}(t) 
+  = \vec{r}(t_{0}) + \int_{t_{0}}^{t}\vec{v}(u)du
+  \quad \text{and} \quad
+  \vec{v}(t) 
+  = \vec{v}(t_{0}) + \int_{t_{0}}^{t}a(u)du  
+\end{equation*}
+or equivalently,
+\begin{equation*}
+  \vec{r}\ '(t) = \vec{v}(t)
+  \quad \text{and} \quad 
+  \vec{v}\ '(t) = \vec{a}(t)
+\end{equation*}
+\begin{example}
+  Find the velocity, acceleration,  and speed of a particle with position vector $r(t) = \left\langle
+    t^{2},e^{t},t e^{t} \right\rangle $
+\end{example}
+
+\begin{example}
+  A moving particle starts at initial position $r(0)=\left\langle 1,0,0 \right\rangle$. It has initial
+  velocity $v(0) = \left\langle 1,-1,1 \right\rangle$. Its acceleration is $a(t) = \left\langle 4t,6t,1
+  \right\rangle$. Find its velocity and position at time $t$.
+\end{example}
+
+Next example will require the \demph{Netwon's Second Law:} If a force $F(t)$ acts on an object of mass
+$m$ producing an acceleration $a(t)$, then
+\begin{equation*}
+  \vec{F}(t) = m\vec{a}(t)
+\end{equation*}
+
+\begin{example}
+  A cannon is fired with initial velocity $\vec{v}_{0} = \left\langle 100 \sqrt{3},100 \right\rangle$.
+  This corresponds to being fired at an intial angle of elevation $\theta=\frac{\pi}{6}$ with the
+  cannonball traveling at an initial speed of 200 meters per second. Assume the canonball is fired from
+  an elevation of 3 meters.
+
+  \textbf{Some questions}
+  \begin{itemize}
+    \item How long is the cannonball airborne?
+    \item How far does the canonball travel?
+    \item How fast is it going when it hits the ground?
+    \item Can we characterize the trajectory of the canonball?
+  \end{itemize}
+
+  \textbf{Solution:}
+  We have downard force of gravity
+  \begin{equation*}
+    F = ma = \left\langle 0,-mg \right\rangle 
+  \end{equation*}
+  where $g=|a| \approx 9.8 m/s^{2}$
+  So
+  \begin{equation*}
+    a(t) = \left\langle 0,-g \right\rangle 
+  \end{equation*}
+  Therefore
+  \begin{align*}
+    v(t) 
+    &= \vec{v}(0) + \int_{0}^{t} a(u)du\\
+    &= \left\langle 100 \sqrt{3},100 \right\rangle + \left\langle 0,-g t \right\rangle\\  
+    &= \left\langle 100 \sqrt{3}, 100-gt \right\rangle 
+  \end{align*}
+  Integrating again to get position,
+  \begin{align*}
+    r(t) 
+    &= r(0)+\int_{0}^{t} v(u)du\\ 
+    &= \left\langle 0,3 \right\rangle  + \left\langle \int_{0}^{t}100 \sqrt{3} dt, \int_{0}^{t}(100-gt)dt    \right\rangle\\ 
+    &= \left\langle 0,3 \right\rangle  + \left\langle 100 \sqrt{3}t, 100t-\frac{1}{2}gt^{2}    \right\rangle\\ 
+    &= \left\langle 100 \sqrt{3}t, 3+100t-\frac{1}{2}gt^{2}    \right\rangle\\ 
+  \end{align*}
+  Or in other words, taking $g\approx 9.8 m/s^{2}$, the $xy$-coordinates of the cannonball (measured in
+  meters) at time $t$ seconds is given by the parametric equations
+  \begin{equation}\label{eq:8}
+    \left\{ \begin{array}{l@{}l}
+        x(t) = 100 \sqrt{3}t \\
+        y(t) = 3+100 t - 4.9t^{2}
+      \end{array}\right.
+  \end{equation}
+  The cannonball is airborne as long as $y(t)>0$. To find the time when $y(t)=0$, we need to solve the
+  quadratic equation
+  \begin{equation*}
+    -4.9t^{2}+ 100 t +3=0
+  \end{equation*}
+  This has two solutions: $t\approx -0.4$ and $t\approx 20.8$. Since $t=-0.4$
+  doesn't make sense for this problem, we conclude the canonball remains
+  airborne for about $20.8$ seconds. At $t=20.8$, the cannonball hits the
+  ground; when that happens, its $x$-value is
+  \begin{equation*}
+    x(20.8) \approx 3607 \text{ meters}
+  \end{equation*}
+  At that moment, its velocity is
+  \begin{equation*}
+    v(20.8) =
+    \begin{bmatrix}
+      100 \sqrt{3}\\100-9.8(20.8)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      100 \sqrt{3}\\ -103.84
+    \end{bmatrix}
+  \end{equation*}
+  so its speed is
+  \begin{equation*}
+    |v(20.8)| = \sqrt{(100 \sqrt{3})^{2}+ (-103.84)^{2}} \approx 202 m/s
+  \end{equation*}
+  So it's slowed down a lot.
+
+  
+  We can eliminate $t$  in \cref{eq:8} to obtain the equation
+  \begin{equation*}
+    y = -\frac{4.9}{30000}x^{2} + \left( \frac{1}{100 \sqrt{3}} \right)x +3 
+  \end{equation*}
+  which is a parabola.
+\end{example}
+\newpage
 
 
 

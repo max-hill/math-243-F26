@@ -36,6 +36,9 @@ title: Lecture Notes
  2026-10-09  |  planes in 3-dimensions
  2026-10-12  |  plane geometry examples
  2026-10-14  |  practice test
+ 2026-10-19  |  quadric surfaces
+ 2026-10-21  |  quadric surfaces - examples
+ 2026-10-23  |  vector-valued functions
  
 # Other links
 
