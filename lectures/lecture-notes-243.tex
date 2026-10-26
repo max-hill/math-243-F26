@@ -4636,16 +4636,15 @@ As in \cref{def:smooth}, this condition excludes corners and cusps.
   \end{tcolorbox}
 \end{center}
 
-\textit{Section 13.3}
 Recall the \demph{unit tangent vector} of a parametrized curve $\mathbf{r}(t)$ is the vector
 \begin{equation*}
-  \mathbf{T}(t) = \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
+  \mathbf{T}(t) := \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
 \end{equation*}
 In other words, $\mathbf{T}$ is the normalized velocity.
 
-
-The \textbf{curvature} of a curve at a point is a nonnegative number which measures how quickly the the curve
-changes direction at that point. Essentially, it works like this
+The \textbf{curvature} of a curve at a point (defined precisely below) is a
+nonnegative number which measures how quickly the the curve changes direction
+at that point. Essentially, it works like this
 \begin{itemize}
   \item straight line = zero curvature
   \item wide turns = low curvature
@@ -4655,32 +4654,32 @@ The direction is given by $\mathbf{T}(t)$. When a curve is fairly straight, $\ma
 much over time. But it should change direction quickly when the curve bends or twists sharply.
 
 
-There is a complication: the rate that $\mathbf{T}(t)$ changes depends on
-the speed of the particle. If you speed up the particle, then
-$\mathbf{T}(t)$ may change faster, even when tracing out the same curve.
+There is a complication: the rate that $\mathbf{T}(t)$ changes depends on the
+speed of the particle (or bug) that traces out the curve. If you speed up the
+particle that traces out the curve, then $\mathbf{T}(t)$ may change faster.
 Therefore, what we want is \textit{not} the rate of change of $\mathbf{T}$
 with respect to \textit{time}, but rather with respect to \textit{distance
   traveled}.
 
-
-The \demph{arc length function} is defined as
+If the bug starts moving at time $a$ and stops at time $t$, then the distance
+it travels is given by the following function, called the \demph{arc length function}:
 \begin{equation*}
-  s(t) = \int_{a}^{t}|\mathbf{r}'(u)| du.
+  \demph{s(t)} := \int_{a}^{t}|\mathbf{r}'(u)| du, \quad t \geq a.
 \end{equation*}
-for $t \geq a$, and where $a$ is determined by the starting point of the
-particle.
+Thus we define curvature in the following way:
+\begin{definition}[Curvature]
+  \label{def:curvature}
+  The \demph{curvature}, denote $\kappa$, is defined as
+  \begin{equation*}
+    \demph{\kappa} := \left| \frac{d\mathbf{T}}{ds} \right|,
+  \end{equation*}
+  where $s$ is the arc length function.
+\end{definition}
 
+\fl{Question:} The above definition is not very useful for doing computations.
+How do we compute $\kappa$?
 
-Thus we define \demph{curvature} to be
-\begin{equation*}
-  \kappa = \left| \frac{d\mathbf{T}}{ds} \right|
-\end{equation*}
-where $s$ is the arc length function.
-
-
-\fl{Question:} How do we compute $\kappa$?
-
-By the chain rule,
+We can derive a more useful formula in the following way. By the chain rule,
 \begin{equation*}
   \frac{d\mathbf{T}}{dt} = \frac{d\mathbf{T}}{ds} \frac{ds}{dt}.
 \end{equation*}
@@ -4747,7 +4746,7 @@ Taking absolute valus of both sides gives the following important \textbf{curvat
 
 \begin{example}[Curvature of a circle]
   \label{ex:curvature-circle}
-  Consider a circle of radius $a>0$. We can parametrized this with
+  Consider a circle of radius $a>0$. We can parametrize this with
   \begin{equation*}
     \mathbf{r}(t) =
     \begin{bmatrix}
