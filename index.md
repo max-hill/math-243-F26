@@ -39,6 +39,7 @@ title: Lecture Notes
  2026-10-19  |  quadric surfaces
  2026-10-21  |  quadric surfaces - examples
  2026-10-23  |  vector-valued functions
+ 2026-10-26  |  curvature
  
 # Other links
 

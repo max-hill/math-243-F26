@@ -4622,10 +4622,246 @@ As in \cref{def:smooth}, this condition excludes corners and cusps.
   \end{equation*}
 \end{example}
 
-\end{document}
-\fl{Question:} What does it mean for $|\boldsymbol{r}(t)|=C$ for all $t\in I$?
 
-\textit{Ans:} It means $\boldsymbol{r}(t)$ traces out a curve on surface of a sphere.
+
+\newpage
+\section{2026-10-26 | Week 10 | Lecture 26}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Question:} How do we quantify how curvy or straight a
+      curve is?}
+
+    \textit{\textbf{Reading assignment:} Chapter 13.4}
+  \end{tcolorbox}
+\end{center}
+
+\textit{Section 13.3}
+Recall the \demph{unit tangent vector} of a parametrized curve $\mathbf{r}(t)$ is the vector
+\begin{equation*}
+  \mathbf{T}(t) = \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
+\end{equation*}
+In other words, $\mathbf{T}$ is the normalized velocity.
+
+
+The \textbf{curvature} of a curve at a point is a nonnegative number which measures how quickly the the curve
+changes direction at that point. Essentially, it works like this
+\begin{itemize}
+  \item straight line = zero curvature
+  \item wide turns = low curvature
+  \item sharp turns = high curvature
+\end{itemize}
+The direction is given by $\mathbf{T}(t)$. When a curve is fairly straight, $\mathbf{T}(t)$ shouldn't change
+much over time. But it should change direction quickly when the curve bends or twists sharply.
+
+
+There is a complication: the rate that $\mathbf{T}(t)$ changes depends on
+the speed of the particle. If you speed up the particle, then
+$\mathbf{T}(t)$ may change faster, even when tracing out the same curve.
+Therefore, what we want is \textit{not} the rate of change of $\mathbf{T}$
+with respect to \textit{time}, but rather with respect to \textit{distance
+  traveled}.
+
+
+The \demph{arc length function} is defined as
+\begin{equation*}
+  s(t) = \int_{a}^{t}|\mathbf{r}'(u)| du.
+\end{equation*}
+for $t \geq a$, and where $a$ is determined by the starting point of the
+particle.
+
+
+Thus we define \demph{curvature} to be
+\begin{equation*}
+  \kappa = \left| \frac{d\mathbf{T}}{ds} \right|
+\end{equation*}
+where $s$ is the arc length function.
+
+
+\fl{Question:} How do we compute $\kappa$?
+
+By the chain rule,
+\begin{equation*}
+  \frac{d\mathbf{T}}{dt} = \frac{d\mathbf{T}}{ds} \frac{ds}{dt}.
+\end{equation*}
+Changing notation,
+\begin{equation*}
+  \mathbf{T}'(t) = \frac{d\mathbf{T}}{ds}s'(t).
+\end{equation*}
+Rearranging gives
+\begin{equation*}
+  \frac{d\mathbf{T}}{ds} = \frac{1}{s'(t)} \mathbf{T}'(t)
+\end{equation*}
+By the fundamental theorem of calculus,
+$s'(t) = |\mathbf{r}'(t)|$. Hence
+\begin{equation*}
+  \frac{d\mathbf{T}}{ds} = \frac{\mathbf{T}'(t)}{|\mathbf{r}'(t)|}
+\end{equation*}
+Taking absolute valus of both sides gives the following important \textbf{curvature formula:}
+\begin{equation}\label{eq:curvature-formula}
+  \boxed{\kappa(t) = \frac{|\mathbf{T}'(t)|}{|\mathbf{r}'(t)|}}
+\end{equation}
+
+\begin{example}[Curvature of a line]
+  \label{ex:curvature-line}
+
+  Consider a line in $\R^{3}$ with vector form
+  \begin{equation*}
+    \mathbf{r}(t)
+    =
+    \begin{bmatrix}
+      v_{1}\\v_{2}\\v_{3}
+    \end{bmatrix}
+    t
+    +
+    \begin{bmatrix}
+      x_{0}\\y_{0}\\z_{0},
+    \end{bmatrix},
+    \qquad
+    -\infty<t<\infty.
+  \end{equation*}
+  where $v_{1},v_{2},v_{3},x_{0},y_{0},z_{0}\in \R$ are fixed real numbers.
+
+  \fl{Question:} What is the curvature of the line?
+
+  We want to apply \cref{eq:curvature-formula}. Let $\mathbf{v} =
+  \left\langle v_{1},v_{2},v_{3} \right\rangle$. Since
+  $\mathbf{r}'(t)=\mathbf{v}$, we have
+  \begin{equation*}
+    \mathbf{T}(t) = \frac{\mathbf{v}}{|\mathbf{v}|} = \left\langle \frac{v_{1}}{|\mathbf{v}|}, \frac{v_{2}}{|\mathbf{v}|}, \frac{v_{3}}{|\mathbf{v}|}  \right\rangle .
+  \end{equation*}
+  Note that the right-hand side does not depend on $t$. Therefore
+  \begin{equation*}
+    \mathbf{T}'(t) = \left\langle 0,0,0 \right\rangle, \qquad \text{so} \qquad
+    |\mathbf{T}'(t)| = 0 \text{ for all }t.
+  \end{equation*}
+  Therefore by \cref{eq:curvature-formula},
+  \begin{equation*}
+    \kappa(t)  = 0, \qquad \text{for all }t\in [0,2\pi].
+  \end{equation*}
+ 
+  This makes sense: a straight line never changes direction. So of course under any reasonable definition
+  of ``curvature'', the curvature of a straight line should always be zero.
+\end{example}
+
+
+\begin{example}[Curvature of a circle]
+  \label{ex:curvature-circle}
+  Consider a circle of radius $a>0$. We can parametrized this with
+  \begin{equation*}
+    \mathbf{r}(t) =
+    \begin{bmatrix}
+      a\cos(t)\\
+      a\sin(t)
+    \end{bmatrix},
+    \qquad 0 \leq t \leq 2\pi.
+  \end{equation*}
+  What ``should'' the curvature be? It should be
+  \begin{itemize}
+    \item constant
+    \item inversely related to $a$
+  \end{itemize}
+  Indeed, using \cref{eq:curvature-formula} to compute the curvature gives
+  \begin{equation*}
+    \kappa(t) = \frac{1}{a} \quad \text{for all } t\in [0,2\pi].
+  \end{equation*}
+  [Do this calculation. For an alternative expanation, see page 784 of the
+  textbook.]
+\end{example}
+
+\end{document}
+\newpage
+\section{2026-10-28 | Week 10 | Lecture 27}
+
+\begin{proposition}[A very useful formula for curvature]
+  \label{prop:very-useful-formula-for-curvature}
+  \begin{equation*}
+    \kappa(t) = \frac{|\mathbf{r}'(t)\times \mathbf{r}''(t)|}{|\mathbf{r}'(t)|^{3}}
+  \end{equation*}
+\end{proposition}
+
+
+\begin{example}[twisted cubic curvature]
+  \label{ex:twisted-cubic-curvature}
+  Let
+  \begin{equation*}
+    \mathbf{r}(t) = \left\langle 2t,t^{2},\frac{1}{3}t^{3} \right\rangle, \qquad -\infty<t<\infty.
+  \end{equation*}
+  This is an example of a twisted cubic, which we saw in
+  \cref{ex:twisted-cubic}. Recall this has plot
+  
+  \begin{center}
+    \includegraphics[scale=0.4]{images/ex}
+  \end{center}
+  From this picture, we might reasonably conclude that the curvature should be high near the origin (when
+  $t$ is near zero) and then it should be low far away from the origin (when $t$ is large) because there
+  the graph appears to straighten out. Let's try to compute the curvature:
+
+  We already showed that
+  \begin{equation*}
+    \mathbf{r}'(t) = \left\langle 2,2t,t^{2} \right\rangle 
+  \end{equation*}
+  and so
+  \begin{equation*}
+    |\mathbf{r}'(t)| = \sqrt{4+4t^{2}+t^{4}} = 2+t^{2}
+  \end{equation*}
+  Therefore the unit tangent vector  (i.e., the normalized velocity of the particle) is
+  \begin{equation*}
+    \mathbf{T}(t) 
+    = \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
+    = \left\langle \frac{2}{2+t^{2}}, \frac{2t}{2+t^{2}}, \frac{t^{2}}{2+t^{2}} \right\rangle.
+  \end{equation*}
+  Using \cref{eq:curvature-formula},
+  \begin{equation*}
+    \kappa(t) = \frac{|\mathbf{T}'(t)|}{|\mathbf{r}'(t)|}
+  \end{equation*}
+  But this is going to be a lot of work to take all those derivatives. So instead, let's use
+  \cref{prop:very-useful-formula-for-curvature}:
+  \begin{equation*}
+    \kappa(t) = \frac{|\mathbf{r}'(t)\times \mathbf{r}''(t)|}{|\mathbf{r}'(t)|^{3}}
+  \end{equation*}
+  \begin{itemize}
+    \item \textit{Numerator:}
+    \begin{equation*}
+      \mathbf{r}'(t)\times \mathbf{r}''(t) 
+      = 
+        \begin{vmatrix}
+          \vec{\imath}&\vec{\jmath}&\vec{k}\\
+          2&2t&t^{2}\\
+          0&2&2t\\
+        \end{vmatrix}
+      =
+        \left\langle 2t^{2},-4t,4 \right\rangle.
+    \end{equation*}
+    And this implies that
+    \begin{equation*}
+      \left| \mathbf{r}'(t)\times \mathbf{r}''(t)  \right| =  \sqrt{4t^{4}+16t^{2}+16} = 2\sqrt{t^{4}+4t^{2}+4} = 2 \sqrt{(t^{2}+2)^{2}}= 2(t^{2}+2)
+    \end{equation*}
+    \item \textit{Denominator:} Since $\mathbf{r}'(t) = \left\langle 2,2t,t^{2} \right\rangle $, we have
+    \begin{equation*}
+      |\mathbf{r}'(t)| = \sqrt{4+4t^{2}+t^{4}} = \sqrt{(2+t^{2})^{2}} = t^{2}+2
+    \end{equation*}
+  \end{itemize}
+  Therefore
+  \begin{equation*}
+    \kappa(t)= \frac{2}{(2+t^{2})^{2}}
+  \end{equation*}
+  This is pretty complicated-looking function, but when we graph $\kappa(t)$, we see that it's actually really simple:
+  \begin{center}
+    \includegraphics[scale=0.3]{images/my-twisted-cubic-curvature}
+  \end{center}
+  As we expected, the curvature has a bump near zero, and then asymptotically approaches zero as
+  $|t|\to \infty$.
+\end{example}
+
+\newpage
+
+\subsection{Curves on the surface of a ball}
+
+
+\fl{Question:} What does it mean for $|\mathbf{r}(t)|=C$ for all $t\in I$?
+
+\textit{Ans:} It means $\mathbf{r}(t)$ traces out a curve on surface of a sphere.
 
 \begin{theorem}
   If $\boldsymbol{r}$ is a differentiable vector function of $t$, and
@@ -4692,209 +4928,9 @@ As in \cref{def:smooth}, this condition excludes corners and cusps.
   
 \end{problem}
 \newpage
-\section{2025-03-05 | Week 8 | Lecture 21}
-\textit{Please read chapter 13, sections 1-4.}
 
+\end{document}
 
-This approach can also handle particles travelling at non-constant velocity, as the next example shows
-
-
-\newpage
-\section{2025-03-07 | Week 8 | Lecture 22}
-\textit{Section 13.3}
-Recall the \demph{unit tangent vector} of a parametrized curve $\vec{r}(t)$ is the vector
-\begin{equation*}
-  \vec{T}(t) = \frac{\vec{r}'(t)}{|\vec{r}\ '(t)|}
-\end{equation*}
-It's what you get when you normalize the velocity. 
-
-The \textbf{curvature} of a curve at a point is a nonnegative number which measures how quickly the the curve
-changes direction at that point. Essentially, it works like this
-\begin{itemize}
-  \item straight line = zero curvature
-  \item wide turns = low curvature
-  \item sharp turns = high curvature
-\end{itemize}
-The direction is given by $\vec{T}(t)$. When a curve is fairly straight, $\vec{T}(t)$ shouldn't change
-much over time. But it should change direction quickly when the curve bends or twists sharply.
-
-To be precise, we define \demph{curvature} to be
-\begin{equation*}
-  \kappa = \left| \frac{d\vec{T}}{ds} \right|
-\end{equation*}
-where $T$ is the unit tangent vector, and $s$ is the arc length function.
-
-By the chain rule,
-\begin{equation*}
-  \frac{d\vec{T}}{dt} = \frac{d\vec{T}}{ds} \frac{ds}{dt}
-\end{equation*}
-or on other words
-\begin{equation*}
-  T'(t) = \frac{d\vec{T}}{ds}s'(t).
-\end{equation*}
-Rearranging this, we get:
-\begin{equation*}
-  \frac{d\vec{T}}{ds} = \frac{1}{s'(t)} T'(t)
-\end{equation*}
-Next, recall that $\frac{ds}{dt} = s'(t) = |\vec{r}\ '(t)|$. This gives
-\begin{equation*}
-  \frac{d\vec{T}}{ds} = \frac{T'(t)}{|r'(t)|}
-\end{equation*}
-Taking absolute valus of both sides gives the following important \textbf{curvature formula:}
-\begin{equation}\label{eq:curvature-formula}
-  \boxed{\kappa(t) = \frac{|T'(t)|}{|r'(t)|}}
-\end{equation}
-
-\begin{example}[Curvature of a line]
-  \label{ex:curvature-line}
-
-  Consider a line in 3d space. This takes the form
-  \begin{equation*}
-    r(t) = vt+p
-  \end{equation*}
-  We can write out the above equation as:
-  \begin{equation*}
-    \begin{bmatrix}
-      x\\y\\z
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-      v_{1}\\v_{2}\\v_{3}
-    \end{bmatrix}
-    t
-    +
-    \begin{bmatrix}
-      x_{0}\\y_{0}\\z_{0}
-    \end{bmatrix}
-  \end{equation*}
-  where $v= \left\langle v_{1},v_{2},v_{3} \right\rangle $ is a nonzero vector giving the direction of
-  the line, and $p=(x_{0},y_{0},z_{0})$ is a point the line passes through.
-
-  \fl{Question:} What is the curvature of the line?
-
-  We want to apply \cref{eq:curvature-formula}. First observe that 
-  \begin{equation*}
-    r'(t)  = v
-  \end{equation*}
-  Therefore
-  \begin{equation*}
-    T(t) = \frac{v}{|v|} = \left\langle \frac{v_{1}}{|v|}, \frac{v_{2}}{|v|}, \frac{v_{3}}{|v|}  \right\rangle .
-  \end{equation*}
-  This does not depend on $t$. Therefore
-  \begin{equation*}
-    T'(t) = \left\langle 0,0,0 \right\rangle 
-  \end{equation*}
-  Therefore by \cref{eq:curvature-formula},
-  \begin{equation*}
-    \kappa(t)  = 0
-  \end{equation*}
-  for all $t$.
-
-  This makes sense: a straight line never changes direction. So of course under any reasonable definition
-  of ``curvature'', the curvature of a straight line should be zero.
-\end{example}
-
-
-\begin{example}[Curvature of a circle]
-  \label{ex:curvature-circle}
-  Consider a circle of radius $a>0$. We can parametrized this with
-  \begin{equation*}
-    \vec{r}(t) = \left( a\cos(t),a\sin(t) \right) 
-  \end{equation*}
-  What ``should'' the curvature be? It should be
-  \begin{itemize}
-    \item constant
-    \item inversely related to $a$
-  \end{itemize}
-  Indeed, we can compute this and we get $\kappa(t) = \frac{1}{a}$ for all $t$. See example 3 on page 904
-  of the text.
-\end{example}
-
-
-
-
-\begin{proposition}[A very useful formula for curvature]
-  \label{prop:very-useful-formula-for-curvature}
-  \begin{equation*}
-    \kappa(t) = \frac{|r'(t)\times r''(t)|}{|r'(t)|^{3}}
-  \end{equation*}
-\end{proposition}
-
-
-\begin{example}[twisted cubic curvature]
-  \label{ex:twisted-cubic-curvature}
-  Let
-  \begin{equation*}
-    \vec{r}(t) = \left\langle 2t,t^{2},\frac{1}{3}t^{3} \right\rangle,
-  \end{equation*}
-  for $-\infty<t<\infty$. This is an example of a twisted cubic, which we saw in \cref{ex:twisted-cubic}.
-  Recall this has plot
-  
-  \begin{center}
-    \includegraphics[scale=0.4]{images/ex}
-  \end{center}
-  From this picture, we might reasonably conclude that the curvature should be high near the origin (when
-  $t$ is near zero) and then it should be low far away from the origin (when $t$ is large) because there
-  the graph appears to straighten out. Let's try to compute the curvature:
-
-  We already showed that
-  \begin{equation*}
-    r'(t) = \left\langle 2,2t,t^{2} \right\rangle 
-  \end{equation*}
-  and so
-  \begin{equation*}
-    |r'(t)| = \sqrt{4+4t^{2}+t^{4}} = 2+t^{2}
-  \end{equation*}
-  Therefore the unit tangent vector  (i.e., the normalized velocity of the particle) is
-  \begin{align*}
-    T(t) 
-    &= \frac{r'(t)}{|r'(t)|}\\
-    &= \left\langle \frac{2}{2+t^{2}}, \frac{2t}{2+t^{2}}, \frac{t^{2}}{2+t^{2}} \right\rangle 
-  \end{align*}
-  Using \cref{eq:curvature-formula},
-  \begin{equation*}
-    \kappa(t) = \frac{|T'(t)|}{|r'(t)|}
-  \end{equation*}
-  But this is going to be a lot of work to take all those derivatives. So instead, let's use
-  \cref{prop:very-useful-formula-for-curvature}, which says that
-  \begin{equation*}
-    \kappa(t) = \frac{|r'(t)\times r''(t)|}{|r'(t)|^{3}}
-  \end{equation*}
-  \begin{itemize}
-    \item Numerator
-    \begin{align*}
-      r'(t)\times r''(t) 
-      &= 
-        \begin{vmatrix}
-          \vec{\imath}&\vec{\jmath}&\vec{k}\\
-          2&2t&t^{2}\\
-          0&2&2t\\
-        \end{vmatrix}\\
-      &=
-        \left\langle 2t^{2},-4t,4 \right\rangle 
-    \end{align*}
-    And this implies that
-    \begin{equation*}
-      \left| r'(t)\times r''(t)  \right| =  \sqrt{4t^{4}+16t^{2}+16} = 2\sqrt{t^{4}+4t^{2}+4} = 2 \sqrt{(t^{2}+2)^{2}}= 2(t^{2}+2)
-    \end{equation*}
-    \item Denominator. Since $r'(t) = \left\langle 2,2t,t^{2} \right\rangle $, we have
-    \begin{equation*}
-      |r'(t)| = \sqrt{4+4t^{2}+t^{4}} = \sqrt{(2+t^{2})^{2}} = t^{2}+2
-    \end{equation*}
-  \end{itemize}
-  Therefore
-  \begin{equation*}
-    \kappa(t)= \frac{2}{(2+t^{2})^{2}}
-  \end{equation*}
-  This is pretty complicated-looking function, but when we graph $\kappa(t)$, we see that it's actually really simple:
-  \begin{center}
-    \includegraphics[scale=0.3]{images/my-twisted-cubic-curvature}
-  \end{center}
-  As we expected, the curvature has a bump near zero, and then asymptotically approaches zero as
-  $|t|\to \infty$.
-\end{example}
-
-\newpage
 
 \section{2025-03-10 | Week 9 | Lecture 23}
 
@@ -4905,33 +4941,33 @@ The next proposition summarizes an important geometric fact
   Suppose $C$ is any curve on the surface of a sphere in 3d space. The sphere has some radius $c>0$,
   which is a constant. Suppose $C$ is parameterized by the vector function
   \begin{equation*}
-    \vec{r}(t) =
+    \boldsymbol{r}(t) =
     \begin{bmatrix}
       x(t)\\y(t)\\z(t)
     \end{bmatrix}
   \end{equation*}
   for $t\in (-\infty,\infty)$.
 
-  \textbf{Claim:} $\vec{r}'(t)$ and $\vec{r}(t)$ are orthogonal.
+  \textbf{Claim:} $\mathbf{r}'(t)$ and $\mathbf{r}(t)$ are orthogonal.
 
   Why?
 
   Observe that
   \begin{equation*}
-    \vec{r}(t)\cdot \vec{r}(t)= |\vec{r}(t)|^{2} = c^{2}
+    \mathbf{r}(t)\cdot \mathbf{r}(t)= |\mathbf{r}(t)|^{2} = c^{2}
   \end{equation*}
-  Differentiate both sides and use the chain rule. You get that $\vec{r}\ '(t)\cdot \vec{r}(t)=0$, which
+  Differentiate both sides and use the chain rule. You get that $\mathbf{r}\ '(t)\cdot \mathbf{r}(t)=0$, which
   implies the two vectors are orthogonal
 \end{proposition}
 
 The direction that a curve is turning is given by the \demph{principal unit normal vector $N(t)$},
 defined as
 \begin{equation*}
-  \vec{N}(t) = \frac{\vec{T}'(t)}{|\vec{T}'(t)|}
+  \mathbf{N}(t) = \frac{\mathbf{T}'(t)}{|\mathbf{T}'(t)|}
 \end{equation*}
 
 This vector is normal to $T(t).$ This is because $T(t)$ is a vector on the unit sphere and therefore is
-perpendicular to its derivative, $\vec{T}'(t)$. 
+perpendicular to its derivative, $\mathbf{T}'(t)$. 
 
 
 \subsection{Motion in space: velocity and acceleration}
@@ -4999,17 +5035,17 @@ perpendicular to its derivative, $\vec{T}'(t)$.
 
 We want to do the same thing in 3 dimensions. We will use the vector equations
 \begin{equation*}
-  \vec{r}(t) 
-  = \vec{r}(t_{0}) + \int_{t_{0}}^{t}\vec{v}(u)du
+  \mathbf{r}(t) 
+  = \mathbf{r}(t_{0}) + \int_{t_{0}}^{t}\mathbf{v}(u)du
   \quad \text{and} \quad
-  \vec{v}(t) 
-  = \vec{v}(t_{0}) + \int_{t_{0}}^{t}a(u)du  
+  \mathbf{v}(t) 
+  = \mathbf{v}(t_{0}) + \int_{t_{0}}^{t}a(u)du  
 \end{equation*}
 or equivalently,
 \begin{equation*}
-  \vec{r}\ '(t) = \vec{v}(t)
+  \mathbf{r}\ '(t) = \mathbf{v}(t)
   \quad \text{and} \quad 
-  \vec{v}\ '(t) = \vec{a}(t)
+  \mathbf{v}\ '(t) = \mathbf{a}(t)
 \end{equation*}
 \begin{example}
   Find the velocity, acceleration,  and speed of a particle with position vector $r(t) = \left\langle
@@ -5025,11 +5061,11 @@ or equivalently,
 Next example will require the \demph{Netwon's Second Law:} If a force $F(t)$ acts on an object of mass
 $m$ producing an acceleration $a(t)$, then
 \begin{equation*}
-  \vec{F}(t) = m\vec{a}(t)
+  \mathbf{F}(t) = m\mathbf{a}(t)
 \end{equation*}
 
 \begin{example}
-  A cannon is fired with initial velocity $\vec{v}_{0} = \left\langle 100 \sqrt{3},100 \right\rangle$.
+  A cannon is fired with initial velocity $\mathbf{v}_{0} = \left\langle 100 \sqrt{3},100 \right\rangle$.
   This corresponds to being fired at an intial angle of elevation $\theta=\frac{\pi}{6}$ with the
   cannonball traveling at an initial speed of 200 meters per second. Assume the canonball is fired from
   an elevation of 3 meters.
@@ -5055,7 +5091,7 @@ $m$ producing an acceleration $a(t)$, then
   Therefore
   \begin{align*}
     v(t) 
-    &= \vec{v}(0) + \int_{0}^{t} a(u)du\\
+    &= \mathbf{v}(0) + \int_{0}^{t} a(u)du\\
     &= \left\langle 100 \sqrt{3},100 \right\rangle + \left\langle 0,-g t \right\rangle\\  
     &= \left\langle 100 \sqrt{3}, 100-gt \right\rangle 
   \end{align*}
