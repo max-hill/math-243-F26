@@ -34,7 +34,7 @@
 \usepackage[capitalize]{cleveref}
 \usepackage[shortlabels]{enumitem}
 \usetikzlibrary{arrows,matrix,positioning}
-\usetikzlibrary{arrows.meta,calc}
+\usetikzlibrary{arrows.meta,calc,angles}
 
 % for the pipe symbol
 \usepackage[T1]{fontenc}
@@ -175,8 +175,6 @@
     \def\]{\right ]}
 
 
-
-
 \title{Lecture Notes for Math 243: \\ Calculus III}
 \date{Last updated: \today}
 % \author{mh}
@@ -289,19 +287,18 @@ In other words, the derivative is obtained by computing
 \end{equation*}
 as $\Delta x \to  0$.
 
-
 One of the central ideas in calculus is to approximate curvy things with flat things. For example, if
 faced with a curve, approximate it with straight lines. For example,
 
 
 \fl{Problem:} I am an ant, and I want to travel from $a$ to $b$ by walking on the graph of
-$f(x)$. How far must I walk?
+$f(x)$. How far must I walk? 
 
 \fl{Strategy:} Cheat a little: think of the ant walking in a bunch of straight lines that are pretty
-close to the curve.
+close to the curve. 
 
 \begin{center}
-  \includegraphics[scale =.5]{images/arc-length-justification-tikz}
+  \includegraphics[scale=.5]{images/arc-length-justification-tikz}
 \end{center}
 
 % \usetikzlibrary{arrows.meta,calc}
@@ -2352,6 +2349,7 @@ The integrals of \cref{prop:useful-integrals} can be computed using the
   \end{tcolorbox}
 \end{center}
 
+\subsection{Computing areas enclosed by polar curves}
 
 \begin{theorem}\label{thm:polar-area-theorem}
   If $r=f(\theta)$ and $f$ is a continuous and \textbf{nonnegative} function on the interval $[\alpha,\beta]$, where $0
@@ -4288,7 +4286,7 @@ equation
   \end{tcolorbox}
 \end{center}
 
-
+\subsection{Quadric surfaces}
 \begin{example}[Quadric Form, Special case \#2: Hyperbolic Paraboloid]
   \label{ex:quadric-form-special-case-3:-hyperbolic-paraboloid}
 
@@ -4635,7 +4633,7 @@ As in \cref{def:smooth}, this condition excludes corners and cusps.
     \textit{\textbf{Reading assignment:} Chapter 13.4}
   \end{tcolorbox}
 \end{center}
-
+\subsection{Curvature}
 Recall the \demph{unit tangent vector} of a parametrized curve $\mathbf{r}(t)$ is the vector
 \begin{equation*}
   \mathbf{T}(t) := \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}
@@ -4767,17 +4765,25 @@ Taking absolute valus of both sides gives the following important \textbf{curvat
   [Do this calculation. For an alternative expanation, see page 784 of the
   textbook.]
 \end{example}
-
-\end{document}
 \newpage
 \section{2026-10-28 | Week 10 | Lecture 27}
 
-\begin{proposition}[A very useful formula for curvature]
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} curvature, projectile motion}
+
+    \textit{\textbf{Reading assignment:} 13.2, 13.5}
+  \end{tcolorbox}
+\end{center}
+
+\subsection{A useful curvature formula}
+\begin{proposition}[A useful formula for curvature]
   \label{prop:very-useful-formula-for-curvature}
   \begin{equation*}
     \kappa(t) = \frac{|\mathbf{r}'(t)\times \mathbf{r}''(t)|}{|\mathbf{r}'(t)|^{3}}
   \end{equation*}
 \end{proposition}
+See p.791 of the text for an explanation. 
 
 
 \begin{example}[twisted cubic curvature]
@@ -4853,123 +4859,86 @@ Taking absolute valus of both sides gives the following important \textbf{curvat
   $|t|\to \infty$.
 \end{example}
 
-\newpage
 
-\subsection{Curves on the surface of a ball}
-
-
-\fl{Question:} What does it mean for $|\mathbf{r}(t)|=C$ for all $t\in I$?
-
-\textit{Ans:} It means $\mathbf{r}(t)$ traces out a curve on surface of a sphere.
-
-\begin{theorem}
-  If $\boldsymbol{r}$ is a differentiable vector function of $t$, and
-  $|\boldsymbol{r}(t)|=C$ for all $t\in I$, then 
-  \begin{equation*}
-    \boldsymbol{r}(t)\cdot \boldsymbol{r}'(t)=0, \qquad t\in I.
-  \end{equation*}
-  That is, $\boldsymbol{r}(t)$ and $\boldsymbol{r}'(t)$ are orthogonal.
-\end{theorem}
-\begin{proof}
-  We are given
-  \begin{equation*}
-    |\boldsymbol{r}(t)| = C, \qquad t\in I.
-  \end{equation*}
-  Hence
-  \begin{equation*}
-    \boldsymbol{r}(t)\cdot \boldsymbol{r}(t) = C^{2}, \qquad t\in I.
-  \end{equation*}
-  Differentiate with respect to $t$:
-  \begin{equation*}
-    \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t) + \boldsymbol{r}(t)+\boldsymbol{r}'(t) = 0.
-  \end{equation*}
-  Since $u\cdot v= v\cdot u$,
-  \begin{equation*}
-    2 \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t)=0.
-  \end{equation*}
-\end{proof}
+% \subsection{Curves on the surface of a ball}
 
 
-\begin{problem}
-  Find the unit tangent vector of
-  \begin{equation*}
-    \boldsymbol{r}(t) = \left\langle 1+3\cos(t), 3\sin(t), t^{2} \right\rangle, \qquad t\in I.
-  \end{equation*}
+% \fl{Question:} What does it mean for $|\mathbf{r}(t)|=C$ for all $t\in I$?
+
+% \textit{Ans:} It means $\mathbf{r}(t)$ traces out a curve on surface of a
+% sphere. [draw a picture]
+
+% \begin{theorem}
+%   If $\boldsymbol{r}$ is a differentiable vector function of $t$, and
+%   $|\boldsymbol{r}(t)|=C$ for all $t\in I$, then 
+%   \begin{equation*}
+%     \boldsymbol{r}(t)\cdot \boldsymbol{r}'(t)=0, \qquad t\in I.
+%   \end{equation*}
+%   That is, $\boldsymbol{r}(t)$ and $\boldsymbol{r}'(t)$ are orthogonal.
+% \end{theorem}
+% \begin{proof}
+%   We are given
+%   \begin{equation*}
+%     |\boldsymbol{r}(t)| = C, \qquad t\in I.
+%   \end{equation*}
+%   Hence
+%   \begin{equation*}
+%     \boldsymbol{r}(t)\cdot \boldsymbol{r}(t) = |\boldsymbol{r}|^{2} = C^{2}, \qquad t\in I.
+%   \end{equation*}
+%   Differentiate with respect to $t$:
+%   \begin{equation*}
+%     \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t) + \boldsymbol{r}(t)+\boldsymbol{r}'(t) = 0.
+%   \end{equation*}
+%   Since $u\cdot v= v\cdot u$,
+%   \begin{equation*}
+%     2 \boldsymbol{r}'(t)\cdot \boldsymbol{r}(t)=0.
+%   \end{equation*}
+% \end{proof}
 
 
-  \textit{Solution:} Direct computation gives
-  \begin{equation*}
-    \boldsymbol{v}(t) = \boldsymbol{r}'(t) = \left\langle -3\sin(t), 3\cos(t), 2t \right\rangle, \qquad
-    |\boldsymbol{v}(t)| = \sqrt{9+t^{2}}.
-  \end{equation*}
-  Hence
-  \begin{equation*}
-    \boldsymbol{T}(t) = \left\langle \frac{-3\sin(t)}{\sqrt{9+t^{2}}}, \frac{3\cos(t)}{\sqrt{9+t^{2}}}, \frac{2t}{\sqrt{9+t^{2}}} \right\rangle 
-  \end{equation*}
-\end{problem}
+% \begin{problem}
+%   Find the unit tangent vector of
+%   \begin{equation*}
+%     \boldsymbol{r}(t) = \left\langle 1+3\cos(t), 3\sin(t), t^{2} \right\rangle, \qquad t\in I.
+%   \end{equation*}
 
 
-\begin{problem}
-  Find the arc length of
-  \begin{equation*}
-    \boldsymbol{r}(t) = \left\langle 1,t^{2},t^{3} \right\rangle, \qquad 0 \leq t \leq 9
-  \end{equation*}
+%   \textit{Solution:} Direct computation gives
+%   \begin{equation*}
+%     \boldsymbol{v}(t) = \boldsymbol{r}'(t) = \left\langle -3\sin(t), 3\cos(t), 2t \right\rangle, \qquad
+%     |\boldsymbol{v}(t)| = \sqrt{9+t^{2}}.
+%   \end{equation*}
+%   Hence
+%   \begin{equation*}
+%     \boldsymbol{T}(t) = \left\langle \frac{-3\sin(t)}{\sqrt{9+t^{2}}}, \frac{3\cos(t)}{\sqrt{9+t^{2}}}, \frac{2t}{\sqrt{9+t^{2}}} \right\rangle 
+%   \end{equation*}
+% \end{problem}
 
-  \textit{Solution:} Direct computation gives
-  \begin{equation*}
-    \boldsymbol{r}'(t) = \left\langle 0,2t,3t^{2} \right\rangle, \qquad |\boldsymbol{r}'(t)| = t \sqrt{4+9t^{2}}.
-  \end{equation*}
-  Hence
-  \begin{equation*}
-    \text{(Arc length)} = \int_{0}^{9} t \sqrt{4+9t^{2}}dt,
-  \end{equation*}
-  and doing a $u$-sub gives an answer of about $734.7$.
+
+% \begin{problem}
+%   Find the arc length of
+%   \begin{equation*}
+%     \boldsymbol{r}(t) = \left\langle 1,t^{2},t^{3} \right\rangle, \qquad 0 \leq t \leq 9
+%   \end{equation*}
+
+%   \textit{Solution:} Direct computation gives
+%   \begin{equation*}
+%     \boldsymbol{r}'(t) = \left\langle 0,2t,3t^{2} \right\rangle, \qquad |\boldsymbol{r}'(t)| = t \sqrt{4+9t^{2}}.
+%   \end{equation*}
+%   Hence
+%   \begin{equation*}
+%     \text{(Arc length)} = \int_{0}^{9} t \sqrt{4+9t^{2}}dt,
+%   \end{equation*}
+%   and doing a $u$-sub gives an answer of about $734.7$.
   
-\end{problem}
-\newpage
-
-\end{document}
+% \end{problem}
+% \newpage
 
 
-\section{2025-03-10 | Week 9 | Lecture 23}
+\subsection{Motion in space: velocity, acceleration, projectile motion}
 
 
-The next proposition summarizes an important geometric fact
 
-\begin{proposition}
-  Suppose $C$ is any curve on the surface of a sphere in 3d space. The sphere has some radius $c>0$,
-  which is a constant. Suppose $C$ is parameterized by the vector function
-  \begin{equation*}
-    \boldsymbol{r}(t) =
-    \begin{bmatrix}
-      x(t)\\y(t)\\z(t)
-    \end{bmatrix}
-  \end{equation*}
-  for $t\in (-\infty,\infty)$.
-
-  \textbf{Claim:} $\mathbf{r}'(t)$ and $\mathbf{r}(t)$ are orthogonal.
-
-  Why?
-
-  Observe that
-  \begin{equation*}
-    \mathbf{r}(t)\cdot \mathbf{r}(t)= |\mathbf{r}(t)|^{2} = c^{2}
-  \end{equation*}
-  Differentiate both sides and use the chain rule. You get that $\mathbf{r}\ '(t)\cdot \mathbf{r}(t)=0$, which
-  implies the two vectors are orthogonal
-\end{proposition}
-
-The direction that a curve is turning is given by the \demph{principal unit normal vector $N(t)$},
-defined as
-\begin{equation*}
-  \mathbf{N}(t) = \frac{\mathbf{T}'(t)}{|\mathbf{T}'(t)|}
-\end{equation*}
-
-This vector is normal to $T(t).$ This is because $T(t)$ is a vector on the unit sphere and therefore is
-perpendicular to its derivative, $\mathbf{T}'(t)$. 
-
-
-\subsection{Motion in space: velocity and acceleration}
 \begin{example}
   A stone  is dropped form a $1600$ foot high building.
   \begin{enumerate}[(a)]
@@ -5057,17 +5026,53 @@ or equivalently,
   \right\rangle$. Find its velocity and position at time $t$.
 \end{example}
 
-Next example will require the \demph{Netwon's Second Law:} If a force $F(t)$ acts on an object of mass
-$m$ producing an acceleration $a(t)$, then
-\begin{equation*}
-  \mathbf{F}(t) = m\mathbf{a}(t)
-\end{equation*}
+\newpage
+
+\section{2026-10-30 | Week 10 | Lecture 28}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Projectile Motion}
+
+    \textit{\textbf{Reading assignment:} 11.2, 14.1, 14.2}
+  \end{tcolorbox}
+\end{center}
+
+% Next example will require the \demph{Netwon's Second Law:} If a force $F(t)$ acts on an object of mass
+% $m$ producing an acceleration $a(t)$, then
+% \begin{equation*}
+%   \mathbf{F}(t) = m\mathbf{a}(t)
+% \end{equation*}
+% Recall force is measured in Newtons (meter per second squared, think stick of
+% butter).
 
 \begin{example}
-  A cannon is fired with initial velocity $\mathbf{v}_{0} = \left\langle 100 \sqrt{3},100 \right\rangle$.
+  A cannon is fired with initial velocity
+  \begin{equation*}
+    \mathbf{v}_{0} = \left\langle 100 \sqrt{3},100 \right\rangle.
+  \end{equation*}
   This corresponds to being fired at an intial angle of elevation $\theta=\frac{\pi}{6}$ with the
-  cannonball traveling at an initial speed of 200 meters per second. Assume the canonball is fired from
-  an elevation of 3 meters.
+  cannonball traveling at an initial speed of 200 meters per second.
+
+  \begin{center}
+    \begin{tikzpicture}[>=stealth]
+      \draw[->] (0,0) -- (5,0) node[right] {$x$};
+      \draw[->] (0,0) -- (0,3) node[above] {$y$};
+
+      \draw[->,thick] (0,0) -- ({2*sqrt(3)},2)
+      node[above] {$\mathbf{v}_0=\langle100\sqrt{3},100\rangle$};
+
+      \draw (1,0) arc (0:30:1);
+      \node at (1.7,0.35) {$\theta=\frac{\pi}{6}$};
+    \end{tikzpicture}
+  \end{center}
+  
+  Assume the canonball is fired from
+  an elevation of 3 meters, and that downward acceleration due to gravity is
+  \begin{equation*}
+    \mathbf{a}(t) = \left\langle 0,-g \right\rangle,
+  \end{equation*}
+  where $g= 9.8 \mathtt{m/s^{2}}$. 
 
   \textbf{Some questions}
   \begin{itemize}
@@ -5078,32 +5083,27 @@ $m$ producing an acceleration $a(t)$, then
   \end{itemize}
 
   \textbf{Solution:}
-  We have downard force of gravity
-  \begin{equation*}
-    F = ma = \left\langle 0,-mg \right\rangle 
-  \end{equation*}
-  where $g=|a| \approx 9.8 m/s^{2}$
-  So
-  \begin{equation*}
-    a(t) = \left\langle 0,-g \right\rangle 
-  \end{equation*}
-  Therefore
+  % By Newton's Second Law, the downard force of gravity is
+  % \begin{equation*}
+  %   \mathbf{F} = m\mathbf{a} = \left\langle 0,-mg \right\rangle.
+  % \end{equation*}
+  % Therefore
+  Let $\mathbf{v}(t)$ be the velocity of the cannonball at time $t$. Then
   \begin{align*}
-    v(t) 
-    &= \mathbf{v}(0) + \int_{0}^{t} a(u)du\\
+    \mathbf{v}(t) 
+    &= \mathbf{v}(0) + \int_{0}^{t} \mathbf{a}(u)du\\
     &= \left\langle 100 \sqrt{3},100 \right\rangle + \left\langle 0,-g t \right\rangle\\  
-    &= \left\langle 100 \sqrt{3}, 100-gt \right\rangle 
+    &= \left\langle 100 \sqrt{3}, 100-gt \right\rangle.
   \end{align*}
-  Integrating again to get position,
+  Let $\mathbf{r}(t)$ be the cannonball's position at time $t$. Then
   \begin{align*}
-    r(t) 
-    &= r(0)+\int_{0}^{t} v(u)du\\ 
+    \mathbf{r}(t) 
+    &= \mathbf{r}(0)+\int_{0}^{t} \mathbf{v}(u)du\\ 
     &= \left\langle 0,3 \right\rangle  + \left\langle \int_{0}^{t}100 \sqrt{3} dt, \int_{0}^{t}(100-gt)dt    \right\rangle\\ 
     &= \left\langle 0,3 \right\rangle  + \left\langle 100 \sqrt{3}t, 100t-\frac{1}{2}gt^{2}    \right\rangle\\ 
     &= \left\langle 100 \sqrt{3}t, 3+100t-\frac{1}{2}gt^{2}    \right\rangle\\ 
   \end{align*}
-  Or in other words, taking $g\approx 9.8 m/s^{2}$, the $xy$-coordinates of the cannonball (measured in
-  meters) at time $t$ seconds is given by the parametric equations
+  Plugging in $g= 9.8$, the position at $t$ seconds is 
   \begin{equation}\label{eq:8}
     \left\{ \begin{array}{l@{}l}
         x(t) = 100 \sqrt{3}t \\
@@ -5113,18 +5113,23 @@ $m$ producing an acceleration $a(t)$, then
   The cannonball is airborne as long as $y(t)>0$. To find the time when $y(t)=0$, we need to solve the
   quadratic equation
   \begin{equation*}
-    -4.9t^{2}+ 100 t +3=0
+    -4.9t^{2}+ 100 t +3=0.
   \end{equation*}
-  This has two solutions: $t\approx -0.4$ and $t\approx 20.8$. Since $t=-0.4$
-  doesn't make sense for this problem, we conclude the canonball remains
-  airborne for about $20.8$ seconds. At $t=20.8$, the cannonball hits the
-  ground; when that happens, its $x$-value is
+  This has two solutions:
   \begin{equation*}
-    x(20.8) \approx 3607 \text{ meters}
+    t\approx -0.4, \qquad t\approx 20.8.
   \end{equation*}
-  At that moment, its velocity is
+  Since $t=-0.4$ doesn't make sense for this problem, we ignore it. We
+  conclude the canonball remains airborne for about $20.8$ seconds. At
+  $t=20.8$, it hits the ground; when that happens, its $x$-value is
   \begin{equation*}
-    v(20.8) =
+    x(20.8) \approx 3607 \text{ meters},
+  \end{equation*}
+  which is how far horizontally the cannonball went.
+  
+  At the moment of impact, its velocity is
+  \begin{equation*}
+    \mathbf{v}(20.8) =
     \begin{bmatrix}
       100 \sqrt{3}\\100-9.8(20.8)
     \end{bmatrix}
@@ -5135,7 +5140,7 @@ $m$ producing an acceleration $a(t)$, then
   \end{equation*}
   so its speed is
   \begin{equation*}
-    |v(20.8)| = \sqrt{(100 \sqrt{3})^{2}+ (-103.84)^{2}} \approx 202 m/s
+    |\mathbf{v}(20.8)| = \sqrt{(100 \sqrt{3})^{2}+ (-103.84)^{2}} \approx 202 m/s
   \end{equation*}
   So it's slowed down a lot.
 
@@ -5144,10 +5149,167 @@ $m$ producing an acceleration $a(t)$, then
   \begin{equation*}
     y = -\frac{4.9}{30000}x^{2} + \left( \frac{1}{100 \sqrt{3}} \right)x +3 
   \end{equation*}
-  which is a parabola.
+  which is a parabola. Thus, the cannonball traveled in a parabolic arc:
+
+  \begin{center}
+    \begin{tikzpicture}[x=4cm,y=1cm,>=stealth]
+      \draw[->] (0,0) -- (1.75,0) node[right] {$x$};
+      \draw[->] (0,0) -- (0,3.7) node[above] {$y$};
+
+      \draw[thick,domain=0:1.5435,samples=100,variable=\t]
+      plot (\t,{-4.9/3*\t*\t + \t/sqrt(3) + 3});
+
+      \node[left] at (0,3) {$3$};
+      \draw (1,0.08) -- (1,-0.08) node[below] {$100$};
+    \end{tikzpicture}
+  \end{center}
+  The axes are not to scale.
 \end{example}
+
+\subsection{Functions of several variables}
+\textit{Chapters 14.1, 14.2}
 \newpage
 
+\begin{definition}
+  Suppose $D$ is a set of $n$-tuples of real numbers $(x_{1},\ldots,x_{n})$. A
+  \demph{real-valued function}  $f$ on $D$ is a rule that assigns a real
+  number
+  \begin{equation*}
+    w = f(x_{1},\ldots,x_{n})
+  \end{equation*}
+  to each element in $D$. The set $D$ is the function's \demph{domain}. The
+  set of $w$-values taken on by $f$ is the function's \demph{range}. The
+  symbol $w$ is the \demph{dependent variable} of $f$, and $f$ is said to be a
+  function of the $n$ \demph{indepenedent variables} $x_{1},\ldots,x_{n}$. We
+  also call these the \demph{input variables} and $w$ the \demph{output variable}.
+\end{definition}
+
+Explain interior and boundary points for functions of two variables.
+
+\begin{remark}
+  If $n=2$, we usually call the input variables $x$ and $y$, and the
+  output variable $z$. If $n=3$, we usually call the input variables $x,y,z$ and
+  the output variable $w$.
+\end{remark}
+
+\begin{example}
+  The function
+  \begin{equation*}
+    f(x,y) = \frac{\sqrt{x+y+1}}{x-1}
+  \end{equation*}
+  has domain 
+  \begin{equation*}
+    D = \left\{(x,y)\in \R^{2}: x\neq 1\right\}
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y)= x \log \left( x^{2}-y \right)
+  \end{equation*}
+  What is the domain of $f$?
+  
+  We can find the domain $D$ of $f$ by recalling that $\log(u)$ is defined only for $u>0$. Thus, we
+  require that $x^{2}-y>0$, or $y<x^{2}$. [Plot this].
+\end{example}
+
+\begin{definition}[level curve]
+  Let $f(x,y)$ be a function of two variables. For any constant $k\in \R$, the
+  \demph{k-level curve} of $f$ is the set
+  \begin{equation*}
+    \left\{ (x,y)\in D : f(x,y) = k \right\}.
+  \end{equation*}
+  Often, this traces out a curve in the $xy$-plane.
+\end{definition}
+
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = 100-x^{2}-y^{2}
+  \end{equation*}
+  Consider the level curve with $k=61$:
+
+  \begin{equation*}
+    61=100-x^{2}-y^{2}
+  \end{equation*}
+  or
+  \begin{equation*}
+    x^{2}+y^{2}=49
+  \end{equation*}
+
+  Now do $k=75$ and $k=91$ and $k=0$
+\end{example}
+\section{Limits and Continuity}
+
+How should we define limits and continuity for functions of several variables?
+
+If $P = (p_{1},p_{2}),Q =(q_{1},q_{2})$ are two points, let's denote
+\begin{equation*}
+  \text{dist}(P,Q) = \sqrt{(p_{1}-q_{1})^{2}+(p_{2}-q_{2})^{2}}
+\end{equation*}
+as the \textbf{distance} between $P$ and $Q$.
+
+Intuitively, for a function of two variables, we want to define the limit
+$L = \lim_{(x,y)\to (a,b)}f(x,y)$ as the number which the function value
+$f(x,y)$ approaches as the point $(x,y)$ gets closer and closer to the point
+$(a,b)$.
+
+For a function $g$ of a single variable, we recall a condition involving the
+left and right-hand limits:
+\begin{empheq}[box=\boxmath]{gather*}
+  \lim_{x \to a}g(x) \text{ exists}\\
+  \text{if and only if }\\
+  \lim_{x \to a^{+}}g(x) \text{ and }\lim_{x \to a^{-}}g(x) \text{ exist and are equal}
+\end{empheq}
+
+The issue was that sometimes a function $g(x)$ will approach different values
+depending at a point $a$ on whether $x \to a$ from the left or from the right.
+For example, consider the function
+\begin{equation*}
+  g(x) = \left\{ \begin{array}{l@{\quad:\quad}l} 0 & x< .4 \\2.5 &x \geq .4\end{array}\right.
+\end{equation*}
+which has graph
+\begin{center}
+  \begin{tikzpicture}[scale=1.2]
+    % Axes
+    \draw[->] (-1.5,0) -- (2.5,0) node[right] {$x$};%
+    \draw[-] (-.9,1) -- (-1.1,1)  node[left] {$2.5$};%
+    \draw[->] (-1,-0.5) -- (-1,1.5) node[above] {$y$};%
+
+    % Step function
+    \draw[very thick, blue] (-1.5,0) -- (0,0); %
+    \draw[very thick, blue] (0,1) -- (2.5,1); %
+
+    % Open and closed dots
+    \filldraw[fill=white, draw=blue] (0,0) circle
+    (2pt); % open circle at (0,0)
+    \filldraw[blue] (0,1) circle (2pt); % filled circle at (0,1)
+
+    % Labels
+    \node[below] at (0,0) {$a=.4$};
+  \end{tikzpicture}
+\end{center}
+in this case, in this case, we have
+\begin{equation*}
+  \lim_{x\to 0.4^{-}} g(x) = 0 
+\end{equation*}
+and
+\begin{equation*}
+  \lim_{x \to 0.4^{+}} g(x) = 2.5
+\end{equation*}
+but these are not equal, so
+\begin{equation*}
+  \lim_{x \to 0.4} g(x) \text{ does not exist.} 
+\end{equation*}
+
+Something similar can happen with functions of two variables, but now, instead
+of having only two paths of approach (left and right) we now have infinitely
+many paths by which $(x,y)$ can approach $(a,b)$:
+\begin{center}
+  \includegraphics[scale=0.5]{images/limit-paths}
+\end{center}
 
 
 \end{document}
