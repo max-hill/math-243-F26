@@ -40,6 +40,9 @@ title: Lecture Notes
  2026-10-21  |  quadric surfaces - examples
  2026-10-23  |  vector-valued functions
  2026-10-26  |  curvature
+ 2026-10-28  |  curvature, projectile motion (13.2, 13.5)
+ 2026-10-30  |  projectile motion (13.2, 14.1)
+ 2026-11-02  |  limits and continuity of multivariate function (chp 14.2)
  
 # Other links
 
