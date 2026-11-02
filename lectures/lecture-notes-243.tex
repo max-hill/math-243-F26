@@ -5214,59 +5214,76 @@ Explain interior and boundary points for functions of two variables.
   require that $x^{2}-y>0$, or $y<x^{2}$. [Plot this].
 \end{example}
 
-\begin{definition}[level curve]
-  Let $f(x,y)$ be a function of two variables. For any constant $k\in \R$, the
-  \demph{k-level curve} of $f$ is the set
-  \begin{equation*}
-    \left\{ (x,y)\in D : f(x,y) = k \right\}.
-  \end{equation*}
-  Often, this traces out a curve in the $xy$-plane.
-\end{definition}
+% \begin{definition}[level curve]
+%   Let $f(x,y)$ be a function of two variables. For any constant $k\in \R$, the
+%   \demph{k-level curve} of $f$ is the set
+%   \begin{equation*}
+%     \left\{ (x,y)\in D : f(x,y) = k \right\}.
+%   \end{equation*}
+%   Often, this traces out a curve in the $xy$-plane.
+% \end{definition}
 
 
-\begin{example}
-  Let
-  \begin{equation*}
-    f(x,y) = 100-x^{2}-y^{2}
-  \end{equation*}
-  Consider the level curve with $k=61$:
+% \begin{example}
+%   Let
+%   \begin{equation*}
+%     f(x,y) = 100-x^{2}-y^{2}
+%   \end{equation*}
+%   Consider the level curve with $k=61$:
 
-  \begin{equation*}
-    61=100-x^{2}-y^{2}
-  \end{equation*}
-  or
-  \begin{equation*}
-    x^{2}+y^{2}=49
-  \end{equation*}
+%   \begin{equation*}
+%     61=100-x^{2}-y^{2}
+%   \end{equation*}
+%   or
+%   \begin{equation*}
+%     x^{2}+y^{2}=49
+%   \end{equation*}
 
-  Now do $k=75$ and $k=91$ and $k=0$
-\end{example}
+%   Now do $k=75$ and $k=91$ and $k=0$
+% \end{example}
+\newpage
+\section{2026-11-02 | Week 11 | Lecture 29}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} What does it mean for a
+      real-valued function of two variables $f(x,y)$ to be continuous?}
+
+    \textit{\textbf{Reading assignment:} chapter 14.2}
+  \end{tcolorbox}
+\end{center}
+
 \section{Limits and Continuity}
 
-How should we define limits and continuity for functions of several variables?
+We began with a discussion of what it means for a function of a single
+variable to be continuous or discontinuous, and the ways that such a function
+can be discontinuous (point discontinuity, jump discontinuity, or oscillation).
+% How should we define limits and continuity for functions of several variables?
 
-If $P = (p_{1},p_{2}),Q =(q_{1},q_{2})$ are two points, let's denote
-\begin{equation*}
-  \text{dist}(P,Q) = \sqrt{(p_{1}-q_{1})^{2}+(p_{2}-q_{2})^{2}}
-\end{equation*}
-as the \textbf{distance} between $P$ and $Q$.
+% If $P = (p_{1},p_{2}),Q =(q_{1},q_{2})$ are two points, let's denote
+% \begin{equation*}
+%   \text{dist}(P,Q) = \sqrt{(p_{1}-q_{1})^{2}+(p_{2}-q_{2})^{2}}
+% \end{equation*}
+% as the \textbf{distance} between $P$ and $Q$.
 
-Intuitively, for a function of two variables, we want to define the limit
-$L = \lim_{(x,y)\to (a,b)}f(x,y)$ as the number which the function value
-$f(x,y)$ approaches as the point $(x,y)$ gets closer and closer to the point
-$(a,b)$.
 
-For a function $g$ of a single variable, we recall a condition involving the
-left and right-hand limits:
-\begin{empheq}[box=\boxmath]{gather*}
-  \lim_{x \to a}g(x) \text{ exists}\\
-  \text{if and only if }\\
-  \lim_{x \to a^{+}}g(x) \text{ and }\lim_{x \to a^{-}}g(x) \text{ exist and are equal}
-\end{empheq}
+% For a function $g$ of a single variable, we recall a condition involving the
+% left and right-hand limits:
 
-The issue was that sometimes a function $g(x)$ will approach different values
-depending at a point $a$ on whether $x \to a$ from the left or from the right.
-For example, consider the function
+To be precise, we have the following definition
+\begin{definition}
+  Let $f(x)$ be a real-valued function of a single variable whose domain is
+  $\R$. We say that $f$ is continous at $a$ if and only if
+  \begin{equation*}
+    \lim_{x\to a^{-}} f(x) = \lim_{x\to a^{+}} f(x) = f(a)
+  \end{equation*}
+\end{definition}
+In words, the left- and right-hand limits must agree, and they must equal the
+function value. (Note that it's not obvious how to generalize this definition
+to funcions of multiple variables, but that's our task.)
+
+One issue that can arise is that the left and right-hand limits might not
+agree, such as in the following example:
 \begin{equation*}
   g(x) = \left\{ \begin{array}{l@{\quad:\quad}l} 0 & x< .4 \\2.5 &x \geq .4\end{array}\right.
 \end{equation*}
@@ -5293,23 +5310,352 @@ which has graph
 \end{center}
 in this case, in this case, we have
 \begin{equation*}
-  \lim_{x\to 0.4^{-}} g(x) = 0 
+  \lim_{x\to 0.4^{-}} g(x) = 0 \neq 2.5 = \lim_{x\to 0.4^{+}},
 \end{equation*}
-and
-\begin{equation*}
-  \lim_{x \to 0.4^{+}} g(x) = 2.5
-\end{equation*}
-but these are not equal, so
+and hence
 \begin{equation*}
   \lim_{x \to 0.4} g(x) \text{ does not exist.} 
 \end{equation*}
 
-Something similar can happen with functions of two variables, but now, instead
-of having only two paths of approach (left and right) we now have infinitely
-many paths by which $(x,y)$ can approach $(a,b)$:
-\begin{center}
-  \includegraphics[scale=0.5]{images/limit-paths}
-\end{center}
 
+
+\begin{definition}
+  Let $f(x,y)$ be a real-valued function of two variables with domain, and fix $(a,b)\in \R^{2}$. Consider a sequence of points
+  \begin{equation*}
+    (x_{1},y_{1}), (x_{2},y_{2}), (x_{3},y_{3}),\ldots
+  \end{equation*}
+  in the domain of $f$ such that the points
+  are getting closer to $(a,b)$ in the sense that
+  \begin{equation*}
+    \lim_{n\to\infty}  \text{dist}((x_{n},y_{n}),(a,b)) = 0.
+  \end{equation*}
+  If for every such sequence we have
+  \begin{equation*}
+    \lim_{n\to\infty} f(x_{n},y_{n}) = L,
+  \end{equation*}
+  then we say that \demph{$L$ is the limit of $f(x,y)$ as $(x,y) \to (a,b)$,} and we write
+  \begin{equation*}
+    \lim_{(x,y)\to (a,b)} f(x,y) = L.
+  \end{equation*}
+  
+  On the other hand, if there are two different sequences
+  \begin{equation*}
+    (x_{1},y_{1}),(x_{2},y_{2}),(x_{3},y_{3}),\ldots
+  \end{equation*}
+  and
+  \begin{equation*}
+    (\tilde{x}_{1},\tilde{y}_{1}),(\tilde{x}_{2},\tilde{y}_{2}),(\tilde{x}_{3},\tilde{y}_{3}),\ldots
+  \end{equation*}
+  with
+  \begin{equation*}
+    \lim_{n\to\infty} f(x_{n},y_{n})\neq \lim_{n\to\infty} f(\tilde{x}_{n},\tilde{y}_{n})
+  \end{equation*}
+  then we say that the limit $\lim_{(x,y)\to (a,b)}f(x,y)$ \demph{does not
+    exist (DNE)}.
+\end{definition}
+
+\begin{remark}
+  The above definition is analogous to the limit of a single-variable function not
+  existing if the left and right hand limits don't agree.
+
+  
+  The complication is that, now, instead
+  of having only two paths of approach (left and right) we now have infinitely
+  many paths by which $(x,y)$ can approach $(a,b)$:
+  \begin{center}
+    \includegraphics[scale=0.5]{images/limit-paths}
+  \end{center}
+\end{remark}
+
+
+
+
+It is hard to show that a function of two variables is continous at a point,
+because doing so requires considering all possible paths of approach. So there
+are lots of ways things can go wrong. A classic example:
+
+\begin{example}
+  \label{ex:aaa}
+  Let
+  \begin{equation*}
+    f(x,y) = \frac{x^{2}-y^{2}}{x^{2}+y^{2}}.
+  \end{equation*}
+  Does the limit
+  \begin{equation*}
+    \lim_{(x,y)\to (0,0)}f(x,y) 
+  \end{equation*}
+  exist?
+
+  \Fl{Answer:} No, for the following reason:
+  \begin{itemize}
+    \item Approach along the $x$-axis (i.e., when $y=0$) and you get
+    \begin{equation*}
+      f(x,y) \to 1 \text{ as } (x,y)\to (0,0) \text{ along the $x$-axis}
+    \end{equation*}
+    \item Approach along the $y$-axis, and you get $-1$.
+  \end{itemize}
+  Since these are not equal, the limit does not exist.
+\end{example}
+
+\begin{example}
+  Does the limit
+  \begin{equation*}
+    \lim_{(x,y)\to (0,0)} \frac{xy}{x^{2}+y^{2}}
+  \end{equation*}
+  exist?
+
+  \Fl{No.} Consider the path along the line $y=mx$:
+  \begin{equation*}
+    \lim_{\substack{y=mx\\ x\to 0}} \frac{xy}{x^{2}+y^{2}} =  \lim_{x\to 0} \frac{mx^{2}}{x^{2}+(mx)^{2}} = \frac{m}{1+m^{2}}.
+  \end{equation*}
+  This above limit depends on the the slope $m$ that you pick: if $m=0$ the limit is
+  $10/101$. Therefore the overall limit does not exist.
+\end{example}
+
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = \frac{xy^{2}}{x^{2}+y^{4}}.
+  \end{equation*}
+  Does the limit
+  \begin{equation*}
+    \lim_{(x,y)\to (0,0)}f(x,y)
+  \end{equation*}
+  exist?
+  
+  \Fl{No.} First, let's try approaching along any line $y = mx$. In that case
+  we get
+  \begin{align*}
+    \lim_{\overset{(x,y)\to (0,0)}{y=mx}}f(x,y) 
+    &= \lim_{x \to 0} f(x,mx) \\
+    &= \lim_{x \to 0} \frac{m^{2}x^{3}  }{x^{2}+m^{4}x^{4}} \\
+    &= \lim_{x \to 0} \frac{m^{2}x  }{1+m^{4}x^{2}} \\
+    &= 0
+  \end{align*}
+
+  Then, we try doing along the parabola $x=y^{2}$:
+  \begin{align*}
+    \lim_{\overset{(x,y)\to (0,0)}{x=y^{2}}}f(x,y)
+    &=\lim_{y \to 0}f(y^{2},y)\\
+    &=\lim_{y \to 0}\frac{y^{4}}{y^{4}+y^{4}}\\
+    &=\frac{1}{2}.
+  \end{align*}
+  The limits along the different paths are not equal. Therefore the limit
+  $\lim_{(x,y)\to (0,0)}f(x,y)$ does not exist.
+\end{example}
+
+\end{document}
+\newpage
+
+\begin{example}
+  \begin{equation*}
+    \lim_{(x,y)\to (0,1)} \frac{x-xy+3}{x^{2}y+5xy-y^{3}} = \frac{0 - (0)(1)+3}{(0)^{2}(1)+5(0)(1)-(1)^{3}} = -3 
+  \end{equation*}
+\end{example}
+
+\begin{definition}
+  We say that $f(x,y)$ is \demph{continuous at $(a,b)$} if
+  \begin{equation*}
+    \lim_{(x,y) \to (a,b)}f(x,y)\text{ exists and equals }f(a,b)
+  \end{equation*}
+\end{definition}
+Intuitively, this notion of continuity amounts to the idea that if we perturb
+the point $(a,b)$ by an infinitesimal change in the $x$ and $y$ (call them
+$dx$ and $dy$), then the value of the function changes by at most an
+infinitesmial amount:
+\begin{equation*}
+  f(a+dx, b+dy) \text{ is infinitesimally close to the original point } f(a,b).
+\end{equation*}
+
+
+\begin{example}
+  \label{ex:later}
+  What about the limit as $(x,y)\to (0,0)$ of
+  \begin{equation*}
+    f(x,y) = \frac{3x^{2}y}{x^{2}+y^{2}}
+  \end{equation*}
+  \Fl{Yes.} The limit is zero. We will use the squeeze theorem. First observe that
+  \begin{align*}
+    |f(x,y)|
+    &= \left| \frac{3x^{2}y}{x^{2}+y^{2}} \right|\\
+    &\leq  3|y| \left( \frac{x^{2}}{x^{2}+y^{2}} \right)\\ 
+    &\leq 3|y|\\
+    &\leq 3 \sqrt{x^{2}+y^{2}}\\
+    &= 3 \text{dist}((x,y),(0,0))
+  \end{align*}
+  Therefore, as $(x,y) \to (0,0)$, it follows that $|f(x,y)| \to 0$. This
+  doesn't depend on the path by which $(x,y)$ might approach $(0,0)$. After
+  all, recall what it means for $(x,y) \to (0,0)$; it means that
+  $\text{dist}((x,y),(0,0))\to 0$.
+
+  Since $|f(x,y)| \to 0$ as $(x,y) \to 0$, it follows that $\lim_{(x,y)\to
+    (0,0)} f(x,y) \to 0$ by the squeeze theorem, since
+  \begin{equation*}
+    -|f(x,y)| \leq f(x,y) \leq |f(x,y)|.
+  \end{equation*}
+\end{example}
+
+
+\newpage
+\section{2025-04-02 | Week 11 | Lecture 26}
+\subsection{Continuity}
+ \textit{Section 14.2}
+
+
+A function of two variables $f$ is \demph{continuous at $(a,b)$} if
+\begin{equation*}
+  \lim_{(x,y) \to (a,b)}f(x,y)\text{ exists and equals }f(a,b)
+\end{equation*}
+A function is \demph{continuous} if it is continuous at every point in its
+domain.
+
+Intuitively, this notion of continuity amounts to the idea that if we perturb
+the point $(a,b)$ by an infinitesimal change in the $x$ and $y$ (call them
+$dx$ and $dy$), then the value of the function changes by at most an
+infinitesmial amount:
+\begin{equation*}
+  f(a+dx, b+dy) \text{ is infinitesimally close to the original point } f(a,b).
+\end{equation*}
+
+As a practical matter, if we know that $f$ is continuous at a point $(a,b)$,
+then we can evaluate the limit
+\begin{equation*}
+  \lim_{(x,y)\to (a,b)}f(x,y)
+\end{equation*}
+by simply plugging in $x=a$ and $y=b$. For example,
+
+\begin{example}[Polynomial functions]
+  Let
+  \begin{equation*}
+    f(x,y)=x^{2}y^{3}-x^{3}y^{2}+3x+2y
+  \end{equation*}
+  Suppose we want to know
+  \begin{equation*}
+    \lim_{(x,y)\to (1,2)} f(x,y).
+  \end{equation*}
+
+  \textbf{Fact:} polynomials are always continuous.
+
+  Since $f$ is a polynomial (of two variables, $x$ and $y$), it is continuous.
+  Therefore, we can just plug in $x=1$ and $y=2$ to find the limit:
+  \begin{equation*}
+    \lim_{(x,y)\to (1,2)} f(x,y) =  f(1,2) = 8-4+3+4=11.  
+  \end{equation*}
+  Polynomials of multiple variables are a deep an interesting field of study.
+\end{example}
+
+\Fl{Fact:} We can combine continuous functions together (e.g., by
+adding/subtracting them, multipying/dividing them, and by function
+composition), and the resulting function will be continuous on its domain.
+
+
+\begin{example}[Rational functions]
+  Consider the function
+  \begin{equation*}
+    f(x,y) = \frac{x^{2}-y^{2}}{x^{2}+y^{2}}.
+  \end{equation*}
+  This is an example of a \demph{rational function}, which is a quotient of
+  two polynomials. At what points in the $xy$-plane is the function $f$ continuous?
+  \begin{itemize}
+    \item $f$ is a rational function, and therefore it is continuous at all
+    points on its domain, which is
+    \begin{equation*}
+      D_{f} =  \left\{(x,y)\in \R^{2}: (x,y)\neq (0,0)\right\}
+    \end{equation*}
+    \item $f$ is not defined at $(0,0)$ and is therefore not continuous at
+    that point.
+  \end{itemize}
+
+  What if we modifed $f$ so that it was defined at the point $(0,0)$? That is,
+  consider the function
+  \begin{equation*}
+    g(x,y) 
+    = \left\{ 
+      \begin{array}{l@{\quad:\quad}l} \frac{x^{2}-y^{2}}{x^{2}+y^{2}} & (x,y)\neq (0,0)\\
+        0 & (x,y)=(0,0) \end{array}\right.
+  \end{equation*}
+  In this case, $g$ is \textit{still} not continuous at $(0,0),$ because the
+  limit doesn't exist (we showed this in \cref{ex:aaa}).
+\end{example}
+
+\begin{example}
+  Consider the function
+  \begin{equation*}
+    f(x ,y) = \left\{ \begin{array}{l@{\quad:\quad}l} \frac{3x^{2}y}{x^{2}+y^{2}} & (x,y)\neq (0,0)\\
+        0& (x,y) =(0,0)\end{array}\right.
+  \end{equation*}
+  Is this function continuous?
+  \begin{itemize}
+    \item It is continuous at all points $(x,y)\neq (0,0)$ because it is a
+    rational function there
+    \item At the point $(0,0)$ it is continuous, since we showed in an
+    \cref{ex:later} that
+    \begin{equation*}
+      \lim_{(x,y)\to (0,0)}f(x,y) = 0.
+    \end{equation*}
+  \end{itemize}
+\end{example}
+
+
+
+\begin{example}
+  Does $\lim_{(x,y)\to (0,0)} \frac{xy}{\sin(xy)}$ exist?
+\end{example}
+
+\newpage
+
+\section{2025-04-04 | Week 11 | Lecture 27}
+We left off the last class with the following question posed
+
+\begin{example}
+  Does $\lim_{(x,y)\to (0,0)} \frac{xy}{\sin(xy)}$ exist?
+
+  Recall that
+  \begin{equation*}
+    \lim_{t \to 0} \frac{\sin(t)}{t} = 1
+  \end{equation*}
+
+
+  \fl{Solution:} Use polar. Observe that for any path with $(x,y)\to (0,0)$,
+  we have
+  \begin{equation*}
+    \lim_{(x,y)\to (0,0)}xy = 0.
+  \end{equation*}
+  This is because the function $h(x,y) = xy$ is is a polynomial, and is
+  therefore continuous. Hence, we can do the change of variable $t=xy$:
+  \begin{align*}
+    \lim_{(x,y)\to (0,0)} \frac{xy}{\sin(xy)}
+    &= \lim_{t \to 0} \frac{\sin(t)}{t}\\
+    &=1.
+  \end{align*}
+  We are done. The limit exists.
+  
+\end{example}
+
+\begin{example}
+  Does
+  \begin{equation*}
+    \lim_{(x,y)\to (0,0)} \frac{e^{-x^{2}-y^{2}}-1}{x^{2}+y^{2}}
+  \end{equation*}
+  exist?
+
+  \fl{Solution:} Use polar. Recall that we can convert to polar by writing
+  \begin{equation*}
+    x = r\cos(\theta) \quad \text{and} \quad  y = r\sin(\theta)
+  \end{equation*}
+  so that
+  \begin{equation*}
+    x^{2}+y^{2} = r^{2}.
+  \end{equation*}
+  This gives
+  \begin{align*}
+    \lim_{(x,y)\to (0,0)}\frac{e^{-x^{2}-y^{2}}}{x^{2}+y^{2}} 
+    &= \lim_{r \to 0}\frac{e^{-r^{2}}-1}{r^{2}}\\
+    &= \lim_{u \to 0} \frac{e^{-u}-1}{u}\\
+    &= -1 &&\text{by L'Hopital's rule. }
+\end{align*}
+ 
+\end{example}
 
 \end{document}
