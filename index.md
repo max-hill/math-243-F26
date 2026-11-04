@@ -43,6 +43,7 @@ title: Lecture Notes
  2026-10-28  |  curvature, projectile motion (13.2, 13.5)
  2026-10-30  |  projectile motion (13.2, 14.1)
  2026-11-02  |  limits and continuity of multivariate function (chp 14.2)
+ 2026-11-04  |  limits and continuity of multivariate function (chp 14.2)
  
 # Other links
 
