@@ -17,6 +17,6 @@ permalink: /homework/
 2026-10-28 | [homework-08](hw/homework-08/homework-08.pdf) | 
 2026-11-09 | [homework-09](hw/homework-09/homework-09.pdf) | 
 2026-11-16 | [homework-10](hw/homework-10/homework-10.pdf) | in-class worksheet from last monday
-2026-11-20 | [homework-11](hw/homework-10/homework-11.pdf) | 
+2026-11-20 | [homework-11](hw/homework-11/homework-11.pdf) | 
 
 
