@@ -44,6 +44,9 @@ title: Lecture Notes
  2026-10-30  |  projectile motion (13.2, 14.1)
  2026-11-02  |  limits and continuity of multivariate function (chp 14.2)
  2026-11-04  |  limits and continuity of multivariate function (chp 14.2)
+ 2026-11-06  |  continuity and partial derivatives (14.2, 14.3)
+ 2026-11-09  |  worksheet on partial derivatives
+ 2026-11-13  |  directional derivatives, gradient (14.4, 14.5)
  
 # Other links
 

@@ -5573,7 +5573,14 @@ composition), and the resulting function will be continuous on its domain.
 \end{example}
 
 \newpage
-\end{document}
+\section{2026-11-06 | Week 11 | Lecture 31}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Continuity, partial derivatives}
+
+    \textit{\textbf{Reading assignment:} 14.2, 14.3}
+  \end{tcolorbox}
+\end{center}
 \begin{example}
   Consider the function
   \begin{equation*}
@@ -5642,5 +5649,353 @@ composition), and the resulting function will be continuous on its domain.
 \end{align*}
  
 \end{example}
+
+\begin{example}
+  \begin{equation*}
+    \lim_{(x,y)\to(0,0)} \frac{2xy}{\sqrt{x^{2}+y^{2}}}
+  \end{equation*}
+\end{example}
+
+\subsection{Partial derivatives}
+\textit{Section 14.3}
+
+\begin{definition}[Partial derivatives]
+  Let $f=f(x,y)$ be a function of two variables, called $x$ and $y$.
+  % Let
+  % $(a,b)\in \R^{2}$ be a point in the domain of $f$. The
+  % \demph{partial derivative of $f$ with respect to $x$ at the point $(a,b)$} is
+  % \begin{equation*}
+  %   f_{x}(a,b) :=\lim_{h \to 0}\frac{f(a+h,b)-f(a,b)}{h}.
+  % \end{equation*}
+  % The partial derivative of $f$ with respect to $x$ at $(a,b)$ is
+  % \begin{equation*}
+  %   f_{y}(a,b):=\lim_{h \to 0}\frac{f(a,b+h)-f(a,b)}{h}.
+  % \end{equation*}
+  The \demph{partial derivative of $f$ with respect to the variable $x$} is a
+  function, denoted $f_{x}$, defined by
+  \begin{equation*}
+    f_{x}(x,y) = \lim_{h \to 0} \frac{f(x+h,y)-f(x,y)}{h}
+  \end{equation*}
+  The \demph{partial derivative of $f$ with respect to $y$ } is the function
+  $f_{y}$ defined by
+  \begin{equation*}
+    f_{y}(x,y)= \lim_{h \to 0} \frac{f(x,y+h)-f(x,y)}{h}
+  \end{equation*}
+  Alternative notation:
+  \begin{equation*}
+    \frac{\partial f}{\partial x} = f_{x}
+    \quad \text{and} \quad
+    \frac{\partial f}{\partial y} = f_{y}
+  \end{equation*}
+\end{definition}
+
+An interpretation of what partial derivatives means will be given later; first
+let's get familiar with computing them.
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = 4x^{2}-2y^{2}.
+  \end{equation*}
+  Find $f_{x}$ and $f_{y}$. Also find $f_{x}(2,1)$ and $f_{y}(2,3)$
+  \textbf{Key idea:} When finding $f_{x}$, we treat $y$ like it's a constant.
+\end{example}
+
+\begin{notation}
+  We write
+  \begin{equation*}
+    f_{xy} = (f_{x})_{y} = \frac{\partial }{\partial y} \frac{\partial f}{\partial x}
+  \end{equation*}
+  and similarly for $f_{xx}$, $f_{yx}$, $f_{yy}$.
+\end{notation}
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = x\cos(y)+y\sin(x)
+  \end{equation*}
+  Find $f_{x}$ and $f_{y}$, $f_{xx}$, $f_{yy}$, $f_{xy}$, $f_{yx}$
+\end{example}
+
+
+
+
+\begin{definition}[Hessian Matrix]
+  Given a function of two variables $f=f(x,y)$, the \demph{Hessian matrix} is
+  the matrix $H_{f}$ defined by
+  \begin{equation*}
+    H_{f} = \begin{bmatrix}
+      f_{xx}&f_{xy}\\
+      f_{yx}&f_{yy}
+    \end{bmatrix}
+  \end{equation*}
+\end{definition}
+
+For a function of a single variable $g(x)$, recall that the concavity of the
+graph of $g$ is determined by whether $g''(x)$ is positive or negative. The
+Hessian plays the same role for functions of $2$ variables. This will be
+explained in detail in a later class.
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = 3x^{2}+2xy^{2}.
+  \end{equation*}
+  Find $f_{x}$ and $f_{y}$. We can also find $f_{xx}$, $f_{yy}$, $f_{xy}$, and
+  $f_{yx}$.
+
+  \fl{Solution:}
+  \begin{gather*}
+    f_{x}(x,y) = 6x+2y^{2}\\
+    f_{xx}(x,y) = 6\\
+    f_{xy}(x,y) = 4y\\
+    f_{yx}(x,y) = 4y\\
+    f_{yy}(x,y) = 4x
+  \end{gather*}
+  The Hessian matrix is
+  \begin{equation*}
+    H_{f} =
+    \begin{bmatrix}
+      6&4y\\
+      4y&4x
+    \end{bmatrix}
+  \end{equation*}
+\end{example}
+\newpage
+\section{2026-11-09 | Week 12 | Lecture 32}
+
+Worksheet
+
+
+\newpage
+\section{2026-11-13 | Week 12 | Lecture 3}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} chain rule, directional derivatives}
+
+    \textit{\textbf{Reading assignment:} 14.4, 14.5}
+  \end{tcolorbox}
+\end{center}
+
+\subsection{Differentiability}
+Informally, a function is differentiable at a point if it is locally flat at
+that point.
+
+More precisely, a function $z=f(x,y)$ is \demph{differentiable} at
+$(x_{0},y_{0})$ if
+\begin{equation*}
+  f(x,y)
+  = f(x_0,y_0)
+  + f_x(x_0,y_0)(x-x_0)
+  + f_y(x_0,y_0)(y-y_0)
+  + r(x,y),
+\end{equation*}
+where
+\begin{equation*}
+  \lim_{(x,y)\to(x_0,y_0)}
+  \frac{r(x,y)}
+  {\sqrt{(x-x_0)^2+(y-y_0)^2}}
+  =0.
+\end{equation*}
+Intutively, this says that if we zoom into $(x_{0},y_{0})$ enough, the surface
+looks like a plane.
+
+
+\subsection{Gradient}
+
+
+The \demph{gradient} of a function $f(x,y)$, denoted $\nabla f$, is the vector
+\begin{equation*}
+  \nabla f =
+  \begin{bmatrix}
+    f_{x}\\
+    f_{y}
+  \end{bmatrix}.
+\end{equation*}
+Here, $f_{x},f_{y}$ are functions of both $x$ and $y$.
+
+When evaluating the gradient at a fixed point $(x_{0},y_{0})\in \R^{2}$, we
+use the notation
+\begin{equation*}
+  \nabla f|_{(x_{0},y_{0})} = \nabla f(x_{0},y_{0})=
+  \begin{bmatrix}
+    f_{x}(x_{0},y_{0})\\
+    f_{y}(x_{0},y_{0})
+  \end{bmatrix}
+\end{equation*}
+
+
+\subsection{Directional Derivatives}
+Given a function $z=f(x,y)$, we now know how to find the rate of change of $z$
+when moving in the $x$ or $y$ directions (i.e., East or North)---namely, we
+find $f_{x}$ and $f_{y}$. But what if we want to know the rate of change some
+other direction???
+
+For example, suppose that the $(x,y)$-plane is the ocean, so that each point
+$(x,y)$ is the coordinates of some location. And suppose that $z=f(x,y)$ is
+the surface temperature of the water at that location. Say I want to know the
+rate of change of the surface temperature if I pilot my boat northwest? Or any
+other random direction? For this we need \textit{directional derivatives}.
+
+\begin{definition}[Directional derivative]
+  The \demph{directional derivative} of $f$ at $(x,y)$ in the
+  direction of a vector $\boldsymbol{u}=\left\langle a,b \right\rangle$ is
+  \begin{equation*}
+    D_{\boldsymbol{u}}f(x,y) = \lim_{h \to 0} \frac{f(x+ha,y+hb)-f(x,y)}{h} 
+  \end{equation*}
+  provided that this limit exists.
+\end{definition}
+
+\begin{theorem}[Formula for directional derivatives]
+  \label{thm:formula-for-directiona-derivatives}
+  If $\boldsymbol{u}= \left\langle a,b \right\rangle$ is a unit vector, then
+  \begin{align*}
+    D_{\boldsymbol{u}}f(x,y) 
+    &= af_{x}(x,y)+ bf_{y}(x,y),
+  \end{align*}
+  provided that $f$ is differentiable. We can express the right-hand side as a
+  dot product, which allows us to write the above formula compactly as
+  \begin{equation*}
+    D_{\boldsymbol{u}}f = \nabla f \cdot \boldsymbol{u}.
+  \end{equation*}
+\end{theorem}
+
+
+\begin{example}
+  Find the directional derivative of the function
+  \begin{equation*}
+    f(x,y) = x^{2}y^{3}-4y
+  \end{equation*}
+  at the point $(2,-1)$ in the direction of the vector
+  \begin{equation*}
+    \boldsymbol{v} = \left\langle 2,5 \right\rangle.
+  \end{equation*}
+  \textbf{Solution:} First normalize $\boldsymbol{v}$ by dividing by its
+  magnitude, which is $\sqrt{29}$:
+  \begin{equation*}
+    \boldsymbol{u} = \left\langle \frac{2}{\sqrt{29}}, \frac{5}{\sqrt{29}} \right\rangle.
+  \end{equation*}
+  Second, compute the partial derivatives:
+  \begin{equation*}
+    f_{x} = 2xy^{3}, \qquad f_{y} = 3x^{2}y^{2} -4
+  \end{equation*}
+  so that
+  \begin{equation*}
+    f_{x}(2,-1) = -4, \qquad f_{y}(2,-1) = 8.
+  \end{equation*}
+  Finally, apply the formula from \cref{thm:formula-for-directiona-derivatives}:
+  \begin{equation*}
+    D_{\boldsymbol{u}}f(2,-1) 
+    = \left( \frac{2}{\sqrt{29}} \right) (-4) + \left( \frac{5}{\sqrt{29}} \right)(8) 
+    = \frac{32}{\sqrt{29}} 
+  \end{equation*}
+\end{example}
+
+\subsection{The gradient vector is  \textit{the direction of fastest increase}}
+Suppose an ant is walking along a smooth surface $z=f(x,y)$. Then it starts
+raining. The ant wants to escape the flood by getting to higher ground as fast
+as possible. Wherever the ant is on the surface, it needs to walk in the direction
+which gives the fastest increase in elevation (i.e., the direction of steepest
+increase). What direction should it travel?
+
+In other words, We want to find the unit vector $\boldsymbol{u}$ which maximizes $D_{\boldsymbol{u}}f$.
+Suppose $\boldsymbol{u}$ and $\nabla f$ form an angle of $\theta$. Then using
+\cref{thm:formula-for-directiona-derivatives} and the formula $A\cdot B =
+|A||B|\cos(\theta)$, we have:
+\begin{align*}
+  D_{\boldsymbol{u}} f 
+  &= \nabla f\cdot \boldsymbol{u} \\
+  &=  |\nabla f| |\boldsymbol{u}| \cos(\theta)\\
+  &=  |\nabla f| \cos(\theta) &&\text{since $|\boldsymbol{u}| =1$.}
+\end{align*}
+The right hand side is maximized when $\cos(\theta)=1$, which occurs when
+$\theta=0$. In other words, $D_{\boldsymbol{u}}f$ is maximized when
+$\boldsymbol{u}$ and $\nabla f$ \textit{point in the same direction}. This
+occurs precisely when $\boldsymbol{u}$ is the vector
+\begin{equation*}
+  \boldsymbol{u} = \frac{\nabla f(x,y)}{|\nabla f(x,y)|}.
+\end{equation*}
+This is the direction the ant should travel.
+
+
+\begin{example}
+  Suppose $f(x,y) = xe^{y}$. At the point $(2,0)$, what direction gives the
+  maximum rate of increase of $f(x,y)$?
+
+  \Fl{Solution:} First compute the partial derivatives:
+  \begin{equation*}
+    f_{x} = e^{y}, \qquad f_{y} = xe^{y}.
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    f_{x}(2,0) = 1, \qquad f_{y}(2,0) = 2.
+  \end{equation*}
+  Therefore the direction of fastest increase is
+  \begin{equation*}
+    \nabla f(2,1) =
+    \begin{bmatrix}
+      1\\2
+    \end{bmatrix}.
+  \end{equation*}
+\end{example}
+
+
+% \begin{example}
+%   Suppose $f(x,y) = x\log(yz)$. Find the maximum rate of change of $f$ at the
+%   point $(1,2,\frac{1}{2})$ and the direction it occurs in
+% \end{example}
+
+\newpage
+\end{document}
+\section{2026-11-16 | Week 12 | Lecture 32}
+
+\begin{itemize}
+  \item need to cover linearizations and quadratic approximations, and tangent planes
+\end{itemize}
+\subsection{The gradient vector is \textit{orthogonal to level curves}}
+
+
+Recall that the chain rule states that if $z=f(x(t),y(t))$, then
+\begin{equation*}
+  \frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} +\frac{\partial f}{\partial y} \frac{dy}{dt}
+\end{equation*}
+Also recall that two vectors are orthogonal if their dot product is zero.
+
+\begin{theorem}
+  Fix $k\in \R$ and let
+  \begin{equation*}
+    C = \left\{(x,y)\in \R^{2}: f(x,y)=k\right\}.
+  \end{equation*}
+  If $(a,b)\in C$, the vector $\nabla f(a,b)$ is orthogonal to the
+  level curve at that point.
+\end{theorem}
+
+\begin{proof}
+  Let $\gamma(t) = \left\langle x(t),y(t) \right\rangle $ be a
+  parameterization of $C$ (with $t$ in some interval $I$). Recall that
+  $\gamma'(t)= \left\langle x'(t),y'(t) \right\rangle $ is the tangent vector
+  to the curve. Also, since $\gamma(t)$ is a $k$-level curve, we have
+  \begin{equation*}
+    f(\gamma(t)) = f(x(t),y(t)) = k
+  \end{equation*}
+  for all $t$. Therfore $f(\gamma(t))$ is a \textit{constant} function of $t$.
+  So it's derivative is zero:
+  \begin{equation}\label{eq:15}
+    \frac{d}{dt}\left[ f(\gamma(t)) \right] = 0 
+  \end{equation}
+  By the chain rule,
+  \begin{align*}
+    \frac{d}{dt} \left[ f(\gamma(t)) \right] 
+    &= \frac{d}{dt}\left[ f(x(t),y(t)) \right]\\ 
+    &= f_{x}(x(t),y(t)) x'(t) + f_{y}(x(t),y(t))y'(t)\\
+    &= \nabla f(\gamma(t)) \cdot\gamma'(t)
+  \end{align*}
+  Combining this with \cref{eq:15}, it follows that for all $t$, 
+  \begin{equation*}
+    \nabla f(\gamma(t)) \cdot\gamma'(t) = 0.
+  \end{equation*}
+  In other words, at every point of the level curve, the tangent vector and
+  the gradient vector are orthogonal.
+\end{proof}
 
 \end{document}
