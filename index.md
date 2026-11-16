@@ -47,6 +47,7 @@ title: Lecture Notes
  2026-11-06  |  continuity and partial derivatives (14.2, 14.3)
  2026-11-09  |  worksheet on partial derivatives
  2026-11-13  |  directional derivatives, gradient (14.4, 14.5)
+ 2026-11-16  |  gradient is orthogonal to level curves, tangent planes, Taylor approximation (14.6)
  
 # Other links
 

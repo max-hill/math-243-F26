@@ -5768,7 +5768,7 @@ Worksheet
 
 
 \newpage
-\section{2026-11-13 | Week 12 | Lecture 3}
+\section{2026-11-13 | Week 12 | Lecture 33}
 \begin{center}
   \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
     \textit{\textbf{Topic of this lecture:} chain rule, directional derivatives}
@@ -5946,56 +5946,308 @@ This is the direction the ant should travel.
 % \end{example}
 
 \newpage
-\end{document}
-\section{2026-11-16 | Week 12 | Lecture 32}
+\section{2026-11-16 | Week 13 | Lecture 34}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} linearization, quadratic
+      approximation, tangent plane}
 
-\begin{itemize}
-  \item need to cover linearizations and quadratic approximations, and tangent planes
-\end{itemize}
+    \textit{\textbf{Reading assignment:} chapter 14.6}
+  \end{tcolorbox}
+\end{center}
+
 \subsection{The gradient vector is \textit{orthogonal to level curves}}
 
 
-Recall that the chain rule states that if $z=f(x(t),y(t))$, then
+The chain rule states that if $z=f(x(t),y(t))$, then
 \begin{equation*}
   \frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} +\frac{\partial f}{\partial y} \frac{dy}{dt}
 \end{equation*}
 Also recall that two vectors are orthogonal if their dot product is zero.
 
 \begin{theorem}
-  Fix $k\in \R$ and let
+  Fix $k\in \R$ and consider the level curve
   \begin{equation*}
     C = \left\{(x,y)\in \R^{2}: f(x,y)=k\right\}.
   \end{equation*}
-  If $(a,b)\in C$, the vector $\nabla f(a,b)$ is orthogonal to the
-  level curve at that point.
+  If $(a,b)\in C$, the vector $\nabla f(a,b)$ is orthogonal to the tangent
+  line of the level curve at that point.
 \end{theorem}
 
 \begin{proof}
-  Let $\gamma(t) = \left\langle x(t),y(t) \right\rangle $ be a
-  parameterization of $C$ (with $t$ in some interval $I$). Recall that
-  $\gamma'(t)= \left\langle x'(t),y'(t) \right\rangle $ is the tangent vector
-  to the curve. Also, since $\gamma(t)$ is a $k$-level curve, we have
+  Let
   \begin{equation*}
-    f(\gamma(t)) = f(x(t),y(t)) = k
+    \boldsymbol{\gamma}(t) = \left\langle x(t),y(t) \right\rangle, \qquad t\in I
   \end{equation*}
-  for all $t$. Therfore $f(\gamma(t))$ is a \textit{constant} function of $t$.
+  be a parameterization of $C$, where $I$ is an interval. Recall that
+  $\boldsymbol{\gamma}'(t)= \left\langle x'(t),y'(t) \right\rangle $ is the
+  tangent vector to the curve. We need to show that
+  \begin{equation*}
+    \boldsymbol{\gamma}'(t)  \text{ and } \Delta \boldsymbol{r}(t)
+     \text{ are orgthogonal for all $t\in I$.}
+  \end{equation*}
+  Since $\boldsymbol{\gamma}(t)$ is a
+  $k$-level curve, we have
+  \begin{equation*}
+    f(\boldsymbol{\gamma}(t)) = f(x(t),y(t)) = k
+  \end{equation*}
+  for all $t$. Therfore $f(\boldsymbol{\gamma}(t))$ is a \textit{constant} function of $t$.
   So it's derivative is zero:
   \begin{equation}\label{eq:15}
-    \frac{d}{dt}\left[ f(\gamma(t)) \right] = 0 
+    \frac{d}{dt}\left[ f(\boldsymbol{\gamma}(t)) \right] = 0.
   \end{equation}
   By the chain rule,
   \begin{align*}
-    \frac{d}{dt} \left[ f(\gamma(t)) \right] 
+    \frac{d}{dt} \left[ f(\boldsymbol{\gamma}(t)) \right] 
     &= \frac{d}{dt}\left[ f(x(t),y(t)) \right]\\ 
     &= f_{x}(x(t),y(t)) x'(t) + f_{y}(x(t),y(t))y'(t)\\
-    &= \nabla f(\gamma(t)) \cdot\gamma'(t)
+    &= \nabla f(\boldsymbol{\gamma}(t)) \cdot\boldsymbol{\gamma}'(t)
   \end{align*}
   Combining this with \cref{eq:15}, it follows that for all $t$, 
   \begin{equation*}
-    \nabla f(\gamma(t)) \cdot\gamma'(t) = 0.
+    \nabla f(\boldsymbol{\gamma}(t)) \cdot\boldsymbol{\gamma}'(t) = 0.
   \end{equation*}
   In other words, at every point of the level curve, the tangent vector and
   the gradient vector are orthogonal.
 \end{proof}
+
+
+
+\subsection{Tangent Planes and Linear Approximations}
+
+A central idea in calculus is approximating curvy things with straight things.
+Here we will discuss approximations of curvy surfaces by their tangents planes. 
+
+\Fl{Tangent lines:} Let $f= f(x)$ be a function of a single variable. Let $C$
+be the curve (the graph) defined by $f$. And let $(x_{0},y_{0})$ be a which
+the curve passes through. The \demph{tangent line} at the point $(x_{0},y_{0})$ is
+given by the formula
+\begin{equation*}
+  y-y_{0} = f'(x_{0})(x-x_{0}).
+\end{equation*}
+
+
+\Fl{Tangent planes:} Let $f=f(x,y)$ be a function of two variables, whose
+graph defines a smooth surface $S$. Let $(x_{0},y_{0},z_{0})$ be a point on
+$S$. The \demph{tangent plane} at the point $(x_{0},y_{0},z_{0})$ is the plane
+defined by
+\begin{equation*}
+  z-z_{0} = f_{x}(x_{0},y_{0})(x-x_{0})+f_{y}(x_{0},y_{0})(y-y_{0}).
+\end{equation*}
+This is the plane which satisfies the following two properties
+\begin{itemize}
+  \item it passes through the point $(x_{0},y_{0},z_{0})$
+  \item its tilt matches the surfaces as much as possible (i.e, the slope of
+  the plane in the $x$-direction is $f_{x}(x_{0},y_{0})$, and the slope of the
+  plane in the $y$-direction is $f_{y}(x_{0},y_{0})$).
+\end{itemize}
+Recall that planes have equations of the form
+\begin{equation*}
+  A(x-x_{0})+B(y-y_{0})+C(z-z_{0})=D
+\end{equation*}
+so this is really a plane. 
+
+\begin{example}
+  Let $f(x,y) = 2x^{2}+y^{2}$. Then the surface $z=f(x,y)$ is an elliptic
+  paraboloid (like a bowl) which contains the point $(1,1,3)$. Find the
+  tangent plane at the point $(1,1,3)$.
+\end{example}
+
+
+
+\subsection{Taylor Approximations}
+
+Recall: If $f=f(x)$ is differentiable at the point $a\in \R$, then by
+Taylor's Theorem we have
+\begin{equation*}
+  f(x) \approx
+  f(a)+f'(a)(x-a)
+\end{equation*}
+The right-hand side is called the \demph{first-order Taylor polynomial of $f$
+centered at $x=a$}. The approximation above holds when  $(x,y) \approx (a,b)$.
+
+Moreover, Taylor's theorem says that if $f$ is \demph{twice} differentiable at
+$a\in \R$, then an even better approximation holds:
+\begin{equation*}
+  f(x) \approx
+  f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^{2}
+\end{equation*}
+when $(x,y) \approx (a,b)$. In this case, the right-hand side is the
+\demph{second-order Taylor polynomial of $f$ centered at $x=a$.}
+
+We can keep going if $f$ is three or four or more times differentiable at $a$.
+But for most applications, the degree 2 approximation is sufficient. This
+approximation tends to be very good, as we show in the next example.
+
+\begin{example}
+  Let $f(x) = e^{x}$. The second degree Taylor approximation at $x=0$ is:
+  \begin{equation*}
+    e^{x} \approx 1+x+\frac{x^{2}}{2}.
+  \end{equation*}
+  If $x=1/10$, then $e^{x}\approx 1.1051871$. The approximation on the right
+  hand side is
+  \begin{equation*}
+    1+\frac{1}{10}+\frac{1}{200} = 1.105
+  \end{equation*}
+  These differ by only about $\frac{1}{100}$th of a percent of the true value.
+  This approximation gets better as $x \to 0$.
+\end{example}
+
+\begin{example}
+  Here's another striking example, of the 2nd order Taylor approximation of
+  the function $f(x) = \cos(x)$ at $x=0$:
+
+  \begin{center}
+    \begin{tikzpicture}[scale=1]
+      % Draw axes
+      \draw[->] (-5.5,0) -- (5.5,0) node[right] {$x$};%
+      \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};%
+      % Draw x-axis ticks
+      \draw (-5,1pt) -- (-5,-1pt) node[anchor=north] {$-5$};%
+      \draw (-4,1pt) -- (-4,-1pt) node[anchor=north] {$-4$};%
+      \draw (-3,1pt) -- (-3,-1pt) node[anchor=north] {$-3$};%
+      \draw (-2,1pt) -- (-2,-1pt) node[anchor=north] {$-2$};%
+      \draw (-1,1pt) -- (-1,-1pt) node[anchor=north] {$-1$};%
+      \draw (1,1pt) -- (1,-1pt) node[anchor=north] {$1$};%
+      \draw (2,1pt) -- (2,-1pt) node[anchor=north] {$2$};%
+      \draw (3,1pt) -- (3,-1pt) node[anchor=north] {$3$};%
+      \draw (4,1pt) -- (4,-1pt) node[anchor=north] {$4$};%
+      \draw (5,1pt) -- (5,-1pt) node[anchor=north] {$5$};%
+      % Draw y-axis ticks
+      \draw (1pt,-1) -- (-1pt,-1) node[anchor=east] {$-1$};%
+      \draw (1pt,-0.5) -- (-1pt,-0.5) node[anchor=east] {$ $};%
+      \draw (1pt,0.5) -- (-1pt,0.5) node[anchor=east] {$ $};%
+      \draw (1pt,1) -- (-1pt,1) node[anchor=east] {$1$};%
+      % Plot the function
+      \draw[blue,dashed,domain=-5:5,samples=200] plot (\x,{cos(deg(\x))});%
+      \node[blue,right] at (4,0.5) {$f(x)=\cos(x)$};%
+      % Add the curve y = 1 - x^2/2
+      \draw[red,domain=-2.5:2.5,samples=100] plot (\x,{1-\x*\x/2});%
+      \node[red,below right] at (3,-1.5) {$y=1-\frac{x^2}{2}$};%
+    \end{tikzpicture}
+  \end{center}
+\end{example}
+
+We can do the same things if $f=f(x,y)$ is a function of two variables. We can
+use tangent planes to approximate smooth functions.
+
+\end{document}
+\newpage
+
+
+
+
+\begin{example}
+  Temperature at a point $(x,y,z)$ is given by
+  \begin{equation*}
+    T(x,y,z) = 200 e^{-x^{2}-3y^{2}-9z^{2}}
+  \end{equation*}
+  where $T$ is measured in Celsius and $x,y,z$  in meters.
+  \begin{enumerate}[(a)]
+    \item Find the rate of change of temperature at the point $P=(2,-1,2)$ in
+    the direction toward the point $(3,-3,3)$. 
+    \item In what direction does $V$ change most rapidly at $P$?
+    \item Whats is the maximum rate of change at $P$?
+  \end{enumerate}
+\end{example}
+
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} linearization and quadratic approximation}
+
+    \textit{\textbf{Reading assignment:} 14.6}
+  \end{tcolorbox}
+\end{center}
+
+\begin{definition}[Linearization]
+  Suppose that $f=f(x,y)$ is a real-valued function of two variables which is
+  differentiable at the point $(a,b)\in \R^{2}$. The \demph{linearization} of
+  $f$ at $(a,b)$ is the function
+  \begin{equation*}
+    L(x,y) = f(a,b) + f_{x}(a,b)(x-a)+ f_{y}(a,b)(y-b). 
+  \end{equation*}
+  The approximation
+  \begin{equation*}
+    f(x,y)\approx L(x,y)
+  \end{equation*}
+  is called the \demph{standard linear approximation} of $f$ at $(a,b)$.
+\end{definition}
+\begin{remark}
+  This is also called the \demph{first-order Taylor expansion} of $f$ at
+  $(a,b)$.
+\end{remark}
+
+\begin{example}
+  Find the first order Taylor polynomial for $f(x,y) = 2x^{2}+y^{2}$ at
+  $(1,1)$ and use it to approximate $f(1.1,0.95)$.
+
+  \begin{align*}
+    L(x,y) 
+    &= f(1,1)+f_{x}(1,1)(x-1)+f_{y}(1,1)(y-1)\\
+    &3+4(x-1)+2(y-1)
+  \end{align*}
+  And
+  \begin{align*}
+    f(1.1,0.95) 
+    &\approx L(1.1,0.95)\\
+    &=3+4(.1)+2(-.05)\\
+    &=3+.4-.1\\
+    &=3.3
+  \end{align*}
+  (And indeed, we have $f(1.1,0.95)=3.3224$ so the approximation is pretty
+  good.)
+\end{example}
+
+
+\begin{example}
+  Find the linearization of
+  \begin{equation*}
+    f(x,y) = x^{2}-xy+\frac{1}{2}y^{2}+3
+  \end{equation*}
+  at the point $(3,2)$.
+\end{example}
+
+\begin{example}
+  Show that $f(x,y)=xe^{xy}$ is differentiable at $(1,0)$, and find
+  its first order Taylor approximation at $(1,0)$. And then use it to
+  approximate $f(1.1,-0.1)$.
+
+  \fl{Solution:} 
+
+  Note: the true value is $f(1.1,-0.1)=0.98542$.
+\end{example}
+
+\begin{example}
+  Verify the linear approximation
+  \begin{equation*}
+    e^{x}\cos(xy) \approx 1+x
+  \end{equation*}
+  when $(x,y)$ is near $(0,0)$.
+\end{example}
+
+\subsection{Second order Taylor approximation}
+\textit{This part is based on ``Discovery Project'' on p 1011 of the textbook.}
+
+\demph{The
+  second degree Taylor approximation of $f$ at $(a,b)$} is
+\begin{equation*}
+  f(x,y)\approx f(a,b)+f_{x}(a,b)(x-a)+f_{y}(a,b)(y-a)+ \frac{1}{2} f_{xx}(a,b)(x-a)^{2}+f_{xy}(a,b)(x-a)(x-b)+\frac{1}{2}f_{yy}(a,b)(y-b)^{2}
+\end{equation*}
+The right hand side, denoted $Q(x,y)$, is sometimes the \demph{quadratic approximation}
+of $f$ at $(a,b)$.
+
+\begin{example}
+  Let $f(x,y) = e^{-x^{2}-y^{2}}$. Show that the quadratic approximation at
+  $(0,0)$ is
+  \begin{equation*}
+    Q(x,y) = 1-x^{2}-y^{2}
+  \end{equation*}
+
+  This is a downward opening paraboloid.
+
+  Hazard a guess: the function $f$ concave up or concave down at $(0,0)$?
+\end{example}
+
 
 \end{document}
