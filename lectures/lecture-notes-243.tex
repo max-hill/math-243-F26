@@ -6213,12 +6213,13 @@ is called the \demph{quadratic approximation} of $f$ at $(a,b)$.
   \end{tcolorbox}
 \end{center}
 
+\subsection{Unconstrained optimization}
 The term \textit{optimization} refers to the process of finding the maxima and
 minima of a given function. The term \textit{unconstrained} means we are
 optimizing the function of all points in its domain (as opposed to a subset of
 its domain.)
 
-\subsection{Optimizing a function of a single variable}
+\subsubsection{Optimizing a function of a single variable}
 
 Suppose we wish to maximize the function 
 \begin{equation*}
@@ -6258,7 +6259,7 @@ We can conlude that $x=-3$ is indeed the global maximum.
 
 
 We now adapt these ideas to functions of multiple variables.
-\subsection{Optimizing functions of multiple variables}
+\subsubsection{Optimizing a function of multiple variables}
 A function of two variables has a \demph{local maximum} at $(a,b)$ if
 \begin{equation*}
   f(x,y) \leq f(a,b)
@@ -6283,7 +6284,7 @@ and points $(x,y)$ where
   \begin{equation*}
     f_{x}(a,b)=0, \quad \text{and} \quad  f_{y}(a,b)=0.
   \end{equation*}
-  That is,
+  That is, 
   \begin{equation*}
     \nabla f(a,b)=
     \begin{bmatrix}
@@ -6293,7 +6294,6 @@ and points $(x,y)$ where
 \end{theorem}
 Geometrically, this says that the tangent plane to any local optimum---be it a
 maximum or a minimum---is parallel to the $xy$-plane.
-
 
 \begin{definition}[Critical point]
   \label{def:critical-point}
