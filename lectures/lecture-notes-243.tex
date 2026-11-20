@@ -5992,7 +5992,7 @@ Also recall that two vectors are orthogonal if their dot product is zero.
     f(\boldsymbol{\gamma}(t)) = f(x(t),y(t)) = k
   \end{equation*}
   for all $t$. Therfore $f(\boldsymbol{\gamma}(t))$ is a \textit{constant} function of $t$.
-  So it's derivative is zero:
+  So its derivative is zero:
   \begin{equation}\label{eq:15}
     \frac{d}{dt}\left[ f(\boldsymbol{\gamma}(t)) \right] = 0.
   \end{equation}
@@ -6200,8 +6200,559 @@ The approximation
 \end{equation*}
 is called the \demph{quadratic approximation} of $f$ at $(a,b)$.
 
+
+\newpage
+
+
+\section{2026-11-20 | Week 13 | Lecture 36}
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Unconstrained optimization}
+
+    \textit{\textbf{Reading assignment:} 14.7}
+  \end{tcolorbox}
+\end{center}
+
+The term \textit{optimization} refers to the process of finding the maxima and
+minima of a given function. The term \textit{unconstrained} means we are
+optimizing the function of all points in its domain (as opposed to a subset of
+its domain.)
+
+\subsection{Optimizing a function of a single variable}
+
+Suppose we wish to maximize the function 
+\begin{equation*}
+  f(x) = \frac{2}{3}x^{3}+\frac{5}{2}x^{2}-3x+1, \qquad -10 \leq x \leq 2.
+\end{equation*}
+
+The domain is $[-10,2]$. The interior is $(-10,2)$; the boundary is the endpoints $\left\{-10,2\right\}$.
+
+\Fl{Step 1. Find critical points:}
+\begin{align*} 
+  f'(x) 
+  &= 2x^{2}+5x-3 \\
+  &= (x+3)(2x-1)
+\end{align*}
+This is equal to zero when $x=-3$ or $x=\frac{1}{2}$. These are the critical
+points.
+
+\Fl{Step 2. Classify critical points:}
+
+We'll use the second derivative test. Since  $f''(x) = 4x+5$, we have
+\begin{equation*}
+  f''(-3) <0, \qquad f''(1/2)> 7.
+\end{equation*}
+Therefore the function is concave down at $x=-3$ and concave up at
+$x=\frac{1}{2}$. Hence the critical point $x=-3$ is a maximum and
+$x=\frac{1}{2}$ is a minimum.
+
+
+\Fl{Step 3. Compare with boundardy:}
+We know that $x=-3$ is a local maximum, and $f(-3) = 19$. But is it the global
+maximum? We need to compare with the endpoint of the domain
+\begin{itemize}
+  \item $f(-10) = -335.667$
+  \item $f(2) = 12.333$
+\end{itemize}
+We can conlude that $x=-3$ is indeed the global maximum.
+
+
+We now adapt these ideas to functions of multiple variables.
+\subsection{Optimizing functions of multiple variables}
+A function of two variables has a \demph{local maximum} at $(a,b)$ if
+\begin{equation*}
+  f(x,y) \leq f(a,b)
+\end{equation*}
+for all $(x,y)$ within some radius of the point $(a,b)$. The number $f(a,b)$
+is the \demph{local maximum value.} The notion of \demph{local minimum} is
+defined in a similar way. We way that $(a,b)$ is a \demph{saddle point} if
+every open disk centered at $(a,b)$ contains points $(x,y)$ where
+\begin{equation*}
+  f(x,y)>f(a,b)
+\end{equation*}
+and points $(x,y)$ where
+\begin{equation*}
+  f(x,y)<f(a,b).
+\end{equation*}
+
+\begin{theorem}[First derivative test]
+  \label{thm:first-derivative-test}
+  If $f(x,y)$ has a local maximum or minimum at a point $(a,b)$ in the
+  interior of its domain, and if the first partial derivatives exist at
+  $(a,b)$, then
+  \begin{equation*}
+    f_{x}(a,b)=0, \quad \text{and} \quad  f_{y}(a,b)=0.
+  \end{equation*}
+  That is,
+  \begin{equation*}
+    \nabla f(a,b)=
+    \begin{bmatrix}
+      0\\0
+    \end{bmatrix}.
+  \end{equation*}
+\end{theorem}
+Geometrically, this says that the tangent plane to any local optimum---be it a
+maximum or a minimum---is parallel to the $xy$-plane.
+
+
+\begin{definition}[Critical point]
+  \label{def:critical-point}
+  A point $(a,b)$ is a \demph{critical point} (or: \demph{stationary point}) of
+  $f$ if $f_{x}$ and $f_{y}$ are both zero, or if one or both of them doesn't
+  exist.
+\end{definition}
+
+\begin{example}
+  Let $f(x,y) = x^{2}+y^{2}-2x-6y+14$. Find the critical points of $f$.
+
+  \textit{Solution:} By completing the square, we have:
+  \begin{equation*}
+    f(x,y) = 4+(x-1)^{2}+(y-3)^{2}
+  \end{equation*}
+  The right-hand side is a sum of squares, and therefore has a unique
+  minimizer. From the equation, we can observe that the minimizer of $f$ is
+  $(x,y) =(1,3)$ and that the minimum is $4$. 
+\end{example}
+
+Recall that the \demph{Hessian matrix} of a function of two variables is the $2\times 2$
+matrix
+\begin{equation*}
+  H_{f} = \begin{bmatrix}
+    f_{xx}&f_{xy}\\
+    f_{yx}&f_{yy}
+  \end{bmatrix}
+\end{equation*}
+
+
+\begin{theorem}[Second Derivative Test]
+  \label{thm:second-derivative-test}
+  Let $f=f(x,y)$ be a function of two variables, and let $(a,b)$ be a
+  critical point of $f$. Assume the entries of the Hessian exist and are all
+  continuous, and let
+  \begin{equation*}
+    D = \det(H_{f}(a,b)) = f_{xx}(a,b)f_{yy}(a,b)- \left[ f_{xy}(a,b) \right]^{2}. 
+  \end{equation*}
+  Then there are three cases
+  \begin{enumerate}[(i)]
+    \item If $D>0$ and $f_{xx}(a,b)>0$, then $f(a,b)$ is a local minimum
+    \item If $D>0$ and $f_{xx}(a,b)<0$, then $f(a,b)$ is a local maximum
+    \item If $D<0$ then $f(a,b)$ is a saddle point (i.e., neither a maximum
+    nor a minimum)
+  \end{enumerate}
+\end{theorem}
+
+% \begin{remark}[For those taking linear algebra]
+%   Whether the function $f$ has a minimum or maximum at $(a,b)$ is determined
+%   by the eigenvalues of the matrix $H_{f}(a,b)$. Condition (i) is equivalent
+%   to the eigenvalues of $H_{f}(a,b)$ both being positive. Condition (ii) is
+%   equivalent to the eigenvalues both being negative. Condition (iii) is
+%   equivalent to having one negative and one positive eigenvalue.
+% \end{remark}
+
+Next we give an example of applying the second derivative test.
+
+\begin{example}
+  Let
+  \begin{equation*}
+    f(x,y) = x^{2}+xy+y^{2}+y.
+  \end{equation*}
+  Find the critical points and classify them.
+
+  \Fl{Step 1. Find critical points:}
+
+  The gradient of $f$ is
+  \begin{equation*}
+    \nabla f =
+    \begin{bmatrix}
+      2x+y\\x+2y+1
+    \end{bmatrix}.
+  \end{equation*}
+  Set $\nabla f=0$ and solve for $x$ and $y$:
+  \begin{equation*}
+    2x+y=0 \quad \text{and} \quad x+2y+1=0
+  \end{equation*}
+  so $y=-2x$ and hence $x=1/3$, and so $y=-2/3$.
+  We have found one critical point:
+  \begin{equation*}
+    (x,y) = \left(\frac{1}{3},-\frac{2}{3}\right).
+  \end{equation*}
+
+  \Fl{Step 2. Classify the critical points:}
+
+  We'll use the second derivative test. First compute the Hessian matrix:
+  \begin{equation*}
+    H_{f} =
+    \begin{bmatrix}
+      2&1\\1&2
+    \end{bmatrix}
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    D = \det(H_{f})= 4-1 = 3>0.
+  \end{equation*}
+  Moreover,
+  \begin{equation*}
+    f_{xx}\left(\frac{1}{3},-\frac{2}{3}\right) = 2>0.
+  \end{equation*}
+  By second derivative test (\cref{thm:second-derivative-test}), $f$ is
+  concave up at the critical point $(\frac{1}{3},-\frac{2}{3})$. Therefore,
+  the critical point is a local minimum.
+\end{example}
+
 \end{document}
 
+\begin{example}
+  Find the maxima and minima of $f(x,y)=x^{2}+y^{2}-4y+9$.
+\end{example}
+
+\begin{example}
+  Find the maxima and minima of $f(x,y) = xy-x^{2}-y^{2}-2x-2y+4$.
+\end{example}
+
+\newpage
+\subsection{Constrained Optimization}
+\textit{Textbook section 14.7}
+
+
+
+\begin{example}
+  Maximize $f(x,y) = 2+2x+4y-x^{2}-y^{2}$  on the triangle enclosed bythe
+  lines $y=-x+9$, $y=0$, and $x=0$, shown below:
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Axes
+      \draw[->] (-1,0) -- (10,0) node[right] {$x$}; \draw[->] (0,-1) -- (0,10)
+      node[above] {$y$};
+      
+      % Lines
+      \draw[thick,blue] (0,9) -- (9,0); % y = -x + 9
+      
+      % Triangle region
+      \fill[blue!20] (0,0) -- (0,9) -- (9,0) -- cycle;
+      
+      % Important points
+      \fill (0,0) circle (3pt) node[below left] {$(0,0)$}; \fill (0,9) circle
+      (3pt) node[left] {$(0,9)$}; \fill (9,0) circle (3pt) node[below]
+      {$(9,0)$};
+    \end{tikzpicture}
+  \end{center}
+  Let's call this triangular region $D$.
+  
+  \Fl{General philosophy for this type of problem:} First, maximize the
+  function on the interior of its domain. Then maximize it on the boundary of
+  the domain (which we denoted $\partial D$). Then compare all the points and
+  pick the one(s) that yeild the biggest value of the function.
+
+  \fl{Interior:} we find the critical points by setting $\Delta f = 0$ and
+  solving for $(x,y)$.
+  \begin{equation*}
+    \Delta f =
+    \begin{bmatrix}
+      2-2x\\4-2y
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      0\\0
+    \end{bmatrix}
+  \end{equation*}
+  This gives a single critical point $(x,y) = (1,2)$. This critical point is
+  in $D$. (If it hadn't been in $D$, we would have thrown it out as irrelevelt
+  to the problem at hand.)
+
+  We classify the critical point using the second derivative test:
+  \begin{equation*}
+    H_{f}(x,y) =
+    \begin{bmatrix}
+      f_{xx}&f_{yx}\\
+      f_{xy}&f_{yy}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      -2&0\\
+      0&-2
+    \end{bmatrix}
+  \end{equation*}
+  Thus, $D= (-2)(-2)-(0)(0) = 16>0$ and $f(1,2) = -2<0$. We conclude that the
+  point $(1,2)$ is a loal maximum by the second derivative test. The value of
+  the local maximum is
+  \begin{equation*}
+    f(1,2) = 7
+  \end{equation*}
+
+  \fl{Boundary $\partial D$:} There are three pieces to the buondary,
+  corresponding to the three edges of the triangle.
+
+  Let $B_{1}$ be the horizontal line segement, $B_{2}$ the diagonal segment,
+  and $B_{3}$ the vertical segment. We must consider each of these separately.
+
+  \begin{itemize}
+    \item For $B_{1}$, we have $y=0$, so the value of the function is
+    \begin{equation*}
+      f(x,0) = 2+2x-x^{2}
+    \end{equation*}
+    with $0 \leq x \leq 9$.
+    This is a downward opening parabola which is maximized when $x=1$ (you can
+    check this). At the point $(1,0)$, the function takes value
+    \begin{equation*}
+      f(1,0) = 3
+    \end{equation*}
+    \item For $B_{3}$, we have $x=0$, so the function value is
+    \begin{equation*}
+      f(0,y) =2+ 4y-y^{2}
+    \end{equation*}
+    with $0 \leq y \leq 9$. This is another downward opening parabola, which
+    is maximized when $y=2$. Thus we have the point $(0,2)$, which has
+    function value
+    \begin{equation*}
+      f(0,2) = 6.
+    \end{equation*}
+    
+    \item For $B_{2}$, we have $y=9-x$. On $B_{2}$, the value of the function
+    is
+    \begin{align*}
+      f(x,9-x) 
+      &= 2+2x+4(9-x)-x^{2} - (9-x)^{2}\\
+      &-2x^{2}+16x-43
+    \end{align*}
+    for $0 \leq x \leq 9$. Here, we yet again have a downward opening
+    parabola, and it has maximum when $x=4$ (so $y=5$). Thus the function is
+    maximzed on $B_{2}$ at the point $(4,5)$, and the value is
+    \begin{equation*}
+      f(4,5) = -11
+    \end{equation*}
+    \item We also have to check the corners, as these are the ``boundaries''
+    of each of the $B_{1},B_{2}$, and $B_{3}$. These are the points $(0,0),
+    (9,0), and (0,9)$. At these three points, the function has values
+    \begin{equation*}
+      f(0,0) = 2, \quad f(9,0)=-61, \quad \text{and} \quad f(0,9) = -43
+    \end{equation*}
+  \end{itemize}
+  Putting both interior and boundary analyses together, we have 7 candidates
+  for the global maximum, indicated in red:
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Axes
+      \draw[->] (-1,0) -- (10,0) node[right] {$x$};
+      \draw[->] (0,-1) -- (0,10) node[above] {$y$};
+
+      % Lines
+      \draw[thick,blue] (0,9) -- (9,0); % y = -x + 9
+
+      % Triangle region
+      \fill[blue!20] (0,0) -- (0,9) -- (9,0) -- cycle;
+
+      % Red vertices
+      \foreach \x/\y in {0/0, 0/9, 9/0, 1/2, 1/0, 0/2, 4/5} {
+        \fill[red] (\x,\y) circle (5pt);
+      }
+
+      % Labels for original triangle vertices
+      \node[below left] at (0,0) {$(0,0)$};
+      \node[left] at (0,9) {$(0,9)$};
+      \node[below] at (9,0) {$(9,0)$};
+    \end{tikzpicture}
+  \end{center}
+
+  We compare the value of the function at each of these points. The point
+  $(1,2)$ has $f(1,2)=7$ which is the largest function value for the points.
+  Thus $(1,2)$ is the location of the global maximum of the function, and the global maximum of the
+  function is $7$. 
+\end{example}
+
+\begin{example}
+  Let $f(x,y) = x^{2}+y^{2}$. Find the global maximum and minimum of $f$ on
+  the region between the line $y=-2$ and the parabola $ y=2-x^{2}$.
+
+  \fl{Similar approach}
+\end{example}
+
+
+\end{document}
+
+
+\subsection{Lagrange Multiplier}
+
+
+\begin{example}
+  Find the global max and min of the function
+  \begin{equation*}
+    f(x,y) =x^{2}-2xy+2y
+  \end{equation*}
+  on
+  \begin{equation*}
+    D = \left\{(x,y)\in \R^{2}: 0 \leq x \leq 3, 0 \leq y \leq 2\right\}
+  \end{equation*}
+\end{example}
+
+\begin{example}%[lagrange - rufus]
+  The function $h(x,y) = x-2y$ represents the height in meters above sea level
+  of some small area of land. Find the highest and lowest points on the
+  ellipse $x^{2}+2y^{2}=4$. Sketch the ellipse and identify the points on your
+  plot. 
+\end{example}
+
+
+
+
+
+\begin{example}
+  Find the local maximum and minimum values and saddle points of
+  \begin{equation*}
+    f(x,y) = x^{4}+y^{4}-4xy+1
+  \end{equation*}
+  \fl{Solution:} Critical points are $(0,0)$ (saddle point), $(-1,-1)$
+  (local minimum), and $(1,1)$ (local minimum).
+\end{example}
+
+
+
+\subsection{Chain Rule}
+\textit{Section 14.5 }
+
+\begin{theorem}[The Chain Rule]
+  \label{thm:chain-rule}
+  Suppose that $z=f(x,y)$ is a differentiable function of $x$ and $y$, which
+  are themselves functions of a third variablle $t$:
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=x(t) \\ y=y(t) \end{array}\right.
+  \end{equation*}
+  Assume that $x(t),y(t)$ are both differentiable. Then $z$ is a
+  differentiable function of $t$, and
+  \begin{equation*}
+    \frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} +\frac{\partial f}{\partial y} \frac{dy}{dt}
+  \end{equation*}
+\end{theorem}
+
+Let's consider a concrete example:
+
+\begin{example}
+  Consider the parameterized curve
+  \begin{equation*}
+    \left\{ \begin{array}{l@{}l} x=\sin(2t) \\ y=\cos(t) \end{array}\right.
+  \end{equation*}
+  for $0 \leq \tau \leq 2\pi$. This is the following figure-8 shaped curve:
+  \begin{center}
+    \includegraphics[scale=0.7]{images/first-chain-rule-example}
+  \end{center}
+  In addition, suppose 
+  \begin{equation*}
+    z = x^{2}y+3xy^{4}.
+  \end{equation*}
+  Find $\frac{dz}{dt}$ when $t=0$.
+\end{example}
+
+
+\begin{example}
+  Let $z=e^{x}\sin(y)$, where $x=st^{2}$ and $y=s^{2}t$. To be clear, we are
+  regarding $s,t$ as independent variables. The variables $x,y$ are functions of
+  both $s$ and $t$. Find $\frac{\partial
+    z}{\partial s}$ and $\frac{\partial z}{\partial t}$.
+
+  Then
+  \begin{align*}
+    \frac{\partial z}{\partial s} 
+    &= \frac{\partial z}{\partial x} \frac{\partial x}{\partial s}+ \frac{\partial z}{\partial y}\frac{\partial y}{\partial s}\\
+    &= \left( e^{x}\sin(y) \right) \left( t^{2} \right)+ \left( e^{x}\cos(y) \right) \left( 2st \right)\\    
+    &= t^{2}e^{x}\sin(y)+ 2ste^{x}\cos(y)\\
+    &= t^{2}e^{st^{2}}\sin(s^{2}t)+2st e^{st^{2}}\cos(s^{2}t)
+  \end{align*}
+  
+\end{example}
+
+
+\subsection{Implicit Differentiation}
+\textit{Chapter 14.4}
+\begin{example}
+  Assume that $z=f(x,y)$ is a function of two independent variables $x$ and
+  $y$. Suppose we don't know what $f$ is, but we do know that $x,y$ and $z$
+  obey the relation
+  \begin{equation*}
+    yz - \log(z) - x - y = 0.
+  \end{equation*}
+  Find $\frac{\partial z}{\partial x} = f_{x}(x,y)$.
+
+  \fl{Solution:} Differentiate both sides with respect ot $x$, pretending that
+  $y$ is a constant and remembering that $z=f(x,y)$:
+  \begin{equation*}
+    \frac{\partial }{\partial z}\left[ yz - \log(z) - x - y  \right] =0.
+  \end{equation*}
+  or
+  \begin{equation*}
+    \frac{\partial }{\partial x}\left[ yz  \right]  - \frac{\partial }{\partial x}\left[ \log(z) \right]  - \frac{\partial }{\partial x}\left[ x \right]  - \frac{\partial }{\partial x}\left[ y \right]  =0.
+  \end{equation*}
+  or
+  \begin{equation*}
+    y\frac{\partial z}{\partial x}  - \frac{1}{z}\frac{\partial z}{\partial x}  - 1=0.
+  \end{equation*}
+  Solving for $\frac{\partial z}{\partial x}$ gives
+  \begin{equation*}
+    \frac{\partial z}{\partial dx} = \frac{1}{y-\frac{1}{z}} = \frac{z}{yz-1}.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Suppose we have the equation
+  \begin{equation*}
+    x^{3}+y^{3} = 6xy
+  \end{equation*}
+  This equation defines the following curve on the plane:
+  \begin{center}
+    \includegraphics[scale=0.3]{images/loop-dee-loop}
+  \end{center}
+
+  We assume that $y$ is a function of $x$ and we want to compute the slope. In
+  implicit differentiation, we apply the differentiation operator
+  $\frac{d}{dx}$ to both sides, which gives
+  \begin{equation*}
+    3x^{2}+3y^{2}\frac{dy}{dx} = 6y+6x \frac{dy}{dx}
+  \end{equation*}
+  Then we solve for $\frac{dy}{dx}$:
+  \begin{align*}
+    \frac{dy}{dx} 
+    &= \frac{3x^{2}-6y}{3y^{2}+6x}\\
+    &= \frac{x^{2}-2y}{y^{2}+2x}\\
+  \end{align*}
+\end{example}
+
+This is all very nice. Here's another way to do this same problem, using the
+\textbf{Chain Rule:}
+
+First, define a new function $F$ of two variables:
+\begin{equation*}
+  F(x,y) = x^{3}+y^{3} - 6xy
+\end{equation*}
+
+So our curve is
+\begin{equation*}
+  F(x,y) = 0.
+\end{equation*}
+Now, assuming that $x$ is an independent variable and that $y$ is a function
+of $x$ (so that $\frac{d}{dx}[y] = \frac{dy}{dx}$, but $\frac{d}{dx}[x]= 1$),
+we have
+\begin{equation*}
+  \frac{d}{dx} \left[ F(x,y) \right]= 0 
+\end{equation*}
+and this gives us
+\begin{equation*}
+  \frac{\partial F}{\partial x} \frac{dx}{dx} + \frac{\partial F}{\partial x} \frac{dy}{dx} = 0
+\end{equation*}
+which simplifies to
+\begin{equation*}
+  F_{x}(x,y)+ F_{y}(x,y) \frac{dy}{dx} = 0
+\end{equation*}
+and gives us the nice formula
+\begin{empheq}[box=\boxmath]{equation*}
+  \frac{dy}{dx} = -\frac{F_{x}(x,y)}{F_{y}(x,y)}
+\end{empheq}
+Does it really work? Here, we have $F_{x}(x,y) = 3x^{2}-6xy$ and $F_{y}(x,y)
+=3y^{2}-6x$; plugging these into the above formula gives us the same answer as
+earlier.  Cool. The boxed formula is a little strange at first, because of the
+negative sign and the way the partial derivatives feel like they are in the
+wrong place.
+
+
+
+\subsection{Example (hw?) problems}
 \begin{example}
   Let $f(x,y) = e^{-x^{2}-y^{2}}$. What is the quadratic approximation of $f$
   at $(0,0)$?
@@ -6244,7 +6795,7 @@ is called the \demph{quadratic approximation} of $f$ at $(a,b)$.
   \end{equation*}
   when $(x,y)$ is near $(0,0)$.
 \end{example}
-\subsection{Gradient example}
+
 
 
 \begin{example}
@@ -6263,36 +6814,27 @@ is called the \demph{quadratic approximation} of $f$ at $(a,b)$.
 
 
 
-\subsection{A Trick: Implicit Differentiation}
-\textit{Chapter 14.4}
-
-Assume that $z=f(x,y)$ is a function of two independent variables $x$ and
-$y$. Suppose we don't know what $f$ is, but we do know that $x,y$ and
-$z$ obey the relation
-\begin{equation*}
-  yz - \log(z) - x - y = 0.
-\end{equation*}
-Find $\frac{\partial z}{\partial x} = f_{x}(x,y)$.
-
-\fl{Solution:} Differentiate both sides with respect ot $x$,
-pretending that $y$ is a constant and remembering that $z=f(x,y)$:
-\begin{equation*}
-  \frac{\partial }{\partial z}\left[ yz - \log(z) - x - y  \right] =0.
-\end{equation*}
-or
-\begin{equation*}
-  \frac{\partial }{\partial x}\left[ yz  \right]  - \frac{\partial }{\partial x}\left[ \log(z) \right]  - \frac{\partial }{\partial x}\left[ x \right]  - \frac{\partial }{\partial x}\left[ y \right]  =0.
-\end{equation*}
-or
-\begin{equation*}
-  y\frac{\partial z}{\partial x}  - \frac{1}{z}\frac{\partial z}{\partial x}  - 1=0.
-\end{equation*}
-Solving for $\frac{\partial z}{\partial x}$ gives
-\begin{equation*}
-  \frac{\partial z}{\partial dx} = \frac{1}{y-\frac{1}{z}} = \frac{z}{yz-1}.
-\end{equation*}
+\begin{problem}
+  Find the linear approximation of the function
+  \begin{equation*}
+    f(x,y,z)= \sqrt{x^{2}+y^{2}+z^{2}}
+  \end{equation*}
+  at $(3,2,6)$ and use it to approximate the number
+  \begin{equation*}
+    \sqrt{(3.02)^{2}+(1.97)^{2}+(5.99)^{2}}
+  \end{equation*}
+\end{problem}
 
 
-
+\subsection{Implicit differentiation}
+\begin{problem}
+  Suppose $z=f(x,y)$, where $x,y$ are independent variables. Use implicit
+  differentiation to compute $\frac{\partial z}{\partial x}$ and $\frac{\partial z}{\partial y}$
+  \begin{enumerate}[(a)]
+    \item $yz+x \log\left(y \right)=z^{2} $
+    \item $x^{2}+2y^{2}+3z^{2} =0$
+    %     \item $e^{z}=xyz$
+  \end{enumerate}
+\end{problem}
 
 \end{document}

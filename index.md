@@ -49,6 +49,7 @@ title: Lecture Notes
  2026-11-13  |  directional derivatives, gradient (14.4, 14.5)
  2026-11-16  |  gradient is orthogonal to level curves, tangent planes, Taylor approximation (14.6)
  2026-11-18  |  linearization, quadratic approximation (14.6)
+ 2026-11-20  |  unconstrained optimization (14.7)
  
 # Other links
 
