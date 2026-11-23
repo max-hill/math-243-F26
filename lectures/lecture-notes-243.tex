@@ -6399,41 +6399,48 @@ Next we give an example of applying the second derivative test.
   the critical point is a local minimum.
 \end{example}
 
-\end{document}
+% \newpage
+% \begin{example}
+%   Find the maxima and minima of $f(x,y)=x^{2}+y^{2}-4y+9$.
+% \end{example}
 
-\begin{example}
-  Find the maxima and minima of $f(x,y)=x^{2}+y^{2}-4y+9$.
-\end{example}
-
-\begin{example}
-  Find the maxima and minima of $f(x,y) = xy-x^{2}-y^{2}-2x-2y+4$.
-\end{example}
+% \begin{example}
+%   Find the maxima and minima of $f(x,y) = xy-x^{2}-y^{2}-2x-2y+4$.
+% \end{example}
 
 \newpage
+\section{2026-11-23 | Week 14 | Lecture 36}
+
+\begin{center}
+  \begin{tcolorbox}[width=0.9\textwidth, colback=white, colframe=black]
+    \textit{\textbf{Topic of this lecture:} Constrained optimization}
+
+    \textit{\textbf{Reading assignment:} chapter 14.7}
+  \end{tcolorbox}
+\end{center}
 \subsection{Constrained Optimization}
-\textit{Textbook section 14.7}
 
 
 
 \begin{example}
-  Maximize $f(x,y) = 2+2x+4y-x^{2}-y^{2}$  on the triangle enclosed bythe
+  Maximize $f(x,y) = 2+2x+4y-x^{2}-y^{2}$  on the triangle enclosed by the
   lines $y=-x+9$, $y=0$, and $x=0$, shown below:
   \begin{center}
     \begin{tikzpicture}[scale=0.5]
       % Axes
-      \draw[->] (-1,0) -- (10,0) node[right] {$x$}; \draw[->] (0,-1) -- (0,10)
+      \draw[->] (-1,0) -- (10,0) node[right] {$x$};
+      \draw[->] (0,-1) -- (0,10)
       node[above] {$y$};
-      
-      % Lines
-      \draw[thick,blue] (0,9) -- (9,0); % y = -x + 9
-      
       % Triangle region
       \fill[blue!20] (0,0) -- (0,9) -- (9,0) -- cycle;
-      
+      % Lines
+      \draw[thick,blue] (0,9) -- (9,0); % y = -x + 9
+      \draw[thick,blue] (0,0) -- (9,0);
+      \draw[thick,blue] (0,0) -- (0,9);
       % Important points
-      \fill (0,0) circle (3pt) node[below left] {$(0,0)$}; \fill (0,9) circle
-      (3pt) node[left] {$(0,9)$}; \fill (9,0) circle (3pt) node[below]
-      {$(9,0)$};
+      \fill (0,0) circle (3pt) node[below left] {$(0,0)$};
+      \fill (0,9) circle (3pt) node[left] {$(0,9)$};
+      \fill (9,0) circle (3pt) node[below] {$(9,0)$};
     \end{tikzpicture}
   \end{center}
   Let's call this triangular region $D$.
@@ -6443,10 +6450,10 @@ Next we give an example of applying the second derivative test.
   the domain (which we denoted $\partial D$). Then compare all the points and
   pick the one(s) that yeild the biggest value of the function.
 
-  \fl{Interior:} we find the critical points by setting $\Delta f = 0$ and
+  \fl{Interior:} we find the critical points by setting $\nabla f = 0$ and
   solving for $(x,y)$.
   \begin{equation*}
-    \Delta f =
+    \nabla  f =
     \begin{bmatrix}
       2-2x\\4-2y
     \end{bmatrix}
