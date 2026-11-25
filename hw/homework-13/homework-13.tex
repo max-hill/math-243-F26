@@ -1,0 +1,285 @@
+\documentclass[10pt]{article}
+% Math Packages
+\usepackage{amsmath, mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{breqn}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{forest}
+\usepackage{tikz-qtree}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage[shortlabels]{enumitem}
+\usetikzlibrary{arrows,matrix,positioning}
+\usepackage{multicol}
+
+
+% for the pipe symbol
+\usepackage[T1]{fontenc}
+
+% Citing theorems by name. (source: https://tex.stackexchange.com/questions/109843/cleveref-and-named-theorems)
+\makeatletter
+\newcommand{\ncref}[1]{\cref{#1}\mynameref{#1}{\csname r@#1\endcsname}}
+
+\def\mynameref#1#2{%
+  \begingroup
+  \edef\@mytxt{#2}%
+  \edef\@mytst{\expandafter\@thirdoffive\@mytxt}%
+  \ifx\@mytst\empty\else
+  \space(\nameref{#1})\fi
+  \endgroup
+}
+\makeatother
+
+% Colorful Notes
+\usepackage{color} \definecolor{Red}{rgb}{1,0,0} \definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5} \def\red{\color{Red}} \def\blue{\color{Blue}}
+\def\gray{\color{gray}} \def\purple{\color{Purple}}
+\newcommand{\rnote}[1]{{\red [#1]}} % \rnote{foo} gives '[foo]' in red
+\newcommand{\pnote}[1]{{\purple [#1]}} % \pnote{foo} gives '[foo]' in purple
+\newcommand{\bnote}[1]{{\blue #1}} % \bnote{foo} gives 'foo' in blue
+\newcommand{\gnote}[1]{{\gray #1}} % \gnote{foo} gives 'foo' in gray
+\newcommand{\Max}[1]{{\purple [#1]}} % \bnote{foo} then 'foo' is blue
+
+
+% Claim numbering (the counter restarts after each proof environment)
+\newcounter{claimcount}
+\setcounter{claimcount}{0}
+\newenvironment{claim}{\refstepcounter{claimcount}\par\addvspace{\medskipamount}\noindent\textbf{Claim \arabic{claimcount}:}}{}
+\usepackage{etoolbox}
+\AtBeginEnvironment{proof}{\setcounter{claimcount}{0}}
+\newenvironment{claimproof}{\par\addvspace{\medskipamount}\noindent\textit{Proof of Claim  \arabic{claimcount}.}}{\hfill\ensuremath{\qedsymbol} \tiny{Claim}
+
+  \medskip}
+% Add claim support to cleverref
+\crefname{claimcount}{Claim}{Claims}
+
+
+% Math Environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+
+% Matrices and Column Vectors. 
+\usepackage{stackengine}
+\setstackgap{L}{1.0\normalbaselineskip}
+\usepackage{tabstackengine}
+\setstackEOL{;}% row separator
+\setstackTAB{,}% column separator
+\setstacktabbedgap{1ex}% inter-column gap
+\setstackgap{L}{1.5\normalbaselineskip}% inter-row baselineskip
+\let\nmatrix\bracketMatrixstack  %Usage: \nmatrix{1,2,3\4,5,6}
+\newcommand\cv[1]{\setstackEOL{,}\bracketMatrixstack{#1}} %usage: \cv{1,2,3}
+
+% Custom Math Coqmmands
+\newcommand{\vt}{\vskip 5mm} % vertical space
+\newcommand{\fl}{\noindent\textbf} % first line
+\newcommand{\Fl}{\vt\noindent\textbf} % first line with space above
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % norm
+\newcommand{\pnorm}[1]{\left\lVert#1\right\rVert_p} % p-norm
+\newcommand{\qnorm}[1]{\left\lVert#1\right\rVert_q} % q-norm
+\newcommand{\1}[1]{\textbf{1}_{\left[#1\right]}} % indicator function 
+\def\limn{\lim_{n\to\infty}} % shortcut for lim as n-> infinity
+\def\sumn{\sum_{n=1}^{\infty}} % shortcut for sum from n=1 to infinity
+\def\sumkn{\sum_{k=1}^{n}} % shortcut for sum from k=1 to n
+\def\sumin{\sum_{i=1}^{n}} % shortcut for sum from i=1 to n
+\def\SAs{\sigma\text{-algebras}} % shortcut for $\sigma$-algebras
+\def\SA{\sigma\text{-algebra}} % shortcut for $\sigma$-algebra
+\def\Ft{\mathcal{F}_t} % time-indexed sigma-algebra (t)
+\def\Fs{\mathcal{F}_s} % time-indexed sigma-algebra (s)
+\def\F{\mathcal{F}} % sigma-algebra
+\def\G{\mathcal{G}} % sigma-algebra
+\def\R{\mathbb{R}} % Real numbers
+\def\N{\mathbb{N}} % Natural numbers
+\def\Z{\mathbb{Z}} % Integers
+\def\E{\mathbb{E}} % Expectation
+\def\P{\mathbb{P}} % Probability
+\def\Q{\mathbb{Q}} % Q probability
+\def\dist{\text{dist}} %Text 'dist' for things like 'dist(x,y)'
+\newcommand{\indep}{\perp \!\!\! \perp}  %independence symbol
+\def\Var{\mathrm{Var}} % Variance
+\def\tr{\mathrm{tr}} % trace
+
+% Brackets and Parentheses
+\def\[{\left [}
+    \def\]{\right ]}
+% \def\({\left (}
+%   \def\){\right )}
+
+
+
+\usepackage{color}
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Purple}{rgb}{.5,0,.5}
+\def\red{\color{Red}}
+\def\blue{\color{Blue}}
+\def\gray{\color{gray}}
+\def\purple{\color{Purple}}
+\definecolor{RoyalBlue}{cmyk}{1, 0.50, 0, 0}
+\newcommand{\dempfcolor}[1]{{\color{RoyalBlue}#1}} 
+\newcommand{\demph}[1]{\dempfcolor{{\sl #1}}}
+
+% comment exactly one of the following line to show / hide the solutions
+% \newcommand{\solution}[1]{{\purple #1}} % uncomment to show the solutions
+\newcommand{\solution}[1]{} % uncomment to hide the solutions
+
+
+
+\title{Lecture Notes for Math 372: \\Elementary Probability and Statistics}
+\date{Last updated: \today}
+% \author{mh}
+
+\begin{document}
+\begin{center}
+  \section*{Math 243: Homework 13}
+  \textit{Due Wednesday, December 2}
+\end{center}
+
+
+\begin{problem}
+  Let $f(x,y)=\sin(x^2-y)$. Find the unit vector $\boldsymbol{u}$ that maximizes
+  $D_{\boldsymbol{u}}f(1,1)$, and find $D_{\boldsymbol{u}}f(1,1)$.
+\end{problem}
+\vfill
+\begin{problem}
+  A heat-seeking missile has the property that any point $(x,y)$ in the plane,
+  it moves in the direction of maximum temperature increase. Assume the
+  temperature at each point $(x,y)$ is given by
+  \begin{equation*}
+    T(x,y) = -e^{-2y}\cos(x).
+  \end{equation*}
+  When the missile is at the point $(x,y) = (\pi/4,0)$, what direction is it pointing?
+\end{problem}
+\vfill
+\newpage
+
+\begin{problem}
+  Find the local maxima, local minima, and saddle points of the functions:
+  \begin{enumerate}[(a)]
+    \item $f(x,y) = x^{2}+xy+y^{2}+3x-3y+4 $
+    \item $f(x,y) = 2xy - 5x^{2} - 2y^{2} + 4x +4y -4$
+  \end{enumerate}
+\end{problem}
+\newpage
+
+
+\begin{problem}
+  Find the absolute maxima and minima of the function $f(x,y) = 2x^{2}-4x+y^{2}-4y+1$
+  on the closed triangular region bounded by the lines
+  \begin{equation*}
+    x=0, \qquad y = 2, \qquad y=2x.
+  \end{equation*}
+  Begin by sketching the triangular region.
+\end{problem}
+\vfill
+\begin{problem}
+  Find the global max and min of the function $f(x,y) =x^{2}-2xy+2y$ on
+  \begin{equation*}
+    D = \left\{(x,y)\in \R^{2}: 0 \leq x \leq 3, 0 \leq y \leq 2\right\}
+  \end{equation*}
+\end{problem}
+\vfill
+\newpage
+
+\begin{problem}
+  Let $f(x,y) = x^{2}+y^{2}$. Find the global maximum and minimum of $f$ on
+  the closed region between the line $y=-2$ and the parabola $ y=2-x^{2}$.
+\end{problem}
+
+\vfill
+\begin{problem}
+  Find the absolute max and min values of $f(x,y) = x^{2}+xy+y^{2}-3x+3y$ on
+  the triangular region cut from the first quadrant by the line $x+y=4$.
+\end{problem}
+
+\vfill
+% \subsection{Next homework?}
+% \begin{problem}
+%   Let $f(x,y) = x+x^{2}+5y^{2}$. Find the linear and quadratic
+%   approximations of $f$ at $(0,0)$.
+% \end{problem}
+
+% \begin{problem}
+%   Find the linear approximation for $f(x,y) = \ln(x^2+y)$ at $(a,b)=(1,0)$. Use it
+%   to approximate $f(0.99,0.01)$. Use a calculator check how close this is to
+%   the exact answer.
+% \end{problem}
+
+
+
+% \begin{problem}[Gradient]
+%   Find the gradient of
+%   \begin{equation*}
+%     f(x,y,z) = xy^{2}e^{-xz}.
+%   \end{equation*}
+% \end{problem}
+
+
+% \begin{problem}
+%   Calculate $\nabla f$ for  the following functions:
+%   \begin{enumerate}[(a)]
+%     \item $f(x,y,z)=z\sin(xy^2)$.
+%     \item $f(x,y)=e^{x^2+y}$. 
+%   \end{enumerate}
+% \end{problem}
+
+% \begin{problem}
+%   Find the tangent plane to the function $f(x,y)=e^{x^2y-y}$ at the point $(0,0)$.
+% \end{problem}
+
+% \subsection{Chain rule}
+
+% \begin{problem}[Chain rule]
+%   Let $z=\sin(x^2y)$, where $x=3r+2s+t$ and $y=4r^2s+t$. Use the chain rule
+%   to find $\frac{\partial z}{\partial r}$, $\frac{\partial z}{\partial s}$ and
+%   $\frac{\partial z}{\partial t}$ at $(r,s,t)=(1,-1,1)$.
+% \end{problem}
+
+
+% \begin{problem}[Chain Rule]
+%   Let $z=\ln(3x+2y)$, $x=s\sin(t)$, $y=t\cos(s)$. Find $\frac{\partial z}{\partial s}$ and $\frac{\partial z}{\partial t}$.
+% \end{problem}
+
+
+
+% \begin{problem}
+%   Suppose that
+%   \begin{equation*}
+%     z = xy^{3}-x^{2}y,
+%   \end{equation*}
+%   where $x=t^{2}+1$ and $y=t^{2}-1$. Use the chain rule to find $\frac{dz}{dt}$
+% \end{problem}
+
+
+
+% \begin{problem}
+%   Let $z=\sin(x)\cos(y)$, where $x=\sqrt{t}$ and $y=\frac1t$. Use the chain rule to find $\frac{dz}{dt}$.
+% \end{problem}
+
+% \begin{problem}
+%   Suppose that
+%   \begin{equation*}
+%     z = (x-y)^{5}
+%   \end{equation*}
+%   where $x =s^{2}t$ and $y=st^{2}$. Use the chain rule to find $\frac{\partial
+%     z}{\partial s}$ and $\frac{\partial z}{\partial t}$.
+%   \end{problem}
+
+\end{document}
